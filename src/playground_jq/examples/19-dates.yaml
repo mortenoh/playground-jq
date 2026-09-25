@@ -1,0 +1,114 @@
+id: dates
+title: Dates and times
+description: Parsing, formatting and doing arithmetic on timestamps, and bucketing events by day, month or interval.
+order: 19
+track: language
+examples:
+  - id: dates-fromdate-duration
+    title: Time between two timestamps
+    level: 101
+    tags: [fromdate]
+    explanation: |
+      `fromdate` parses an ISO 8601 timestamp such as `2026-01-05T14:02:00Z` into seconds
+      since the Unix epoch. Subtracting two of them gives a duration in seconds; dividing by
+      3600 gives hours. The program reports how long each closed issue stayed open, rounded to
+      a tenth of an hour: issue 106 was open for 314 hours, just over 13 days.
+    program: '.[] | select(.closed_at != null) | {number, hours_open: (((.closed_at | fromdate) - (.created_at | fromdate)) / 3600 * 10 | round / 10)}'
+    input: {ref: static:github-issues}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#dates]
+    guide: [dates-and-times]
+    expected: [{"number": 102, "hours_open": 18.5}, {"number": 104, "hours_open": 7.1}, {"number": 106, "hours_open": 314}, {"number": 108, "hours_open": 24}]
+
+  - id: dates-todate-arithmetic
+    title: Add days to a date
+    level: 101
+    tags: [fromdate, todate]
+    explanation: |
+      Date arithmetic is done on epoch seconds: parse with `fromdate`, add a number of
+      seconds, and format back with `todate`. Adding 14 days of 86400 seconds gives a due
+      date two weeks after each order was placed.
+    program: '.[:3][] | {id, created_at, due: (.created_at | fromdate + 14 * 86400 | todate)}'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#dates]
+    guide: [dates-and-times]
+    expected: [{"id": "A-1001", "created_at": "2026-03-01T10:15:00Z", "due": "2026-03-15T10:15:00Z"}, {"id": "A-1002", "created_at": "2026-03-02T08:02:00Z", "due": "2026-03-16T08:02:00Z"}, {"id": "A-1003", "created_at": "2026-03-04T19:45:00Z", "due": "2026-03-18T19:45:00Z"}]
+
+  - id: dates-strptime-strftime
+    title: Parse and format with strptime and strftime
+    level: 201
+    tags: [strptime, strftime, mktime]
+    explanation: |
+      `strptime(fmt)` parses a string into a broken-down time (an array of year, month
+      from 0, day, hours, minutes, seconds, weekday with Sunday as 0, and day of the year
+      from 0). `strftime(fmt)`
+      formats such a value, and `mktime` turns it into epoch seconds. A date without a time
+      of day, such as a hire date, needs `strptime` because `fromdate` expects the full
+      ISO 8601 form.
+    program: '.employees[:3][] | .hired | {hired: ., parsed: strptime("%Y-%m-%d"), weekday: (strptime("%Y-%m-%d") | strftime("%A")), pretty: (strptime("%Y-%m-%d") | strftime("%d %b %Y")), epoch: (strptime("%Y-%m-%d") | mktime)}'
+    input: {ref: static:employees}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#dates]
+    guide: [dates-and-times]
+    expected: [{"hired": "2014-03-01", "parsed": [2014, 2, 1, 0, 0, 0, 6, 59], "weekday": "Saturday", "pretty": "01 Mar 2014", "epoch": 1393632000}, {"hired": "2019-06-15", "parsed": [2019, 5, 15, 0, 0, 0, 6, 165], "weekday": "Saturday", "pretty": "15 Jun 2019", "epoch": 1560556800}, {"hired": "2018-01-20", "parsed": [2018, 0, 20, 0, 0, 0, 6, 19], "weekday": "Saturday", "pretty": "20 Jan 2018", "epoch": 1516406400}]
+
+  - id: dates-bucket-by-month
+    title: Count events per month
+    level: 201
+    tags: [fromdate, strftime, group_by]
+    explanation: |
+      To bucket by month, format each timestamp with `"%Y-%m"` and group on the result. The
+      issues were opened in January and February 2026, five in each month. `todate` and
+      `strftime` both work in UTC, so the buckets do not depend on the machine's time zone.
+    program: 'map(.created_at | fromdate | strftime("%Y-%m")) | group_by(.) | map({month: .[0], opened: length})'
+    input: {ref: static:github-issues}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#dates, https://jqlang.org/manual/v1.8/#group_by]
+    guide: [dates-and-times, sorting-and-grouping]
+    expected: [[{"month": "2026-01", "opened": 5}, {"month": "2026-02", "opened": 5}]]
+
+  - id: dates-bucket-by-interval
+    title: Bucket log lines into ten-second windows
+    level: 301
+    tags: [fromdate, todate, floor, group_by]
+    explanation: |
+      Rounding epoch seconds down to a multiple of the window size gives the window each
+      event belongs to: `fromdate / 10 | floor * 10`. Grouping by that value counts requests
+      and errors per ten seconds of the slurped log.
+    program: 'group_by(.ts | fromdate / 10 | floor) | map({window: (.[0].ts | fromdate / 10 | floor * 10 | todate), requests: length, errors: map(select(.status >= 500)) | length})'
+    input: {ref: static:access-log}
+    options: {slurp: true, compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#dates, https://jqlang.org/manual/v1.8/#floor]
+    guide: [dates-and-times, sorting-and-grouping]
+    expected: [[{"window": "2026-03-16T10:00:00Z", "requests": 6, "errors": 1}, {"window": "2026-03-16T10:00:10Z", "requests": 4, "errors": 1}, {"window": "2026-03-16T10:00:20Z", "requests": 4, "errors": 0}, {"window": "2026-03-16T10:00:30Z", "requests": 2, "errors": 1}]]
+
+  - id: dates-filter-range
+    title: Select records within a date range
+    level: 201
+    tags: [fromdate, select]
+    explanation: |
+      Comparing epoch seconds selects a time window regardless of how the timestamps are
+      written. The range here is the first week of March 2026 (from the 1st up to but not
+      including the 8th), which contains the first five orders.
+    program: '("2026-03-01T00:00:00Z" | fromdate) as $from | ("2026-03-08T00:00:00Z" | fromdate) as $to | [.[] | select((.created_at | fromdate) as $t | $t >= $from and $t < $to) | .id]'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#dates, https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator]
+    guide: [dates-and-times]
+    expected: [["A-1001", "A-1002", "A-1003", "A-1004", "A-1005"]]
+
+  - id: dates-gmtime-weekday
+    title: Which day of the week? gmtime
+    level: 201
+    tags: [gmtime, strftime]
+    explanation: |
+      `gmtime` turns epoch seconds into a broken-down UTC time; element 6 is the day of the
+      week, with Sunday as 0, and `strftime("%a")` formats it as a short name. Counting orders
+      per weekday shows when customers shop: Monday and Thursday have two orders each.
+    program: 'map(.created_at | fromdate | gmtime | strftime("%a")) | group_by(.) | map({(.[0]): length}) | add'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#dates]
+    guide: [dates-and-times]
+    expected: [{"Mon": 2, "Sat": 1, "Sun": 1, "Thu": 2, "Tue": 1, "Wed": 1}]

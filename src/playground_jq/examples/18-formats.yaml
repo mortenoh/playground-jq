@@ -1,0 +1,140 @@
+id: formats
+title: Formats and escaping
+description: Producing CSV, TSV, JSON text, URLs, Base64, HTML and shell-safe strings with @ formats.
+order: 18
+track: language
+examples:
+  - id: formats-csv
+    title: Export rows as CSV
+    level: 101
+    tags: ['@csv']
+    explanation: |
+      `@csv` turns an array into one CSV line, quoting strings and doubling any embedded
+      quotes; numbers are written bare. A header row followed by one row for each of the first
+      four employees, printed with `raw_output`, is a complete CSV file.
+    program: '["name", "dept", "salary"], (.employees[:4][] | [.name, .dept, .salary]) | @csv'
+    input: {ref: static:employees}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    guide: [formats-and-escaping]
+    expected: ["\"name\",\"dept\",\"salary\"", "\"Astrid\",\"eng\",150000", "\"Bjorn\",\"eng\",98000", "\"Chiara\",\"eng\",105000", "\"Dmitri\",\"ops\",110000"]
+
+  - id: formats-tsv
+    title: Export rows as TSV
+    level: 101
+    tags: ['@tsv']
+    explanation: |
+      `@tsv` joins the fields with tab characters and escapes tabs, newlines and backslashes
+      inside values, so each record stays on one line. TSV is easy to read with `cut`, `awk`
+      or `column -t`.
+    program: '.items[] | [.metadata.namespace, .metadata.name, .status.phase] | @tsv'
+    input: {ref: static:k8s-pods}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    guide: [formats-and-escaping]
+    expected: ["prod\tapi-7d9f8-abcde\tRunning", "prod\tapi-7d9f8-fghij\tRunning", "prod\tweb-5c6b7-klmno\tRunning", "prod\tworker-66f5-pqrst\tCrashLoopBackOff", "staging\tapi-5b4c3-uvwxy\tRunning", "staging\tmigrate-1234-zzzzz\tSucceeded", "staging\tweb-9a8b7-aaaaa\tPending"]
+
+  - id: formats-json-text
+    title: Embed JSON as a string with @json and tojson
+    level: 201
+    tags: ['@json', tojson, fromjson]
+    explanation: |
+      `@json` (like `tojson`) serialises a value into a JSON string, which is how you store
+      a JSON document inside a string field. `fromjson` parses it back, so the round trip
+      gives the original object.
+    program: '.server.tls | @json, (tojson | fromjson)'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping, https://jqlang.org/manual/v1.8/#convert-to-from-json]
+    guide: [formats-and-escaping]
+    expected: ["{\"enabled\":true,\"cert\":\"/etc/ssl/app.pem\",\"key\":\"/etc/ssl/app.key\"}", {"enabled": true, "cert": "/etc/ssl/app.pem", "key": "/etc/ssl/app.key"}]
+
+  - id: formats-uri
+    title: Build a query string with @uri
+    level: 201
+    tags: ['@uri', string interpolation, join]
+    explanation: |
+      Placed before a string literal, a format applies to every interpolation inside it,
+      but not to the literal text. `@uri "q=\(.q)"` therefore percent-encodes the search
+      term and leaves `q=` and `&` alone. Reserved characters such as space, `&` and `/`
+      are encoded.
+    program: '{q: "jq & sed/awk", page: 2} | "https://example.org/search?" + (to_entries | map(@uri "\(.key)=\(.value)") | join("&"))'
+    input: {text: 'null'}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping, https://jqlang.org/manual/v1.8/#string-interpolation]
+    guide: [formats-and-escaping]
+    expected: ["https://example.org/search?q=jq%20%26%20sed%2Fawk&page=2"]
+
+  - id: formats-base64
+    title: Encode and decode Base64
+    level: 101
+    tags: ['@base64', '@base64d']
+    explanation: |
+      `@base64` encodes a string as Base64, and `@base64d` decodes it. Building an HTTP Basic
+      authorization header value from a user name and password is a typical use.
+    program: '"learner:secret" | @base64, (@base64 | @base64d), "Basic \(@base64)"'
+    input: {text: 'null'}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    guide: [formats-and-escaping]
+    expected: ["bGVhcm5lcjpzZWNyZXQ=", "learner:secret", "Basic bGVhcm5lcjpzZWNyZXQ="]
+
+  - id: formats-html
+    title: Escape user text for HTML
+    level: 201
+    tags: ['@html']
+    explanation: |
+      `@html` escapes `<`, `>`, `&`, `'` and `"` as entities. Used as a prefix on a template,
+      it escapes only the interpolated values, so the tags of the template stay intact while
+      the `<script>` in the data is neutralised.
+    program: '@html "<li>\(.title)</li>"'
+    input: {text: '{"title": "Tom & Jerry"} {"title": "<script>alert(1)</script>"}'}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    guide: [formats-and-escaping]
+    expected: ["<li>Tom &amp; Jerry</li>", "<li>&lt;script&gt;alert(1)&lt;/script&gt;</li>"]
+
+  - id: formats-sh
+    title: Quote values for a shell command
+    level: 201
+    tags: ['@sh']
+    explanation: |
+      `@sh` wraps a string in single quotes, escaping any embedded single quote, so it is
+      safe to paste into a shell command. An array becomes several quoted words separated by
+      spaces. The output is a command line you could pipe to `sh`.
+    program: '@sh "mkdir -p \(.dir) && touch \(.files)"'
+    input: {text: '{"dir": "my notes", "files": ["a.txt", "it''s.txt"]}'}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    guide: [formats-and-escaping]
+    expected: ["mkdir -p 'my notes' && touch 'a.txt' 'it'\\''s.txt'"]
+
+  - id: formats-text-report
+    title: A fixed-width text report
+    level: 201
+    tags: [string interpolation, tostring, join]
+    explanation: |
+      There is no printf in jq, but a padding helper is short: repeat a space to the needed
+      width and append it. Each order line then has left-aligned id and status columns and
+      a right-aligned total, printed as plain text with `raw_output`.
+    program: 'def rpad($n): tostring | . + " " * ($n - length); def lpad($n): tostring | " " * ($n - length) + .; .[] | "\(.id | rpad(8))\(.status | rpad(10))\([.items[] | .qty * .price] | add | lpad(7))"'
+    input: {ref: static:orders}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#string-interpolation, https://jqlang.org/manual/v1.8/#multiplication-division-modulo]
+    guide: [formats-and-escaping, strings]
+    expected: ["A-1001  shipped        26", "A-1002  delivered    31.9", "A-1003  cancelled    22.5", "A-1004  pending     34.75", "A-1005  shipped     59.97", "A-1006  delivered    44.5", "A-1007  pending     27.75", "A-1008  shipped        31"]
+
+  - id: formats-join-output
+    title: One line without newlines using join_output
+    level: 201
+    tags: [join_output]
+    explanation: |
+      With `join_output` (`-j`), jq prints raw strings without a newline after each
+      output. Emitting the names and separators as separate outputs and then an explicit
+      `"\n"` prints the three staff names on one line: `Ingrid Omar Lena `.
+    program: '(.store.staff[] | .name, " "), "\n"'
+    input: {ref: static:bookstore}
+    options: {join_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    guide: [formats-and-escaping, invoking-jq]
+    expected: ["Ingrid", " ", "Omar", " ", "Lena", " ", "\n"]

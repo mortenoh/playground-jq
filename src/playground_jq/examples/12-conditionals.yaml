@@ -1,0 +1,143 @@
+id: conditionals
+title: Conditionals and comparisons
+description: if/elif/else, comparisons, boolean logic and the alternative operator.
+order: 12
+track: language
+examples:
+  - id: conditionals-if-elif-else
+    title: Classify values with if, elif and else
+    level: 101
+    tags: [if, elif, else]
+    explanation: |
+      `if ... then ... elif ... then ... else ... end` picks the first branch whose condition
+      is truthy. Each book is labelled by price band: under 10 is `budget`, under 25 is
+      `standard`, and everything else is `premium`.
+    program: '.store.books[] | {title, band: (if .price < 10 then "budget" elif .price < 25 then "standard" else "premium" end)}'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#if-then-else-end]
+    guide: [conditionals-and-comparisons]
+    expected: [{"title": "Learning jq", "band": "budget"}, {"title": "JSON at Scale", "band": "standard"}, {"title": "Pipes and Paths", "band": "budget"}, {"title": "The Art of the Shell", "band": "premium"}, {"title": "Functional Filters", "band": "standard"}, {"title": "Data Wrangling Recipes", "band": "standard"}, {"title": "Regular Expressions Unleashed", "band": "standard"}, {"title": "Streams and Generators", "band": "premium"}]
+
+  - id: conditionals-if-without-else
+    title: if without else keeps the input
+    level: 101
+    tags: [if]
+    explanation: |
+      Since jq 1.7 the `else` branch is optional; a missing `else` behaves like `else .
+      end`. Here only negative numbers are changed, and every other input passes through
+      unchanged.
+    program: 'if . < 0 then 0 end'
+    input: {text: '5 -3 0 12 -0.5'}
+    manual: [https://jqlang.org/manual/v1.8/#if-then-else-end]
+    guide: [conditionals-and-comparisons]
+    expected: [5, 0, 0, 12, 0]
+
+  - id: conditionals-truthiness
+    title: Only false and null are falsy
+    level: 101
+    tags: [if, truthiness]
+    explanation: |
+      In jq, `false` and `null` are the only falsy values. Zero, the empty string, the empty
+      array and the empty object are all truthy, unlike in many other languages. The program
+      reports how each input is treated by a condition.
+    program: '[., (if . then "truthy" else "falsy" end)]'
+    input: {text: 'false null 0 "" [] {} true'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#if-then-else-end]
+    guide: [conditionals-and-comparisons, idioms-and-pitfalls]
+    expected: [[false, "falsy"], [null, "falsy"], [0, "truthy"], ["", "truthy"], [[], "truthy"], [{}, "truthy"], [true, "truthy"]]
+
+  - id: conditionals-and-or-not
+    title: Combine conditions with and and or
+    level: 101
+    tags: [and, or, select, index]
+    explanation: |
+      `and` and `or` combine two conditions, and `and` binds more tightly than `or`, so the
+      parentheses here make the grouping explicit. `index("admin")` is `null` (falsy) when the
+      role is missing and a position (truthy, even `0`) when present. This keeps active users that are either admins or have no email address
+      on file, which matches Ada, Margaret (admins) and Ken (email is `null`).
+    program: '.[] | select(.active and ((.roles | index("admin")) or (.email == null))) | .username'
+    input: {ref: static:users}
+    manual: [https://jqlang.org/manual/v1.8/#and-or-not]
+    guide: [conditionals-and-comparisons]
+    expected: ["ada", "margaret", "ken"]
+
+  - id: conditionals-not-filter
+    title: Negate a test with not
+    level: 101
+    tags: [not, select, any]
+    explanation: |
+      `not` turns a truthy input into `false` and a falsy one into `true`. Combined with `any`,
+      it keeps the issues that do not carry a `bug` label: the three docs issues, the
+      enhancement and the two dependency bumps. Because `not` is a filter and not an operator,
+      it is written after a pipe: `(cond) | not`.
+    program: '[.[] | select(any(.labels[]; .name == "bug") | not) | .number]'
+    input: {ref: static:github-issues}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#and-or-not]
+    guide: [conditionals-and-comparisons, select-map-empty]
+    expected: [[102, 103, 104, 106, 108, 109]]
+
+  - id: conditionals-alternative-default
+    title: Defaults with the alternative operator
+    level: 101
+    tags: ['//']
+    explanation: |
+      `a // b` produces the outputs of `a` that are not `false` or `null`, or `b` when there
+      are none. It is the usual way to fill in defaults: users without an email get
+      `"(no email)"`, and users without preferences get the theme `"system"`.
+    program: '.[] | {username, email: (.email // "(no email)"), theme: (.preferences.theme // "system")}'
+    input: {ref: static:users}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#alternative-operator]
+    guide: [conditionals-and-comparisons, idioms-and-pitfalls]
+    expected: [{"username": "ada", "email": "ada@example.org", "theme": "dark"}, {"username": "grace", "email": "grace@example.org", "theme": "light"}, {"username": "linus", "email": "linus@example.org", "theme": "dark"}, {"username": "margaret", "email": "margaret@example.org", "theme": "system"}, {"username": "ken", "email": "(no email)", "theme": "dark"}, {"username": "barbara", "email": "barbara@example.org", "theme": "light"}]
+
+  - id: conditionals-alternative-false-pitfall
+    title: The alternative operator also replaces false
+    level: 201
+    tags: ['//', pitfall]
+    explanation: |
+      `//` treats `false` like `null`, so `.sms // true` turns an explicit `false` into
+      `true`, which is usually a bug. To default only missing values, test for `null`
+      explicitly. The first array uses `//`, the second the explicit test; they differ for
+      Ada, Grace and Barbara, who opted out of SMS.
+    program: '[.[] | .preferences.notifications.sms // true], [.[] | .preferences.notifications.sms | if . == null then true else . end]'
+    input: {ref: static:users}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#alternative-operator]
+    guide: [conditionals-and-comparisons, idioms-and-pitfalls]
+    expected: [[true, true, true, true, true, true], [false, false, true, true, true, false]]
+
+  - id: conditionals-compare-types
+    title: Comparisons across types
+    level: 201
+    tags: ['<', sort]
+    explanation: |
+      jq orders values of different types: `null < false < true < numbers < strings < arrays
+      < objects`. That is why `sort` on a mixed array never fails, and why comparing a number
+      with a string such as `"32.1"` does not raise an error but is almost always true or
+      false for the wrong reason.
+    program: '[null, true, false, 3, "10", [1], {"a": 1}, -1] | sort, (3 < "10")'
+    input: {text: 'null'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
+    guide: [conditionals-and-comparisons, values-and-types]
+    expected: [[null, false, true, -1, 3, "10", [1], "a": 1], true]
+
+  - id: conditionals-string-number-pitfall
+    title: A number stored as a string escapes a numeric filter
+    level: 201
+    tags: [select, tonumber, pitfall]
+    explanation: |
+      PORT-02 reports its temperature as the string `"32.1"`. Because every string sorts
+      after every number, `.celsius > 33` is true for it, so the naive filter wrongly reports
+      it as hot. Converting with `tonumber?` first, with `// 0` as the fallback for the
+      offline station's `null`, gives the right answer: only BO-01, KEN-01, KEN-02 and MAK-01 are above 33.
+    program: '[.readings[] | select(.celsius > 33) | .station], [.readings[] | select((.celsius | tonumber? // 0) > 33) | .station]'
+    input: {ref: static:sensor-readings}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#tonumber, https://jqlang.org/manual/v1.8/#select]
+    guide: [conditionals-and-comparisons, idioms-and-pitfalls]
+    expected: [["BO-01", "KEN-01", "KEN-02", "MAK-01", "PORT-02"], ["BO-01", "KEN-01", "KEN-02", "MAK-01"]]

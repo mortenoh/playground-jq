@@ -1,0 +1,110 @@
+id: reduce-foreach
+title: reduce and foreach
+description: Folding a stream into one value, building indexes, running totals and extracting results as you go.
+order: 21
+track: language
+examples:
+  - id: reduce-foreach-sum
+    title: Sum with reduce
+    level: 101
+    tags: [reduce]
+    explanation: |
+      `reduce SOURCE as $x (INIT; UPDATE)` starts with `INIT` and runs `UPDATE` once per
+      output of `SOURCE`, with `.` as the value so far. Summing quantity times price over
+      every line of every order, including the cancelled one, gives 278.37 after rounding
+      to cents.
+    program: 'reduce (.[].items[] | .qty * .price) as $line (0; . + $line) | . * 100 | round / 100'
+    input: {ref: static:orders}
+    manual: [https://jqlang.org/manual/v1.8/#reduce]
+    guide: [reduce-and-foreach]
+    expected: [278.37]
+
+  - id: reduce-foreach-index-by-key
+    title: Build an index keyed by id
+    level: 201
+    tags: [reduce, index]
+    explanation: |
+      Reducing into an object with `.[$key] = $value` builds a lookup table. Keys in jq
+      objects must be strings, so the numeric employee id is converted with `tostring`. The
+      result maps each id to the employee's name and manager id.
+    program: 'reduce .employees[] as $e ({}; .[$e.id | tostring] = {name: $e.name, manager: $e.manager})'
+    input: {ref: static:employees}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#reduce]
+    guide: [reduce-and-foreach]
+    expected: [{"1": {"name": "Astrid", "manager": null}, "2": {"name": "Bjorn", "manager": 1}, "3": {"name": "Chiara", "manager": 1}, "4": {"name": "Dmitri", "manager": null}, "5": {"name": "Efua", "manager": 4}, "6": {"name": "Farid", "manager": 8}, "7": {"name": "Greta", "manager": 8}, "8": {"name": "Hiro", "manager": null}, "9": {"name": "Ines", "manager": null}, "10": {"name": "Jonas", "manager": 2}}]
+
+  - id: reduce-foreach-group-into-object
+    title: Group values under their keys
+    level: 201
+    tags: [reduce, '+=']
+    explanation: |
+      `.[$k] += [$v]` appends to an array under a key, starting from `null` (because
+      `null + [x]` is `[x]`). Reducing over the orders gives every customer's order ids,
+      keyed by name, in input order, without sorting.
+    program: 'reduce .[] as $o ({}; .[$o.customer.name] += [$o.id])'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#reduce, https://jqlang.org/manual/v1.8/#arithmetic-update-assignment]
+    guide: [reduce-and-foreach, sorting-and-grouping]
+    expected: [{"Ada Lovelace": ["A-1001", "A-1003"], "Grace Hopper": ["A-1002", "A-1006"], "Linus T": ["A-1004", "A-1008"], "Margaret H": ["A-1005"], "Ken Thompson": ["A-1007"]}]
+
+  - id: reduce-foreach-running-total
+    title: A running total with foreach
+    level: 201
+    tags: [foreach]
+    explanation: |
+      `foreach` is like `reduce` but outputs the state after every step instead of only at
+      the end. Each order yields its date and the cumulative number of items sold so far;
+      the last line matches the total that `reduce` would give.
+    program: 'foreach .[] as $o (0; . + ([$o.items[].qty] | add); [$o.created_at[:10], .])'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#foreach]
+    guide: [reduce-and-foreach]
+    expected: [["2026-03-01", 3], ["2026-03-02", 4], ["2026-03-04", 14], ["2026-03-05", 18], ["2026-03-07", 21], ["2026-03-09", 26], ["2026-03-10", 27], ["2026-03-12", 29]]
+
+  - id: reduce-foreach-extract
+    title: foreach with an extract expression
+    level: 301
+    tags: [foreach, empty]
+    explanation: |
+      The third part of `foreach` (the extract) decides what to output at each step and may
+      produce `empty`. Here the state tracks the highest latency seen so far, and the
+      extract emits a line only when a request sets a new record.
+    program: 'foreach .[] as $r ({max: -1}; if $r.latency_ms > .max then {max: $r.latency_ms, new: true} else .new = false end; select(.new) | "\($r.ts[11:19]) new max \(.max) ms on \($r.path)")'
+    input: {ref: static:access-log}
+    options: {slurp: true, raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#foreach]
+    guide: [reduce-and-foreach, generators-and-control-flow]
+    expected: ["10:00:01 new max 42 ms on /v1/forecast", "10:00:05 new max 120 ms on /login", "10:00:07 new max 1503 ms on /v1/alerts", "10:00:18 new max 30211 ms on job:refresh-radar"]
+
+  - id: reduce-foreach-pairs
+    title: Differences between consecutive readings
+    level: 301
+    tags: [foreach]
+    explanation: |
+      Keeping the previous value in the state lets `foreach` compare each element with the
+      one before it. The state is `[previous, current]`; the extract emits the difference
+      from the second element on, which gives the gaps in seconds between log lines.
+    program: '[foreach (.[].ts | fromdate) as $t ([null, null]; [.[1], $t]; select(.[0] != null) | .[1] - .[0])]'
+    input: {ref: static:access-log}
+    options: {slurp: true, compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#foreach, https://jqlang.org/manual/v1.8/#dates]
+    guide: [reduce-and-foreach]
+    expected: [[1, 2, 1, 2, 2, 3, 1, 2, 3, 3, 1, 3, 2, 3, 3]]
+
+  - id: reduce-foreach-merge-overrides
+    title: Merge a list of overrides in order
+    level: 201
+    tags: [reduce, '*']
+    explanation: |
+      Folding with `*` applies a list of objects on top of a base, later ones winning. The
+      base config is overlaid with the `prod` environment, and then with an extra override
+      supplied inline; the result shows only the settings that were touched.
+    program: 'reduce (.environments.prod, {server: {timeouts: {idle: 60}}}) as $o (del(.environments); . * $o) | {server: {port: .server.port, timeouts: .server.timeouts}, database: .database.host, pool: .database.pool}'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#reduce, https://jqlang.org/manual/v1.8/#multiplication-division-modulo]
+    guide: [reduce-and-foreach, building-values]
+    expected: [{"server": {"port": 443, "timeouts": {"read": 30, "write": 30, "idle": 60}}, "database": "db.prod.internal", "pool": {"min": 2, "max": 100}}]

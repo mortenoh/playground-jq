@@ -1,0 +1,130 @@
+id: paths
+title: Paths and entries
+description: Listing, reading, setting and deleting paths, the paths(scalars) pitfall, and converting objects to entries and back.
+order: 22
+track: language
+examples:
+  - id: paths-list
+    title: List every path in a document
+    level: 201
+    tags: [paths, path]
+    explanation: |
+      `paths` outputs the path to every value below the input as an array of keys and
+      indices, outer paths before inner ones. `path(expr)` gives the paths an expression
+      would visit, without reading the values.
+    program: '[paths], [path(.b[])]'
+    input: {text: '{"a": 1, "b": [true, {"c": null}]}'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#paths, https://jqlang.org/manual/v1.8/#path]
+    guide: [paths]
+    expected: [[["a"], ["b"], ["b", 0], ["b", 1], ["b", 1, "c"]], [["b", 0], ["b", 1]]]
+
+  - id: paths-scalars-pitfall
+    title: 'The paths(scalars) pitfall: false and null leaves disappear'
+    level: 301
+    tags: [paths, scalars, pitfall]
+    explanation: |
+      `paths(f)` keeps a path when `f` applied to its value is truthy. `scalars` passes the
+      value through unchanged, so for a `false` or `null` leaf it returns something falsy and
+      the path is dropped. The first result misses the two flags that are off, `radar` and
+      `beta.ai_summaries`. Adding `| true` (or testing `type`) fixes it, as the second result
+      shows.
+    program: '.features | [paths(scalars)], [paths(scalars | true)] | map(join("."))'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#paths, https://jqlang.org/manual/v1.8/#arrays-objects-iterables-booleans-numbers-normals-finites-strings-nulls-values-scalars]
+    guide: [paths, idioms-and-pitfalls]
+    expected: [["forecasts", "alerts", "beta.dark_mode"], ["forecasts", "alerts", "radar", "beta.ai_summaries", "beta.dark_mode"]]
+
+  - id: paths-flatten-to-dotted-keys
+    title: Flatten a document to dotted keys
+    level: 301
+    tags: [paths, getpath, from_entries]
+    explanation: |
+      Every leaf path, joined with dots, becomes a key, and `getpath` reads the leaf value.
+      `from_entries` turns the list of `{key, value}` objects into one flat object. Array
+      indices are numbers, so they are converted with `tostring` before joining. The
+      `false` leaf is kept because the filter is `scalars | true`.
+    program: '.server | [paths(scalars | true) as $p | {key: ($p | map(tostring) | join(".")), value: getpath($p)}] | from_entries'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#paths, https://jqlang.org/manual/v1.8/#getpath, https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [paths]
+    expected: [{"host": "0.0.0.0", "port": 8080, "tls.enabled": true, "tls.cert": "/etc/ssl/app.pem", "tls.key": "/etc/ssl/app.key", "timeouts.read": 30, "timeouts.write": 30, "timeouts.idle": 120}]
+
+  - id: paths-setpath-delpaths
+    title: Set and delete values by path arrays
+    level: 201
+    tags: [setpath, delpaths, getpath]
+    explanation: |
+      `setpath(p; v)` and `delpaths([p, ...])` are the data-driven forms of assignment and
+      `del`: the paths are arrays, so they can be computed. Missing intermediate objects are
+      created by `setpath`. Here the TLS certificate path is changed, a new `ca` entry
+      is added under a path that did not exist, and the key is removed.
+    program: '.server.tls | setpath(["cert"]; "/etc/ssl/new.pem") | setpath(["extra", "ca"]; "/etc/ssl/ca.pem") | delpaths([["key"]])'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#setpath, https://jqlang.org/manual/v1.8/#delpaths]
+    guide: [paths]
+    expected: [{"enabled": true, "cert": "/etc/ssl/new.pem", "extra": {"ca": "/etc/ssl/ca.pem"}}]
+
+  - id: paths-redact-anywhere
+    title: Redact every key with a given name, at any depth
+    level: 301
+    tags: [paths, delpaths, walk]
+    explanation: |
+      `paths` finds keys wherever they are. Selecting the paths whose last element is
+      `password` or `key` and passing them to `delpaths` removes those secrets from the whole
+      document. The check keeps the TLS `enabled` flag and shows that no secret remains.
+    program: 'delpaths([paths | select(.[-1] | IN("password", "key"))]) | {tls: .server.tls, database_keys: (.database | keys), remaining: [paths | select(.[-1] | IN("password", "key"))]}'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#delpaths, https://jqlang.org/manual/v1.8/#paths]
+    guide: [paths, assignment-and-update]
+    expected: [{"tls": {"enabled": true, "cert": "/etc/ssl/app.pem"}, "database_keys": ["driver", "host", "name", "pool", "port"], "remaining": []}]
+
+  - id: paths-to-entries
+    title: Iterate over keys and values with to_entries
+    level: 101
+    tags: [to_entries]
+    explanation: |
+      `to_entries` turns an object into an array of `{key, value}` objects, which makes the
+      keys available as data. Here each npm script becomes a line of the form
+      `name: command`.
+    program: '.scripts | to_entries[] | "\(.key): \(.value)"'
+    input: {ref: static:package-json}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [paths, strings]
+    expected: ["dev: vite", "build: tsc -b && vite build", "test: vitest run", "lint: oxlint"]
+
+  - id: paths-with-entries
+    title: Filter and rename keys with with_entries
+    level: 201
+    tags: [with_entries]
+    explanation: |
+      `with_entries(f)` is `to_entries | map(f) | from_entries`, so `f` sees one
+      `{key, value}` pair at a time. It can drop entries with `select` and rewrite keys.
+      This keeps only the enabled feature flags and prefixes each key with `feature_`.
+    program: '.features | with_entries(select(.value == true) | .key |= "feature_" + .)'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [paths]
+    expected: [{"feature_forecasts": true, "feature_alerts": true}]
+
+  - id: paths-del
+    title: Remove fields and elements with del
+    level: 101
+    tags: [del]
+    explanation: |
+      `del(path)` removes what the path points to and returns the rest. It accepts several
+      paths separated by commas, and paths with `select`, so this removes the email field
+      from every user and the users that are not active (Linus), in one call. The
+      parentheses matter: without them, the pipe would apply `select` to both paths.
+    program: 'del(.[].email, (.[] | select(.active | not))) | map({username, has_email: has("email")})'
+    input: {ref: static:users}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#del]
+    guide: [paths, assignment-and-update]
+    expected: [[{"username": "ada", "has_email": false}, {"username": "grace", "has_email": false}, {"username": "margaret", "has_email": false}, {"username": "ken", "has_email": false}, {"username": "barbara", "has_email": false}]]

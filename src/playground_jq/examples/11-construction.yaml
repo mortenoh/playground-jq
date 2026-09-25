@@ -1,0 +1,141 @@
+id: construction
+title: Building objects and arrays
+description: Object and array construction, dynamic keys, shorthand and merging.
+order: 11
+track: language
+examples:
+  - id: construction-reshape-object
+    title: Reshape each record into a new object
+    level: 101
+    tags: ['{}', '.[]']
+    explanation: |
+      An object constructor `{key: expr}` builds a new object for every input it receives.
+      Here it runs once per order, keeping the order id, pulling the customer name up from a
+      nested object and renaming `status` to `state`.
+    program: '.[] | {id, customer: .customer.name, state: .status}'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#object-construction]
+    guide: [building-values]
+    expected: [{"id": "A-1001", "customer": "Ada Lovelace", "state": "shipped"}, {"id": "A-1002", "customer": "Grace Hopper", "state": "delivered"}, {"id": "A-1003", "customer": "Ada Lovelace", "state": "cancelled"}, {"id": "A-1004", "customer": "Linus T", "state": "pending"}, {"id": "A-1005", "customer": "Margaret H", "state": "shipped"}, {"id": "A-1006", "customer": "Grace Hopper", "state": "delivered"}, {"id": "A-1007", "customer": "Ken Thompson", "state": "pending"}, {"id": "A-1008", "customer": "Linus T", "state": "shipped"}]
+
+  - id: construction-shorthand
+    title: Shorthand keys
+    level: 101
+    tags: ['{}']
+    explanation: |
+      `{title, year}` is short for `{title: .title, year: .year}`. The shorthand also works
+      with a variable: `{$currency}` uses the variable name as the key. The program keeps two
+      fields of each of the first two books and adds the currency bound once from the first.
+    program: '.store.books[0].currency as $currency | .store.books[:2][] | {title, year, $currency}'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#object-construction]
+    guide: [building-values]
+    expected: [{"title": "Learning jq", "year": 2021, "currency": "EUR"}, {"title": "JSON at Scale", "year": 2019, "currency": "EUR"}]
+
+  - id: construction-dynamic-keys
+    title: Keys computed from the data
+    level: 101
+    tags: ['{}', add]
+    explanation: |
+      A key in parentheses, `(.name)`, is evaluated as an expression, so each staff member
+      becomes a one-key object such as `{"Ingrid": "owner"}`. `add` then merges the objects
+      into a single lookup table from name to role.
+    program: '[.store.staff[] | {(.name): .role}] | add'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#object-construction, https://jqlang.org/manual/v1.8/#add]
+    guide: [building-values]
+    expected: [{"Ingrid": "owner", "Omar": "clerk", "Lena": "clerk"}]
+
+  - id: construction-cartesian
+    title: A generator in an object value multiplies the outputs
+    level: 201
+    tags: ['{}', '.[]']
+    explanation: |
+      When a value expression produces several outputs, the constructor produces one object
+      per output. `.tags[]` yields three tags for the first book, so `{title, tag: .tags[]}`
+      yields three objects. With two generating values you get every combination.
+    program: '.store.books[0] | {title, tag: .tags[]}'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#object-construction]
+    guide: [building-values, generators-and-control-flow]
+    expected: [{"title": "Learning jq", "tag": "jq"}, {"title": "Learning jq", "tag": "cli"}, {"title": "Learning jq", "tag": "beginner"}]
+
+  - id: construction-array-from-fields
+    title: Build a row array from fields
+    level: 101
+    tags: ['[]', ',']
+    explanation: |
+      Inside `[...]`, the comma collects several expressions into one array. Each employee
+      becomes a row `[name, dept, salary]`, which is the shape `@csv` and `@tsv` expect.
+    program: '.employees[:3][] | [.name, .dept, .salary]'
+    input: {ref: static:employees}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#array-construction]
+    guide: [building-values]
+    expected: [["Astrid", "eng", 150000], ["Bjorn", "eng", 98000], ["Chiara", "eng", 105000]]
+
+  - id: construction-merge-objects
+    title: Merge objects with + and *
+    level: 201
+    tags: ['+', '*']
+    explanation: |
+      `+` merges two objects shallowly: a key on the right replaces the whole value on the
+      left. `*` merges recursively, so nested objects are combined key by key. With the prod
+      override, `+` replaces the whole `pool` object and so loses `pool.min`, while `*` keeps
+      `pool.min` and only replaces `host` and `pool.max`.
+    program: '{shallow: (.database + .environments.prod.database), deep: (.database * .environments.prod.database)}'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#addition, https://jqlang.org/manual/v1.8/#multiplication-division-modulo]
+    guide: [building-values, operators]
+    expected: [{"shallow": {"driver": "postgres", "host": "db.prod.internal", "port": 5432, "name": "weather", "pool": {"max": 100}, "password": "changeme"}, "deep": {"driver": "postgres", "host": "db.prod.internal", "port": 5432, "name": "weather", "pool": {"min": 2, "max": 100}, "password": "changeme"}}]
+
+  - id: construction-add-computed-field
+    title: Add a computed field to every object
+    level: 101
+    tags: ['+', map]
+    explanation: |
+      `. + {total: ...}` returns the original object with one more key. The line total is
+      the quantity times the unit price, computed per item of the first order. The existing
+      keys are kept in their original order and `total` is added at the end.
+    program: '.[0].items | map(. + {total: (.qty * .price)})'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#addition, https://jqlang.org/manual/v1.8/#map-map_values]
+    guide: [building-values]
+    expected: [[{"sku": "BOOK-1", "title": "Learning jq", "qty": 2, "price": 8.5, "total": 17}, {"sku": "MUG-7", "title": "JSON mug", "qty": 1, "price": 9, "total": 9}]]
+
+  - id: construction-nested
+    title: Nest a summary inside a new document
+    level: 201
+    tags: ['{}', '[]', length]
+    explanation: |
+      Constructors nest freely. This builds a summary with the shop name, a nested `counts`
+      object and an array of the authors of the in-stock books. Every value expression runs
+      against the same input, the `store` object.
+    program: '.store | {shop: .name, counts: {books: (.books | length), staff: (.staff | length)}, in_stock_authors: [.books[] | select(.inStock > 0) | .author]}'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#object-construction, https://jqlang.org/manual/v1.8/#array-construction]
+    guide: [building-values]
+    expected: [{"shop": "The jq Bookshop", "counts": {"books": 8, "staff": 3}, "in_stock_authors": ["Ada Filter", "Cleo Reduce", "Dev Null", "Ada Filter", "Gus Match", "Cleo Reduce"]}]
+
+  - id: construction-geojson-subset
+    title: Build a new GeoJSON FeatureCollection
+    level: 201
+    tags: ['{}', '[]', geojson]
+    explanation: |
+      A GeoJSON document is ordinary JSON, so the constructors can build one. This keeps the
+      three cities in Sierra Leone and writes each as a Feature with the original geometry
+      and a slimmer `properties` object. The result is a valid FeatureCollection that a map
+      can draw.
+    program: '{type: "FeatureCollection", features: [.features[] | select(.properties.country == "SL") | {type: "Feature", geometry, properties: {name: .properties.name, population: .properties.population}}]}'
+    input: {ref: static:world-cities}
+    options: {compact: true}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#object-construction, https://jqlang.org/manual/v1.8/#array-construction]
+    guide: [building-values, geojson-with-jq]
+    expected: [{"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [-13.2317, 8.4657]}, "properties": {"name": "Freetown", "population": 1055964}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-11.7383, 7.9644]}, "properties": {"name": "Bo", "population": 174354}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-11.1903, 7.8767]}, "properties": {"name": "Kenema", "population": 200354}}]}]

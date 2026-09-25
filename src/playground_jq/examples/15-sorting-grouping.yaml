@@ -1,0 +1,123 @@
+id: sorting-grouping
+title: Sorting and grouping
+description: Sorting by one or more keys, descending order, top-N lists, group counts and frequency tables.
+order: 15
+track: language
+examples:
+  - id: sorting-grouping-sort-by
+    title: Sort records by a field
+    level: 101
+    tags: [sort_by]
+    explanation: |
+      `sort_by(.year)` sorts the array by the value of `.year` for each element, oldest
+      first. The sort is stable, so records with equal keys keep their input order.
+    program: '.store.books | sort_by(.year) | map("\(.year) \(.title)")'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
+    guide: [sorting-and-grouping]
+    expected: [["2015 The Art of the Shell", "2018 Regular Expressions Unleashed", "2019 JSON at Scale", "2020 Data Wrangling Recipes", "2021 Learning jq", "2022 Streams and Generators", "2023 Pipes and Paths", "2024 Functional Filters"]]
+
+  - id: sorting-grouping-multiple-keys
+    title: Sort by several keys
+    level: 201
+    tags: [sort_by]
+    explanation: |
+      `sort_by(.dept, .name)` sorts by department first and by name within a department.
+      jq compares the arrays `[.dept, .name]` element by element, which is exactly a
+      multi-column sort.
+    program: '.employees | sort_by(.dept, .name) | map([.dept, .name])'
+    input: {ref: static:employees}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
+    guide: [sorting-and-grouping]
+    expected: [[["eng", "Astrid"], ["eng", "Bjorn"], ["eng", "Chiara"], ["eng", "Jonas"], ["hr", "Ines"], ["ops", "Dmitri"], ["ops", "Efua"], ["sal", "Farid"], ["sal", "Greta"], ["sal", "Hiro"]]]
+
+  - id: sorting-grouping-descending
+    title: Sort in descending order
+    level: 101
+    tags: [sort_by, reverse]
+    explanation: |
+      There is no descending flag. For numbers, sort by the negated value, `sort_by(-.salary)`;
+      for any type, sort and then `reverse`. Both give the same order here because no two
+      salaries are equal; with ties, `reverse` would also reverse the tied records.
+    program: '(.employees | sort_by(-.salary) | map(.name)), (.employees | sort_by(.salary) | reverse | map(.name))'
+    input: {ref: static:employees}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by, https://jqlang.org/manual/v1.8/#reverse]
+    guide: [sorting-and-grouping]
+    expected: [["Astrid", "Hiro", "Dmitri", "Chiara", "Bjorn", "Efua", "Greta", "Farid", "Ines", "Jonas"], ["Astrid", "Hiro", "Dmitri", "Chiara", "Bjorn", "Efua", "Greta", "Farid", "Ines", "Jonas"]]
+
+  - id: sorting-grouping-top-n
+    title: The top three by a value
+    level: 101
+    tags: [sort_by, slice]
+    explanation: |
+      Sort descending and slice the first elements to get a top-N list. The three most
+      populous cities in the collection are Dhaka, Lima and Hanoi.
+    program: '.features | sort_by(-.properties.population) | .[:3] | map({name: .properties.name, population: .properties.population})'
+    input: {ref: static:world-cities}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by, https://jqlang.org/manual/v1.8/#array-string-slice]
+    guide: [sorting-and-grouping]
+    expected: [[{"name": "Dhaka", "population": 10278882}, {"name": "Lima", "population": 9751000}, {"name": "Hanoi", "population": 8053663}]]
+
+  - id: sorting-grouping-group-by-count
+    title: Count records per group
+    level: 101
+    tags: [group_by, length]
+    explanation: |
+      `group_by(f)` sorts the array by `f` and splits it into arrays of equal `f`. Mapping each
+      group to its key and length gives a count per group: 4 employees in eng, 1 in hr, 2 in
+      ops and 3 in sal. The groups come out sorted by key.
+    program: '.employees | group_by(.dept) | map({dept: .[0].dept, count: length})'
+    input: {ref: static:employees}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"dept": "eng", "count": 4}, {"dept": "hr", "count": 1}, {"dept": "ops", "count": 2}, {"dept": "sal", "count": 3}]]
+
+  - id: sorting-grouping-group-aggregate
+    title: Aggregate within groups
+    level: 201
+    tags: [group_by, add, min_by, max_by]
+    explanation: |
+      Once grouped, any aggregate can be computed per group. This gives each department's
+      head count, total and average salary (rounded to a whole number), and its best-paid
+      employee. Engineering's
+      average is (150000 + 98000 + 105000 + 30000) / 4 = 95750.
+    program: '.employees | group_by(.dept) | map({dept: .[0].dept, n: length, total: (map(.salary) | add), avg: (map(.salary) | add / length | round), top: (max_by(.salary).name)})'
+    input: {ref: static:employees}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#add]
+    guide: [sorting-and-grouping]
+    expected: [[{"dept": "eng", "n": 4, "total": 383000, "avg": 95750, "top": "Astrid"}, {"dept": "hr", "n": 1, "total": 70000, "avg": 70000, "top": "Ines"}, {"dept": "ops", "n": 2, "total": 205000, "avg": 102500, "top": "Dmitri"}, {"dept": "sal", "n": 3, "total": 268000, "avg": 89333, "top": "Hiro"}]]
+
+  - id: sorting-grouping-frequency-table
+    title: A frequency table as an object
+    level: 201
+    tags: [reduce, frequency]
+    explanation: |
+      To count occurrences into an object, `reduce` over the values and increment a key per
+      value; `.[$x] += 1` works because `null + 1` is `1`. The result counts log lines per
+      level. Unlike `group_by`, this keeps the keys in first-seen order.
+    program: 'reduce .[].level as $level ({}; .[$level] += 1)'
+    input: {ref: static:access-log}
+    options: {slurp: true}
+    manual: [https://jqlang.org/manual/v1.8/#reduce]
+    guide: [sorting-and-grouping, reduce-and-foreach]
+    expected: [{"info": 10, "warn": 2, "error": 3, "debug": 1}]
+
+  - id: sorting-grouping-most-common
+    title: The most common values, most frequent first
+    level: 201
+    tags: [group_by, sort_by]
+    explanation: |
+      Group the label names, count each group, then sort by descending count and by name to
+      break ties. `bug` is the most common label (four issues), followed by `docs` (three).
+    program: '[.[].labels[].name] | group_by(.) | map({label: .[0], count: length}) | sort_by(-.count, .label)'
+    input: {ref: static:github-issues}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#sort-sort_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"label": "bug", "count": 4}, {"label": "docs", "count": 3}, {"label": "dependencies", "count": 2}, {"label": "priority: high", "count": 2}, {"label": "enhancement", "count": 1}, {"label": "good first issue", "count": 1}, {"label": "needs repro", "count": 1}, {"label": "windows", "count": 1}]]
