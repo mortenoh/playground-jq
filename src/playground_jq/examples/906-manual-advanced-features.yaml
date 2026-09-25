@@ -1,0 +1,409 @@
+id: manual-advanced-features
+title: 'jq manual: Advanced features'
+description: 'Every runnable example from the ''Advanced features'' section of the jq 1.8 manual. Source: https://jqlang.org/manual/v1.8/#advanced-features
+  (jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0).'
+order: 905
+track: manual
+examples:
+- id: manual-variable-symbolic-binding-operator-1
+  title: 'Variable / Symbolic Binding Operator: ... as $identifier | ... (1)'
+  level: 201
+  tags:
+  - manual
+  program: .bar as $x | .foo | . + $x
+  input:
+    text: '{"foo":10, "bar":200}'
+  expected:
+  - 210
+  manual:
+  - https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-variable-symbolic-binding-operator-2
+  title: 'Variable / Symbolic Binding Operator: ... as $identifier | ... (2)'
+  level: 201
+  tags:
+  - manual
+  program: . as $i|[(.*2|. as $i| $i), $i]
+  input:
+    text: '5'
+  expected:
+  - - 10
+    - 5
+  manual:
+  - https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-variable-symbolic-binding-operator-3
+  title: 'Variable / Symbolic Binding Operator: ... as $identifier | ... (3)'
+  level: 201
+  tags:
+  - manual
+  program: '. as [$a, $b, {c: $c}] | $a + $b + $c'
+  input:
+    text: '[2, 3, {"c": 4, "d": 5}]'
+  expected:
+  - 9
+  manual:
+  - https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-variable-symbolic-binding-operator-4
+  title: 'Variable / Symbolic Binding Operator: ... as $identifier | ... (4)'
+  level: 201
+  tags:
+  - manual
+  program: '.[] as [$a, $b] | {a: $a, b: $b}'
+  input:
+    text: '[[0], [0, 1], [2, 1, 0]]'
+  expected:
+  - a: 0
+    b: null
+  - a: 0
+    b: 1
+  - a: 2
+    b: 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-destructuring-alternative-operator-1
+  title: 'Destructuring Alternative Operator: ?// (1)'
+  level: 201
+  tags:
+  - manual
+  program: '.[] as {$a, $b, c: {$d, $e}} ?// {$a, $b, c: [{$d, $e}]} | {$a, $b, $d, $e}'
+  input:
+    text: '[{"a": 1, "b": 2, "c": {"d": 3, "e": 4}}, {"a": 1, "b": 2, "c": [{"d": 3, "e": 4}]}]'
+  expected:
+  - a: 1
+    b: 2
+    d: 3
+    e: 4
+  - a: 1
+    b: 2
+    d: 3
+    e: 4
+  manual:
+  - https://jqlang.org/manual/v1.8/#destructuring-alternative-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-destructuring-alternative-operator-2
+  title: 'Destructuring Alternative Operator: ?// (2)'
+  level: 201
+  tags:
+  - manual
+  program: '.[] as {$a, $b, c: {$d}} ?// {$a, $b, c: [{$e}]} | {$a, $b, $d, $e}'
+  input:
+    text: '[{"a": 1, "b": 2, "c": {"d": 3, "e": 4}}, {"a": 1, "b": 2, "c": [{"d": 3, "e": 4}]}]'
+  expected:
+  - a: 1
+    b: 2
+    d: 3
+    e: null
+  - a: 1
+    b: 2
+    d: null
+    e: 4
+  manual:
+  - https://jqlang.org/manual/v1.8/#destructuring-alternative-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-destructuring-alternative-operator-3
+  title: 'Destructuring Alternative Operator: ?// (3)'
+  level: 201
+  tags:
+  - manual
+  program: '.[] as [$a] ?// [$b] | if $a != null then error("err: \($a)") else {$a,$b} end'
+  input:
+    text: '[[3]]'
+  expected:
+  - a: null
+    b: 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#destructuring-alternative-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-defining-functions-1
+  title: Defining Functions (1)
+  level: 201
+  tags:
+  - manual
+  program: 'def addvalue(f): . + [f]; map(addvalue(.[0]))'
+  input:
+    text: '[[1,2],[10,20]]'
+  expected:
+  - - - 1
+      - 2
+      - 1
+    - - 10
+      - 20
+      - 10
+  manual:
+  - https://jqlang.org/manual/v1.8/#defining-functions
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-defining-functions-2
+  title: Defining Functions (2)
+  level: 201
+  tags:
+  - manual
+  program: 'def addvalue(f): f as $x | map(. + $x); addvalue(.[0])'
+  input:
+    text: '[[1,2],[10,20]]'
+  expected:
+  - - - 1
+      - 2
+      - 1
+      - 2
+    - - 10
+      - 20
+      - 1
+      - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#defining-functions
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-isempty-1
+  title: isempty(exp) (1)
+  level: 201
+  tags:
+  - manual
+  program: isempty(empty)
+  input:
+    text: 'null'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#isempty
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-isempty-2
+  title: isempty(exp) (2)
+  level: 201
+  tags:
+  - manual
+  program: isempty(.[])
+  input:
+    text: '[]'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#isempty
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-isempty-3
+  title: isempty(exp) (3)
+  level: 201
+  tags:
+  - manual
+  program: isempty(.[])
+  input:
+    text: '[1,2,3]'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#isempty
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-limit-1
+  title: limit(n; expr)
+  level: 201
+  tags:
+  - manual
+  program: '[limit(3; .[])]'
+  input:
+    text: '[0,1,2,3,4,5,6,7,8,9]'
+  expected:
+  - - 0
+    - 1
+    - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#limit
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-skip-1
+  title: skip(n; expr)
+  level: 201
+  tags:
+  - manual
+  program: '[skip(3; .[])]'
+  input:
+    text: '[0,1,2,3,4,5,6,7,8,9]'
+  expected:
+  - - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+  manual:
+  - https://jqlang.org/manual/v1.8/#skip
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-first-last-nth-2-1
+  title: first(expr), last(expr), nth(n; expr) (1)
+  level: 201
+  tags:
+  - manual
+  program: '[first(range(.)), last(range(.)), nth(5; range(.))]'
+  input:
+    text: '10'
+  expected:
+  - - 0
+    - 9
+    - 5
+  manual:
+  - https://jqlang.org/manual/v1.8/#first-last-nth-2
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-first-last-nth-2-2
+  title: first(expr), last(expr), nth(n; expr) (2)
+  level: 201
+  tags:
+  - manual
+  program: '[first(empty), last(empty), nth(5; empty)]'
+  input:
+    text: 'null'
+  expected:
+  - []
+  manual:
+  - https://jqlang.org/manual/v1.8/#first-last-nth-2
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-first-last-nth-1-1
+  title: first, last, nth(n)
+  level: 201
+  tags:
+  - manual
+  program: '[range(.)]|[first, last, nth(5)]'
+  input:
+    text: '10'
+  expected:
+  - - 0
+    - 9
+    - 5
+  manual:
+  - https://jqlang.org/manual/v1.8/#first-last-nth-1
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-reduce-1
+  title: reduce (1)
+  level: 201
+  tags:
+  - manual
+  program: reduce .[] as $item (0; . + $item)
+  input:
+    text: '[1,2,3,4,5]'
+  expected:
+  - 15
+  manual:
+  - https://jqlang.org/manual/v1.8/#reduce
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-reduce-2
+  title: reduce (2)
+  level: 201
+  tags:
+  - manual
+  program: reduce .[] as [$i,$j] (0; . + $i * $j)
+  input:
+    text: '[[1,2],[3,4],[5,6]]'
+  expected:
+  - 44
+  manual:
+  - https://jqlang.org/manual/v1.8/#reduce
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-reduce-3
+  title: reduce (3)
+  level: 201
+  tags:
+  - manual
+  program: reduce .[] as {$x,$y} (null; .x += $x | .y += [$y])
+  input:
+    text: '[{"x":"a","y":1},{"x":"b","y":2},{"x":"c","y":3}]'
+  expected:
+  - x: abc
+    y:
+    - 1
+    - 2
+    - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#reduce
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-foreach-1
+  title: foreach (1)
+  level: 201
+  tags:
+  - manual
+  program: foreach .[] as $item (0; . + $item)
+  input:
+    text: '[1,2,3,4,5]'
+  expected:
+  - 1
+  - 3
+  - 6
+  - 10
+  - 15
+  manual:
+  - https://jqlang.org/manual/v1.8/#foreach
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-foreach-2
+  title: foreach (2)
+  level: 201
+  tags:
+  - manual
+  program: foreach .[] as $item (0; . + $item; [$item, . * 2])
+  input:
+    text: '[1,2,3,4,5]'
+  expected:
+  - - 1
+    - 2
+  - - 2
+    - 6
+  - - 3
+    - 12
+  - - 4
+    - 20
+  - - 5
+    - 30
+  manual:
+  - https://jqlang.org/manual/v1.8/#foreach
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-foreach-3
+  title: foreach (3)
+  level: 201
+  tags:
+  - manual
+  program: 'foreach .[] as $item (0; . + 1; {index: ., $item})'
+  input:
+    text: '["foo", "bar", "baz"]'
+  expected:
+  - index: 1
+    item: foo
+  - index: 2
+    item: bar
+  - index: 3
+    item: baz
+  manual:
+  - https://jqlang.org/manual/v1.8/#foreach
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-generators-and-iterators-1
+  title: Generators and iterators (1)
+  level: 201
+  tags:
+  - manual
+  program: 'def range(init; upto; by): def _range: if (by > 0 and . < upto) or (by < 0 and . > upto) then ., ((.+by)|_range)
+    else empty end; if init == upto then empty elif by == 0 then init else init|_range end; range(0; 10; 3)'
+  input:
+    text: 'null'
+  expected:
+  - 0
+  - 3
+  - 6
+  - 9
+  manual:
+  - https://jqlang.org/manual/v1.8/#generators-and-iterators
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-generators-and-iterators-2
+  title: Generators and iterators (2)
+  level: 201
+  tags:
+  - manual
+  program: 'def while(cond; update): def _while: if cond then ., (update | _while) else empty end; _while; [while(.<100; .*2)]'
+  input:
+    text: '1'
+  expected:
+  - - 1
+    - 2
+    - 4
+    - 8
+    - 16
+    - 32
+    - 64
+  manual:
+  - https://jqlang.org/manual/v1.8/#generators-and-iterators
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0

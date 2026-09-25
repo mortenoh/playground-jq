@@ -1,0 +1,2121 @@
+id: manual-builtin-operators-and-functions
+title: 'jq manual: Builtin operators and functions'
+description: 'Every runnable example from the ''Builtin operators and functions'' section of the jq 1.8 manual. Source: https://jqlang.org/manual/v1.8/#builtin-operators-and-functions
+  (jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0).'
+order: 902
+track: manual
+examples:
+- id: manual-addition-1
+  title: 'Addition: + (1)'
+  level: 101
+  tags:
+  - manual
+  program: .a + 1
+  input:
+    text: '{"a": 7}'
+  expected:
+  - 8
+  manual:
+  - https://jqlang.org/manual/v1.8/#addition
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-addition-2
+  title: 'Addition: + (2)'
+  level: 101
+  tags:
+  - manual
+  program: .a + .b
+  input:
+    text: '{"a": [1,2], "b": [3,4]}'
+  expected:
+  - - 1
+    - 2
+    - 3
+    - 4
+  manual:
+  - https://jqlang.org/manual/v1.8/#addition
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-addition-3
+  title: 'Addition: + (3)'
+  level: 101
+  tags:
+  - manual
+  program: .a + null
+  input:
+    text: '{"a": 1}'
+  expected:
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#addition
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-addition-4
+  title: 'Addition: + (4)'
+  level: 101
+  tags:
+  - manual
+  program: .a + 1
+  input:
+    text: '{}'
+  expected:
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#addition
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-addition-5
+  title: 'Addition: + (5)'
+  level: 101
+  tags:
+  - manual
+  program: '{a: 1} + {b: 2} + {c: 3} + {a: 42}'
+  input:
+    text: 'null'
+  expected:
+  - a: 42
+    b: 2
+    c: 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#addition
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-subtraction-1
+  title: 'Subtraction: - (1)'
+  level: 101
+  tags:
+  - manual
+  program: 4 - .a
+  input:
+    text: '{"a":3}'
+  expected:
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#subtraction
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-subtraction-2
+  title: 'Subtraction: - (2)'
+  level: 101
+  tags:
+  - manual
+  program: . - ["xml", "yaml"]
+  input:
+    text: '["xml", "yaml", "json"]'
+  expected:
+  - - json
+  manual:
+  - https://jqlang.org/manual/v1.8/#subtraction
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-multiplication-division-modulo-1
+  title: 'Multiplication, division, modulo: *, /, % (1)'
+  level: 101
+  tags:
+  - manual
+  program: 10 / . * 3
+  input:
+    text: '5'
+  expected:
+  - 6
+  manual:
+  - https://jqlang.org/manual/v1.8/#multiplication-division-modulo
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-multiplication-division-modulo-2
+  title: 'Multiplication, division, modulo: *, /, % (2)'
+  level: 101
+  tags:
+  - manual
+  program: . / ", "
+  input:
+    text: '"a, b,c,d, e"'
+  expected:
+  - - a
+    - b,c,d
+    - e
+  manual:
+  - https://jqlang.org/manual/v1.8/#multiplication-division-modulo
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-multiplication-division-modulo-3
+  title: 'Multiplication, division, modulo: *, /, % (3)'
+  level: 101
+  tags:
+  - manual
+  program: '{"k": {"a": 1, "b": 2}} * {"k": {"a": 0,"c": 3}}'
+  input:
+    text: 'null'
+  expected:
+  - k:
+      a: 0
+      b: 2
+      c: 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#multiplication-division-modulo
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-multiplication-division-modulo-4
+  title: 'Multiplication, division, modulo: *, /, % (4)'
+  level: 101
+  tags:
+  - manual
+  program: .[] | (1 / .)?
+  input:
+    text: '[1,0,-1]'
+  expected:
+  - 1
+  - -1
+  manual:
+  - https://jqlang.org/manual/v1.8/#multiplication-division-modulo
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-abs-1
+  title: abs
+  level: 101
+  tags:
+  - manual
+  program: map(abs)
+  input:
+    text: '[-10, -1.1, -1e-1]'
+  expected:
+  - - 10
+    - 1.1
+    - 0.1
+  manual:
+  - https://jqlang.org/manual/v1.8/#abs
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-length-1
+  title: length
+  level: 101
+  tags:
+  - manual
+  program: .[] | length
+  input:
+    text: '[[1,2], "string", {"a":2}, null, -5]'
+  expected:
+  - 2
+  - 6
+  - 1
+  - 0
+  - 5
+  manual:
+  - https://jqlang.org/manual/v1.8/#length
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-utf8bytelength-1
+  title: utf8bytelength
+  level: 101
+  tags:
+  - manual
+  program: utf8bytelength
+  input:
+    text: '"\u03bc"'
+  expected:
+  - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#utf8bytelength
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-keys-keys-unsorted-1
+  title: keys, keys_unsorted (1)
+  level: 101
+  tags:
+  - manual
+  program: keys
+  input:
+    text: '{"abc": 1, "abcd": 2, "Foo": 3}'
+  expected:
+  - - Foo
+    - abc
+    - abcd
+  manual:
+  - https://jqlang.org/manual/v1.8/#keys-keys_unsorted
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-keys-keys-unsorted-2
+  title: keys, keys_unsorted (2)
+  level: 101
+  tags:
+  - manual
+  program: keys
+  input:
+    text: '[42,3,35]'
+  expected:
+  - - 0
+    - 1
+    - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#keys-keys_unsorted
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-has-1
+  title: has(key) (1)
+  level: 101
+  tags:
+  - manual
+  program: map(has("foo"))
+  input:
+    text: '[{"foo": 42}, {}]'
+  expected:
+  - - true
+    - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#has
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-has-2
+  title: has(key) (2)
+  level: 101
+  tags:
+  - manual
+  program: map(has(2))
+  input:
+    text: '[[0,1], ["a","b","c"]]'
+  expected:
+  - - false
+    - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#has
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-in-1
+  title: in (1)
+  level: 101
+  tags:
+  - manual
+  program: '.[] | in({"foo": 42})'
+  input:
+    text: '["foo", "bar"]'
+  expected:
+  - true
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#in
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-in-2
+  title: in (2)
+  level: 101
+  tags:
+  - manual
+  program: map(in([0,1]))
+  input:
+    text: '[2, 0]'
+  expected:
+  - - false
+    - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#in
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-map-map-values-1
+  title: map(f), map_values(f) (1)
+  level: 101
+  tags:
+  - manual
+  program: map(.+1)
+  input:
+    text: '[1,2,3]'
+  expected:
+  - - 2
+    - 3
+    - 4
+  manual:
+  - https://jqlang.org/manual/v1.8/#map-map_values
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-map-map-values-2
+  title: map(f), map_values(f) (2)
+  level: 101
+  tags:
+  - manual
+  program: map_values(.+1)
+  input:
+    text: '{"a": 1, "b": 2, "c": 3}'
+  expected:
+  - a: 2
+    b: 3
+    c: 4
+  manual:
+  - https://jqlang.org/manual/v1.8/#map-map_values
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-map-map-values-3
+  title: map(f), map_values(f) (3)
+  level: 101
+  tags:
+  - manual
+  program: map(., .)
+  input:
+    text: '[1,2]'
+  expected:
+  - - 1
+    - 1
+    - 2
+    - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#map-map_values
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-map-map-values-4
+  title: map(f), map_values(f) (4)
+  level: 101
+  tags:
+  - manual
+  program: map_values(. // empty)
+  input:
+    text: '{"a": null, "b": true, "c": false}'
+  expected:
+  - b: true
+  manual:
+  - https://jqlang.org/manual/v1.8/#map-map_values
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-pick-1
+  title: pick(pathexps) (1)
+  level: 101
+  tags:
+  - manual
+  program: pick(.a, .b.c, .x)
+  input:
+    text: '{"a": 1, "b": {"c": 2, "d": 3}, "e": 4}'
+  expected:
+  - a: 1
+    b:
+      c: 2
+    x: null
+  manual:
+  - https://jqlang.org/manual/v1.8/#pick
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-pick-2
+  title: pick(pathexps) (2)
+  level: 101
+  tags:
+  - manual
+  program: pick(.[2], .[0], .[0])
+  input:
+    text: '[1,2,3,4]'
+  expected:
+  - - 1
+    - null
+    - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#pick
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-path-1
+  title: path(path_expression) (1)
+  level: 101
+  tags:
+  - manual
+  program: path(.a[0].b)
+  input:
+    text: 'null'
+  expected:
+  - - a
+    - 0
+    - b
+  manual:
+  - https://jqlang.org/manual/v1.8/#path
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-path-2
+  title: path(path_expression) (2)
+  level: 101
+  tags:
+  - manual
+  program: '[path(..)]'
+  input:
+    text: '{"a":[{"b":1}]}'
+  expected:
+  - - []
+    - - a
+    - - a
+      - 0
+    - - a
+      - 0
+      - b
+  manual:
+  - https://jqlang.org/manual/v1.8/#path
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-del-1
+  title: del(path_expression) (1)
+  level: 101
+  tags:
+  - manual
+  program: del(.foo)
+  input:
+    text: '{"foo": 42, "bar": 9001, "baz": 42}'
+  expected:
+  - bar: 9001
+    baz: 42
+  manual:
+  - https://jqlang.org/manual/v1.8/#del
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-del-2
+  title: del(path_expression) (2)
+  level: 101
+  tags:
+  - manual
+  program: del(.[1, 2])
+  input:
+    text: '["foo", "bar", "baz"]'
+  expected:
+  - - foo
+  manual:
+  - https://jqlang.org/manual/v1.8/#del
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-getpath-1
+  title: getpath(PATHS) (1)
+  level: 101
+  tags:
+  - manual
+  program: getpath(["a","b"])
+  input:
+    text: 'null'
+  expected:
+  - null
+  manual:
+  - https://jqlang.org/manual/v1.8/#getpath
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-getpath-2
+  title: getpath(PATHS) (2)
+  level: 101
+  tags:
+  - manual
+  program: '[getpath(["a","b"], ["a","c"])]'
+  input:
+    text: '{"a":{"b":0, "c":1}}'
+  expected:
+  - - 0
+    - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#getpath
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-setpath-1
+  title: setpath(PATHS; VALUE) (1)
+  level: 101
+  tags:
+  - manual
+  program: setpath(["a","b"]; 1)
+  input:
+    text: 'null'
+  expected:
+  - a:
+      b: 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#setpath
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-setpath-2
+  title: setpath(PATHS; VALUE) (2)
+  level: 101
+  tags:
+  - manual
+  program: setpath(["a","b"]; 1)
+  input:
+    text: '{"a":{"b":0}}'
+  expected:
+  - a:
+      b: 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#setpath
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-setpath-3
+  title: setpath(PATHS; VALUE) (3)
+  level: 101
+  tags:
+  - manual
+  program: setpath([0,"a"]; 1)
+  input:
+    text: 'null'
+  expected:
+  - - a: 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#setpath
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-delpaths-1
+  title: delpaths(PATHS)
+  level: 101
+  tags:
+  - manual
+  program: delpaths([["a","b"]])
+  input:
+    text: '{"a":{"b":1},"x":{"y":2}}'
+  expected:
+  - a: {}
+    x:
+      y: 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#delpaths
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-to-entries-from-entries-with-entries-1
+  title: to_entries, from_entries, with_entries(f) (1)
+  level: 101
+  tags:
+  - manual
+  program: to_entries
+  input:
+    text: '{"a": 1, "b": 2}'
+  expected:
+  - - key: a
+      value: 1
+    - key: b
+      value: 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-to-entries-from-entries-with-entries-2
+  title: to_entries, from_entries, with_entries(f) (2)
+  level: 101
+  tags:
+  - manual
+  program: from_entries
+  input:
+    text: '[{"key":"a", "value":1}, {"key":"b", "value":2}]'
+  expected:
+  - a: 1
+    b: 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-to-entries-from-entries-with-entries-3
+  title: to_entries, from_entries, with_entries(f) (3)
+  level: 101
+  tags:
+  - manual
+  program: with_entries(.key |= "KEY_" + .)
+  input:
+    text: '{"a": 1, "b": 2}'
+  expected:
+  - KEY_a: 1
+    KEY_b: 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-select-1
+  title: select(boolean_expression) (1)
+  level: 101
+  tags:
+  - manual
+  program: map(select(. >= 2))
+  input:
+    text: '[1,5,3,0,7]'
+  expected:
+  - - 5
+    - 3
+    - 7
+  manual:
+  - https://jqlang.org/manual/v1.8/#select
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-select-2
+  title: select(boolean_expression) (2)
+  level: 101
+  tags:
+  - manual
+  program: .[] | select(.id == "second")
+  input:
+    text: '[{"id": "first", "val": 1}, {"id": "second", "val": 2}]'
+  expected:
+  - id: second
+    val: 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#select
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-arrays-objects-iterables-booleans-numbers-normals-finites-strings-nulls-values-scalars-1
+  title: arrays, objects, iterables, booleans, numbers, normals, finites, strings, nulls, values, scalars
+  level: 101
+  tags:
+  - manual
+  program: .[]|numbers
+  input:
+    text: '[[],{},1,"foo",null,true,false]'
+  expected:
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#arrays-objects-iterables-booleans-numbers-normals-finites-strings-nulls-values-scalars
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-empty-1
+  title: empty (1)
+  level: 101
+  tags:
+  - manual
+  program: 1, empty, 2
+  input:
+    text: 'null'
+  expected:
+  - 1
+  - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#empty
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-empty-2
+  title: empty (2)
+  level: 101
+  tags:
+  - manual
+  program: '[1,2,empty,3]'
+  input:
+    text: 'null'
+  expected:
+  - - 1
+    - 2
+    - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#empty
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-error-1
+  title: error, error(message) (1)
+  level: 101
+  tags:
+  - manual
+  program: try error catch .
+  input:
+    text: '"error message"'
+  expected:
+  - error message
+  manual:
+  - https://jqlang.org/manual/v1.8/#error
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-error-2
+  title: error, error(message) (2)
+  level: 101
+  tags:
+  - manual
+  program: 'try error("invalid value: \(.)") catch .'
+  input:
+    text: '42'
+  expected:
+  - 'invalid value: 42'
+  manual:
+  - https://jqlang.org/manual/v1.8/#error
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-loc-1
+  title: $__loc__
+  level: 101
+  tags:
+  - manual
+  program: try error("\($__loc__)") catch .
+  input:
+    text: 'null'
+  expected:
+  - '{"file":"<top-level>","line":1}'
+  manual:
+  - https://jqlang.org/manual/v1.8/#$__loc__
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-paths-1
+  title: paths, paths(node_filter) (1)
+  level: 101
+  tags:
+  - manual
+  program: '[paths]'
+  input:
+    text: '[1,[[],{"a":2}]]'
+  expected:
+  - - - 0
+    - - 1
+    - - 1
+      - 0
+    - - 1
+      - 1
+    - - 1
+      - 1
+      - a
+  manual:
+  - https://jqlang.org/manual/v1.8/#paths
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-paths-2
+  title: paths, paths(node_filter) (2)
+  level: 101
+  tags:
+  - manual
+  program: '[paths(type == "number")]'
+  input:
+    text: '[1,[[],{"a":2}]]'
+  expected:
+  - - - 0
+    - - 1
+      - 1
+      - a
+  manual:
+  - https://jqlang.org/manual/v1.8/#paths
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-add-1
+  title: add, add(generator) (1)
+  level: 101
+  tags:
+  - manual
+  program: add
+  input:
+    text: '["a","b","c"]'
+  expected:
+  - abc
+  manual:
+  - https://jqlang.org/manual/v1.8/#add
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-add-2
+  title: add, add(generator) (2)
+  level: 101
+  tags:
+  - manual
+  program: add
+  input:
+    text: '[1, 2, 3]'
+  expected:
+  - 6
+  manual:
+  - https://jqlang.org/manual/v1.8/#add
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-add-3
+  title: add, add(generator) (3)
+  level: 101
+  tags:
+  - manual
+  program: add
+  input:
+    text: '[]'
+  expected:
+  - null
+  manual:
+  - https://jqlang.org/manual/v1.8/#add
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-add-4
+  title: add, add(generator) (4)
+  level: 101
+  tags:
+  - manual
+  program: add(.[].a)
+  input:
+    text: '[{"a":3}, {"a":5}, {"b":6}]'
+  expected:
+  - 8
+  manual:
+  - https://jqlang.org/manual/v1.8/#add
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-any-1
+  title: any, any(condition), any(generator; condition) (1)
+  level: 101
+  tags:
+  - manual
+  program: any
+  input:
+    text: '[true, false]'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#any
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-any-2
+  title: any, any(condition), any(generator; condition) (2)
+  level: 101
+  tags:
+  - manual
+  program: any
+  input:
+    text: '[false, false]'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#any
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-any-3
+  title: any, any(condition), any(generator; condition) (3)
+  level: 101
+  tags:
+  - manual
+  program: any
+  input:
+    text: '[]'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#any
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-all-1
+  title: all, all(condition), all(generator; condition) (1)
+  level: 101
+  tags:
+  - manual
+  program: all
+  input:
+    text: '[true, false]'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#all
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-all-2
+  title: all, all(condition), all(generator; condition) (2)
+  level: 101
+  tags:
+  - manual
+  program: all
+  input:
+    text: '[true, true]'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#all
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-all-3
+  title: all, all(condition), all(generator; condition) (3)
+  level: 101
+  tags:
+  - manual
+  program: all
+  input:
+    text: '[]'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#all
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-flatten-1
+  title: flatten, flatten(depth) (1)
+  level: 101
+  tags:
+  - manual
+  program: flatten
+  input:
+    text: '[1, [2], [[3]]]'
+  expected:
+  - - 1
+    - 2
+    - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#flatten
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-flatten-2
+  title: flatten, flatten(depth) (2)
+  level: 101
+  tags:
+  - manual
+  program: flatten(1)
+  input:
+    text: '[1, [2], [[3]]]'
+  expected:
+  - - 1
+    - 2
+    - - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#flatten
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-flatten-3
+  title: flatten, flatten(depth) (3)
+  level: 101
+  tags:
+  - manual
+  program: flatten
+  input:
+    text: '[[]]'
+  expected:
+  - []
+  manual:
+  - https://jqlang.org/manual/v1.8/#flatten
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-flatten-4
+  title: flatten, flatten(depth) (4)
+  level: 101
+  tags:
+  - manual
+  program: flatten
+  input:
+    text: '[{"foo": "bar"}, [{"foo": "baz"}]]'
+  expected:
+  - - foo: bar
+    - foo: baz
+  manual:
+  - https://jqlang.org/manual/v1.8/#flatten
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-range-1
+  title: range(upto), range(from; upto), range(from; upto; by) (1)
+  level: 101
+  tags:
+  - manual
+  program: range(2; 4)
+  input:
+    text: 'null'
+  expected:
+  - 2
+  - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#range
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-range-2
+  title: range(upto), range(from; upto), range(from; upto; by) (2)
+  level: 101
+  tags:
+  - manual
+  program: '[range(2; 4)]'
+  input:
+    text: 'null'
+  expected:
+  - - 2
+    - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#range
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-range-3
+  title: range(upto), range(from; upto), range(from; upto; by) (3)
+  level: 101
+  tags:
+  - manual
+  program: '[range(4)]'
+  input:
+    text: 'null'
+  expected:
+  - - 0
+    - 1
+    - 2
+    - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#range
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-range-4
+  title: range(upto), range(from; upto), range(from; upto; by) (4)
+  level: 101
+  tags:
+  - manual
+  program: '[range(0; 10; 3)]'
+  input:
+    text: 'null'
+  expected:
+  - - 0
+    - 3
+    - 6
+    - 9
+  manual:
+  - https://jqlang.org/manual/v1.8/#range
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-range-5
+  title: range(upto), range(from; upto), range(from; upto; by) (5)
+  level: 101
+  tags:
+  - manual
+  program: '[range(0; 10; -1)]'
+  input:
+    text: 'null'
+  expected:
+  - []
+  manual:
+  - https://jqlang.org/manual/v1.8/#range
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-range-6
+  title: range(upto), range(from; upto), range(from; upto; by) (6)
+  level: 101
+  tags:
+  - manual
+  program: '[range(0; -5; -1)]'
+  input:
+    text: 'null'
+  expected:
+  - - 0
+    - -1
+    - -2
+    - -3
+    - -4
+  manual:
+  - https://jqlang.org/manual/v1.8/#range
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-floor-1
+  title: floor
+  level: 101
+  tags:
+  - manual
+  program: floor
+  input:
+    text: '3.14159'
+  expected:
+  - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#floor
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-sqrt-1
+  title: sqrt
+  level: 101
+  tags:
+  - manual
+  program: sqrt
+  input:
+    text: '9'
+  expected:
+  - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#sqrt
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-tonumber-1
+  title: tonumber
+  level: 101
+  tags:
+  - manual
+  program: .[] | tonumber
+  input:
+    text: '[1, "1"]'
+  expected:
+  - 1
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#tonumber
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-toboolean-1
+  title: toboolean
+  level: 101
+  tags:
+  - manual
+  program: .[] | toboolean
+  input:
+    text: '["true", "false", true, false]'
+  expected:
+  - true
+  - false
+  - true
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#toboolean
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-tostring-1
+  title: tostring
+  level: 101
+  tags:
+  - manual
+  program: .[] | tostring
+  input:
+    text: '[1, "1", [1]]'
+  expected:
+  - '1'
+  - '1'
+  - '[1]'
+  manual:
+  - https://jqlang.org/manual/v1.8/#tostring
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-type-1
+  title: type
+  level: 101
+  tags:
+  - manual
+  program: map(type)
+  input:
+    text: '[0, false, [], {}, null, "hello"]'
+  expected:
+  - - number
+    - boolean
+    - array
+    - object
+    - 'null'
+    - string
+  manual:
+  - https://jqlang.org/manual/v1.8/#type
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-infinite-nan-isinfinite-isnan-isfinite-isnormal-1
+  title: infinite, nan, isinfinite, isnan, isfinite, isnormal (1)
+  level: 101
+  tags:
+  - manual
+  program: .[] | (infinite * .) < 0
+  input:
+    text: '[-1, 1]'
+  expected:
+  - true
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#infinite-nan-isinfinite-isnan-isfinite-isnormal
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-infinite-nan-isinfinite-isnan-isfinite-isnormal-2
+  title: infinite, nan, isinfinite, isnan, isfinite, isnormal (2)
+  level: 101
+  tags:
+  - manual
+  program: infinite, nan | type
+  input:
+    text: 'null'
+  expected:
+  - number
+  - number
+  manual:
+  - https://jqlang.org/manual/v1.8/#infinite-nan-isinfinite-isnan-isfinite-isnormal
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-sort-sort-by-1
+  title: sort, sort_by(path_expression) (1)
+  level: 101
+  tags:
+  - manual
+  program: sort
+  input:
+    text: '[8,3,null,6]'
+  expected:
+  - - null
+    - 3
+    - 6
+    - 8
+  manual:
+  - https://jqlang.org/manual/v1.8/#sort-sort_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-sort-sort-by-2
+  title: sort, sort_by(path_expression) (2)
+  level: 101
+  tags:
+  - manual
+  program: sort_by(.foo)
+  input:
+    text: '[{"foo":4, "bar":10}, {"foo":3, "bar":10}, {"foo":2, "bar":1}]'
+  expected:
+  - - foo: 2
+      bar: 1
+    - foo: 3
+      bar: 10
+    - foo: 4
+      bar: 10
+  manual:
+  - https://jqlang.org/manual/v1.8/#sort-sort_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-sort-sort-by-3
+  title: sort, sort_by(path_expression) (3)
+  level: 101
+  tags:
+  - manual
+  program: sort_by(.foo, .bar)
+  input:
+    text: '[{"foo":4, "bar":10}, {"foo":3, "bar":20}, {"foo":2, "bar":1}, {"foo":3, "bar":10}]'
+  expected:
+  - - foo: 2
+      bar: 1
+    - foo: 3
+      bar: 10
+    - foo: 3
+      bar: 20
+    - foo: 4
+      bar: 10
+  manual:
+  - https://jqlang.org/manual/v1.8/#sort-sort_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-group-by-1
+  title: group_by(path_expression)
+  level: 101
+  tags:
+  - manual
+  program: group_by(.foo)
+  input:
+    text: '[{"foo":1, "bar":10}, {"foo":3, "bar":100}, {"foo":1, "bar":1}]'
+  expected:
+  - - - foo: 1
+        bar: 10
+      - foo: 1
+        bar: 1
+    - - foo: 3
+        bar: 100
+  manual:
+  - https://jqlang.org/manual/v1.8/#group_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-min-max-min-by-max-by-1
+  title: min, max, min_by(path_exp), max_by(path_exp) (1)
+  level: 101
+  tags:
+  - manual
+  program: min
+  input:
+    text: '[5,4,2,7]'
+  expected:
+  - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#min-max-min_by-max_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-min-max-min-by-max-by-2
+  title: min, max, min_by(path_exp), max_by(path_exp) (2)
+  level: 101
+  tags:
+  - manual
+  program: max_by(.foo)
+  input:
+    text: '[{"foo":1, "bar":14}, {"foo":2, "bar":3}]'
+  expected:
+  - foo: 2
+    bar: 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#min-max-min_by-max_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-unique-unique-by-1
+  title: unique, unique_by(path_exp) (1)
+  level: 101
+  tags:
+  - manual
+  program: unique
+  input:
+    text: '[1,2,5,3,5,3,1,3]'
+  expected:
+  - - 1
+    - 2
+    - 3
+    - 5
+  manual:
+  - https://jqlang.org/manual/v1.8/#unique-unique_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-unique-unique-by-2
+  title: unique, unique_by(path_exp) (2)
+  level: 101
+  tags:
+  - manual
+  program: unique_by(.foo)
+  input:
+    text: '[{"foo": 1, "bar": 2}, {"foo": 1, "bar": 3}, {"foo": 4, "bar": 5}]'
+  expected:
+  - - foo: 1
+      bar: 2
+    - foo: 4
+      bar: 5
+  manual:
+  - https://jqlang.org/manual/v1.8/#unique-unique_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-unique-unique-by-3
+  title: unique, unique_by(path_exp) (3)
+  level: 101
+  tags:
+  - manual
+  program: unique_by(length)
+  input:
+    text: '["chunky", "bacon", "kitten", "cicada", "asparagus"]'
+  expected:
+  - - bacon
+    - chunky
+    - asparagus
+  manual:
+  - https://jqlang.org/manual/v1.8/#unique-unique_by
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-reverse-1
+  title: reverse
+  level: 101
+  tags:
+  - manual
+  program: reverse
+  input:
+    text: '[1,2,3,4]'
+  expected:
+  - - 4
+    - 3
+    - 2
+    - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#reverse
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-contains-1
+  title: contains(element) (1)
+  level: 101
+  tags:
+  - manual
+  program: contains("bar")
+  input:
+    text: '"foobar"'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#contains
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-contains-2
+  title: contains(element) (2)
+  level: 101
+  tags:
+  - manual
+  program: contains(["baz", "bar"])
+  input:
+    text: '["foobar", "foobaz", "blarp"]'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#contains
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-contains-3
+  title: contains(element) (3)
+  level: 101
+  tags:
+  - manual
+  program: contains(["bazzzzz", "bar"])
+  input:
+    text: '["foobar", "foobaz", "blarp"]'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#contains
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-contains-4
+  title: contains(element) (4)
+  level: 101
+  tags:
+  - manual
+  program: 'contains({foo: 12, bar: [{barp: 12}]})'
+  input:
+    text: '{"foo": 12, "bar":[1,2,{"barp":12, "blip":13}]}'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#contains
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-contains-5
+  title: contains(element) (5)
+  level: 101
+  tags:
+  - manual
+  program: 'contains({foo: 12, bar: [{barp: 15}]})'
+  input:
+    text: '{"foo": 12, "bar":[1,2,{"barp":12, "blip":13}]}'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#contains
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-indices-1
+  title: indices(s) (1)
+  level: 101
+  tags:
+  - manual
+  program: indices(", ")
+  input:
+    text: '"a,b, cd, efg, hijk"'
+  expected:
+  - - 3
+    - 7
+    - 12
+  manual:
+  - https://jqlang.org/manual/v1.8/#indices
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-indices-2
+  title: indices(s) (2)
+  level: 101
+  tags:
+  - manual
+  program: indices(1)
+  input:
+    text: '[0,1,2,1,3,1,4]'
+  expected:
+  - - 1
+    - 3
+    - 5
+  manual:
+  - https://jqlang.org/manual/v1.8/#indices
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-indices-3
+  title: indices(s) (3)
+  level: 101
+  tags:
+  - manual
+  program: indices([1,2])
+  input:
+    text: '[0,1,2,3,1,4,2,5,1,2,6,7]'
+  expected:
+  - - 1
+    - 8
+  manual:
+  - https://jqlang.org/manual/v1.8/#indices
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-index-rindex-1
+  title: index(s), rindex(s) (1)
+  level: 101
+  tags:
+  - manual
+  program: index(", ")
+  input:
+    text: '"a,b, cd, efg, hijk"'
+  expected:
+  - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#index-rindex
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-index-rindex-2
+  title: index(s), rindex(s) (2)
+  level: 101
+  tags:
+  - manual
+  program: index(1)
+  input:
+    text: '[0,1,2,1,3,1,4]'
+  expected:
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#index-rindex
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-index-rindex-3
+  title: index(s), rindex(s) (3)
+  level: 101
+  tags:
+  - manual
+  program: index([1,2])
+  input:
+    text: '[0,1,2,3,1,4,2,5,1,2,6,7]'
+  expected:
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#index-rindex
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-index-rindex-4
+  title: index(s), rindex(s) (4)
+  level: 101
+  tags:
+  - manual
+  program: rindex(", ")
+  input:
+    text: '"a,b, cd, efg, hijk"'
+  expected:
+  - 12
+  manual:
+  - https://jqlang.org/manual/v1.8/#index-rindex
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-index-rindex-5
+  title: index(s), rindex(s) (5)
+  level: 101
+  tags:
+  - manual
+  program: rindex(1)
+  input:
+    text: '[0,1,2,1,3,1,4]'
+  expected:
+  - 5
+  manual:
+  - https://jqlang.org/manual/v1.8/#index-rindex
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-index-rindex-6
+  title: index(s), rindex(s) (6)
+  level: 101
+  tags:
+  - manual
+  program: rindex([1,2])
+  input:
+    text: '[0,1,2,3,1,4,2,5,1,2,6,7]'
+  expected:
+  - 8
+  manual:
+  - https://jqlang.org/manual/v1.8/#index-rindex
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-inside-1
+  title: inside (1)
+  level: 101
+  tags:
+  - manual
+  program: inside("foobar")
+  input:
+    text: '"bar"'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#inside
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-inside-2
+  title: inside (2)
+  level: 101
+  tags:
+  - manual
+  program: inside(["foobar", "foobaz", "blarp"])
+  input:
+    text: '["baz", "bar"]'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#inside
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-inside-3
+  title: inside (3)
+  level: 101
+  tags:
+  - manual
+  program: inside(["foobar", "foobaz", "blarp"])
+  input:
+    text: '["bazzzzz", "bar"]'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#inside
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-inside-4
+  title: inside (4)
+  level: 101
+  tags:
+  - manual
+  program: 'inside({"foo": 12, "bar":[1,2,{"barp":12, "blip":13}]})'
+  input:
+    text: '{"foo": 12, "bar": [{"barp": 12}]}'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#inside
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-inside-5
+  title: inside (5)
+  level: 101
+  tags:
+  - manual
+  program: 'inside({"foo": 12, "bar":[1,2,{"barp":12, "blip":13}]})'
+  input:
+    text: '{"foo": 12, "bar": [{"barp": 15}]}'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#inside
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-startswith-1
+  title: startswith(str)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|startswith("foo")]'
+  input:
+    text: '["fo", "foo", "barfoo", "foobar", "barfoob"]'
+  expected:
+  - - false
+    - true
+    - false
+    - true
+    - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#startswith
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-endswith-1
+  title: endswith(str)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|endswith("foo")]'
+  input:
+    text: '["foobar", "barfoo"]'
+  expected:
+  - - false
+    - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#endswith
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-combinations-1
+  title: combinations, combinations(n) (1)
+  level: 101
+  tags:
+  - manual
+  program: combinations
+  input:
+    text: '[[1,2], [3, 4]]'
+  expected:
+  - - 1
+    - 3
+  - - 1
+    - 4
+  - - 2
+    - 3
+  - - 2
+    - 4
+  manual:
+  - https://jqlang.org/manual/v1.8/#combinations
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-combinations-2
+  title: combinations, combinations(n) (2)
+  level: 101
+  tags:
+  - manual
+  program: combinations(2)
+  input:
+    text: '[0, 1]'
+  expected:
+  - - 0
+    - 0
+  - - 0
+    - 1
+  - - 1
+    - 0
+  - - 1
+    - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#combinations
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-ltrimstr-1
+  title: ltrimstr(str)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|ltrimstr("foo")]'
+  input:
+    text: '["fo", "foo", "barfoo", "foobar", "afoo"]'
+  expected:
+  - - fo
+    - ''
+    - barfoo
+    - bar
+    - afoo
+  manual:
+  - https://jqlang.org/manual/v1.8/#ltrimstr
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-rtrimstr-1
+  title: rtrimstr(str)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|rtrimstr("foo")]'
+  input:
+    text: '["fo", "foo", "barfoo", "foobar", "foob"]'
+  expected:
+  - - fo
+    - ''
+    - bar
+    - foobar
+    - foob
+  manual:
+  - https://jqlang.org/manual/v1.8/#rtrimstr
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-trimstr-1
+  title: trimstr(str)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|trimstr("foo")]'
+  input:
+    text: '["fo", "foo", "barfoo", "foobarfoo", "foob"]'
+  expected:
+  - - fo
+    - ''
+    - bar
+    - bar
+    - b
+  manual:
+  - https://jqlang.org/manual/v1.8/#trimstr
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-trim-ltrim-rtrim-1
+  title: trim, ltrim, rtrim
+  level: 101
+  tags:
+  - manual
+  program: trim, ltrim, rtrim
+  input:
+    text: '" abc "'
+  expected:
+  - abc
+  - 'abc '
+  - ' abc'
+  manual:
+  - https://jqlang.org/manual/v1.8/#trim-ltrim-rtrim
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-explode-1
+  title: explode
+  level: 101
+  tags:
+  - manual
+  program: explode
+  input:
+    text: '"foobar"'
+  expected:
+  - - 102
+    - 111
+    - 111
+    - 98
+    - 97
+    - 114
+  manual:
+  - https://jqlang.org/manual/v1.8/#explode
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-implode-1
+  title: implode
+  level: 101
+  tags:
+  - manual
+  program: implode
+  input:
+    text: '[65, 66, 67]'
+  expected:
+  - ABC
+  manual:
+  - https://jqlang.org/manual/v1.8/#implode
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-split-1-1
+  title: split(str)
+  level: 101
+  tags:
+  - manual
+  program: split(", ")
+  input:
+    text: '"a, b,c,d, e, "'
+  expected:
+  - - a
+    - b,c,d
+    - e
+    - ''
+  manual:
+  - https://jqlang.org/manual/v1.8/#split-1
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-join-1
+  title: join(str) (1)
+  level: 101
+  tags:
+  - manual
+  program: join(", ")
+  input:
+    text: '["a","b,c,d","e"]'
+  expected:
+  - a, b,c,d, e
+  manual:
+  - https://jqlang.org/manual/v1.8/#join
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-join-2
+  title: join(str) (2)
+  level: 101
+  tags:
+  - manual
+  program: join(" ")
+  input:
+    text: '["a",1,2.3,true,null,false]'
+  expected:
+  - a 1 2.3 true  false
+  manual:
+  - https://jqlang.org/manual/v1.8/#join
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-ascii-downcase-ascii-upcase-1
+  title: ascii_downcase, ascii_upcase
+  level: 101
+  tags:
+  - manual
+  program: ascii_upcase
+  input:
+    text: '"useful but not for é"'
+  expected:
+  - USEFUL BUT NOT FOR é
+  manual:
+  - https://jqlang.org/manual/v1.8/#ascii_downcase-ascii_upcase
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-while-1
+  title: while(cond; update)
+  level: 101
+  tags:
+  - manual
+  program: '[while(.<100; .*2)]'
+  input:
+    text: '1'
+  expected:
+  - - 1
+    - 2
+    - 4
+    - 8
+    - 16
+    - 32
+    - 64
+  manual:
+  - https://jqlang.org/manual/v1.8/#while
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-repeat-1
+  title: repeat(exp)
+  level: 101
+  tags:
+  - manual
+  program: '[repeat(.*2, error)?]'
+  input:
+    text: '1'
+  expected:
+  - - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#repeat
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-until-1
+  title: until(cond; next)
+  level: 101
+  tags:
+  - manual
+  program: '[.,1]|until(.[0] < 1; [.[0] - 1, .[1] * .[0]])|.[1]'
+  input:
+    text: '4'
+  expected:
+  - 24
+  manual:
+  - https://jqlang.org/manual/v1.8/#until
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-recurse-1
+  title: recurse(f), recurse, recurse(f; condition) (1)
+  level: 101
+  tags:
+  - manual
+  program: recurse(.foo[])
+  input:
+    text: '{"foo":[{"foo": []}, {"foo":[{"foo":[]}]}]}'
+  expected:
+  - foo:
+    - foo: []
+    - foo:
+      - foo: []
+  - foo: []
+  - foo:
+    - foo: []
+  - foo: []
+  manual:
+  - https://jqlang.org/manual/v1.8/#recurse
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-recurse-2
+  title: recurse(f), recurse, recurse(f; condition) (2)
+  level: 101
+  tags:
+  - manual
+  program: recurse
+  input:
+    text: '{"a":0,"b":[1]}'
+  expected:
+  - a: 0
+    b:
+    - 1
+  - 0
+  - - 1
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#recurse
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-recurse-3
+  title: recurse(f), recurse, recurse(f; condition) (3)
+  level: 101
+  tags:
+  - manual
+  program: recurse(. * .; . < 20)
+  input:
+    text: '2'
+  expected:
+  - 2
+  - 4
+  - 16
+  manual:
+  - https://jqlang.org/manual/v1.8/#recurse
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-walk-1
+  title: walk(f) (1)
+  level: 101
+  tags:
+  - manual
+  program: walk(if type == "array" then sort else . end)
+  input:
+    text: '[[4, 1, 7], [8, 5, 2], [3, 6, 9]]'
+  expected:
+  - - - 1
+      - 4
+      - 7
+    - - 2
+      - 5
+      - 8
+    - - 3
+      - 6
+      - 9
+  manual:
+  - https://jqlang.org/manual/v1.8/#walk
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-walk-2
+  title: walk(f) (2)
+  level: 101
+  tags:
+  - manual
+  program: walk( if type == "object" then with_entries( .key |= sub( "^_+"; "") ) else . end )
+  input:
+    text: '[ { "_a": { "__b": 2 } } ]'
+  expected:
+  - - a:
+        b: 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#walk
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-env-env-1
+  title: $ENV, env (1)
+  level: 101
+  tags:
+  - manual
+  program: $ENV.PAGER
+  input:
+    text: 'null'
+  expected:
+  - less
+  manual:
+  - https://jqlang.org/manual/v1.8/#$env-env
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-env-env-2
+  title: $ENV, env (2)
+  level: 101
+  tags:
+  - manual
+  program: env.PAGER
+  input:
+    text: 'null'
+  expected:
+  - less
+  manual:
+  - https://jqlang.org/manual/v1.8/#$env-env
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-transpose-1
+  title: transpose
+  level: 101
+  tags:
+  - manual
+  program: transpose
+  input:
+    text: '[[1], [2,3]]'
+  expected:
+  - - - 1
+      - 2
+    - - null
+      - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#transpose
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-bsearch-1
+  title: bsearch(x) (1)
+  level: 101
+  tags:
+  - manual
+  program: bsearch(0)
+  input:
+    text: '[0,1]'
+  expected:
+  - 0
+  manual:
+  - https://jqlang.org/manual/v1.8/#bsearch
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-bsearch-2
+  title: bsearch(x) (2)
+  level: 101
+  tags:
+  - manual
+  program: bsearch(0)
+  input:
+    text: '[1,2,3]'
+  expected:
+  - -1
+  manual:
+  - https://jqlang.org/manual/v1.8/#bsearch
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-bsearch-3
+  title: bsearch(x) (3)
+  level: 101
+  tags:
+  - manual
+  program: bsearch(4) as $ix | if $ix < 0 then .[-(1+$ix)] = 4 else . end
+  input:
+    text: '[1,2,3]'
+  expected:
+  - - 1
+    - 2
+    - 3
+    - 4
+  manual:
+  - https://jqlang.org/manual/v1.8/#bsearch
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-string-interpolation-1
+  title: 'String interpolation: \(exp)'
+  level: 101
+  tags:
+  - manual
+  program: '"The input was \(.), which is one less than \(.+1)"'
+  input:
+    text: '42'
+  expected:
+  - The input was 42, which is one less than 43
+  manual:
+  - https://jqlang.org/manual/v1.8/#string-interpolation
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-convert-to-from-json-1
+  title: Convert to/from JSON (1)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|tostring]'
+  input:
+    text: '[1, "foo", ["foo"]]'
+  expected:
+  - - '1'
+    - foo
+    - '["foo"]'
+  manual:
+  - https://jqlang.org/manual/v1.8/#convert-to-from-json
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-convert-to-from-json-2
+  title: Convert to/from JSON (2)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|tojson]'
+  input:
+    text: '[1, "foo", ["foo"]]'
+  expected:
+  - - '1'
+    - '"foo"'
+    - '["foo"]'
+  manual:
+  - https://jqlang.org/manual/v1.8/#convert-to-from-json
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-convert-to-from-json-3
+  title: Convert to/from JSON (3)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|tojson|fromjson]'
+  input:
+    text: '[1, "foo", ["foo"]]'
+  expected:
+  - - 1
+    - foo
+    - - foo
+  manual:
+  - https://jqlang.org/manual/v1.8/#convert-to-from-json
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-format-strings-and-escaping-1
+  title: Format strings and escaping (1)
+  level: 101
+  tags:
+  - manual
+  program: '@html'
+  input:
+    text: '"This works if x < y"'
+  expected:
+  - This works if x &lt; y
+  manual:
+  - https://jqlang.org/manual/v1.8/#format-strings-and-escaping
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-format-strings-and-escaping-2
+  title: Format strings and escaping (2)
+  level: 101
+  tags:
+  - manual
+  program: '@sh "echo \(.)"'
+  input:
+    text: '"O''Hara''s Ale"'
+  expected:
+  - echo 'O'\''Hara'\''s Ale'
+  manual:
+  - https://jqlang.org/manual/v1.8/#format-strings-and-escaping
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-format-strings-and-escaping-3
+  title: Format strings and escaping (3)
+  level: 101
+  tags:
+  - manual
+  program: '@base64'
+  input:
+    text: '"This is a message"'
+  expected:
+  - VGhpcyBpcyBhIG1lc3NhZ2U=
+  manual:
+  - https://jqlang.org/manual/v1.8/#format-strings-and-escaping
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-format-strings-and-escaping-4
+  title: Format strings and escaping (4)
+  level: 101
+  tags:
+  - manual
+  program: '@base64d'
+  input:
+    text: '"VGhpcyBpcyBhIG1lc3NhZ2U="'
+  expected:
+  - This is a message
+  manual:
+  - https://jqlang.org/manual/v1.8/#format-strings-and-escaping
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-dates-1
+  title: Dates (1)
+  level: 101
+  tags:
+  - manual
+  program: fromdate
+  input:
+    text: '"2015-03-05T23:51:47Z"'
+  expected:
+  - 1425599507
+  manual:
+  - https://jqlang.org/manual/v1.8/#dates
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-dates-2
+  title: Dates (2)
+  level: 101
+  tags:
+  - manual
+  program: strptime("%Y-%m-%dT%H:%M:%SZ")
+  input:
+    text: '"2015-03-05T23:51:47Z"'
+  expected:
+  - - 2015
+    - 2
+    - 5
+    - 23
+    - 51
+    - 47
+    - 4
+    - 63
+  manual:
+  - https://jqlang.org/manual/v1.8/#dates
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-dates-3
+  title: Dates (3)
+  level: 101
+  tags:
+  - manual
+  program: strptime("%Y-%m-%dT%H:%M:%SZ")|mktime
+  input:
+    text: '"2015-03-05T23:51:47Z"'
+  expected:
+  - 1425599507
+  manual:
+  - https://jqlang.org/manual/v1.8/#dates
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0

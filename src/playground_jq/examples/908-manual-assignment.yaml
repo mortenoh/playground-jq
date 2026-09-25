@@ -1,0 +1,99 @@
+id: manual-assignment
+title: 'jq manual: Assignment'
+description: 'Every runnable example from the ''Assignment'' section of the jq 1.8 manual. Source: https://jqlang.org/manual/v1.8/#assignment
+  (jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0).'
+order: 907
+track: manual
+examples:
+- id: manual-update-assignment-1
+  title: 'Update-assignment: |='
+  level: 201
+  tags:
+  - manual
+  program: (..|select(type=="boolean")) |= if . then 1 else 0 end
+  input:
+    text: '[true,false,[5,true,[true,[false]],false]]'
+  expected:
+  - - 1
+    - 0
+    - - 5
+      - 1
+      - - 1
+        - - 0
+      - 0
+  manual:
+  - https://jqlang.org/manual/v1.8/#update-assignment
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-arithmetic-update-assignment-1
+  title: 'Arithmetic update-assignment: +=, -=, *=, /=, %=, //='
+  level: 201
+  tags:
+  - manual
+  program: .foo += 1
+  input:
+    text: '{"foo": 42}'
+  expected:
+  - foo: 43
+  manual:
+  - https://jqlang.org/manual/v1.8/#arithmetic-update-assignment
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-plain-assignment-1
+  title: 'Plain assignment: = (1)'
+  level: 201
+  tags:
+  - manual
+  program: .a = .b
+  input:
+    text: '{"a": {"b": 10}, "b": 20}'
+  expected:
+  - a: 20
+    b: 20
+  manual:
+  - https://jqlang.org/manual/v1.8/#plain-assignment
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-plain-assignment-2
+  title: 'Plain assignment: = (2)'
+  level: 201
+  tags:
+  - manual
+  program: .a |= .b
+  input:
+    text: '{"a": {"b": 10}, "b": 20}'
+  expected:
+  - a: 10
+    b: 20
+  manual:
+  - https://jqlang.org/manual/v1.8/#plain-assignment
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-plain-assignment-3
+  title: 'Plain assignment: = (3)'
+  level: 201
+  tags:
+  - manual
+  program: (.a, .b) = range(3)
+  input:
+    text: 'null'
+  expected:
+  - a: 0
+    b: 0
+  - a: 1
+    b: 1
+  - a: 2
+    b: 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#plain-assignment
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-plain-assignment-4
+  title: 'Plain assignment: = (4)'
+  level: 201
+  tags:
+  - manual
+  program: (.a, .b) |= range(3)
+  input:
+    text: 'null'
+  expected:
+  - a: 0
+    b: 0
+  manual:
+  - https://jqlang.org/manual/v1.8/#plain-assignment
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0

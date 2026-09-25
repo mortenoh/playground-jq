@@ -1,0 +1,268 @@
+id: manual-conditionals-and-comparisons
+title: 'jq manual: Conditionals and Comparisons'
+description: 'Every runnable example from the ''Conditionals and Comparisons'' section of the jq 1.8 manual. Source: https://jqlang.org/manual/v1.8/#conditionals-and-comparisons
+  (jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0).'
+order: 903
+track: manual
+examples:
+- id: manual-conditionals-and-comparisons-1-1
+  title: ==, != (1)
+  level: 101
+  tags:
+  - manual
+  program: . == false
+  input:
+    text: 'null'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#==-!=
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-conditionals-and-comparisons-1-2
+  title: ==, != (2)
+  level: 101
+  tags:
+  - manual
+  program: '. == {"b": {"d": (4 + 1e-20), "c": 3}, "a":1}'
+  input:
+    text: '{"a":1, "b": {"c": 3, "d": 4}}'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#==-!=
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-conditionals-and-comparisons-1-3
+  title: ==, != (3)
+  level: 101
+  tags:
+  - manual
+  program: .[] == 1
+  input:
+    text: '[1, 1.0, "1", "banana"]'
+  expected:
+  - true
+  - true
+  - false
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#==-!=
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-if-then-else-end-1
+  title: if-then-else-end
+  level: 101
+  tags:
+  - manual
+  program: "if . == 0 then\n  \"zero\"\nelif . == 1 then\n  \"one\"\nelse\n  \"many\"\nend"
+  input:
+    text: '2'
+  expected:
+  - many
+  manual:
+  - https://jqlang.org/manual/v1.8/#if-then-else-end
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-conditionals-and-comparisons-3-1
+  title: '>, >=, <=, <'
+  level: 101
+  tags:
+  - manual
+  program: . < 5
+  input:
+    text: '2'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#>->=-<=-<
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-and-or-not-1
+  title: and, or, not (1)
+  level: 101
+  tags:
+  - manual
+  program: 42 and "a string"
+  input:
+    text: 'null'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#and-or-not
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-and-or-not-2
+  title: and, or, not (2)
+  level: 101
+  tags:
+  - manual
+  program: (true, false) or false
+  input:
+    text: 'null'
+  expected:
+  - true
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#and-or-not
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-and-or-not-3
+  title: and, or, not (3)
+  level: 101
+  tags:
+  - manual
+  program: (true, true) and (true, false)
+  input:
+    text: 'null'
+  expected:
+  - true
+  - false
+  - true
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#and-or-not
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-and-or-not-4
+  title: and, or, not (4)
+  level: 101
+  tags:
+  - manual
+  program: '[true, false | not]'
+  input:
+    text: 'null'
+  expected:
+  - - false
+    - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#and-or-not
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-alternative-operator-1
+  title: 'Alternative operator: // (1)'
+  level: 101
+  tags:
+  - manual
+  program: empty // 42
+  input:
+    text: 'null'
+  expected:
+  - 42
+  manual:
+  - https://jqlang.org/manual/v1.8/#alternative-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-alternative-operator-2
+  title: 'Alternative operator: // (2)'
+  level: 101
+  tags:
+  - manual
+  program: .foo // 42
+  input:
+    text: '{"foo": 19}'
+  expected:
+  - 19
+  manual:
+  - https://jqlang.org/manual/v1.8/#alternative-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-alternative-operator-3
+  title: 'Alternative operator: // (3)'
+  level: 101
+  tags:
+  - manual
+  program: .foo // 42
+  input:
+    text: '{}'
+  expected:
+  - 42
+  manual:
+  - https://jqlang.org/manual/v1.8/#alternative-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-alternative-operator-4
+  title: 'Alternative operator: // (4)'
+  level: 101
+  tags:
+  - manual
+  program: (false, null, 1) // 42
+  input:
+    text: 'null'
+  expected:
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#alternative-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-alternative-operator-5
+  title: 'Alternative operator: // (5)'
+  level: 101
+  tags:
+  - manual
+  program: (false, null, 1) | . // 42
+  input:
+    text: 'null'
+  expected:
+  - 42
+  - 42
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#alternative-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-try-catch-1
+  title: try-catch (1)
+  level: 101
+  tags:
+  - manual
+  program: try .a catch ". is not an object"
+  input:
+    text: 'true'
+  expected:
+  - . is not an object
+  manual:
+  - https://jqlang.org/manual/v1.8/#try-catch
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-try-catch-2
+  title: try-catch (2)
+  level: 101
+  tags:
+  - manual
+  program: '[.[]|try .a]'
+  input:
+    text: '[{}, true, {"a":1}]'
+  expected:
+  - - null
+    - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#try-catch
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-try-catch-3
+  title: try-catch (3)
+  level: 101
+  tags:
+  - manual
+  program: try error("some exception") catch .
+  input:
+    text: 'true'
+  expected:
+  - some exception
+  manual:
+  - https://jqlang.org/manual/v1.8/#try-catch
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-error-suppression-optional-operator-1
+  title: 'Error Suppression / Optional Operator: ? (1)'
+  level: 101
+  tags:
+  - manual
+  program: '[.[] | .a?]'
+  input:
+    text: '[{}, true, {"a":1}]'
+  expected:
+  - - null
+    - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#error-suppression-optional-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-error-suppression-optional-operator-2
+  title: 'Error Suppression / Optional Operator: ? (2)'
+  level: 101
+  tags:
+  - manual
+  program: '[.[] | tonumber?]'
+  input:
+    text: '["1", "invalid", "3", 4]'
+  expected:
+  - - 1
+    - 3
+    - 4
+  manual:
+  - https://jqlang.org/manual/v1.8/#error-suppression-optional-operator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0

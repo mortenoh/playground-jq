@@ -2,7 +2,7 @@ import pytest
 
 from playground_jq.config import Settings
 from playground_jq.jq.engine import needs_cli, run_program
-from playground_jq.jq.models import RunOptions
+from playground_jq.jq.models import SANDBOX_ENV, RunOptions
 from playground_jq.jq.runner import RunnerPool
 
 
@@ -63,7 +63,13 @@ async def test_named_arguments(settings: Settings) -> None:
 
 async def test_environment_is_sandboxed(settings: Settings) -> None:
     result = await run_program("[$ENV, env]", "", RunOptions(null_input=True), settings)
-    assert result.outputs == [[{}, {}]]
+    assert result.outputs == [[SANDBOX_ENV, SANDBOX_ENV]]
+
+
+@pytest.mark.cli_jq
+async def test_binary_sees_the_same_environment(settings: Settings) -> None:
+    result = await run_program("$ENV", "", RunOptions(null_input=True, engine="cli"), settings)
+    assert result.outputs == [SANDBOX_ENV]
 
 
 async def test_compile_error_is_located(settings: Settings) -> None:

@@ -2,8 +2,8 @@
 
 The library evaluates each input value on its own, so `input`/`inputs` never see the next
 value; it has no `--stream`, no `input_filename`, and `debug`/`stderr` write to a process
-nobody reads. The binary does all of that. It runs with an empty environment, so `$ENV` is
-`{}` here as well.
+nobody reads. The binary does all of that. It runs with the same stand-in environment the
+library sees, so `$ENV` means the same on both.
 """
 
 import asyncio
@@ -14,7 +14,7 @@ from typing import Any
 from pydantic import BaseModel, Field, JsonValue
 
 from playground_jq.jq.diagnostics import compile_errors, plain_error
-from playground_jq.jq.models import JqError, RunOptions
+from playground_jq.jq.models import SANDBOX_ENV, JqError, RunOptions
 
 #: jq's exit status for a program that did not compile.
 EXIT_COMPILE = 3
@@ -68,7 +68,7 @@ async def run_binary(
         stdin=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
-        env={},
+        env=SANDBOX_ENV,
     )
     try:
         async with asyncio.timeout(timeout):

@@ -4,6 +4,16 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, JsonValue
 
+#: The environment programs see as `$ENV` and `env`, instead of the server's own.
+SANDBOX_ENV = {
+    "HOME": "/home/learner",
+    "USER": "learner",
+    "SHELL": "/bin/bash",
+    "PAGER": "less",
+    "LANG": "C.UTF-8",
+    "TZ": "UTC",
+}
+
 #: Which jq evaluates a program: the jq.py library, the jq command-line binary, or whichever fits.
 EngineName = Literal["auto", "library", "cli"]
 

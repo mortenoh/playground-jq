@@ -19,7 +19,7 @@ from rich.table import Table
 
 from playground_jq import __version__
 from playground_jq.config import get_settings
-from playground_jq.content.library import load_library
+from playground_jq.content.library import ContentError, load_library
 from playground_jq.content.verify import Verdict, items, verify_item
 from playground_jq.jq.engine import run_program
 from playground_jq.jq.models import RunOptions
@@ -27,7 +27,9 @@ from playground_jq.logging import configure_logging
 from playground_jq.sources.base import SourceKind
 from playground_jq.sources.registry import Sources
 
-app = typer.Typer(help="A playground for learning jq.", no_args_is_help=True, add_completion=False)
+app = typer.Typer(
+    help="A playground for learning jq.", no_args_is_help=True, add_completion=False, pretty_exceptions_enable=False
+)
 sources_app = typer.Typer(help="Input sources: static datasets, postman-echo and DHIS2.", no_args_is_help=True)
 examples_app = typer.Typer(help="The example library.", no_args_is_help=True)
 content_app = typer.Typer(help="Check and fill all content: examples, tutorials, guide snippets.", no_args_is_help=True)
@@ -313,4 +315,8 @@ def _verify(*, kinds: set[str], live: bool, group: str | None = None, prefix: st
 
 def run() -> None:
     """Entry point for the `pjq` and `playground-jq` scripts."""
-    app()
+    try:
+        app()
+    except ContentError as error:
+        err_console.print(f"content error: {error}", markup=False, highlight=False)
+        raise SystemExit(2) from error

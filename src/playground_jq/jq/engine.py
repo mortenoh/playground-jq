@@ -10,7 +10,7 @@ from playground_jq.config import Settings
 from playground_jq.jq.binary import locate, run_binary
 from playground_jq.jq.diagnostics import compile_errors, plain_error
 from playground_jq.jq.formatting import equivalent_command, format_outputs
-from playground_jq.jq.models import JqError, RunOptions, RunResult
+from playground_jq.jq.models import SANDBOX_ENV, JqError, RunOptions, RunResult
 from playground_jq.jq.runner import POOL, RunnerPool, RunnerStopped
 from playground_jq.sources.geojson import is_geojson
 
@@ -92,6 +92,7 @@ async def run_program(
         "null_input": options.null_input,
         "raw_input": options.raw_input,
         "max_outputs": settings.jq_max_outputs,
+        "env": SANDBOX_ENV,
     }
     try:
         reply = await pool.run(request, settings.jq_timeout_seconds)

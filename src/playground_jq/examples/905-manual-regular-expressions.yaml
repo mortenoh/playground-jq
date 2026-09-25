@@ -1,0 +1,286 @@
+id: manual-regular-expressions
+title: 'jq manual: Regular expressions'
+description: 'Every runnable example from the ''Regular expressions'' section of the jq 1.8 manual. Source: https://jqlang.org/manual/v1.8/#regular-expressions
+  (jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0).'
+order: 904
+track: manual
+examples:
+- id: manual-test-1
+  title: test(val), test(regex; flags) (1)
+  level: 101
+  tags:
+  - manual
+  program: test("foo")
+  input:
+    text: '"foo"'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#test
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-test-2
+  title: test(val), test(regex; flags) (2)
+  level: 101
+  tags:
+  - manual
+  program: '.[] | test("a b c # spaces are ignored"; "ix")'
+  input:
+    text: '["xabcd", "ABC"]'
+  expected:
+  - true
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#test
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-match-1
+  title: match(val), match(regex; flags) (1)
+  level: 101
+  tags:
+  - manual
+  program: match("(abc)+"; "g")
+  input:
+    text: '"abc abc"'
+  expected:
+  - offset: 0
+    length: 3
+    string: abc
+    captures:
+    - offset: 0
+      length: 3
+      string: abc
+      name: null
+  - offset: 4
+    length: 3
+    string: abc
+    captures:
+    - offset: 4
+      length: 3
+      string: abc
+      name: null
+  manual:
+  - https://jqlang.org/manual/v1.8/#match
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-match-2
+  title: match(val), match(regex; flags) (2)
+  level: 101
+  tags:
+  - manual
+  program: match("foo")
+  input:
+    text: '"foo bar foo"'
+  expected:
+  - offset: 0
+    length: 3
+    string: foo
+    captures: []
+  manual:
+  - https://jqlang.org/manual/v1.8/#match
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-match-3
+  title: match(val), match(regex; flags) (3)
+  level: 101
+  tags:
+  - manual
+  program: match(["foo", "ig"])
+  input:
+    text: '"foo bar FOO"'
+  expected:
+  - offset: 0
+    length: 3
+    string: foo
+    captures: []
+  - offset: 8
+    length: 3
+    string: FOO
+    captures: []
+  manual:
+  - https://jqlang.org/manual/v1.8/#match
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-match-4
+  title: match(val), match(regex; flags) (4)
+  level: 101
+  tags:
+  - manual
+  program: match("foo (?<bar123>bar)? foo"; "ig")
+  input:
+    text: '"foo bar foo foo  foo"'
+  expected:
+  - offset: 0
+    length: 11
+    string: foo bar foo
+    captures:
+    - offset: 4
+      length: 3
+      string: bar
+      name: bar123
+  - offset: 12
+    length: 8
+    string: foo  foo
+    captures:
+    - offset: -1
+      length: 0
+      string: null
+      name: bar123
+  manual:
+  - https://jqlang.org/manual/v1.8/#match
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-match-5
+  title: match(val), match(regex; flags) (5)
+  level: 101
+  tags:
+  - manual
+  program: '[ match("."; "g")] | length'
+  input:
+    text: '"abc"'
+  expected:
+  - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#match
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-capture-1
+  title: capture(val), capture(regex; flags)
+  level: 101
+  tags:
+  - manual
+  program: capture("(?<a>[a-z]+)-(?<n>[0-9]+)")
+  input:
+    text: '"xyzzy-14"'
+  expected:
+  - a: xyzzy
+    n: '14'
+  manual:
+  - https://jqlang.org/manual/v1.8/#capture
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-scan-1
+  title: scan(regex), scan(regex; flags) (1)
+  level: 101
+  tags:
+  - manual
+  program: scan("c")
+  input:
+    text: '"abcdefabc"'
+  expected:
+  - c
+  - c
+  manual:
+  - https://jqlang.org/manual/v1.8/#scan
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-scan-2
+  title: scan(regex), scan(regex; flags) (2)
+  level: 101
+  tags:
+  - manual
+  program: scan("(a+)(b+)")
+  input:
+    text: '"abaabbaaabbb"'
+  expected:
+  - - a
+    - b
+  - - aa
+    - bb
+  - - aaa
+    - bbb
+  manual:
+  - https://jqlang.org/manual/v1.8/#scan
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-split-2-1
+  title: split(regex; flags)
+  level: 101
+  tags:
+  - manual
+  program: split(", *"; null)
+  input:
+    text: '"ab,cd, ef"'
+  expected:
+  - - ab
+    - cd
+    - ef
+  manual:
+  - https://jqlang.org/manual/v1.8/#split-2
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-splits-1
+  title: splits(regex), splits(regex; flags) (1)
+  level: 101
+  tags:
+  - manual
+  program: splits(", *")
+  input:
+    text: '"ab,cd,   ef, gh"'
+  expected:
+  - ab
+  - cd
+  - ef
+  - gh
+  manual:
+  - https://jqlang.org/manual/v1.8/#splits
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-splits-2
+  title: splits(regex), splits(regex; flags) (2)
+  level: 101
+  tags:
+  - manual
+  program: splits(",? *"; "n")
+  input:
+    text: '"ab,cd ef,  gh"'
+  expected:
+  - ab
+  - cd
+  - ef
+  - gh
+  manual:
+  - https://jqlang.org/manual/v1.8/#splits
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-sub-1
+  title: sub(regex; tostring), sub(regex; tostring; flags) (1)
+  level: 101
+  tags:
+  - manual
+  program: sub("[^a-z]*(?<x>[a-z]+)"; "Z\(.x)"; "g")
+  input:
+    text: '"123abc456def"'
+  expected:
+  - ZabcZdef
+  manual:
+  - https://jqlang.org/manual/v1.8/#sub
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-sub-2
+  title: sub(regex; tostring), sub(regex; tostring; flags) (2)
+  level: 101
+  tags:
+  - manual
+  program: '[sub("(?<a>.)"; "\(.a|ascii_upcase)", "\(.a|ascii_downcase)")]'
+  input:
+    text: '"aB"'
+  expected:
+  - - AB
+    - aB
+  manual:
+  - https://jqlang.org/manual/v1.8/#sub
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-gsub-1
+  title: gsub(regex; tostring), gsub(regex; tostring; flags) (1)
+  level: 101
+  tags:
+  - manual
+  program: gsub("(?<x>.)[^a]*"; "+\(.x)-")
+  input:
+    text: '"Abcabc"'
+  expected:
+  - +A-+a-
+  manual:
+  - https://jqlang.org/manual/v1.8/#gsub
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-gsub-2
+  title: gsub(regex; tostring), gsub(regex; tostring; flags) (2)
+  level: 101
+  tags:
+  - manual
+  program: '[gsub("p"; "a", "b")]'
+  input:
+    text: '"p"'
+  expected:
+  - - a
+    - b
+  manual:
+  - https://jqlang.org/manual/v1.8/#gsub
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0

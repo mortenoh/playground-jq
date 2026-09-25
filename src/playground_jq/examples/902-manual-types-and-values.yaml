@@ -1,0 +1,81 @@
+id: manual-types-and-values
+title: 'jq manual: Types and Values'
+description: 'Every runnable example from the ''Types and Values'' section of the jq 1.8 manual. Source: https://jqlang.org/manual/v1.8/#types-and-values
+  (jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0).'
+order: 901
+track: manual
+examples:
+- id: manual-array-construction-1
+  title: 'Array construction: [] (1)'
+  level: 101
+  tags:
+  - manual
+  program: '[.user, .projects[]]'
+  input:
+    text: '{"user":"stedolan", "projects": ["jq", "wikiflow"]}'
+  expected:
+  - - stedolan
+    - jq
+    - wikiflow
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-construction
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-construction-2
+  title: 'Array construction: [] (2)'
+  level: 101
+  tags:
+  - manual
+  program: '[ .[] | . * 2]'
+  input:
+    text: '[1, 2, 3]'
+  expected:
+  - - 2
+    - 4
+    - 6
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-construction
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-object-construction-1
+  title: 'Object Construction: {} (1)'
+  level: 101
+  tags:
+  - manual
+  program: '{user, title: .titles[]}'
+  input:
+    text: '{"user":"stedolan","titles":["JQ Primer", "More JQ"]}'
+  expected:
+  - user: stedolan
+    title: JQ Primer
+  - user: stedolan
+    title: More JQ
+  manual:
+  - https://jqlang.org/manual/v1.8/#object-construction
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-object-construction-2
+  title: 'Object Construction: {} (2)'
+  level: 101
+  tags:
+  - manual
+  program: '{(.user): .titles}'
+  input:
+    text: '{"user":"stedolan","titles":["JQ Primer", "More JQ"]}'
+  expected:
+  - stedolan:
+    - JQ Primer
+    - More JQ
+  manual:
+  - https://jqlang.org/manual/v1.8/#object-construction
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-recursive-descent-1
+  title: 'Recursive Descent: ..'
+  level: 101
+  tags:
+  - manual
+  program: .. | .a?
+  input:
+    text: '[[{"a":1}]]'
+  expected:
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#recursive-descent
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0

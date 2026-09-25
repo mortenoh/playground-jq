@@ -21,9 +21,13 @@ import jq
 #: Typed `Any` because the jq binding ships no type information.
 libjq: Any = jq
 
-#: Hides the server's environment from programs; on the same line so line numbers are the author's.
-SANDBOX_PREFIX = "{} as $ENV | def env: {}; ("
+#: Closes the sandbox wrapper; the opening is on the program's first line, so line numbers are the author's.
 SANDBOX_SUFFIX = "\n)"
+
+
+def sandbox_prefix(env: dict[str, str]) -> str:
+    """Replaces `$ENV` and `env` with the environment the request names, hiding the server's own."""
+    return f"{json.dumps(env)} as $ENV | def env: $ENV; ("
 
 
 def main() -> None:
@@ -41,7 +45,8 @@ def answer(request: dict[str, Any]) -> dict[str, Any]:
     variables: dict[str, Any] = request.get("variables", {})
     try:
         libjq.compile(program, args=variables)
-        compiled = libjq.compile(SANDBOX_PREFIX + program + SANDBOX_SUFFIX, args=variables)
+        wrapped = sandbox_prefix(request.get("env", {})) + program + SANDBOX_SUFFIX
+        compiled = libjq.compile(wrapped, args=variables)
     except ValueError as error:
         return {"phase": "compile", "error": str(error).strip(), "outputs": [], "truncated": False}
     limit: int = request.get("max_outputs", 10_000)

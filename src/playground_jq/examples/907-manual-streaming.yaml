@@ -1,0 +1,48 @@
+id: manual-streaming
+title: 'jq manual: Streaming'
+description: 'Every runnable example from the ''Streaming'' section of the jq 1.8 manual. Source: https://jqlang.org/manual/v1.8/#streaming
+  (jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0).'
+order: 906
+track: manual
+examples:
+- id: manual-truncate-stream-1
+  title: truncate_stream(stream_expression)
+  level: 201
+  tags:
+  - manual
+  program: truncate_stream([[0],"a"],[[1,0],"b"],[[1,0]],[[1]])
+  input:
+    text: '1'
+  expected:
+  - - - 0
+    - b
+  - - - 0
+  manual:
+  - https://jqlang.org/manual/v1.8/#truncate_stream
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-fromstream-1
+  title: fromstream(stream_expression)
+  level: 201
+  tags:
+  - manual
+  program: fromstream(1|truncate_stream([[0],"a"],[[1,0],"b"],[[1,0]],[[1]]))
+  input:
+    text: 'null'
+  expected:
+  - - b
+  manual:
+  - https://jqlang.org/manual/v1.8/#fromstream
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-tostream-1
+  title: tostream
+  level: 201
+  tags:
+  - manual
+  program: . as $dot|fromstream($dot|tostream)|.==$dot
+  input:
+    text: '[0,[1,{"a":1},{"b":2}]]'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#tostream
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0

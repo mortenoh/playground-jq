@@ -1,0 +1,416 @@
+id: manual-basic-filters
+title: 'jq manual: Basic filters'
+description: 'Every runnable example from the ''Basic filters'' section of the jq 1.8 manual. Source: https://jqlang.org/manual/v1.8/#basic-filters
+  (jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0).'
+order: 900
+track: manual
+examples:
+- id: manual-identity-1
+  title: 'Identity: . (1)'
+  level: 101
+  tags:
+  - manual
+  program: .
+  input:
+    text: '"Hello, world!"'
+  expected:
+  - Hello, world!
+  manual:
+  - https://jqlang.org/manual/v1.8/#identity
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-identity-2
+  title: 'Identity: . (2)'
+  level: 101
+  tags:
+  - manual
+  program: .
+  input:
+    text: '0.12345678901234567890123456789'
+  expected:
+  - 0.12345678901234568
+  manual:
+  - https://jqlang.org/manual/v1.8/#identity
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-identity-3
+  title: 'Identity: . (3)'
+  level: 101
+  tags:
+  - manual
+  program: '[., tojson] == if have_decnum then [12345678909876543212345,"12345678909876543212345"] else [12345678909876543000000,"12345678909876543000000"]
+    end'
+  input:
+    text: '12345678909876543212345'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#identity
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-identity-4
+  title: 'Identity: . (4)'
+  level: 101
+  tags:
+  - manual
+  program: '[1234567890987654321,-1234567890987654321 | tojson] == if have_decnum then ["1234567890987654321","-1234567890987654321"]
+    else ["1234567890987654400","-1234567890987654400"] end'
+  input:
+    text: 'null'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#identity
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-identity-5
+  title: 'Identity: . (5)'
+  level: 101
+  tags:
+  - manual
+  program: . < 0.12345678901234567890123456788
+  input:
+    text: '0.12345678901234567890123456789'
+  expected:
+  - false
+  manual:
+  - https://jqlang.org/manual/v1.8/#identity
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-identity-6
+  title: 'Identity: . (6)'
+  level: 101
+  tags:
+  - manual
+  program: map([., . == 1]) | tojson == if have_decnum then "[[1,true],[1.000,true],[1.0,true],[1.00,true]]" else "[[1,true],[1,true],[1,true],[1,true]]"
+    end
+  input:
+    text: '[1, 1.000, 1.0, 100e-2]'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#identity
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-identity-7
+  title: 'Identity: . (7)'
+  level: 101
+  tags:
+  - manual
+  program: . as $big | [$big, $big + 1] | map(. > 10000000000000000000000000000000) | . == if have_decnum then [true, false]
+    else [false, false] end
+  input:
+    text: '10000000000000000000000000000001'
+  expected:
+  - true
+  manual:
+  - https://jqlang.org/manual/v1.8/#identity
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-object-identifier-index-1
+  title: 'Object Identifier-Index: .foo, .foo.bar (1)'
+  level: 101
+  tags:
+  - manual
+  program: .foo
+  input:
+    text: '{"foo": 42, "bar": "less interesting data"}'
+  expected:
+  - 42
+  manual:
+  - https://jqlang.org/manual/v1.8/#object-identifier-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-object-identifier-index-2
+  title: 'Object Identifier-Index: .foo, .foo.bar (2)'
+  level: 101
+  tags:
+  - manual
+  program: .foo
+  input:
+    text: '{"notfoo": true, "alsonotfoo": false}'
+  expected:
+  - null
+  manual:
+  - https://jqlang.org/manual/v1.8/#object-identifier-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-object-identifier-index-3
+  title: 'Object Identifier-Index: .foo, .foo.bar (3)'
+  level: 101
+  tags:
+  - manual
+  program: .["foo"]
+  input:
+    text: '{"foo": 42}'
+  expected:
+  - 42
+  manual:
+  - https://jqlang.org/manual/v1.8/#object-identifier-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-optional-object-identifier-index-1
+  title: 'Optional Object Identifier-Index: .foo? (1)'
+  level: 101
+  tags:
+  - manual
+  program: .foo?
+  input:
+    text: '{"foo": 42, "bar": "less interesting data"}'
+  expected:
+  - 42
+  manual:
+  - https://jqlang.org/manual/v1.8/#optional-object-identifier-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-optional-object-identifier-index-2
+  title: 'Optional Object Identifier-Index: .foo? (2)'
+  level: 101
+  tags:
+  - manual
+  program: .foo?
+  input:
+    text: '{"notfoo": true, "alsonotfoo": false}'
+  expected:
+  - null
+  manual:
+  - https://jqlang.org/manual/v1.8/#optional-object-identifier-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-optional-object-identifier-index-3
+  title: 'Optional Object Identifier-Index: .foo? (3)'
+  level: 101
+  tags:
+  - manual
+  program: .["foo"]?
+  input:
+    text: '{"foo": 42}'
+  expected:
+  - 42
+  manual:
+  - https://jqlang.org/manual/v1.8/#optional-object-identifier-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-optional-object-identifier-index-4
+  title: 'Optional Object Identifier-Index: .foo? (4)'
+  level: 101
+  tags:
+  - manual
+  program: '[.foo?]'
+  input:
+    text: '[1,2]'
+  expected:
+  - []
+  manual:
+  - https://jqlang.org/manual/v1.8/#optional-object-identifier-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-index-1
+  title: 'Array Index: .[<number>] (1)'
+  level: 101
+  tags:
+  - manual
+  program: .[0]
+  input:
+    text: '[{"name":"JSON", "good":true}, {"name":"XML", "good":false}]'
+  expected:
+  - name: JSON
+    good: true
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-index-2
+  title: 'Array Index: .[<number>] (2)'
+  level: 101
+  tags:
+  - manual
+  program: .[2]
+  input:
+    text: '[{"name":"JSON", "good":true}, {"name":"XML", "good":false}]'
+  expected:
+  - null
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-index-3
+  title: 'Array Index: .[<number>] (3)'
+  level: 101
+  tags:
+  - manual
+  program: .[-2]
+  input:
+    text: '[1,2,3]'
+  expected:
+  - 2
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-index
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-string-slice-1
+  title: 'Array/String Slice: .[<number>:<number>] (1)'
+  level: 101
+  tags:
+  - manual
+  program: .[2:4]
+  input:
+    text: '["a","b","c","d","e"]'
+  expected:
+  - - c
+    - d
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-string-slice
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-string-slice-2
+  title: 'Array/String Slice: .[<number>:<number>] (2)'
+  level: 101
+  tags:
+  - manual
+  program: .[2:4]
+  input:
+    text: '"abcdefghi"'
+  expected:
+  - cd
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-string-slice
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-string-slice-3
+  title: 'Array/String Slice: .[<number>:<number>] (3)'
+  level: 101
+  tags:
+  - manual
+  program: .[:3]
+  input:
+    text: '["a","b","c","d","e"]'
+  expected:
+  - - a
+    - b
+    - c
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-string-slice
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-string-slice-4
+  title: 'Array/String Slice: .[<number>:<number>] (4)'
+  level: 101
+  tags:
+  - manual
+  program: .[-2:]
+  input:
+    text: '["a","b","c","d","e"]'
+  expected:
+  - - d
+    - e
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-string-slice
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-object-value-iterator-1
+  title: 'Array/Object Value Iterator: .[] (1)'
+  level: 101
+  tags:
+  - manual
+  program: .[]
+  input:
+    text: '[{"name":"JSON", "good":true}, {"name":"XML", "good":false}]'
+  expected:
+  - name: JSON
+    good: true
+  - name: XML
+    good: false
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-object-value-iterator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-object-value-iterator-2
+  title: 'Array/Object Value Iterator: .[] (2)'
+  level: 101
+  tags:
+  - manual
+  program: .[]
+  input:
+    text: '[]'
+  expected: []
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-object-value-iterator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-object-value-iterator-3
+  title: 'Array/Object Value Iterator: .[] (3)'
+  level: 101
+  tags:
+  - manual
+  program: .foo[]
+  input:
+    text: '{"foo":[1,2,3]}'
+  expected:
+  - 1
+  - 2
+  - 3
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-object-value-iterator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-array-object-value-iterator-4
+  title: 'Array/Object Value Iterator: .[] (4)'
+  level: 101
+  tags:
+  - manual
+  program: .[]
+  input:
+    text: '{"a": 1, "b": 1}'
+  expected:
+  - 1
+  - 1
+  manual:
+  - https://jqlang.org/manual/v1.8/#array-object-value-iterator
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-comma-1
+  title: 'Comma: , (1)'
+  level: 101
+  tags:
+  - manual
+  program: .foo, .bar
+  input:
+    text: '{"foo": 42, "bar": "something else", "baz": true}'
+  expected:
+  - 42
+  - something else
+  manual:
+  - https://jqlang.org/manual/v1.8/#comma
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-comma-2
+  title: 'Comma: , (2)'
+  level: 101
+  tags:
+  - manual
+  program: .user, .projects[]
+  input:
+    text: '{"user":"stedolan", "projects": ["jq", "wikiflow"]}'
+  expected:
+  - stedolan
+  - jq
+  - wikiflow
+  manual:
+  - https://jqlang.org/manual/v1.8/#comma
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-comma-3
+  title: 'Comma: , (3)'
+  level: 101
+  tags:
+  - manual
+  program: .[4,2]
+  input:
+    text: '["a","b","c","d","e"]'
+  expected:
+  - e
+  - c
+  manual:
+  - https://jqlang.org/manual/v1.8/#comma
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-pipe-1
+  title: 'Pipe: |'
+  level: 101
+  tags:
+  - manual
+  program: .[] | .name
+  input:
+    text: '[{"name":"JSON", "good":true}, {"name":"XML", "good":false}]'
+  expected:
+  - JSON
+  - XML
+  manual:
+  - https://jqlang.org/manual/v1.8/#pipe
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
+- id: manual-parenthesis-1
+  title: Parenthesis
+  level: 101
+  tags:
+  - manual
+  program: (. + 2) * 5
+  input:
+    text: '1'
+  expected:
+  - 15
+  manual:
+  - https://jqlang.org/manual/v1.8/#parenthesis
+  attribution: jq 1.8 manual (https://jqlang.org/manual/v1.8/), CC BY 3.0
