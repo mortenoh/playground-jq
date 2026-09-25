@@ -8,3 +8,20 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Tooling
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.env
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+src/playground_jq/static/*
+!src/playground_jq/static/.gitkeep

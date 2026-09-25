@@ -1,17 +1,113 @@
 [project]
 name = "playground-jq"
 version = "0.1.0"
-description = "Add your description here"
+description = "A playground, language guide, tutorials and example library for learning jq"
 readme = "README.md"
 authors = [
     { name = "Morten Hansen", email = "morten@winterop.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "dhis2w-client>=1.24,<2",
+    "dhis2w-core>=1.24,<2",
+    "fastapi>=0.141.1",
+    "geojson-pydantic>=2.0",
+    "httpx2>=2.12.0",
+    "jq>=1.8",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "pyyaml>=6.0.3",
+    "rich>=15.0.0",
+    "structlog>=25.5.0",
+    "typer>=0.27.2",
+    "uvicorn>=0.52.4",
+]
 
 [project.scripts]
-playground-jq = "playground_jq:main"
+playground-jq = "playground_jq.cli:run"
+pjq = "playground_jq.cli:run"
 
 [build-system]
 requires = ["uv_build>=0.12.0,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "coverage>=7.15.4",
+    "mypy>=2.3.1",
+    "pyright>=1.1.411",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "ruamel-yaml>=0.19.1",
+    "ruff>=0.16.5",
+    "types-pyyaml>=6.0.12.20260815",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "D", "SIM", "UP", "B", "TID"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D100", "D101", "D102", "D103", "D104"]
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"dataclasses.dataclass".msg = "Use pydantic.BaseModel (house rule)"
+"dataclasses.field".msg = "Use pydantic.Field"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["playground_jq"]
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.13"
+disallow_untyped_defs = true
+warn_return_any = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true
+strict_equality = true
+plugins = ["pydantic.mypy"]
+exclude = ["(^|/)conftest\\.py$"]
+
+[[tool.mypy.overrides]]
+module = ["jq"]
+ignore_missing_imports = true
+
+[tool.pyright]
+pythonVersion = "3.13"
+typeCheckingMode = "strict"
+include = ["src", "tests"]
+exclude = ["**/__pycache__", "**/.venv", "frontend"]
+reportMissingTypeStubs = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-q --color=yes --strict-markers -m 'not live'"
+filterwarnings = ["error"]
+markers = [
+    "live: reaches the network (postman-echo, the DHIS2 play server)",
+    "cli_jq: needs the jq binary on PATH",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src/playground_jq"]
+omit = ["*/jq/jq_runner.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError", "\\.\\.\\."]
