@@ -168,22 +168,28 @@ examples:
     expected: [{"dataSet": "BfMAe6Itzgt", "period": "202603", "orgUnit": "DiszpKrYNg8", "dataValues": [{"dataElement": "fbfJHSPpUQD", "value": "14", "categoryOptionCombo": "pq2XI5kz2BY"}, {"dataElement": "fbfJHSPpUQD", "value": "6", "categoryOptionCombo": "PT59n8BQbqM"}, {"dataElement": "cYeuwXTCPkU", "value": "11", "categoryOptionCombo": "pq2XI5kz2BY"}, {"dataElement": "hfdmMSPBgLG", "value": "Stock-out of iron tablets"}, {"dataElement": "rbkr8PL0rwM", "value": "true"}]}]
   # kubectl
   - id: patterns-kubectl-not-running
-    title: 'kubectl: pods that are not running'
+    title: 'kubectl: pods that need attention'
     level: 201
     tags: [kubernetes, kubectl, select, raw-output]
     explanation: |
-      **Pattern: triage list.** One line per pod whose phase is not
-      `Running`, as `namespace/name phase`, the way `kubectl get pods -A -o
-      json | jq -r ...` is used in incident channels. `-r` prints the strings
-      without quotes.
+      **Pattern: triage list.** One line per unhealthy pod, as
+      `namespace/name reason`, the way `kubectl get pods -A -o json | jq -r
+      ...` is used in incident channels. `-r` prints the strings without
+      quotes.
 
-      The finished migration job (`Succeeded`) is listed too; add it to the
-      `select` if completed jobs are noise for you.
-    program: '.items[] | select(.status.phase != "Running") | "\(.metadata.namespace)/\(.metadata.name) \(.status.phase)"'
+      The phase alone is not enough: a crash-looping pod stays in phase
+      `Running`, and the crash shows as a container's
+      `.state.waiting.reason`. So a pod needs attention when its phase is
+      neither `Running` nor `Succeeded`, or when any container is waiting.
+      The `?` in `containerStatuses[]?` matters: a pod that is not scheduled
+      yet has no container statuses, and iterating `null` is an error. The
+      reason printed is the first waiting reason, or the phase when there is
+      none (`first` of nothing is nothing, so `//` falls back).
+    program: '.items[] | select((.status.phase | IN("Running", "Succeeded") | not) or any(.status.containerStatuses[]?; .state.waiting)) | "\(.metadata.namespace)/\(.metadata.name) \(first(.status.containerStatuses[]?.state.waiting.reason | values) // .status.phase)"'
     input: {ref: static:k8s-pods}
     options: {raw_output: true}
     manual: [https://jqlang.org/manual/v1.8/#select, https://jqlang.org/manual/v1.8/#string-interpolation]
-    expected: ["prod/worker-66f5-pqrst CrashLoopBackOff", "staging/migrate-1234-zzzzz Succeeded", "staging/web-9a8b7-aaaaa Pending"]
+    expected: ["prod/worker-66f5-pqrst CrashLoopBackOff", "staging/web-9a8b7-aaaaa Pending"]
   - id: patterns-kubectl-restarts
     title: 'kubectl: pods with restarts, worst first'
     level: 201
@@ -192,8 +198,10 @@ examples:
       **Pattern: top-N by a computed value.** Sum the restart counts of every
       container in a pod, keep the pods that restarted at all, and sort
       descending with `sort_by(-.restarts)` (negating a number reverses the
-      order).
-    program: '[.items[] | {pod: .metadata.name, restarts: (.status.containerStatuses | map(.restartCount) | add)} | select(.restarts > 0)] | sort_by(-.restarts)'
+      order). A pending pod has no `containerStatuses` at all, so the counts
+      are collected with `[]?` and `add // 0` turns the empty sum (`null`)
+      into 0.
+    program: '[.items[] | {pod: .metadata.name, restarts: ([.status.containerStatuses[]?.restartCount] | add // 0)} | select(.restarts > 0)] | sort_by(-.restarts)'
     input: {ref: static:k8s-pods}
     manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
     expected: [[{"pod": "worker-66f5-pqrst", "restarts": 17}, {"pod": "api-7d9f8-fghij", "restarts": 3}, {"pod": "api-5b4c3-uvwxy", "restarts": 1}]]

@@ -10,7 +10,9 @@ steps:
       The input is what `kubectl get pods -A -o json` prints: a `List` whose
       `.items` are pods. The fields you need most sit at different depths:
       the name and namespace under `.metadata`, the phase under `.status`,
-      the node under `.spec`.
+      the node under `.spec`. What each container is doing (ready or not, how
+      often it restarted, whether it is running, waiting or terminated) is
+      under `.status.containerStatuses`, one entry per container.
 
       This capstone builds a cluster report one piece at a time. The same
       techniques work on `aws ec2 describe-instances` output; see the
@@ -24,48 +26,63 @@ steps:
     starter: '.items[]'
     why: |
       Seven pods in two namespaces. Flattening the nested document into small
-      records is the first step of almost every report.
-    expected: [{"name": "api-7d9f8-abcde", "namespace": "prod", "phase": "Running"}, {"name": "api-7d9f8-fghij", "namespace": "prod", "phase": "Running"}, {"name": "web-5c6b7-klmno", "namespace": "prod", "phase": "Running"}, {"name": "worker-66f5-pqrst", "namespace": "prod", "phase": "CrashLoopBackOff"}, {"name": "api-5b4c3-uvwxy", "namespace": "staging", "phase": "Running"}, {"name": "migrate-1234-zzzzz", "namespace": "staging", "phase": "Succeeded"}, {"name": "web-9a8b7-aaaaa", "namespace": "staging", "phase": "Pending"}]
+      records is the first step of almost every report. Notice that every
+      scheduled pod except the finished migration is `Running`, including the
+      worker that keeps crashing: the phase is only the pod's coarse
+      lifecycle stage (`Pending`, `Running`, `Succeeded`, `Failed` or
+      `Unknown`), and the next step looks deeper.
+    expected: [{"name": "api-7d9f8-abcde", "namespace": "prod", "phase": "Running"}, {"name": "api-7d9f8-fghij", "namespace": "prod", "phase": "Running"}, {"name": "web-5c6b7-klmno", "namespace": "prod", "phase": "Running"}, {"name": "worker-66f5-pqrst", "namespace": "prod", "phase": "Running"}, {"name": "api-5b4c3-uvwxy", "namespace": "staging", "phase": "Running"}, {"name": "migrate-1234-zzzzz", "namespace": "staging", "phase": "Succeeded"}, {"name": "web-9a8b7-aaaaa", "namespace": "staging", "phase": "Pending"}]
   - title: Which pods need attention
     body: |
-      A healthy pod is `Running`, or `Succeeded` for a finished job. Anything
-      else (`Pending`, `Failed`, `Unknown`) needs a look. `IN(...)` tests a
-      value against a list of alternatives.
+      A pod's phase should be `Running`, or `Succeeded` for a finished job.
+      Anything else (`Pending`, `Failed`, `Unknown`) needs a look. `IN(...)`
+      tests a value against a list of alternatives.
 
-      This sample simplifies one thing: it puts `CrashLoopBackOff` in the
-      phase. A real cluster reports that as a container's waiting reason
-      (`.status.containerStatuses[].state.waiting.reason`) while the pod's
-      phase stays `Running`, so a real report checks both.
-    task: 'Collect the names of the pods whose phase is neither `Running` nor `Succeeded` into one array, in list order.'
+      The phase does not tell the whole story. A container that keeps
+      crashing leaves the pod in phase `Running`; the crash shows in the
+      container's state, which is exactly one of `running`, `waiting` or
+      `terminated`. A crash loop is a waiting container, with
+      `.state.waiting.reason` set to `"CrashLoopBackOff"`. So a pod needs
+      attention when its phase is wrong *or* any of its containers is waiting.
+
+      One catch: a pod the scheduler has not placed yet has no
+      `containerStatuses` at all, and `.status.containerStatuses[]` on `null`
+      is an error. `[]?` iterates quietly over nothing instead.
+    task: 'Collect the names of the pods that need attention into one array, in list order: pods whose phase is neither `Running` nor `Succeeded`, and pods with at least one waiting container.'
     hints:
-      - 'Test the phase with `.status.phase | IN("Running", "Succeeded")`.'
-      - 'Negate it with `| not` inside `select`.'
-      - '`[.items[] | select(.status.phase | IN("Running", "Succeeded") | not) | .metadata.name]`'
-    solution: '[.items[] | select(.status.phase | IN("Running", "Succeeded") | not) | .metadata.name]'
+      - 'Test the phase with `.status.phase | IN("Running", "Succeeded") | not`.'
+      - 'Test the containers with `any(.status.containerStatuses[]?; .state.waiting)`, and join the two tests with `or` inside `select`.'
+      - '`[.items[] | select((.status.phase | IN("Running", "Succeeded") | not) or any(.status.containerStatuses[]?; .state.waiting)) | .metadata.name]`'
+    solution: '[.items[] | select((.status.phase | IN("Running", "Succeeded") | not) or any(.status.containerStatuses[]?; .state.waiting)) | .metadata.name]'
     starter: '[.items[] | .metadata.name]'
     why: |
-      The crash-looping worker in prod and the unscheduled web pod in staging.
-      Listing the healthy phases rather than the unhealthy ones means a phase
-      you did not think of shows up in the report instead of hiding.
+      The crash-looping worker in prod (caught by its waiting container) and
+      the unscheduled web pod in staging (caught by its phase). Listing the
+      healthy phases rather than the unhealthy ones means a phase you did not
+      think of shows up in the report instead of hiding. `any(gen; cond)`
+      stops at the first container that matches, and is `false` when the
+      generator produces nothing, as for the pending pod.
     expected: [["worker-66f5-pqrst", "web-9a8b7-aaaaa"]]
   - title: Restarts per namespace
     body: |
       A pod can have several containers, each with its own `restartCount` in
       `.status.containerStatuses`. Sum them per pod, then per namespace:
       `group_by` sorts and groups, and an object with a computed key plus
-      `add` turns the groups into one object.
+      `add` turns the groups into one object. Remember the pending pod from
+      the previous step: it has no `containerStatuses`, so iterate them with
+      `[]?`.
     task: 'Output one object mapping each namespace to the total number of container restarts in it.'
     hints:
       - '`.items | group_by(.metadata.namespace)` gives one array of pods per namespace.'
-      - 'For each group: `{(.[0].metadata.namespace): (map(.status.containerStatuses[].restartCount) | add)}`.'
+      - 'For each group: `{(.[0].metadata.namespace): (map(.status.containerStatuses[]?.restartCount) | add)}`.'
       - 'Wrap it in `map(...)` and merge the objects with `add`.'
-    solution: '.items | group_by(.metadata.namespace) | map({(.[0].metadata.namespace): (map(.status.containerStatuses[].restartCount) | add)}) | add'
+    solution: '.items | group_by(.metadata.namespace) | map({(.[0].metadata.namespace): (map(.status.containerStatuses[]?.restartCount) | add)}) | add'
     starter: '.items | group_by(.metadata.namespace)'
     why: |
       Prod has 20 restarts (17 of them the crash-looping worker, 3 an api pod),
-      staging 1. `map(.status.containerStatuses[].restartCount)` works because
+      staging 1. `map(.status.containerStatuses[]?.restartCount)` works because
       `map(f)` collects *every* output of `f`, however many containers a pod
-      has.
+      has, including none for the pending pod.
     expected: [{"prod": 20, "staging": 1}]
   - title: A function for CPU quantities
     body: |
@@ -123,9 +140,10 @@ steps:
     expected: [{"prod": ["ghcr.io/acme/api:2.4.1", "ghcr.io/acme/web:1.9.0", "ghcr.io/acme/worker:0.8.3"], "staging": ["ghcr.io/acme/api:2.5.0-rc1", "ghcr.io/acme/web:2.0.0-rc2"]}]
   - title: Where pods run, and where they do not
     body: |
-      `.spec.nodeName` is `null` for a pod the scheduler has not placed yet.
-      `group_by` sorts `null` before every string, so the unscheduled pods
-      form the first group, and `//` gives that group a readable name.
+      A pod the scheduler has not placed yet has no `nodeName` key in its
+      `.spec`, so `.spec.nodeName` gives `null` for it. `group_by` sorts
+      `null` before every string, so the unscheduled pods form the first
+      group, and `//` gives that group a readable name.
     task: 'Output an array of `{node, pods}` objects, one per node, with `pods` the list of pod names on it, and `"unscheduled"` as the node for pods without one. Keep the order `group_by` gives: the unscheduled group first, then the nodes by name.'
     hints:
       - '`.items | group_by(.spec.nodeName)`'
@@ -144,31 +162,39 @@ steps:
       turns an array into one tab-separated line, and `-r` prints the lines
       without JSON quotes. A header row is just another array, emitted first
       with the comma. This step runs with `-r`.
-    task: 'Print a header row `NAMESPACE NAME PHASE RESTARTS`, then one row per pod with its namespace, name, phase and total restarts, all tab-separated.'
+
+      Like `kubectl get pods`, the table shows a `STATUS` rather than the bare
+      phase: the reason of the first waiting container when there is one
+      (that is where `CrashLoopBackOff` appears), otherwise the phase.
+      `first(f)` gives the first output of `f`, or nothing, and `//` then
+      falls back to the phase.
+    task: 'Print a header row `NAMESPACE NAME STATUS RESTARTS`, then one row per pod with its namespace, name, status (the reason of the first waiting container, or the phase when no container is waiting) and total restarts (0 for a pod without container statuses), all tab-separated.'
     hints:
-      - 'The header: `["NAMESPACE", "NAME", "PHASE", "RESTARTS"]`.'
-      - 'A row: `[.metadata.namespace, .metadata.name, .status.phase, (.status.containerStatuses | map(.restartCount) | add)]`.'
-      - '`(HEADER), (.items[] | ROW) | @tsv`'
-    solution: '["NAMESPACE", "NAME", "PHASE", "RESTARTS"], (.items[] | [.metadata.namespace, .metadata.name, .status.phase, (.status.containerStatuses | map(.restartCount) | add)]) | @tsv'
-    starter: '["NAMESPACE", "NAME", "PHASE", "RESTARTS"] | @tsv'
+      - 'The header: `["NAMESPACE", "NAME", "STATUS", "RESTARTS"]`.'
+      - 'The status: `(first(.status.containerStatuses[]?.state.waiting.reason | values) // .status.phase)`; the restarts: `([.status.containerStatuses[]?.restartCount] | add // 0)`.'
+      - '`(HEADER), (.items[] | [.metadata.namespace, .metadata.name, STATUS, RESTARTS]) | @tsv`'
+    solution: '["NAMESPACE", "NAME", "STATUS", "RESTARTS"], (.items[] | [.metadata.namespace, .metadata.name, (first(.status.containerStatuses[]?.state.waiting.reason | values) // .status.phase), ([.status.containerStatuses[]?.restartCount] | add // 0)]) | @tsv'
+    starter: '["NAMESPACE", "NAME", "STATUS", "RESTARTS"] | @tsv'
     options: {raw_output: true}
     why: |
       The final `| @tsv` applies to both sides of the comma, because the pipe
       binds more loosely than the comma. Pipe the result into `column -t` in a
-      shell for aligned columns.
-    expected: ["NAMESPACE\tNAME\tPHASE\tRESTARTS", "prod\tapi-7d9f8-abcde\tRunning\t0", "prod\tapi-7d9f8-fghij\tRunning\t3", "prod\tweb-5c6b7-klmno\tRunning\t0", "prod\tworker-66f5-pqrst\tCrashLoopBackOff\t17", "staging\tapi-5b4c3-uvwxy\tRunning\t1", "staging\tmigrate-1234-zzzzz\tSucceeded\t0", "staging\tweb-9a8b7-aaaaa\tPending\t0"]
+      shell for aligned columns. The real `kubectl get pods` goes one step
+      further and also shows a terminated container's reason, which is why it
+      lists a finished job as `Completed` rather than `Succeeded`.
+    expected: ["NAMESPACE\tNAME\tSTATUS\tRESTARTS", "prod\tapi-7d9f8-abcde\tRunning\t0", "prod\tapi-7d9f8-fghij\tRunning\t3", "prod\tweb-5c6b7-klmno\tRunning\t0", "prod\tworker-66f5-pqrst\tCrashLoopBackOff\t17", "staging\tapi-5b4c3-uvwxy\tRunning\t1", "staging\tmigrate-1234-zzzzz\tSucceeded\t0", "staging\tweb-9a8b7-aaaaa\tPending\t0"]
   - title: The summary
     body: |
       The last step puts the pieces together in one object, the kind of
       summary a monitoring job posts to a chat channel. Define the function
       you need, bind intermediate results with `as`, and build the object at
       the end.
-    task: 'Output `{pods, unhealthy, restarting, cpu_millicores}`: the number of pods, the names of pods not `Running` or `Succeeded`, the names of pods with at least one restart, and the total CPU requested.'
+    task: 'Output `{pods, unhealthy, restarting, cpu_millicores}`: the number of pods, the names of the pods that need attention (as in step 2), the names of pods with at least one restart, and the total CPU requested.'
     hints:
       - 'Reuse `millicores` from step 4 and the `select` from step 2.'
-      - 'A pod restarts when `(.status.containerStatuses | map(.restartCount) | add) > 0`.'
+      - 'A pod has restarted when `any(.status.containerStatuses[]?; .restartCount > 0)`.'
       - 'Start with `.items as $pods | {pods: ($pods | length), ...}`.'
-    solution: 'def millicores: if endswith("m") then .[:-1] | tonumber else tonumber * 1000 end; .items as $pods | {pods: ($pods | length), unhealthy: [$pods[] | select(.status.phase | IN("Running", "Succeeded") | not) | .metadata.name], restarting: [$pods[] | select((.status.containerStatuses | map(.restartCount) | add) > 0) | .metadata.name], cpu_millicores: ([$pods[].spec.containers[].resources.requests.cpu | millicores] | add)}'
+    solution: 'def millicores: if endswith("m") then .[:-1] | tonumber else tonumber * 1000 end; .items as $pods | {pods: ($pods | length), unhealthy: [$pods[] | select((.status.phase | IN("Running", "Succeeded") | not) or any(.status.containerStatuses[]?; .state.waiting)) | .metadata.name], restarting: [$pods[] | select(any(.status.containerStatuses[]?; .restartCount > 0)) | .metadata.name], cpu_millicores: ([$pods[].spec.containers[].resources.requests.cpu | millicores] | add)}'
     starter: '.items as $pods | {pods: ($pods | length)}'
     why: |
       Every value in the summary is one of the earlier steps, now named. That

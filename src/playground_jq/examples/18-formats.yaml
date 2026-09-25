@@ -32,7 +32,7 @@ examples:
     options: {raw_output: true}
     manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
     guide: [formats-and-escaping]
-    expected: ["prod\tapi-7d9f8-abcde\tRunning", "prod\tapi-7d9f8-fghij\tRunning", "prod\tweb-5c6b7-klmno\tRunning", "prod\tworker-66f5-pqrst\tCrashLoopBackOff", "staging\tapi-5b4c3-uvwxy\tRunning", "staging\tmigrate-1234-zzzzz\tSucceeded", "staging\tweb-9a8b7-aaaaa\tPending"]
+    expected: ["prod\tapi-7d9f8-abcde\tRunning", "prod\tapi-7d9f8-fghij\tRunning", "prod\tweb-5c6b7-klmno\tRunning", "prod\tworker-66f5-pqrst\tRunning", "staging\tapi-5b4c3-uvwxy\tRunning", "staging\tmigrate-1234-zzzzz\tSucceeded", "staging\tweb-9a8b7-aaaaa\tPending"]
 
   - id: formats-json-text
     title: Embed JSON as a string with @json and tojson
