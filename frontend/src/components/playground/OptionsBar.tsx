@@ -4,6 +4,7 @@ import { NativeSelect } from '@/components/NativeSelect'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { STATIC } from '@/lib/runtime'
 import type { JsonValue, RunOptions } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -116,19 +117,21 @@ export function OptionsBar({
                     aria-label="Indent"
                 />
             </label>
-            <NativeSelect
-                aria-label="Engine"
-                value={options.engine}
-                onChange={(event) =>
-                    onChange({ ...options, engine: event.target.value as RunOptions['engine'] })
-                }
-                className="ml-1 h-7 text-xs"
-                title="auto uses jq.py and switches to the jq binary for input/inputs, debug, --stream"
-            >
-                <option value="auto">engine: auto</option>
-                <option value="library">engine: jq.py</option>
-                <option value="cli">engine: jq binary</option>
-            </NativeSelect>
+            {!STATIC && (
+                <NativeSelect
+                    aria-label="Engine"
+                    value={options.engine}
+                    onChange={(event) =>
+                        onChange({ ...options, engine: event.target.value as RunOptions['engine'] })
+                    }
+                    className="ml-1 h-7 text-xs"
+                    title="auto uses jq.py and switches to the jq binary for input/inputs, debug, --stream"
+                >
+                    <option value="auto">engine: auto</option>
+                    <option value="library">engine: jq.py</option>
+                    <option value="cli">engine: jq binary</option>
+                </NativeSelect>
+            )}
             <Button
                 variant="ghost"
                 size="xs"

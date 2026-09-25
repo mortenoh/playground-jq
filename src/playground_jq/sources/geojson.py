@@ -14,12 +14,13 @@ from geojson_pydantic import (
     Point,
     Polygon,
 )
+from geojson_pydantic.geometries import Geometry
 from pydantic import BaseModel, Field, TypeAdapter, ValidationError
 
 #: Every GeoJSON object type, told apart by its `type` member.
 GeoJsonObject = Annotated[
-    FeatureCollection[Feature[Any, Any]]
-    | Feature[Any, Any]
+    FeatureCollection[Feature[Geometry, Any]]
+    | Feature[Geometry, Any]
     | Point
     | MultiPoint
     | LineString

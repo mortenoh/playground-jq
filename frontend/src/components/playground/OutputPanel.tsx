@@ -5,6 +5,7 @@ import { CodePane } from '@/components/editor/CodePane'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { hintFor } from '@/lib/hints'
+import { STATIC } from '@/lib/runtime'
 import type { RunResult } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -46,11 +47,14 @@ export function OutputPanel({
     running,
     path = 'output',
     raw = false,
+    ranFor,
     className,
 }: {
     result: RunResult | null
     running: boolean
     path?: string
+    /** The program the result belongs to, exposed for the browser tests. */
+    ranFor?: string
     /** The output is raw text (`-r`, `-j`, `--seq`) rather than JSON. */
     raw?: boolean
     className?: string
@@ -90,7 +94,7 @@ export function OutputPanel({
                                 </span>
                                 <span>{result.duration_ms.toFixed(1)} ms</span>
                                 <span title="Which jq ran the program">
-                                    {result.engine === 'cli' ? 'jq binary' : 'jq.py'}
+                                    {STATIC ? 'jq wasm' : result.engine === 'cli' ? 'jq binary' : 'jq.py'}
                                 </span>
                                 {result.truncated && <span className="text-warning-ink">truncated</span>}
                             </>
@@ -174,6 +178,11 @@ export function OutputPanel({
                     </TabsContent>
                 )}
             </Tabs>
+            {result !== null && (
+                <pre hidden data-testid="run-outputs" data-program={ranFor ?? ''} data-ok={String(result.ok)}>
+                    {JSON.stringify({ outputs: result.outputs, errors: result.errors })}
+                </pre>
+            )}
         </section>
     )
 }

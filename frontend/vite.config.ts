@@ -10,7 +10,8 @@ const proxiedPaths = ['/api', '/health', '/config.json', '/docs', '/redoc', '/op
 const proxy = Object.fromEntries(proxiedPaths.map((prefix) => [prefix, { target, changeOrigin: true }]))
 
 export default defineConfig({
-    base: '/',
+    // The static build is served from a sub-path on GitHub Pages.
+    base: process.env.PJQ_BASE || '/',
     plugins: [react(), tailwindcss()],
     resolve: { alias: { '@': path.resolve(import.meta.dirname, './src') } },
     server: { proxy },

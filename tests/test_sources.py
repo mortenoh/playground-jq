@@ -153,5 +153,9 @@ def test_geojson_validation() -> None:
     invalid = validate_geojson({"type": "Polygon", "coordinates": [[[0, 0], [1, 1]]]})
     assert not invalid.valid
     assert invalid.problems
+    bad_polygon = {"type": "Polygon", "coordinates": [[[[0, 0], [1, 0], [1, 1], [0, 0]]]]}
+    nested = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": bad_polygon, "properties": {}}]}
+    assert not validate_geojson(nested).valid
+    assert not validate_geojson({"type": "Feature", "geometry": bad_polygon, "properties": {}}).valid
     assert not is_geojson([1])
     assert not is_geojson({"type": "Circle"})

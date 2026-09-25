@@ -78,6 +78,7 @@ export default function PlaygroundPage() {
     const recent = useStore(history)
     const [sources, setSources] = useState<SourceInfo[]>([])
     const [result, setResult] = useState<RunResult | null>(null)
+    const [ranFor, setRanFor] = useState('')
     const [running, setRunning] = useState(false)
     const sequence = useRef(0)
 
@@ -113,6 +114,7 @@ export default function PlaygroundPage() {
             })
             if (ticket !== sequence.current) return
             setResult(answer)
+            setRanFor(current.program)
             if (record && answer.ok) remember(current.program)
         } catch (error) {
             if (ticket !== sequence.current) return
@@ -146,7 +148,7 @@ export default function PlaygroundPage() {
                 state.origin !== null && !state.origin.ref.endsWith(':custom') ? state.origin.ref : undefined,
             options: state.options,
         })
-        const url = `${window.location.origin}/${hash}`
+        const url = `${window.location.origin}${import.meta.env.BASE_URL}${hash}`
         void navigator.clipboard.writeText(url).then(
             () =>
                 toast.success('Link copied', {
@@ -309,7 +311,13 @@ export default function PlaygroundPage() {
                                 </section>
                             }
                             second={
-                                <OutputPanel result={result} running={running} raw={raw} className="h-full" />
+                                <OutputPanel
+                                    result={result}
+                                    running={running}
+                                    raw={raw}
+                                    ranFor={ranFor}
+                                    className="h-full"
+                                />
                             }
                         />
                     </div>

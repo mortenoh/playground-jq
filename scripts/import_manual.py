@@ -108,6 +108,18 @@ def main() -> None:
                         "attribution": ATTRIBUTION,
                     }
                 )
+            if entry["title"].startswith("Format strings"):
+                # The formats are listed in the entry's body, one `* `@name`:` item each.
+                for match in re.finditer(r"\* `(@[a-z0-9]+)`:\s*\n\s*\n((?:  .*\n?)+)", entry.get("body") or ""):
+                    name, text = match.group(1), " ".join(match.group(2).split())
+                    builtins[name] = {
+                        "name": name,
+                        "signatures": [name, f'{name} "...\\(.x)..."'],
+                        "summary": first_sentence(text),
+                        "section": section["title"],
+                        "body": text,
+                        "manual": link,
+                    }
             if section["title"] in BUILTIN_SECTIONS:
                 forms = re.findall(r"`([^`]+)`", entry["title"])
                 for form in forms:

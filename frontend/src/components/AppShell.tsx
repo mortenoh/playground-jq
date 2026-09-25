@@ -7,6 +7,7 @@ import { CommandPalette, paletteOpen } from '@/components/CommandPalette'
 import { warmEditor } from '@/components/editor/CodePane'
 import { Button } from '@/components/ui/button'
 import { Kbd } from '@/components/ui/kbd'
+import { STATIC } from '@/lib/runtime'
 import { cn } from '@/lib/utils'
 
 const NAV = [
@@ -77,6 +78,17 @@ export function AppShell({ children }: { children: ReactNode }) {
                     ))}
                 </nav>
                 <div className="ml-auto flex items-center gap-1">
+                    {STATIC && (
+                        <a
+                            href="https://github.com/mortenoh/playground-jq#running-it"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hidden text-xs text-muted-foreground hover:text-foreground xl:inline"
+                            title="This site runs jq 1.8 in your browser (WebAssembly) over recorded inputs. Run the app locally for live DHIS2 and postman-echo."
+                        >
+                            jq 1.8 in your browser
+                        </a>
+                    )}
                     <Button
                         variant="outline"
                         size="sm"

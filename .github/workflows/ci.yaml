@@ -1,0 +1,66 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.1.0
+        with:
+          enable-cache: true
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+
+      # Content snippets marked cli_only run on the jq binary and must match jq 1.8.
+      - name: Install jq 1.8
+        run: |
+          sudo curl -fsSL -o /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-linux-amd64
+          sudo chmod +x /usr/local/bin/jq
+          jq --version
+
+      - name: Install dependencies
+        run: |
+          uv sync --locked
+          cd frontend && bun install --frozen-lockfile
+
+      - name: Check
+        run: make check
+
+  e2e:
+    name: browser
+    runs-on: ubuntu-24.04
+    needs: check
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.1.0
+        with:
+          enable-cache: true
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install jq 1.8
+        run: |
+          sudo curl -fsSL -o /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-linux-amd64
+          sudo chmod +x /usr/local/bin/jq
+
+      - name: Install Chromium
+        run: cd frontend && bun install --frozen-lockfile && bunx playwright install --with-deps chromium
+
+      - name: Browser tests
+        run: make e2e

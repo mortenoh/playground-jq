@@ -265,6 +265,23 @@
   section: Math
   body: ''
   manual: https://jqlang.org/manual/v1.8/#math
+- name: '@base64'
+  signatures:
+  - '@base64'
+  - '@base64 "...\(.x)..."'
+  summary: The input is converted to base64 as specified by RFC 4648.
+  section: Builtin operators and functions
+  body: The input is converted to base64 as specified by RFC 4648.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
+- name: '@base64d'
+  signatures:
+  - '@base64d'
+  - '@base64d "...\(.x)..."'
+  summary: The inverse of `@base64`, input is decoded as specified by RFC 4648.
+  section: Builtin operators and functions
+  body: 'The inverse of `@base64`, input is decoded as specified by RFC 4648. Note\: If the decoded string is not UTF-8, the
+    results are undefined.'
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
 - name: booleans
   signatures:
   - booleans
@@ -394,6 +411,14 @@
   section: Math
   body: ''
   manual: https://jqlang.org/manual/v1.8/#math
+- name: '@csv'
+  signatures:
+  - '@csv'
+  - '@csv "...\(.x)..."'
+  summary: The input must be an array, and it is rendered as CSV with double quotes for strings, and quotes escaped by repetition.
+  section: Builtin operators and functions
+  body: The input must be an array, and it is rendered as CSV with double quotes for strings, and quotes escaped by repetition.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
 - name: debug
   signatures:
   - debug
@@ -859,6 +884,16 @@
 
     includes support for preservation of input number literals.'
   manual: https://jqlang.org/manual/v1.8/#have_literal_numbers
+- name: '@html'
+  signatures:
+  - '@html'
+  - '@html "...\(.x)..."'
+  summary: Applies HTML/XML escaping, by mapping the characters `<>&'"` to their entity equivalents `&lt;`, `&gt;`, `&amp;`,
+    `&apos;`, `&quot;`.
+  section: Builtin operators and functions
+  body: Applies HTML/XML escaping, by mapping the characters `<>&'"` to their entity equivalents `&lt;`, `&gt;`, `&amp;`,
+    `&apos;`, `&quot;`.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
 - name: hypot
   signatures:
   - hypot(a; b)
@@ -1152,6 +1187,14 @@
 
     in the input are not supported.'
   manual: https://jqlang.org/manual/v1.8/#join
+- name: '@json'
+  signatures:
+  - '@json'
+  - '@json "...\(.x)..."'
+  summary: Serializes the input as JSON.
+  section: Builtin operators and functions
+  body: Serializes the input as JSON.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
 - name: keys
   signatures:
   - keys
@@ -2009,6 +2052,15 @@
   section: Builtin operators and functions
   body: The builtin function `setpath` sets the `PATHS` in `.` to `VALUE`.
   manual: https://jqlang.org/manual/v1.8/#setpath
+- name: '@sh'
+  signatures:
+  - '@sh'
+  - '@sh "...\(.x)..."'
+  summary: The input is escaped suitable for use in a command-line for a POSIX shell.
+  section: Builtin operators and functions
+  body: The input is escaped suitable for use in a command-line for a POSIX shell. If the input is an array, the output will
+    be a series of space-separated strings.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
 - name: significand
   signatures:
   - significand
@@ -2257,6 +2309,14 @@
 
     for whether or not the regex matches the input.'
   manual: https://jqlang.org/manual/v1.8/#test
+- name: '@text'
+  signatures:
+  - '@text'
+  - '@text "...\(.x)..."'
+  summary: Calls `tostring`, see that function for details.
+  section: Builtin operators and functions
+  body: Calls `tostring`, see that function for details.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
 - name: tgamma
   signatures:
   - tgamma
@@ -2408,6 +2468,17 @@
 
     given streaming expression.'
   manual: https://jqlang.org/manual/v1.8/#truncate_stream
+- name: '@tsv'
+  signatures:
+  - '@tsv'
+  - '@tsv "...\(.x)..."'
+  summary: The input must be an array, and it is rendered as TSV (tab-separated values).
+  section: Builtin operators and functions
+  body: The input must be an array, and it is rendered as TSV (tab-separated values). Each input array will be printed as
+    a single line. Fields are separated by a single tab (ascii `0x09`). Input characters line-feed (ascii `0x0a`), carriage-return
+    (ascii `0x0d`), tab (ascii `0x09`) and backslash (ascii `0x5c`) will be output as escape sequences `\n`, `\r`, `\t`, `\\`
+    respectively.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
 - name: type
   signatures:
   - type
@@ -2485,6 +2556,22 @@
 
     output for each input.  See advanced topics below.'
   manual: https://jqlang.org/manual/v1.8/#until
+- name: '@uri'
+  signatures:
+  - '@uri'
+  - '@uri "...\(.x)..."'
+  summary: Applies percent-encoding, by mapping all reserved URI characters to a `%XX` sequence.
+  section: Builtin operators and functions
+  body: Applies percent-encoding, by mapping all reserved URI characters to a `%XX` sequence.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
+- name: '@urid'
+  signatures:
+  - '@urid'
+  - '@urid "...\(.x)..."'
+  summary: The inverse of `@uri`, applies percent-decoding, by mapping all `%XX` sequences to their corresponding URI characters.
+  section: Builtin operators and functions
+  body: The inverse of `@uri`, applies percent-decoding, by mapping all `%XX` sequences to their corresponding URI characters.
+  manual: https://jqlang.org/manual/v1.8/#format-strings-and-escaping
 - name: utf8bytelength
   signatures:
   - utf8bytelength

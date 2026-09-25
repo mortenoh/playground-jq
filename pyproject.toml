@@ -3,6 +3,8 @@ name = "playground-jq"
 version = "0.1.0"
 description = "A playground, language guide, tutorials and example library for learning jq"
 readme = "README.md"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
 authors = [
     { name = "Morten Hansen", email = "morten@winterop.com" }
 ]
@@ -53,7 +55,7 @@ src = ["src", "tests"]
 select = ["E", "W", "F", "I", "D", "SIM", "UP", "B", "TID"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["D100", "D101", "D102", "D103", "D104"]
+"tests/**" = ["D100", "D101", "D102", "D103", "D104", "D107"]
 
 [tool.ruff.lint.flake8-tidy-imports.banned-api]
 "dataclasses.dataclass".msg = "Use pydantic.BaseModel (house rule)"

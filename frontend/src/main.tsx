@@ -27,7 +27,7 @@ createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <TooltipProvider delay={500}>
-                <BrowserRouter>
+                <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
                     <App />
                 </BrowserRouter>
                 <Toaster richColors />

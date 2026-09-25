@@ -18,7 +18,7 @@ install: ## Install backend and frontend dependencies, build the UI into the pac
 	cp -R $(FRONTEND)/dist/. $(STATIC)/
 
 refresh: ## Wipe every build artifact, cache and dependency, then rebuild everything
-	rm -rf .venv .ruff_cache .mypy_cache .pytest_cache .coverage htmlcov dist
+	rm -rf .venv .ruff_cache .mypy_cache .pytest_cache .coverage htmlcov dist build
 	rm -rf $(FRONTEND)/node_modules $(FRONTEND)/dist $(FRONTEND)/test-results $(FRONTEND)/playwright-report
 	find . -name '__pycache__' -type d -prune -not -path './.venv/*' -exec rm -rf {} +
 	$(MAKE) install
@@ -44,7 +44,8 @@ test: ## Backend and frontend unit tests (content verification included)
 	$(UV) run pytest
 	cd $(FRONTEND) && bun run test
 
-e2e: install ## CI browser tests against a real server (needs `bunx playwright install chromium`)
+e2e: install ## Every example, tutorial and snippet through the UI, backend and static builds (needs chromium)
+	./scripts/build_pages.sh build/pages
 	cd $(FRONTEND) && bun run e2e
 
 live: ## Verify live-source examples against postman-echo and DHIS2 (profile play43)

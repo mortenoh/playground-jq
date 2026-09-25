@@ -4,8 +4,10 @@ import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef } from 'react'
 
+import { useStore } from '@/hooks/use-store'
 import { builtins, completionNames } from '@/lib/builtins'
 import { JQ_BUILTINS_FALLBACK, jqMonarch, wordAt } from '@/lib/jq-grammar'
+import { palette } from '@/lib/theme'
 import type { Builtin, JqError } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -334,12 +336,14 @@ export function CodeEditor({
         monaco.editor.setModelMarkers(model, 'jq', markers)
     }, [errors])
 
+    const shownPalette = useStore(palette)
+
     useEffect(() => {
         const frame = requestAnimationFrame(applyTheme)
         return () => {
             cancelAnimationFrame(frame)
         }
-    }, [resolvedTheme])
+    }, [resolvedTheme, shownPalette])
 
     return (
         <div ref={host} className={cn('h-full min-h-24 w-full', className)} data-testid={`editor-${path}`} />
