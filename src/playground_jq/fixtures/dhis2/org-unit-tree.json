@@ -1,0 +1,6483 @@
+{
+  "organisationUnits": [
+    {
+      "code": "OU_525",
+      "name": "Sierra Leone",
+      "shortName": "Sierra Leone",
+      "children": [
+        {
+          "id": "at6UHUQatSo"
+        },
+        {
+          "id": "TEQlaapDQoK"
+        },
+        {
+          "id": "PMa2VCrupOd"
+        },
+        {
+          "id": "qhqAxPSTUXp"
+        },
+        {
+          "id": "kJq2mPyFEHo"
+        },
+        {
+          "id": "jmIPBj66vD6"
+        },
+        {
+          "id": "Vth0fbpFcsO"
+        },
+        {
+          "id": "jUb8gELQApl"
+        },
+        {
+          "id": "fdc6uOvgoji"
+        },
+        {
+          "id": "eIQbndfxQMb"
+        },
+        {
+          "id": "O6uvpzGd5pu"
+        },
+        {
+          "id": "lc3eMKXaEfw"
+        },
+        {
+          "id": "bL4ooGhyHRQ"
+        }
+      ],
+      "path": "/ImspTQPwCqd",
+      "openingDate": "1994-01-01T00:00:00.000",
+      "id": "ImspTQPwCqd",
+      "level": 1
+    },
+    {
+      "code": "OU_264",
+      "name": "Bo",
+      "shortName": "Bo",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "daJPPxtIrQn"
+        },
+        {
+          "id": "dGheVylzol6"
+        },
+        {
+          "id": "BGGmAwx33dj"
+        },
+        {
+          "id": "zFDYIgyGmXG"
+        },
+        {
+          "id": "ARZ4y5i4reU"
+        },
+        {
+          "id": "YmmeuGbqOwR"
+        },
+        {
+          "id": "sxRd2XOzFbz"
+        },
+        {
+          "id": "I4jWcnFmgEC"
+        },
+        {
+          "id": "KctpIIucige"
+        },
+        {
+          "id": "JdhagCUEMbj"
+        },
+        {
+          "id": "kU8vhUkAGaT"
+        },
+        {
+          "id": "U6Kr7Gtpidn"
+        },
+        {
+          "id": "npWGUj37qDe"
+        },
+        {
+          "id": "vWbkYPRmKyS"
+        },
+        {
+          "id": "YuQRtpLP10I"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu",
+      "openingDate": "1990-02-01T00:00:00.000",
+      "id": "O6uvpzGd5pu",
+      "level": 2
+    },
+    {
+      "code": "OU_193190",
+      "name": "Bombali",
+      "shortName": "Bombali",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "eV4cuxniZgP"
+        },
+        {
+          "id": "lY93YpCxJqf"
+        },
+        {
+          "id": "j43EZb15rjI"
+        },
+        {
+          "id": "e1eIKM1GIF3"
+        },
+        {
+          "id": "Qhmi8IZyPyD"
+        },
+        {
+          "id": "BXJdOLvUrZB"
+        },
+        {
+          "id": "KKkLOTpMXGV"
+        },
+        {
+          "id": "WXnNDWTiE9r"
+        },
+        {
+          "id": "fwH9ipvXde9"
+        },
+        {
+          "id": "UhHipWG7J8b"
+        },
+        {
+          "id": "XG8HGAbrbbL"
+        },
+        {
+          "id": "hRZOIgQ0O1m"
+        },
+        {
+          "id": "L8iA6eLwKNb"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "fdc6uOvgoji",
+      "level": 2
+    },
+    {
+      "code": "OU_197385",
+      "name": "Bonthe",
+      "shortName": "Bonthe",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "XEyIRFd9pct"
+        },
+        {
+          "id": "iUauWFeH8Qp"
+        },
+        {
+          "id": "cgOy0hRMGu9"
+        },
+        {
+          "id": "ENHOJz3UH5L"
+        },
+        {
+          "id": "HV8RTzgcFH3"
+        },
+        {
+          "id": "DNRAeXT9IwS"
+        },
+        {
+          "id": "aWQTfvgPA5v"
+        },
+        {
+          "id": "g8DdBm7EmUt"
+        },
+        {
+          "id": "VP397wRvePm"
+        },
+        {
+          "id": "CG4QD1HC3h4"
+        },
+        {
+          "id": "EB1zRKdYjdY"
+        },
+        {
+          "id": "VCtF1DbspR5"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "lc3eMKXaEfw",
+      "level": 2
+    },
+    {
+      "code": "OU_204856",
+      "name": "Kailahun",
+      "shortName": "Kailahun",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "DxAPPqXvwLy"
+        },
+        {
+          "id": "lYIM1MXbSYS"
+        },
+        {
+          "id": "hjpHnHZIniP"
+        },
+        {
+          "id": "byp7w6Xd9Df"
+        },
+        {
+          "id": "bQiBfA2j5cw"
+        },
+        {
+          "id": "cM2BKSrj9F9"
+        },
+        {
+          "id": "JsxnA2IywRo"
+        },
+        {
+          "id": "ERmBhYkhV6Y"
+        },
+        {
+          "id": "LfTkc0S4b5k"
+        },
+        {
+          "id": "pmxZm7klXBy"
+        },
+        {
+          "id": "yu4N82FFeLm"
+        },
+        {
+          "id": "j0Mtr3xTMjM"
+        },
+        {
+          "id": "GE25DpSrqpB"
+        },
+        {
+          "id": "KSdZwrU7Hh6"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "jUb8gELQApl",
+      "level": 2
+    },
+    {
+      "code": "OU_211212",
+      "name": "Kambia",
+      "shortName": "Kambia",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "r06ohri9wA9"
+        },
+        {
+          "id": "qIRCo0MfuGb"
+        },
+        {
+          "id": "xGMGhjA3y6J"
+        },
+        {
+          "id": "QywkxFudXrC"
+        },
+        {
+          "id": "y5X4mP5XylL"
+        },
+        {
+          "id": "kbPmt60yi0L"
+        },
+        {
+          "id": "FlBemv1NfEC"
+        }
+      ],
+      "path": "/ImspTQPwCqd/PMa2VCrupOd",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "PMa2VCrupOd",
+      "level": 2
+    },
+    {
+      "code": "OU_222616",
+      "name": "Kenema",
+      "shortName": "Kenema",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "l7pFejMtUoF"
+        },
+        {
+          "id": "KIUCimTXf8Q"
+        },
+        {
+          "id": "hdEuw2ugkVF"
+        },
+        {
+          "id": "eROJsBwxQHt"
+        },
+        {
+          "id": "uKC54fzxRzO"
+        },
+        {
+          "id": "A3Fh37HWBWE"
+        },
+        {
+          "id": "U09TSwIjG0s"
+        },
+        {
+          "id": "vzup1f6ynON"
+        },
+        {
+          "id": "KXSqt7jv6DU"
+        },
+        {
+          "id": "myQ4q1W6B4y"
+        },
+        {
+          "id": "X7dWcGerQIm"
+        },
+        {
+          "id": "x4HaBHHwBML"
+        },
+        {
+          "id": "EYt6ThQDagn"
+        },
+        {
+          "id": "QlCIp2S9NHs"
+        },
+        {
+          "id": "K1r3uF6eZ8n"
+        },
+        {
+          "id": "jWSIbtKfURj"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "kJq2mPyFEHo",
+      "level": 2
+    },
+    {
+      "code": "OU_226213",
+      "name": "Koinadugu",
+      "shortName": "Koinadugu",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "VGAFxBXz16y"
+        },
+        {
+          "id": "OTFepb1k9Db"
+        },
+        {
+          "id": "GFk45MOxzJJ"
+        },
+        {
+          "id": "J4GiUImJZoE"
+        },
+        {
+          "id": "vEvs2ckGNQj"
+        },
+        {
+          "id": "Mr4au3jR9bt"
+        },
+        {
+          "id": "EZPwuUTeIIG"
+        },
+        {
+          "id": "PaqugoqjRIj"
+        },
+        {
+          "id": "XrF5AvaGcuw"
+        },
+        {
+          "id": "iEkBZnMDarP"
+        },
+        {
+          "id": "Lt8U7GVWvSR"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "qhqAxPSTUXp",
+      "level": 2
+    },
+    {
+      "code": "OU_233310",
+      "name": "Kono",
+      "shortName": "Kono",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "FRxcUEwktoV"
+        },
+        {
+          "id": "kvkDWg42lHR"
+        },
+        {
+          "id": "g5ptsn0SFX8"
+        },
+        {
+          "id": "EjnIQNVAXGp"
+        },
+        {
+          "id": "Zoy23SSHCPs"
+        },
+        {
+          "id": "iGHlidSFdpu"
+        },
+        {
+          "id": "DmaLM8WYmWv"
+        },
+        {
+          "id": "CF243RPvNY7"
+        },
+        {
+          "id": "TQkG0sX9nca"
+        },
+        {
+          "id": "LhaAPLxdSFH"
+        },
+        {
+          "id": "GWTIxJO9pRo"
+        },
+        {
+          "id": "M2qEv692lS6"
+        },
+        {
+          "id": "qgQ49DH9a0v"
+        },
+        {
+          "id": "ajILkI0cfxn"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "Vth0fbpFcsO",
+      "level": 2
+    },
+    {
+      "code": "OU_246990",
+      "name": "Moyamba",
+      "shortName": "Moyamba",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "nV3OkyzF4US"
+        },
+        {
+          "id": "xIKjidMrico"
+        },
+        {
+          "id": "W5fN3G6y1VI"
+        },
+        {
+          "id": "Z9QaI6sxTwW"
+        },
+        {
+          "id": "USQdmvrHh1Q"
+        },
+        {
+          "id": "RndxKqQGzUl"
+        },
+        {
+          "id": "DBs6e2Oxaj1"
+        },
+        {
+          "id": "jPidqyo7cpF"
+        },
+        {
+          "id": "nOYt1LtFSyU"
+        },
+        {
+          "id": "vULnao2hV5v"
+        },
+        {
+          "id": "LsYpCyYxSLY"
+        },
+        {
+          "id": "Jiyc4ekaMMh"
+        },
+        {
+          "id": "gy8rmvYT4cj"
+        },
+        {
+          "id": "AovmOHadayb"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "jmIPBj66vD6",
+      "level": 2
+    },
+    {
+      "code": "OU_254945",
+      "name": "Port Loko",
+      "shortName": "Port Loko",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "fRLX08WHWpL"
+        },
+        {
+          "id": "pRHGAROvuyI"
+        },
+        {
+          "id": "TA7NvKjsn4A"
+        },
+        {
+          "id": "PrJQHI6q7w2"
+        },
+        {
+          "id": "JdqfYTIFZXN"
+        },
+        {
+          "id": "EfWCa0Cc8WW"
+        },
+        {
+          "id": "RWvG1aFrr0r"
+        },
+        {
+          "id": "ZiOVcrSjSYe"
+        },
+        {
+          "id": "vn9KJsLyP5f"
+        },
+        {
+          "id": "Pc3JTyqnsmL"
+        },
+        {
+          "id": "HWjrSuoNPte"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "TEQlaapDQoK",
+      "level": 2
+    },
+    {
+      "code": "OU_260377",
+      "name": "Pujehun",
+      "shortName": "Pujehun",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "pk7bUK5c1Uf"
+        },
+        {
+          "id": "NqWaKXcg01b"
+        },
+        {
+          "id": "BD9gU0GKlr2"
+        },
+        {
+          "id": "RzKeCma9qb1"
+        },
+        {
+          "id": "YpVol7asWvd"
+        },
+        {
+          "id": "zSNUViKdkk3"
+        },
+        {
+          "id": "N233eZJZ1bh"
+        },
+        {
+          "id": "eNtRuQrrZeo"
+        },
+        {
+          "id": "DfUfwjM9am5"
+        },
+        {
+          "id": "nlt6j60tCHF"
+        },
+        {
+          "id": "QwMiPiME3bA"
+        },
+        {
+          "id": "d9iMR1MpuIO"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "bL4ooGhyHRQ",
+      "level": 2
+    },
+    {
+      "code": "OU_268149",
+      "name": "Tonkolili",
+      "shortName": "Tonkolili",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "BmYyh9bZ0sr"
+        },
+        {
+          "id": "xhyjU2SVewz"
+        },
+        {
+          "id": "l0ccv2yzfF3"
+        },
+        {
+          "id": "NNE0YMCDZkO"
+        },
+        {
+          "id": "fwxkctgmffZ"
+        },
+        {
+          "id": "PQZJPIpTepd"
+        },
+        {
+          "id": "smoyi1iYNK6"
+        },
+        {
+          "id": "r1RUyfVBkLp"
+        },
+        {
+          "id": "EVkm2xYcf6Z"
+        },
+        {
+          "id": "P69SId31eDp"
+        },
+        {
+          "id": "rXLor9Knq6l"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "eIQbndfxQMb",
+      "level": 2
+    },
+    {
+      "code": "OU_278310",
+      "name": "Western Area",
+      "shortName": "Western Area",
+      "parent": {
+        "name": "Sierra Leone",
+        "id": "ImspTQPwCqd"
+      },
+      "children": [
+        {
+          "id": "C9uduqDZr9d"
+        },
+        {
+          "id": "qtr8GGlm4gg"
+        }
+      ],
+      "path": "/ImspTQPwCqd/at6UHUQatSo",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "at6UHUQatSo",
+      "level": 2
+    },
+    {
+      "code": "OU_539",
+      "name": "Badjia",
+      "shortName": "Badjia",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "g8upMTyEZGZ"
+        },
+        {
+          "id": "DiszpKrYNg8"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/YuQRtpLP10I",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "YuQRtpLP10I",
+      "level": 3
+    },
+    {
+      "code": "OU_247049",
+      "name": "Bagruwa",
+      "shortName": "Bagruwa",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "kd2Aqw5S07V"
+        },
+        {
+          "id": "HHz1kAG1LKn"
+        },
+        {
+          "id": "qMbxFg9McOF"
+        },
+        {
+          "id": "egjrZ1PHNtT"
+        },
+        {
+          "id": "QaeQJJCmnTS"
+        },
+        {
+          "id": "wQ71REGAMet"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/jPidqyo7cpF",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "jPidqyo7cpF",
+      "level": 3
+    },
+    {
+      "code": "OU_540",
+      "name": "Baoma",
+      "shortName": "Baoma",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "TSyzvBiovKh"
+        },
+        {
+          "id": "ZpE2POxvl9P"
+        },
+        {
+          "id": "nX05QLraDhO"
+        },
+        {
+          "id": "WAjjFMDJKcx"
+        },
+        {
+          "id": "azRICFoILuh"
+        },
+        {
+          "id": "Umh4HKqqFp6"
+        },
+        {
+          "id": "pMEnu7BjqMz"
+        },
+        {
+          "id": "KfUCAQoOIae"
+        },
+        {
+          "id": "RzgSFJ9E46G"
+        },
+        {
+          "id": "bG0PlyD0iP3"
+        },
+        {
+          "id": "jNb63DIHuwU"
+        },
+        {
+          "id": "EuoA3Crpqts"
+        },
+        {
+          "id": "AnXoUM1tfNT"
+        },
+        {
+          "id": "egv5Es0QlQP"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/vWbkYPRmKyS",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "vWbkYPRmKyS",
+      "level": 3
+    },
+    {
+      "code": "OU_541",
+      "name": "Bargbe",
+      "shortName": "Bargbe",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "YWXXO0XMkQe"
+        },
+        {
+          "id": "Wr8kmywwseZ"
+        },
+        {
+          "id": "kRWIof0qPJj"
+        },
+        {
+          "id": "y5hLlID8ihI"
+        },
+        {
+          "id": "CvBAqD6RzLZ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/dGheVylzol6",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "dGheVylzol6",
+      "level": 3
+    },
+    {
+      "code": "OU_542",
+      "name": "Bargbo",
+      "shortName": "Bargbo",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "p9ZtyC3LQ9f"
+        },
+        {
+          "id": "EJoI3HArJ2W"
+        },
+        {
+          "id": "ctMepV9p92I"
+        },
+        {
+          "id": "cJkZLwhL8RP"
+        },
+        {
+          "id": "fA43H8Ds0Ja"
+        },
+        {
+          "id": "vELbGdEphPd"
+        },
+        {
+          "id": "KvE0PYQzXMM"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/zFDYIgyGmXG",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "zFDYIgyGmXG",
+      "level": 3
+    },
+    {
+      "code": "OU_260428",
+      "name": "Barri",
+      "shortName": "Barri",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "k6lOze3vTzP"
+        },
+        {
+          "id": "dU3vTbLRLHy"
+        },
+        {
+          "id": "InQWjSe6k2f"
+        },
+        {
+          "id": "uPshwz3B3Uu"
+        },
+        {
+          "id": "YPSCWmJ3TyN"
+        },
+        {
+          "id": "GjJjES51GvK"
+        },
+        {
+          "id": "Fhko00f3hXT"
+        },
+        {
+          "id": "duINhdt3Yay"
+        },
+        {
+          "id": "yJ1xkKha5oE"
+        },
+        {
+          "id": "kvzdkXBxHoN"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/RzKeCma9qb1",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "RzKeCma9qb1",
+      "level": 3
+    },
+    {
+      "code": "OU_197429",
+      "name": "Bendu Cha",
+      "shortName": "Bendu Cha",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "uFp0ztDOFbI"
+        },
+        {
+          "id": "QZzRkqdGjlm"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/EB1zRKdYjdY",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "EB1zRKdYjdY",
+      "level": 3
+    },
+    {
+      "code": "OU_193228",
+      "name": "Biriwa",
+      "shortName": "Biriwa",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "nDwbwJZQUYU"
+        },
+        {
+          "id": "tEgxbwwrwUd"
+        },
+        {
+          "id": "duGLGssecoD"
+        },
+        {
+          "id": "OI0BQUurVFS"
+        },
+        {
+          "id": "Uwcj0mz78BV"
+        },
+        {
+          "id": "LZclRdyVk1t"
+        },
+        {
+          "id": "mt47bcb0Rcj"
+        },
+        {
+          "id": "ObV5AR1NECl"
+        },
+        {
+          "id": "OjTS752GbZE"
+        },
+        {
+          "id": "ZxuSbAmsLCn"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/fwH9ipvXde9",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "fwH9ipvXde9",
+      "level": 3
+    },
+    {
+      "code": "OU_197440",
+      "name": "BMC",
+      "shortName": "BMC",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "gGv9ATEs68L"
+        },
+        {
+          "id": "nCh5dBoJVNw"
+        },
+        {
+          "id": "NnQpISrLYWZ"
+        },
+        {
+          "id": "vv1QJFONsT6"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/ENHOJz3UH5L",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "ENHOJz3UH5L",
+      "level": 3
+    },
+    {
+      "code": "OU_193198",
+      "name": "Bombali Sebora",
+      "shortName": "Bombali Sebora",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "XzmWizbR343"
+        },
+        {
+          "id": "gP6hn503KUX"
+        },
+        {
+          "id": "wzvDhS0TkAF"
+        },
+        {
+          "id": "aQoqXL4cZaF"
+        },
+        {
+          "id": "mepHuAA9l51"
+        },
+        {
+          "id": "wNYYRm2c9EK"
+        },
+        {
+          "id": "C1zlHePEQe6"
+        },
+        {
+          "id": "PybxeRWVSrI"
+        },
+        {
+          "id": "uNEhNuBUr0i"
+        },
+        {
+          "id": "Dbn6fyCgMBV"
+        },
+        {
+          "id": "dqHvtpUqLwB"
+        },
+        {
+          "id": "cgqkFdShPzg"
+        },
+        {
+          "id": "GQcsUZf81vP"
+        },
+        {
+          "id": "E7IDb3nNiW7"
+        },
+        {
+          "id": "OuwX8H2CcRO"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/KKkLOTpMXGV",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "KKkLOTpMXGV",
+      "level": 3
+    },
+    {
+      "code": "OU_211220",
+      "name": "Bramaia",
+      "shortName": "Bramaia",
+      "parent": {
+        "name": "Kambia",
+        "id": "PMa2VCrupOd"
+      },
+      "children": [
+        {
+          "id": "DUDHgE5DECu"
+        },
+        {
+          "id": "eLLMnNjuluX"
+        },
+        {
+          "id": "AQQCxQqDxLe"
+        },
+        {
+          "id": "u3rHGQGLLP7"
+        },
+        {
+          "id": "M9JyYBZTqR7"
+        },
+        {
+          "id": "vwvDblM3MNX"
+        }
+      ],
+      "path": "/ImspTQPwCqd/PMa2VCrupOd/kbPmt60yi0L",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "kbPmt60yi0L",
+      "level": 3
+    },
+    {
+      "code": "OU_197402",
+      "name": "Bum",
+      "shortName": "Bum",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "voQXVNftP4W"
+        },
+        {
+          "id": "Brre03pQkKB"
+        },
+        {
+          "id": "gE3gEGZbQMi"
+        },
+        {
+          "id": "rZkUcho9Z65"
+        },
+        {
+          "id": "SZrG4yHGV4x"
+        },
+        {
+          "id": "GKrklllwmbU"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/iUauWFeH8Qp",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "iUauWFeH8Qp",
+      "level": 3
+    },
+    {
+      "code": "OU_247025",
+      "name": "Bumpeh",
+      "shortName": "Bumpeh",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "BXd3TqaAxkK"
+        },
+        {
+          "id": "QZ5rmKrVleg"
+        },
+        {
+          "id": "WhCQNekdIwM"
+        },
+        {
+          "id": "Gtnbmf4LkOz"
+        },
+        {
+          "id": "mkIugjeYSjE"
+        },
+        {
+          "id": "WxMmxNU6Gla"
+        },
+        {
+          "id": "gUPhNWkSXvD"
+        },
+        {
+          "id": "qusWt6sESRU"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/nOYt1LtFSyU",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "nOYt1LtFSyU",
+      "level": 3
+    },
+    {
+      "code": "OU_543",
+      "name": "Bumpe Ngao",
+      "shortName": "Bumpe Ngao",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "wwM3YPvBKu2"
+        },
+        {
+          "id": "Tht0fnjagHi"
+        },
+        {
+          "id": "RTixJpRqS4C"
+        },
+        {
+          "id": "xt08cuqf1ys"
+        },
+        {
+          "id": "tZxqVn3xNrA"
+        },
+        {
+          "id": "AXZq6q7Dr6E"
+        },
+        {
+          "id": "am6EFqHGKeU"
+        },
+        {
+          "id": "CTOMXJg41hz"
+        },
+        {
+          "id": "E497Rk80ivZ"
+        },
+        {
+          "id": "EFTcruJcNmZ"
+        },
+        {
+          "id": "kEkU53NrFmy"
+        },
+        {
+          "id": "prNiMdHuaaU"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/BGGmAwx33dj",
+      "openingDate": "2011-05-01T00:00:00.000",
+      "id": "BGGmAwx33dj",
+      "level": 3
+    },
+    {
+      "code": "OU_255041",
+      "name": "Bureh Kasseh Maconteh",
+      "shortName": "Bureh Kasseh Maconteh",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "nYiOoF2nXIr"
+        },
+        {
+          "id": "GCbYmPqcOOP"
+        },
+        {
+          "id": "GtJoxCaM2zg"
+        },
+        {
+          "id": "rpAgG9XCWhO"
+        },
+        {
+          "id": "XkA2vbJAWHG"
+        },
+        {
+          "id": "jIrb5XckcU6"
+        },
+        {
+          "id": "rwgK8TkRwHl"
+        },
+        {
+          "id": "ZZmMpGIE7pD"
+        },
+        {
+          "id": "cZI3AWM7bIa"
+        },
+        {
+          "id": "I2UW55qvn82"
+        },
+        {
+          "id": "w3mBVfrWhXl"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/TA7NvKjsn4A",
+      "openingDate": "1994-01-01T00:00:00.000",
+      "id": "TA7NvKjsn4A",
+      "level": 3
+    },
+    {
+      "code": "OU_255020",
+      "name": "Buya Romende",
+      "shortName": "Buya Romende",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "zuXW98AEbE7"
+        },
+        {
+          "id": "ZALwM386w0T"
+        },
+        {
+          "id": "z1ielwdLtPl"
+        },
+        {
+          "id": "kFScvrF3wPo"
+        },
+        {
+          "id": "cBi3y4lGhDd"
+        },
+        {
+          "id": "el8sgzyHuEe"
+        },
+        {
+          "id": "DVjewuIdgMN"
+        },
+        {
+          "id": "bkMlhoccaVw"
+        },
+        {
+          "id": "Hu31NCRjZlj"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/Pc3JTyqnsmL",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "Pc3JTyqnsmL",
+      "level": 3
+    },
+    {
+      "code": "OU_222731",
+      "name": "Dama",
+      "shortName": "Dama",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "M4hyYfnb21I"
+        },
+        {
+          "id": "aXsLBCzwYWW"
+        },
+        {
+          "id": "GAvxcmr5jB1"
+        },
+        {
+          "id": "TljiT6C5D0J"
+        },
+        {
+          "id": "IW3guWF3uvF"
+        },
+        {
+          "id": "tWjUy6MCx8q"
+        },
+        {
+          "id": "GHPuYdLcVN5"
+        },
+        {
+          "id": "CSDGDOa7wHd"
+        },
+        {
+          "id": "ZzdTFqWrlDa"
+        },
+        {
+          "id": "zw5ppT2dwZy"
+        },
+        {
+          "id": "ShdRyzuLKA2"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/myQ4q1W6B4y",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "myQ4q1W6B4y",
+      "level": 3
+    },
+    {
+      "code": "OU_247018",
+      "name": "Dasse",
+      "shortName": "Dasse",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "va2lE4FiVVb"
+        },
+        {
+          "id": "EQUwHqZOb5L"
+        },
+        {
+          "id": "aSfF9kuNINJ"
+        },
+        {
+          "id": "DZaJmtlaBMl"
+        },
+        {
+          "id": "s7SLtx8wmRA"
+        },
+        {
+          "id": "iHQVo7h7KOQ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/RndxKqQGzUl",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "RndxKqQGzUl",
+      "level": 3
+    },
+    {
+      "code": "OU_204920",
+      "name": "Dea",
+      "shortName": "Dea",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "HFyjUvMjQ8H"
+        },
+        {
+          "id": "a1E6QWBTEwX"
+        },
+        {
+          "id": "nGb94wPdcqx"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/lYIM1MXbSYS",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "lYIM1MXbSYS",
+      "level": 3
+    },
+    {
+      "code": "OU_197421",
+      "name": "Dema",
+      "shortName": "Dema",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "CFPrsD3dNeb"
+        },
+        {
+          "id": "QN4te5Z5svQ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/DNRAeXT9IwS",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "DNRAeXT9IwS",
+      "level": 3
+    },
+    {
+      "code": "OU_226214",
+      "name": "Dembelia Sinkunia",
+      "shortName": "Dembelia Sinkunia",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "WjO2puYKysP"
+        },
+        {
+          "id": "gowgzHWc8FT"
+        },
+        {
+          "id": "LFpl1falVZi"
+        },
+        {
+          "id": "TbiRD4Bsz4Z"
+        },
+        {
+          "id": "IlnqGuxfQAw"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/Mr4au3jR9bt",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "Mr4au3jR9bt",
+      "level": 3
+    },
+    {
+      "code": "OU_226263",
+      "name": "Diang",
+      "shortName": "Diang",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "Xytauldn2QJ"
+        },
+        {
+          "id": "F9zWBqG5Pmi"
+        },
+        {
+          "id": "p310xqwAJge"
+        },
+        {
+          "id": "M9q1wOOsrXp"
+        },
+        {
+          "id": "JKhjdiwoQZu"
+        },
+        {
+          "id": "tlMeFk8C4CG"
+        },
+        {
+          "id": "AGrsLyKWrVX"
+        },
+        {
+          "id": "rs87nYgwbKv"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/Lt8U7GVWvSR",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "Lt8U7GVWvSR",
+      "level": 3
+    },
+    {
+      "code": "OU_254976",
+      "name": "Dibia",
+      "shortName": "Dibia",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "EZIMUaUD8AJ"
+        },
+        {
+          "id": "VTtyiYcc6TE"
+        },
+        {
+          "id": "NaVzm59XKGf"
+        },
+        {
+          "id": "YBZcWphXQ99"
+        },
+        {
+          "id": "X3D19LoA2Ij"
+        },
+        {
+          "id": "vxExu6yOYLg"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/ZiOVcrSjSYe",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "ZiOVcrSjSYe",
+      "level": 3
+    },
+    {
+      "code": "OU_222682",
+      "name": "Dodo",
+      "shortName": "Dodo",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "ARAZtL7Bdpy"
+        },
+        {
+          "id": "S2NaydvPENH"
+        },
+        {
+          "id": "irVdYBmHBxs"
+        },
+        {
+          "id": "jKZ0U8Og5aV"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/QlCIp2S9NHs",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "QlCIp2S9NHs",
+      "level": 3
+    },
+    {
+      "code": "OU_247086",
+      "name": "Fakunya",
+      "shortName": "Fakunya",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "YTQRSW91PxO"
+        },
+        {
+          "id": "UgUcwzbEv2C"
+        },
+        {
+          "id": "GcwGqLqyi1M"
+        },
+        {
+          "id": "RxmgoSlw9YF"
+        },
+        {
+          "id": "ZdPkczYqeIY"
+        },
+        {
+          "id": "sAO5hEWo4z5"
+        },
+        {
+          "id": "MuZJ8lprGqK"
+        },
+        {
+          "id": "QoROdPmIdY1"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/vULnao2hV5v",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "vULnao2hV5v",
+      "level": 3
+    },
+    {
+      "code": "OU_233359",
+      "name": "Fiama",
+      "shortName": "Fiama",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "YQYgz8exK9S"
+        },
+        {
+          "id": "aF6iPGbrcRk"
+        },
+        {
+          "id": "dBD9OHJFN8u"
+        },
+        {
+          "id": "sLKHXoBIqSs"
+        },
+        {
+          "id": "as1dnmlXLzG"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/CF243RPvNY7",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "CF243RPvNY7",
+      "level": 3
+    },
+    {
+      "code": "OU_226253",
+      "name": "Folosaba Dembelia",
+      "shortName": "Folosaba Dembelia",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "D7UVRRE9iUC"
+        },
+        {
+          "id": "lBMmM0HBp4s"
+        },
+        {
+          "id": "zO5hgxxfU4T"
+        },
+        {
+          "id": "HDOnfLXKkYs"
+        },
+        {
+          "id": "aIsnJuZbmVA"
+        },
+        {
+          "id": "DF76ZjQtFSg"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/iEkBZnMDarP",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "iEkBZnMDarP",
+      "level": 3
+    },
+    {
+      "code": "OU_278311",
+      "name": "Freetown",
+      "shortName": "Freetown",
+      "parent": {
+        "name": "Western Area",
+        "id": "at6UHUQatSo"
+      },
+      "children": [
+        {
+          "id": "m0XorV4WWg0"
+        },
+        {
+          "id": "xO9WbCvFq5k"
+        },
+        {
+          "id": "EUUkKEDoNsf"
+        },
+        {
+          "id": "xXYv82KlBUh"
+        },
+        {
+          "id": "mW20aiZHqwE"
+        },
+        {
+          "id": "rIgJX4N0DGZ"
+        },
+        {
+          "id": "ctfiYW0ePJ8"
+        },
+        {
+          "id": "U514Dz4v9pv"
+        },
+        {
+          "id": "yP2nhllbQPh"
+        },
+        {
+          "id": "lekPjgUm0o2"
+        },
+        {
+          "id": "ldXIdLNUNEn"
+        },
+        {
+          "id": "bKiJzk8ZZbS"
+        },
+        {
+          "id": "eoYV2p74eVz"
+        },
+        {
+          "id": "gei3Sqw8do7"
+        },
+        {
+          "id": "u6ZGNI8yUmt"
+        },
+        {
+          "id": "KuR0y0h0mOM"
+        },
+        {
+          "id": "vxa2YQRGV7I"
+        },
+        {
+          "id": "kBP1UvZpsNj"
+        },
+        {
+          "id": "kBrq7i12aan"
+        },
+        {
+          "id": "kbGqmM6ZWWV"
+        },
+        {
+          "id": "lPeZdUm9fD7"
+        },
+        {
+          "id": "MiYhwDprCCA"
+        },
+        {
+          "id": "bPqP6eRfkyn"
+        },
+        {
+          "id": "is3w3HROKVc"
+        },
+        {
+          "id": "g7BLyiBb0ET"
+        },
+        {
+          "id": "Z7UAnjpK74g"
+        },
+        {
+          "id": "wjFsUXI1MlO"
+        },
+        {
+          "id": "LqH7ZGU9KAx"
+        },
+        {
+          "id": "LV2b3vaLRl1"
+        },
+        {
+          "id": "FO1Tq8vUa62"
+        },
+        {
+          "id": "Ea3j0kUvyWg"
+        },
+        {
+          "id": "RaQGHRti7JM"
+        },
+        {
+          "id": "Qc9lf4VM9bD"
+        },
+        {
+          "id": "AKvgfYx5WZq"
+        },
+        {
+          "id": "XuGfiry96Bg"
+        },
+        {
+          "id": "a04CZxe0PSe"
+        },
+        {
+          "id": "cZtKKa9eJZ3"
+        },
+        {
+          "id": "BzEwqabuW19"
+        },
+        {
+          "id": "PysJIi3VIol"
+        },
+        {
+          "id": "YQ3csPLAlrn"
+        },
+        {
+          "id": "XJ6DqDkMlPv"
+        },
+        {
+          "id": "gmen7SXL9CU"
+        },
+        {
+          "id": "PqlNXedmh7u"
+        },
+        {
+          "id": "FclfbEFMcf3"
+        },
+        {
+          "id": "lL2LBkhlsmV"
+        },
+        {
+          "id": "EmTN0L4EAVi"
+        },
+        {
+          "id": "zEsMdeJOty4"
+        },
+        {
+          "id": "EDxXfB4iVpY"
+        },
+        {
+          "id": "NfE9gvFwLIF"
+        },
+        {
+          "id": "JZraNIfZ5JM"
+        },
+        {
+          "id": "bVZTNrnfn9G"
+        },
+        {
+          "id": "ui12Hyvn6jR"
+        },
+        {
+          "id": "tHUYjt9cU6h"
+        },
+        {
+          "id": "waNtxFbPjrI"
+        },
+        {
+          "id": "u1eQDDtKqm7"
+        },
+        {
+          "id": "fXT1scbEObM"
+        },
+        {
+          "id": "KiheEgvUZ0i"
+        },
+        {
+          "id": "rJ25bHbIujw"
+        },
+        {
+          "id": "vSbt6cezomG"
+        },
+        {
+          "id": "sM0Us0NkSez"
+        }
+      ],
+      "path": "/ImspTQPwCqd/at6UHUQatSo/C9uduqDZr9d",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "C9uduqDZr9d",
+      "level": 3
+    },
+    {
+      "code": "OU_260420",
+      "name": "Galliness Perri",
+      "shortName": "Galliness Perri",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "WZ8PTx8qQlE"
+        },
+        {
+          "id": "d9zRBAoM8OC"
+        },
+        {
+          "id": "LUGqPutql0P"
+        },
+        {
+          "id": "QkczRcSeNck"
+        },
+        {
+          "id": "dGZbEZroAWr"
+        },
+        {
+          "id": "xXhKbgwL39t"
+        },
+        {
+          "id": "jr5hIZcJBXB"
+        },
+        {
+          "id": "pRg7dkjqNPc"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/eNtRuQrrZeo",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "eNtRuQrrZeo",
+      "level": 3
+    },
+    {
+      "code": "OU_222743",
+      "name": "Gaura",
+      "shortName": "Gaura",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "Mi4Ax9suQmB"
+        },
+        {
+          "id": "cw0Wm1QTHRq"
+        },
+        {
+          "id": "DKZnUSfwjKx"
+        },
+        {
+          "id": "F2TAF765q1b"
+        },
+        {
+          "id": "hTGeTrwzrPi"
+        },
+        {
+          "id": "sYjp3h6amhA"
+        },
+        {
+          "id": "SoXpnYO84eZ"
+        },
+        {
+          "id": "f6xGA6BZBLO"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/eROJsBwxQHt",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "eROJsBwxQHt",
+      "level": 3
+    },
+    {
+      "code": "OU_233390",
+      "name": "Gbane",
+      "shortName": "Gbane",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "ii2KMnWMx2L"
+        },
+        {
+          "id": "KFowGOhmuSL"
+        },
+        {
+          "id": "tXL6C7P0ObJ"
+        },
+        {
+          "id": "t52CJEyLhch"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/ajILkI0cfxn",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "ajILkI0cfxn",
+      "level": 3
+    },
+    {
+      "code": "OU_233311",
+      "name": "Gbane Kandor",
+      "shortName": "Gbane Kandor",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "nurO6U9bOLi"
+        },
+        {
+          "id": "PwoQgMJNWbR"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/Zoy23SSHCPs",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "Zoy23SSHCPs",
+      "level": 3
+    },
+    {
+      "code": "OU_193215",
+      "name": "Gbanti Kamaranka",
+      "shortName": "Gbanti Kamaranka",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "msH78gZ7Fe6"
+        },
+        {
+          "id": "cZZG5BMDLps"
+        },
+        {
+          "id": "UUgajyaViT7"
+        },
+        {
+          "id": "ewh5SKxcCAl"
+        },
+        {
+          "id": "bSj2UnYhTFb"
+        },
+        {
+          "id": "QFcMulIoEii"
+        },
+        {
+          "id": "uedNhvYPMNu"
+        },
+        {
+          "id": "BXJnMD2eJAx"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/e1eIKM1GIF3",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "e1eIKM1GIF3",
+      "level": 3
+    },
+    {
+      "code": "OU_193277",
+      "name": "Gbendembu Ngowahun",
+      "shortName": "Gbendembu Ngowahun",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "z6v73gowbuM"
+        },
+        {
+          "id": "agEKP19IUKI"
+        },
+        {
+          "id": "YAuJ3fyoEuI"
+        },
+        {
+          "id": "d9uZeZ5fMUo"
+        },
+        {
+          "id": "I48Qu6R0sGm"
+        },
+        {
+          "id": "qEQFWnKh4gs"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/BXJdOLvUrZB",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "BXJdOLvUrZB",
+      "level": 3
+    },
+    {
+      "code": "OU_233375",
+      "name": "Gbense",
+      "shortName": "Gbense",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "VZ6Cocesljy"
+        },
+        {
+          "id": "Ls2ESQONh9S"
+        },
+        {
+          "id": "ncGs9vXS36w"
+        },
+        {
+          "id": "JLKGG67z7oj"
+        },
+        {
+          "id": "LaxJ6CD2DHq"
+        },
+        {
+          "id": "BLVKubgVxkF"
+        },
+        {
+          "id": "szbAJSWOXjT"
+        },
+        {
+          "id": "OzjRQLn3G24"
+        },
+        {
+          "id": "DSBXsRQSXUW"
+        },
+        {
+          "id": "zsqxu7ZZRpO"
+        },
+        {
+          "id": "EQc3n1juPFn"
+        },
+        {
+          "id": "Bift1B4gjru"
+        },
+        {
+          "id": "lQIe6vtSe1P"
+        },
+        {
+          "id": "nq7F0t1Pz6t"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/TQkG0sX9nca",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "TQkG0sX9nca",
+      "level": 3
+    },
+    {
+      "code": "OU_211213",
+      "name": "Gbinleh Dixion",
+      "shortName": "Gbinleh Dixion",
+      "parent": {
+        "name": "Kambia",
+        "id": "PMa2VCrupOd"
+      },
+      "children": [
+        {
+          "id": "VSwnkMSAdp7"
+        },
+        {
+          "id": "IPvrsWbm0EM"
+        },
+        {
+          "id": "wy6tbexg2nu"
+        },
+        {
+          "id": "i7Oh2tlkToJ"
+        },
+        {
+          "id": "VeXU3mndzri"
+        },
+        {
+          "id": "OjRCvy71kAL"
+        }
+      ],
+      "path": "/ImspTQPwCqd/PMa2VCrupOd/qIRCo0MfuGb",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "qIRCo0MfuGb",
+      "level": 3
+    },
+    {
+      "code": "OU_544",
+      "name": "Gbo",
+      "shortName": "Gbo",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "lvxIJAb2QJo"
+        },
+        {
+          "id": "jGYT5U5qJP6"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/YmmeuGbqOwR",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "YmmeuGbqOwR",
+      "level": 3
+    },
+    {
+      "code": "OU_268202",
+      "name": "Gbonkonlenken",
+      "shortName": "Gbonkonlenken",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "DxPNV7VHauJ"
+        },
+        {
+          "id": "sesv0eXljBq"
+        },
+        {
+          "id": "g031LbUPMmh"
+        },
+        {
+          "id": "RVAkLOVWSWc"
+        },
+        {
+          "id": "KFhJrkqnrnb"
+        },
+        {
+          "id": "aHs9PLxIdbr"
+        },
+        {
+          "id": "Zf2v0kbI7ah"
+        },
+        {
+          "id": "NqLYdlnK8sc"
+        },
+        {
+          "id": "v0HMlSxlH7l"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/P69SId31eDp",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "P69SId31eDp",
+      "level": 3
+    },
+    {
+      "code": "OU_233355",
+      "name": "Gorama Kono",
+      "shortName": "Gorama Kono",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "pYr0Kcy93M2"
+        },
+        {
+          "id": "RJpiHpefEUw"
+        },
+        {
+          "id": "rspjJHg4WY1"
+        },
+        {
+          "id": "aV9VVijeVB2"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/GWTIxJO9pRo",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "GWTIxJO9pRo",
+      "level": 3
+    },
+    {
+      "code": "OU_222627",
+      "name": "Gorama Mende",
+      "shortName": "Gorama Mende",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "Luv2kmWWgoG"
+        },
+        {
+          "id": "DwEfz1MN7Z5"
+        },
+        {
+          "id": "sYJCxNdKHxR"
+        },
+        {
+          "id": "LOpWauwwghf"
+        },
+        {
+          "id": "UAtEKSd5QTf"
+        },
+        {
+          "id": "lpQvlm9czYE"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/KXSqt7jv6DU",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "KXSqt7jv6DU",
+      "level": 3
+    },
+    {
+      "code": "OU_197413",
+      "name": "Imperi",
+      "shortName": "Imperi",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "Bq5nb7UAEGd"
+        },
+        {
+          "id": "dyn5pihalrJ"
+        },
+        {
+          "id": "jIkxZKctVhB"
+        },
+        {
+          "id": "K5wBtEzE2qJ"
+        },
+        {
+          "id": "D2rB1GRuh8C"
+        },
+        {
+          "id": "XctPvvWIIcF"
+        },
+        {
+          "id": "qzm5ww3U0vz"
+        },
+        {
+          "id": "xMn4Wki9doK"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/XEyIRFd9pct",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "XEyIRFd9pct",
+      "level": 3
+    },
+    {
+      "code": "OU_545",
+      "name": "Jaiama Bongor",
+      "shortName": "Jaiama Bongor",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "w3vRmEz3J7t"
+        },
+        {
+          "id": "IHa6fsNWsOZ"
+        },
+        {
+          "id": "hLGkoHmvBgI"
+        },
+        {
+          "id": "ei21lW7hFPX"
+        },
+        {
+          "id": "rozv5QUSE7a"
+        },
+        {
+          "id": "mwN7QuEfT8m"
+        },
+        {
+          "id": "erqWTArTsyJ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/daJPPxtIrQn",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "daJPPxtIrQn",
+      "level": 3
+    },
+    {
+      "code": "OU_204861",
+      "name": "Jawi",
+      "shortName": "Jawi",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "PB8FMGbn19r"
+        },
+        {
+          "id": "HQoxFu4lYPS"
+        },
+        {
+          "id": "mYMJHVqdBKt"
+        },
+        {
+          "id": "nbMpoRiVRWd"
+        },
+        {
+          "id": "dNT8lAL4zGo"
+        },
+        {
+          "id": "m5BX6CvJ6Ex"
+        },
+        {
+          "id": "cXOR7vSMBKO"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/KSdZwrU7Hh6",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "KSdZwrU7Hh6",
+      "level": 3
+    },
+    {
+      "code": "OU_197386",
+      "name": "Jong",
+      "shortName": "Jong",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "ctN0WgIvfke"
+        },
+        {
+          "id": "UWhv0MQOqoB"
+        },
+        {
+          "id": "PdGktj8bAML"
+        },
+        {
+          "id": "sY1WN6LjmAx"
+        },
+        {
+          "id": "S9QckzKX6Lg"
+        },
+        {
+          "id": "Xk2fvz4aTBU"
+        },
+        {
+          "id": "QCnJDmNjQy0"
+        },
+        {
+          "id": "Dluer5aKZmd"
+        },
+        {
+          "id": "WdgS1JcBL2g"
+        },
+        {
+          "id": "PnMPARoMhWW"
+        },
+        {
+          "id": "T2Cn45nBY0u"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/VCtF1DbspR5",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "VCtF1DbspR5",
+      "level": 3
+    },
+    {
+      "code": "OU_268197",
+      "name": "Kafe Simira",
+      "shortName": "Kafe Simira",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "flJbtXOQ4ha"
+        },
+        {
+          "id": "cd3U2Tp0qR2"
+        },
+        {
+          "id": "jVDUkOBCjDy"
+        },
+        {
+          "id": "Z8Cm76B2726"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/BmYyh9bZ0sr",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "BmYyh9bZ0sr",
+      "level": 3
+    },
+    {
+      "code": "OU_255005",
+      "name": "Kaffu Bullom",
+      "shortName": "Kaffu Bullom",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "xuk02oLk12O"
+        },
+        {
+          "id": "LnToY3ExKxL"
+        },
+        {
+          "id": "eP4F9eB76B0"
+        },
+        {
+          "id": "RUCp6OaTSAD"
+        },
+        {
+          "id": "ntQSuMb7J21"
+        },
+        {
+          "id": "gsypzntLahf"
+        },
+        {
+          "id": "qjboFI0irVu"
+        },
+        {
+          "id": "O63vIA5MVn6"
+        },
+        {
+          "id": "U4FzUXMvbI8"
+        },
+        {
+          "id": "w7a4l3XHIgi"
+        },
+        {
+          "id": "BH7rDkWjUqc"
+        },
+        {
+          "id": "oxAoPoePpqy"
+        },
+        {
+          "id": "OqBiNJjKQAu"
+        },
+        {
+          "id": "YDDOlgRBEAA"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/vn9KJsLyP5f",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "vn9KJsLyP5f",
+      "level": 3
+    },
+    {
+      "code": "OU_247055",
+      "name": "Kaiyamba",
+      "shortName": "Kaiyamba",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "rebbn0ooFSO"
+        },
+        {
+          "id": "U8uqyDAu5bH"
+        },
+        {
+          "id": "w9XjBMJYL9R"
+        },
+        {
+          "id": "Zr7pgiajIo9"
+        },
+        {
+          "id": "BgOhMcH9bxq"
+        },
+        {
+          "id": "XJI24bY3AN7"
+        },
+        {
+          "id": "hCm2Nh7C8BW"
+        },
+        {
+          "id": "wUmVUKhnPuy"
+        },
+        {
+          "id": "VdXuxcNkiad"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/USQdmvrHh1Q",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "USQdmvrHh1Q",
+      "level": 3
+    },
+    {
+      "code": "OU_546",
+      "name": "Kakua",
+      "shortName": "Kakua",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "GvFqTavdpGE"
+        },
+        {
+          "id": "gfWvbbgdjoS"
+        },
+        {
+          "id": "jfV49JGnYKF"
+        },
+        {
+          "id": "vRC0stJ5y9Q"
+        },
+        {
+          "id": "dx4NOnoGtE7"
+        },
+        {
+          "id": "roQ2l7TX0eZ"
+        },
+        {
+          "id": "tSBcgrTDdB8"
+        },
+        {
+          "id": "sK498nBOLfQ"
+        },
+        {
+          "id": "eRg3KZyWUSJ"
+        },
+        {
+          "id": "aBfyTU5Wgds"
+        },
+        {
+          "id": "mzsOsz0NwNY"
+        },
+        {
+          "id": "lOv6IFgr6Fs"
+        },
+        {
+          "id": "kLNQT4KQ9hT"
+        },
+        {
+          "id": "Ioxjc2KBjWd"
+        },
+        {
+          "id": "bqtZrXoryDF"
+        },
+        {
+          "id": "H0OkaM4ReRK"
+        },
+        {
+          "id": "tGf942oWszb"
+        },
+        {
+          "id": "rx9ubw0UCqj"
+        },
+        {
+          "id": "i7qaYfmGVDr"
+        },
+        {
+          "id": "ltF8BmYAXpQ"
+        },
+        {
+          "id": "k6DIO9LIEk9"
+        },
+        {
+          "id": "ZsjXrmZS59z"
+        },
+        {
+          "id": "K3k64jslIlL"
+        },
+        {
+          "id": "kMTHqMgenme"
+        },
+        {
+          "id": "jCnyQOKQBFX"
+        },
+        {
+          "id": "jk1TtiBM5hz"
+        },
+        {
+          "id": "bM4Ky73uMao"
+        },
+        {
+          "id": "wtdBuXDwZYQ"
+        },
+        {
+          "id": "rZxk3S0qN63"
+        },
+        {
+          "id": "uROAmk9ymNE"
+        },
+        {
+          "id": "Z9ny6QeqsgX"
+        },
+        {
+          "id": "UugO8xDeLQD"
+        },
+        {
+          "id": "hyLU8ivDJDi"
+        },
+        {
+          "id": "ptc0SQi05E4"
+        },
+        {
+          "id": "UOJlcpPnBat"
+        },
+        {
+          "id": "VrDA0Hn4Xc6"
+        },
+        {
+          "id": "KQFAul3T9xz"
+        },
+        {
+          "id": "E9oBVjyEaCe"
+        },
+        {
+          "id": "RhJbg8UD75Q"
+        },
+        {
+          "id": "Pae8DR7VmcL"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/U6Kr7Gtpidn",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "U6Kr7Gtpidn",
+      "level": 3
+    },
+    {
+      "code": "OU_268191",
+      "name": "Kalansogoia",
+      "shortName": "Kalansogoia",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "tlvNeDXXrS7"
+        },
+        {
+          "id": "yEU926iVAJJ"
+        },
+        {
+          "id": "QMnoFLTLpkY"
+        },
+        {
+          "id": "Q2USZSJmcNK"
+        },
+        {
+          "id": "e4P2zTzM7gQ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/smoyi1iYNK6",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "smoyi1iYNK6",
+      "level": 3
+    },
+    {
+      "code": "OU_247008",
+      "name": "Kamaje",
+      "shortName": "Kamaje",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "oLuhRyYPxRO"
+        },
+        {
+          "id": "wGsBlwh6Zzt"
+        },
+        {
+          "id": "E4jn4059Y1x"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/LsYpCyYxSLY",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "LsYpCyYxSLY",
+      "level": 3
+    },
+    {
+      "code": "OU_233339",
+      "name": "Kamara",
+      "shortName": "Kamara",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "lxxASQqPUqd"
+        },
+        {
+          "id": "yXBtSoD0IRS"
+        },
+        {
+          "id": "Q0HywoaWOcM"
+        },
+        {
+          "id": "FGV6TAbL0eN"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/kvkDWg42lHR",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "kvkDWg42lHR",
+      "level": 3
+    },
+    {
+      "code": "OU_222725",
+      "name": "Kandu Lepiema",
+      "shortName": "Kandu Lepiema",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "IWM4eKPJJSc"
+        },
+        {
+          "id": "oIgBLlEo6eH"
+        },
+        {
+          "id": "Y8foq27WLti"
+        },
+        {
+          "id": "kedYKTsv95j"
+        },
+        {
+          "id": "YvwYw7GilkP"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/K1r3uF6eZ8n",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "K1r3uF6eZ8n",
+      "level": 3
+    },
+    {
+      "code": "OU_247068",
+      "name": "Kargboro",
+      "shortName": "Kargboro",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "hDW65lFySeF"
+        },
+        {
+          "id": "SC0nM3cbGHy"
+        },
+        {
+          "id": "hBPtNXkQ3mP"
+        },
+        {
+          "id": "NpHsnQ2L1oY"
+        },
+        {
+          "id": "oV9P0VvL9Jh"
+        },
+        {
+          "id": "p9KfD6eaRvu"
+        },
+        {
+          "id": "RG6MGu5nUlI"
+        },
+        {
+          "id": "bLYNonGzr0Y"
+        },
+        {
+          "id": "BedE3DKQDFf"
+        },
+        {
+          "id": "TGRCfJEnXJr"
+        },
+        {
+          "id": "sIVFEyNfOg4"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/Z9QaI6sxTwW",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "Z9QaI6sxTwW",
+      "level": 3
+    },
+    {
+      "code": "OU_226219",
+      "name": "Kasonko",
+      "shortName": "Kasonko",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "jj1MhWhHqta"
+        },
+        {
+          "id": "G6LbealddgU"
+        },
+        {
+          "id": "K6oyIMh7Lee"
+        },
+        {
+          "id": "T3iVyvrCpZ0"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/vEvs2ckGNQj",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "vEvs2ckGNQj",
+      "level": 3
+    },
+    {
+      "code": "OU_268163",
+      "name": "Kholifa Mabang",
+      "shortName": "Kholifa Mabang",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "T1lTKu6zkHN"
+        },
+        {
+          "id": "caif2tNAS0n"
+        },
+        {
+          "id": "xRsoZIRmnt4"
+        },
+        {
+          "id": "cUltUneFSan"
+        },
+        {
+          "id": "Ahh47q8AkId"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/fwxkctgmffZ",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "fwxkctgmffZ",
+      "level": 3
+    },
+    {
+      "code": "OU_268150",
+      "name": "Kholifa Rowalla",
+      "shortName": "Kholifa Rowalla",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "ApLCxUmnT6q"
+        },
+        {
+          "id": "wB4R3E1X6pC"
+        },
+        {
+          "id": "vQYIk5G9NxP"
+        },
+        {
+          "id": "D6B4jrCpCwu"
+        },
+        {
+          "id": "Vh1fsWOYcv1"
+        },
+        {
+          "id": "wicmjKI3xiP"
+        },
+        {
+          "id": "F0uVXCVvOPO"
+        },
+        {
+          "id": "lBob31rp6l4"
+        },
+        {
+          "id": "q5kAX5MyPB6"
+        },
+        {
+          "id": "mEUUK7MHLSF"
+        },
+        {
+          "id": "sFgNRYS5pBo"
+        },
+        {
+          "id": "w9FJ9oAdFys"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/PQZJPIpTepd",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "PQZJPIpTepd",
+      "level": 3
+    },
+    {
+      "code": "OU_204875",
+      "name": "Kissi Kama",
+      "shortName": "Kissi Kama",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "qHBTf9A89xW"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/JsxnA2IywRo",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "JsxnA2IywRo",
+      "level": 3
+    },
+    {
+      "code": "OU_204939",
+      "name": "Kissi Teng",
+      "shortName": "Kissi Teng",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "PSjKMcPGUvA"
+        },
+        {
+          "id": "DMxw0SASFih"
+        },
+        {
+          "id": "cUNdCErxl9g"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/j0Mtr3xTMjM",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "j0Mtr3xTMjM",
+      "level": 3
+    },
+    {
+      "code": "OU_204887",
+      "name": "Kissi Tongi",
+      "shortName": "Kissi Tongi",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "QBRQnWPRO3V"
+        },
+        {
+          "id": "wB4tSXlryyO"
+        },
+        {
+          "id": "Vw6CNyFUeh9"
+        },
+        {
+          "id": "iIQENGb7za6"
+        },
+        {
+          "id": "tO01bqIipeD"
+        },
+        {
+          "id": "JemZqD90S44"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/hjpHnHZIniP",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "hjpHnHZIniP",
+      "level": 3
+    },
+    {
+      "code": "OU_547",
+      "name": "Komboya",
+      "shortName": "Komboya",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "WOk7efLlLSj"
+        },
+        {
+          "id": "kFur7xPhpH9"
+        },
+        {
+          "id": "JiEz2VDLwHY"
+        },
+        {
+          "id": "QsAwd531Cpd"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/JdhagCUEMbj",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "JdhagCUEMbj",
+      "level": 3
+    },
+    {
+      "code": "OU_247080",
+      "name": "Kongbora",
+      "shortName": "Kongbora",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "BqRElDluXGa"
+        },
+        {
+          "id": "iMZihUMzH92"
+        },
+        {
+          "id": "Cc9kMNFpGmC"
+        },
+        {
+          "id": "uAk40nFigUK"
+        },
+        {
+          "id": "aXnGiQGhOAj"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/Jiyc4ekaMMh",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "Jiyc4ekaMMh",
+      "level": 3
+    },
+    {
+      "code": "OU_246991",
+      "name": "Kori",
+      "shortName": "Kori",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "fGp4OcovQpa"
+        },
+        {
+          "id": "e2WgqiasKnD"
+        },
+        {
+          "id": "Qw7c6Ckb0XC"
+        },
+        {
+          "id": "Rll4VmTDRiE"
+        },
+        {
+          "id": "jkPHBqdn9SA"
+        },
+        {
+          "id": "J3wTSn87RP2"
+        },
+        {
+          "id": "DA2BEQMhv9B"
+        },
+        {
+          "id": "DlLBIHdpaTy"
+        },
+        {
+          "id": "Bpvug2zxHEZ"
+        },
+        {
+          "id": "V6QWyB0KqvP"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/nV3OkyzF4US",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "nV3OkyzF4US",
+      "level": 3
+    },
+    {
+      "code": "OU_247033",
+      "name": "Kowa",
+      "shortName": "Kowa",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "hzf90qz08AW"
+        },
+        {
+          "id": "er9S4CQ9QOn"
+        },
+        {
+          "id": "kqyeoWyfDmQ"
+        },
+        {
+          "id": "Zbp8TbiMKVc"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/xIKjidMrico",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "xIKjidMrico",
+      "level": 3
+    },
+    {
+      "code": "OU_254960",
+      "name": "Koya",
+      "shortName": "Koya",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "EURoFVjowXs"
+        },
+        {
+          "id": "Srnpwq8jKbp"
+        },
+        {
+          "id": "fmkqsEx6MRo"
+        },
+        {
+          "id": "UlgEReuUPM4"
+        },
+        {
+          "id": "YldSFPxB6WH"
+        },
+        {
+          "id": "XLiqwElsFHO"
+        },
+        {
+          "id": "UJ80rknbJtm"
+        },
+        {
+          "id": "WoqN1oUBX2R"
+        },
+        {
+          "id": "Uv15pOAstzX"
+        },
+        {
+          "id": "TrmusBXxLm3"
+        },
+        {
+          "id": "pUZIL5xBsve"
+        },
+        {
+          "id": "XePkcmza9e8"
+        },
+        {
+          "id": "DXegteybeb5"
+        },
+        {
+          "id": "WUQrS4Yqmoy"
+        },
+        {
+          "id": "jSPLEMDwXN4"
+        },
+        {
+          "id": "CgunjDKbM45"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/pRHGAROvuyI",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "pRHGAROvuyI",
+      "level": 3
+    },
+    {
+      "code": "OU_222642",
+      "name": "Koya (kenema)",
+      "shortName": "Koya (kenema)",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "wjP03y8OY5k"
+        },
+        {
+          "id": "Yj2ni275yPJ"
+        },
+        {
+          "id": "VH8vOjm0l8w"
+        },
+        {
+          "id": "DINXUs8QZWg"
+        },
+        {
+          "id": "zAyK28LLaez"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/EYt6ThQDagn",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "EYt6ThQDagn",
+      "level": 3
+    },
+    {
+      "code": "OU_260440",
+      "name": "Kpaka",
+      "shortName": "Kpaka",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "tBRDdxfKbMx"
+        },
+        {
+          "id": "Tc3zugEWdTm"
+        },
+        {
+          "id": "vpNGJvZ0ljF"
+        },
+        {
+          "id": "BG2fC2mRFOL"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/zSNUViKdkk3",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "zSNUViKdkk3",
+      "level": 3
+    },
+    {
+      "code": "OU_197424",
+      "name": "Kpanda Kemoh",
+      "shortName": "Kpanda Kemoh",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "MMrdfNDfBIi"
+        },
+        {
+          "id": "MnfykVk3zin"
+        },
+        {
+          "id": "rCKWdLr4B8K"
+        },
+        {
+          "id": "X7ZVgRPt31q"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/aWQTfvgPA5v",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "aWQTfvgPA5v",
+      "level": 3
+    },
+    {
+      "code": "OU_260400",
+      "name": "Kpanga Kabonde",
+      "shortName": "Kpanga Kabonde",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "foPGXhwhlqp"
+        },
+        {
+          "id": "aVlSMMvgVzf"
+        },
+        {
+          "id": "WerHl8SDtRU"
+        },
+        {
+          "id": "bHcw141PTsE"
+        },
+        {
+          "id": "STv4PP4Hiyl"
+        },
+        {
+          "id": "rFelzKE3SEp"
+        },
+        {
+          "id": "FgYDmGwmpEU"
+        },
+        {
+          "id": "ywNG86IY4Ve"
+        },
+        {
+          "id": "RpRJUDOPtt7"
+        },
+        {
+          "id": "CqARw68kXbB"
+        },
+        {
+          "id": "tNs4E0JcMKe"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/QwMiPiME3bA",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "QwMiPiME3bA",
+      "level": 3
+    },
+    {
+      "code": "OU_260417",
+      "name": "Kpanga Krim",
+      "shortName": "Kpanga Krim",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "k92yudERPlv"
+        },
+        {
+          "id": "qAFXoNjlZCB"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/YpVol7asWvd",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "YpVol7asWvd",
+      "level": 3
+    },
+    {
+      "code": "OU_268174",
+      "name": "Kunike",
+      "shortName": "Kunike",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "lyONqUkY1Bq"
+        },
+        {
+          "id": "ETRqfu74kge"
+        },
+        {
+          "id": "mc3jvzpzSi4"
+        },
+        {
+          "id": "OY7mYDATra3"
+        },
+        {
+          "id": "OwhDCucf4Ue"
+        },
+        {
+          "id": "YFlZA0y0Vi6"
+        },
+        {
+          "id": "GkHpMSo5K60"
+        },
+        {
+          "id": "byOPfWkK6M6"
+        },
+        {
+          "id": "a5glgtnXJRG"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/l0ccv2yzfF3",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "l0ccv2yzfF3",
+      "level": 3
+    },
+    {
+      "code": "OU_268212",
+      "name": "Kunike Barina",
+      "shortName": "Kunike Barina",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "S6KDC0jVhmD"
+        },
+        {
+          "id": "CebtBqqp1fp"
+        },
+        {
+          "id": "Qwzs1iinAI7"
+        },
+        {
+          "id": "scc4QyxenJd"
+        },
+        {
+          "id": "sHbLRZLmS4w"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/rXLor9Knq6l",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "rXLor9Knq6l",
+      "level": 3
+    },
+    {
+      "code": "OU_197432",
+      "name": "Kwamabai Krim",
+      "shortName": "Kwamabai Krim",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "n7wN9gMFfZ5"
+        },
+        {
+          "id": "PeyblWrhOwL"
+        },
+        {
+          "id": "hjqgB6hEdl3"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/HV8RTzgcFH3",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "HV8RTzgcFH3",
+      "level": 3
+    },
+    {
+      "code": "OU_222751",
+      "name": "Langrama",
+      "shortName": "Langrama",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "fPe1l06MurL"
+        },
+        {
+          "id": "XbyObqerCya"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/jWSIbtKfURj",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "jWSIbtKfURj",
+      "level": 3
+    },
+    {
+      "code": "OU_233348",
+      "name": "Lei",
+      "shortName": "Lei",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "qwmh84DV65K"
+        },
+        {
+          "id": "iP4fRh8EHmF"
+        },
+        {
+          "id": "AvGz949akv4"
+        },
+        {
+          "id": "jYPY8mT8gn6"
+        },
+        {
+          "id": "T62lSjsZe9n"
+        },
+        {
+          "id": "HOgWkpYH3KB"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/LhaAPLxdSFH",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "LhaAPLxdSFH",
+      "level": 3
+    },
+    {
+      "code": "OU_193302",
+      "name": "Libeisaygahun",
+      "shortName": "Libeisaygahun",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "agM0BKQlTh3"
+        },
+        {
+          "id": "DIQl5jJ17IE"
+        },
+        {
+          "id": "uGa5JtIMfRx"
+        },
+        {
+          "id": "v2vi8UaIYlo"
+        },
+        {
+          "id": "hpXXBtRXXSd"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/hRZOIgQ0O1m",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "hRZOIgQ0O1m",
+      "level": 3
+    },
+    {
+      "code": "OU_254982",
+      "name": "Lokomasama",
+      "shortName": "Lokomasama",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "HVQ6gJE8R24"
+        },
+        {
+          "id": "U9klfqqGlRa"
+        },
+        {
+          "id": "yMCshbaVExv"
+        },
+        {
+          "id": "ifw5aLygJEi"
+        },
+        {
+          "id": "BDBXHeASwHl"
+        },
+        {
+          "id": "HHc5HDPFlXy"
+        },
+        {
+          "id": "XXlzHWzhf5d"
+        },
+        {
+          "id": "ke2gwHKHP3z"
+        },
+        {
+          "id": "OcRCVRy2M7X"
+        },
+        {
+          "id": "TrIXhUR4sDQ"
+        },
+        {
+          "id": "TkhwySsXC5V"
+        },
+        {
+          "id": "SIxGTeya5lN"
+        },
+        {
+          "id": "Eyj2kiEJ7M3"
+        },
+        {
+          "id": "sTOXJA2KcY2"
+        },
+        {
+          "id": "n3MRjKtwr3O"
+        },
+        {
+          "id": "UqXSUMp19FB"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/fRLX08WHWpL",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "fRLX08WHWpL",
+      "level": 3
+    },
+    {
+      "code": "OU_222652",
+      "name": "Lower Bambara",
+      "shortName": "Lower Bambara",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "m21WB5iqHAb"
+        },
+        {
+          "id": "U02o1QAm6cC"
+        },
+        {
+          "id": "NqTZjfTIsxC"
+        },
+        {
+          "id": "IlMQTFvcq9r"
+        },
+        {
+          "id": "VXrJKs8hic4"
+        },
+        {
+          "id": "VjygCFzqcYu"
+        },
+        {
+          "id": "pNPmNeqyrim"
+        },
+        {
+          "id": "K3jhn3TXF3a"
+        },
+        {
+          "id": "PEZNsGbZaVJ"
+        },
+        {
+          "id": "BJ3DJFBKwBR"
+        },
+        {
+          "id": "MQHszd6K6V5"
+        },
+        {
+          "id": "MrME31scKA1"
+        },
+        {
+          "id": "REtQE1gstTf"
+        },
+        {
+          "id": "CKkE4GBJekz"
+        },
+        {
+          "id": "oUR5HPmim7E"
+        },
+        {
+          "id": "d7hw1ababST"
+        },
+        {
+          "id": "Zq9ATbrmKIa"
+        },
+        {
+          "id": "PyLBGdbzdEo"
+        },
+        {
+          "id": "PFZbQjwty2n"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/hdEuw2ugkVF",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "hdEuw2ugkVF",
+      "level": 3
+    },
+    {
+      "code": "OU_247012",
+      "name": "Lower Banta",
+      "shortName": "Lower Banta",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "AFi1GjbeejL"
+        },
+        {
+          "id": "M721NHGtdZV"
+        },
+        {
+          "id": "R9gZAoI9aQM"
+        },
+        {
+          "id": "ubsjwFFBaJM"
+        },
+        {
+          "id": "u3B5RqJuDAP"
+        },
+        {
+          "id": "XmfqaErvQ2T"
+        },
+        {
+          "id": "cNAp6CJeLxk"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/W5fN3G6y1VI",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "W5fN3G6y1VI",
+      "level": 3
+    },
+    {
+      "code": "OU_204894",
+      "name": "Luawa",
+      "shortName": "Luawa",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "g6y7PS0UQR4"
+        },
+        {
+          "id": "nDoybVJLD74"
+        },
+        {
+          "id": "mokUyyg3olJ"
+        },
+        {
+          "id": "rwfuVQHnZJ5"
+        },
+        {
+          "id": "NnGUNkc5Zq8"
+        },
+        {
+          "id": "OZ1olxsTyNa"
+        },
+        {
+          "id": "L05Bfpu7AcZ"
+        },
+        {
+          "id": "vPKxHJ1og0r"
+        },
+        {
+          "id": "JQr6TJx5KE3"
+        },
+        {
+          "id": "ih77LC7LE1p"
+        },
+        {
+          "id": "TQ5DSmdliN7"
+        },
+        {
+          "id": "sznCEDMABa2"
+        },
+        {
+          "id": "wkYbuEwNWyf"
+        },
+        {
+          "id": "XvqLmn4kZXy"
+        },
+        {
+          "id": "xmZNDeO0qCR"
+        },
+        {
+          "id": "nE01sGNCY5P"
+        },
+        {
+          "id": "IXJg79fclDm"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/cM2BKSrj9F9",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "cM2BKSrj9F9",
+      "level": 3
+    },
+    {
+      "code": "OU_548",
+      "name": "Lugbu",
+      "shortName": "Lugbu",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "Ykx8Ovui7g0"
+        },
+        {
+          "id": "l2kZRcJjomr"
+        },
+        {
+          "id": "AlG0apJE5cm"
+        },
+        {
+          "id": "VfZnZ6UKyn8"
+        },
+        {
+          "id": "W2KnxOMvmgE"
+        },
+        {
+          "id": "al4GkB6X2X3"
+        },
+        {
+          "id": "QDoO5r6Sae7"
+        },
+        {
+          "id": "r4W2vzlmPhm"
+        },
+        {
+          "id": "mGmu0GJ5neg"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/kU8vhUkAGaT",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "kU8vhUkAGaT",
+      "level": 3
+    },
+    {
+      "code": "OU_233344",
+      "name": "Mafindor",
+      "shortName": "Mafindor",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "vgOQ7fWmMyZ"
+        },
+        {
+          "id": "hHKKi9WNoBG"
+        },
+        {
+          "id": "GM9ddjXIO5b"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/EjnIQNVAXGp",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "EjnIQNVAXGp",
+      "level": 3
+    },
+    {
+      "code": "OU_254946",
+      "name": "Maforki",
+      "shortName": "Maforki",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "r0TCGeLkQKI"
+        },
+        {
+          "id": "qVvitxEF2ck"
+        },
+        {
+          "id": "z4silfLpw2G"
+        },
+        {
+          "id": "HlDMbDWUmTy"
+        },
+        {
+          "id": "FGbXmz7gTTl"
+        },
+        {
+          "id": "kSo9KSpHUPL"
+        },
+        {
+          "id": "ZvX8lXd1tYs"
+        },
+        {
+          "id": "FFU3PJ3pY7s"
+        },
+        {
+          "id": "SHLY5rkOFTQ"
+        },
+        {
+          "id": "lzz1UhTzO4E"
+        },
+        {
+          "id": "UoLtRvXxNaB"
+        },
+        {
+          "id": "simyC07XwnS"
+        },
+        {
+          "id": "zm9breCeT1m"
+        },
+        {
+          "id": "WxMIZC6Cxqs"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/JdqfYTIFZXN",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "JdqfYTIFZXN",
+      "level": 3
+    },
+    {
+      "code": "OU_193224",
+      "name": "Magbaimba Ndowahun",
+      "shortName": "Magbaimba Ndowahun",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "LmRTf03IFkA"
+        },
+        {
+          "id": "TjZwphhxCuV"
+        },
+        {
+          "id": "J1x66stNjk2"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/eV4cuxniZgP",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "eV4cuxniZgP",
+      "level": 3
+    },
+    {
+      "code": "OU_211227",
+      "name": "Magbema",
+      "shortName": "Magbema",
+      "parent": {
+        "name": "Kambia",
+        "id": "PMa2VCrupOd"
+      },
+      "children": [
+        {
+          "id": "ua3kNk4uraZ"
+        },
+        {
+          "id": "IN2dOk0gY1G"
+        },
+        {
+          "id": "QZtMuEEV9Vv"
+        },
+        {
+          "id": "tt9XZYR5avl"
+        },
+        {
+          "id": "KbO0JnhiMwl"
+        },
+        {
+          "id": "mTNOoGXuC39"
+        },
+        {
+          "id": "plnHVbJR6p4"
+        },
+        {
+          "id": "vyIl6s0lhKc"
+        },
+        {
+          "id": "Qr41Mw2MSjo"
+        },
+        {
+          "id": "cJ7omISg7gG"
+        },
+        {
+          "id": "M3dL6ZAIZ3I"
+        },
+        {
+          "id": "N7mHLD3ljYc"
+        },
+        {
+          "id": "koa3hwZZ2i7"
+        },
+        {
+          "id": "VjVYaKZ9t4K"
+        },
+        {
+          "id": "JNJIPX9DfaW"
+        }
+      ],
+      "path": "/ImspTQPwCqd/PMa2VCrupOd/QywkxFudXrC",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "QywkxFudXrC",
+      "level": 3
+    },
+    {
+      "code": "OU_193249",
+      "name": "Makari Gbanti",
+      "shortName": "Makari Gbanti",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "GhXvo3BpCvo"
+        },
+        {
+          "id": "SQz3xtx1Sgr"
+        },
+        {
+          "id": "cdmkMyYv04T"
+        },
+        {
+          "id": "rNaQEFRINbd"
+        },
+        {
+          "id": "zLiMZ1WrxdG"
+        },
+        {
+          "id": "uRQj8WRK0Py"
+        },
+        {
+          "id": "tdhB1JXYBx2"
+        },
+        {
+          "id": "m7fBMpmVpSM"
+        },
+        {
+          "id": "wSHfjjFqUay"
+        },
+        {
+          "id": "Xzxy8NuVsLp"
+        },
+        {
+          "id": "xIMxph4NMP1"
+        },
+        {
+          "id": "Zwnfm4rnzbZ"
+        },
+        {
+          "id": "cTU2WmWcJKx"
+        },
+        {
+          "id": "taKiTcaf05H"
+        },
+        {
+          "id": "z9KGMrElTYS"
+        },
+        {
+          "id": "gaOSAjPM07w"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/lY93YpCxJqf",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "lY93YpCxJqf",
+      "level": 3
+    },
+    {
+      "code": "OU_260378",
+      "name": "Makpele",
+      "shortName": "Makpele",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "TWH05Rjz6oT"
+        },
+        {
+          "id": "RXeDDKU26rB"
+        },
+        {
+          "id": "BNFrspDBKel"
+        },
+        {
+          "id": "lf7FRlrchg3"
+        },
+        {
+          "id": "AekX8HBymng"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/BD9gU0GKlr2",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "BD9gU0GKlr2",
+      "level": 3
+    },
+    {
+      "code": "OU_268184",
+      "name": "Malal Mara",
+      "shortName": "Malal Mara",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "J42QfNe0GJZ"
+        },
+        {
+          "id": "CTnuuI55SOj"
+        },
+        {
+          "id": "KwSj4DlRWAm"
+        },
+        {
+          "id": "fHqBRE3LTiQ"
+        },
+        {
+          "id": "X9zzzyPZViR"
+        },
+        {
+          "id": "Q8oWscr9rlQ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/EVkm2xYcf6Z",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "EVkm2xYcf6Z",
+      "level": 3
+    },
+    {
+      "code": "OU_222672",
+      "name": "Malegohun",
+      "shortName": "Malegohun",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "QII5GqfDfO3"
+        },
+        {
+          "id": "VpYAl8dXs6m"
+        },
+        {
+          "id": "DxguTiXvIJu"
+        },
+        {
+          "id": "amgb83zVxp5"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/x4HaBHHwBML",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "x4HaBHHwBML",
+      "level": 3
+    },
+    {
+      "code": "OU_204869",
+      "name": "Malema",
+      "shortName": "Malema",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "DvzKyuC0G4w"
+        },
+        {
+          "id": "SFQigiC2ISS"
+        },
+        {
+          "id": "wbtk73Zwhj9"
+        },
+        {
+          "id": "WMj6mBDw76A"
+        },
+        {
+          "id": "e0RGds86ow6"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/GE25DpSrqpB",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "GE25DpSrqpB",
+      "level": 3
+    },
+    {
+      "code": "OU_260392",
+      "name": "Malen",
+      "shortName": "Malen",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "UgYg0YW7ZIh"
+        },
+        {
+          "id": "HWXk4EBHUyk"
+        },
+        {
+          "id": "NDqR2cWlVy3"
+        },
+        {
+          "id": "mVvEwzoFutG"
+        },
+        {
+          "id": "aRXfvyonenP"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/DfUfwjM9am5",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "DfUfwjM9am5",
+      "level": 3
+    },
+    {
+      "code": "OU_211262",
+      "name": "Mambolo",
+      "shortName": "Mambolo",
+      "parent": {
+        "name": "Kambia",
+        "id": "PMa2VCrupOd"
+      },
+      "children": [
+        {
+          "id": "VFF7f43dJv4"
+        },
+        {
+          "id": "FQ5CCuUKNLf"
+        },
+        {
+          "id": "GMOl74xzmAE"
+        },
+        {
+          "id": "R0CmUlFULXg"
+        },
+        {
+          "id": "U0KpeSx4UIB"
+        },
+        {
+          "id": "RAsstekPRco"
+        },
+        {
+          "id": "dtuiqEXYa7z"
+        },
+        {
+          "id": "OGaAWQD6SYs"
+        }
+      ],
+      "path": "/ImspTQPwCqd/PMa2VCrupOd/xGMGhjA3y6J",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "xGMGhjA3y6J",
+      "level": 3
+    },
+    {
+      "code": "OU_204910",
+      "name": "Mandu",
+      "shortName": "Mandu",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "Urk55T8KgpT"
+        },
+        {
+          "id": "MXdbul7bBqV"
+        },
+        {
+          "id": "c41XRVOYNJm"
+        },
+        {
+          "id": "Bf9R1R91mw4"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/yu4N82FFeLm",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "yu4N82FFeLm",
+      "level": 3
+    },
+    {
+      "code": "OU_260437",
+      "name": "Mano Sakrim",
+      "shortName": "Mano Sakrim",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "Jd7G0NYBTx1"
+        },
+        {
+          "id": "t6S2MopeRaM"
+        },
+        {
+          "id": "O1KFJmM6HUx"
+        },
+        {
+          "id": "yDFM5J6WeKU"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/nlt6j60tCHF",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "nlt6j60tCHF",
+      "level": 3
+    },
+    {
+      "code": "OU_255053",
+      "name": "Marampa",
+      "shortName": "Marampa",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "n9HIySyR00g"
+        },
+        {
+          "id": "FRX63UWciyO"
+        },
+        {
+          "id": "nZblzPvJ5UW"
+        },
+        {
+          "id": "hZpaU5uFSDm"
+        },
+        {
+          "id": "xWIyicUgscN"
+        },
+        {
+          "id": "q56204kKXgZ"
+        },
+        {
+          "id": "en0j7qFnySQ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/RWvG1aFrr0r",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "RWvG1aFrr0r",
+      "level": 3
+    },
+    {
+      "code": "OU_255030",
+      "name": "Masimera",
+      "shortName": "Masimera",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "G5FuODAbH6X"
+        },
+        {
+          "id": "gfk1TNPI4wN"
+        },
+        {
+          "id": "nornKUJmQqn"
+        },
+        {
+          "id": "ALZ2qr5u0X0"
+        },
+        {
+          "id": "EH0dXLB4nZg"
+        },
+        {
+          "id": "fdsRQbuuAuh"
+        },
+        {
+          "id": "JU4dWUv0Pmd"
+        },
+        {
+          "id": "Zp2Yi4j2AAH"
+        },
+        {
+          "id": "UUZoBCSn245"
+        },
+        {
+          "id": "JBhJiwqBCUa"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/EfWCa0Cc8WW",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "EfWCa0Cc8WW",
+      "level": 3
+    },
+    {
+      "code": "OU_211256",
+      "name": "Masungbala",
+      "shortName": "Masungbala",
+      "parent": {
+        "name": "Kambia",
+        "id": "PMa2VCrupOd"
+      },
+      "children": [
+        {
+          "id": "etrIik4vsBQ"
+        },
+        {
+          "id": "rxc497GUdDt"
+        },
+        {
+          "id": "FsunWIQLXoF"
+        },
+        {
+          "id": "vELaJEPLOPF"
+        },
+        {
+          "id": "RNGpZqutw3Y"
+        }
+      ],
+      "path": "/ImspTQPwCqd/PMa2VCrupOd/FlBemv1NfEC",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "FlBemv1NfEC",
+      "level": 3
+    },
+    {
+      "code": "OU_226244",
+      "name": "Mongo",
+      "shortName": "Mongo",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "m0PiiU5BteW"
+        },
+        {
+          "id": "eCfxBe1lnxb"
+        },
+        {
+          "id": "GyH8bjdOTsD"
+        },
+        {
+          "id": "PMsF64R6OJX"
+        },
+        {
+          "id": "qELjt3LRkSD"
+        },
+        {
+          "id": "ZOZ4s2gTPj7"
+        },
+        {
+          "id": "HC2NlwpoXfb"
+        },
+        {
+          "id": "oNqqmKD0zXj"
+        },
+        {
+          "id": "kzmwOrwmzbW"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/OTFepb1k9Db",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "OTFepb1k9Db",
+      "level": 3
+    },
+    {
+      "code": "OU_226275",
+      "name": "Neya",
+      "shortName": "Neya",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "ADeZNq1pKsu"
+        },
+        {
+          "id": "MwfWgjMRgId"
+        },
+        {
+          "id": "EO6ghLtWv4W"
+        },
+        {
+          "id": "RpjUEvgWSNO"
+        },
+        {
+          "id": "eKoXODABUJe"
+        },
+        {
+          "id": "U7yKrx2QVet"
+        },
+        {
+          "id": "Ep5iWL1UKvF"
+        },
+        {
+          "id": "wxMmC45UyNw"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/GFk45MOxzJJ",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "GFk45MOxzJJ",
+      "level": 3
+    },
+    {
+      "code": "OU_222648",
+      "name": "Niawa",
+      "shortName": "Niawa",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "IWb1hstfROc"
+        },
+        {
+          "id": "lpAPY3QOY2D"
+        },
+        {
+          "id": "Jyv7sjpl9bA"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/uKC54fzxRzO",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "uKC54fzxRzO",
+      "level": 3
+    },
+    {
+      "code": "OU_549",
+      "name": "Niawa Lenga",
+      "shortName": "Niawa Lenga",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "m73lWmo5BDG"
+        },
+        {
+          "id": "hoJ0Do9loZl"
+        },
+        {
+          "id": "PuZOFApTSeo"
+        },
+        {
+          "id": "rm60vuHyQXj"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/I4jWcnFmgEC",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "I4jWcnFmgEC",
+      "level": 3
+    },
+    {
+      "code": "OU_226269",
+      "name": "Nieni",
+      "shortName": "Nieni",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "fmLRqcL9sWF"
+        },
+        {
+          "id": "qxbsDd9QYv6"
+        },
+        {
+          "id": "qO2JLjYrg91"
+        },
+        {
+          "id": "NMcx2jmra3c"
+        },
+        {
+          "id": "CvYsZipdHMN"
+        },
+        {
+          "id": "dWOAzMcK2Wt"
+        },
+        {
+          "id": "GvstqlRRnpV"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/J4GiUImJZoE",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "J4GiUImJZoE",
+      "level": 3
+    },
+    {
+      "code": "OU_233394",
+      "name": "Nimikoro",
+      "shortName": "Nimikoro",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "vPz4Irz7sxR"
+        },
+        {
+          "id": "MUnd4KWox8m"
+        },
+        {
+          "id": "RwkdG4Pku2x"
+        },
+        {
+          "id": "ObJjzhhBkfy"
+        },
+        {
+          "id": "tcEjL7gmFJL"
+        },
+        {
+          "id": "g5A3hiJlwmI"
+        },
+        {
+          "id": "YnuwSqXPx9H"
+        },
+        {
+          "id": "cMFi8lYbXHY"
+        },
+        {
+          "id": "uoPC2z9r7Cc"
+        },
+        {
+          "id": "PA1spYiNZfv"
+        },
+        {
+          "id": "tR6e8k99ODA"
+        },
+        {
+          "id": "g3O1pGAfgK1"
+        },
+        {
+          "id": "PD1fqyvJssC"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/DmaLM8WYmWv",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "DmaLM8WYmWv",
+      "level": 3
+    },
+    {
+      "code": "OU_233332",
+      "name": "Nimiyama",
+      "shortName": "Nimiyama",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "W7ekX3gi0ut"
+        },
+        {
+          "id": "XGUOQaRUPjO"
+        },
+        {
+          "id": "Z0q0Y3GRugt"
+        },
+        {
+          "id": "yTMrs5kClCv"
+        },
+        {
+          "id": "vcY0lzBz6fU"
+        },
+        {
+          "id": "zQ2pFkzGtIg"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/qgQ49DH9a0v",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "qgQ49DH9a0v",
+      "level": 3
+    },
+    {
+      "code": "OU_204877",
+      "name": "Njaluahun",
+      "shortName": "Njaluahun",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "zpEPGogIr6q"
+        },
+        {
+          "id": "JCXEtUDYyp9"
+        },
+        {
+          "id": "t66taqSF1mW"
+        },
+        {
+          "id": "U8tyWV7WmIB"
+        },
+        {
+          "id": "ABM75Q1UfoP"
+        },
+        {
+          "id": "fYmE4ymzZSe"
+        },
+        {
+          "id": "vlNXjc2lk9y"
+        },
+        {
+          "id": "N3tpEjZcPm9"
+        },
+        {
+          "id": "BJMWTGwuGiw"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/ERmBhYkhV6Y",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "ERmBhYkhV6Y",
+      "level": 3
+    },
+    {
+      "code": "OU_222617",
+      "name": "Nomo",
+      "shortName": "Nomo",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "bne6tOoPaWn"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/U09TSwIjG0s",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "U09TSwIjG0s",
+      "level": 3
+    },
+    {
+      "code": "OU_197445",
+      "name": "Nongoba Bullum",
+      "shortName": "Nongoba Bullum",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "EihevoTWn2i"
+        },
+        {
+          "id": "a1dP5m3Clw4"
+        },
+        {
+          "id": "TEVtOFKcLAP"
+        },
+        {
+          "id": "ZW3XCXXiLcO"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/VP397wRvePm",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "VP397wRvePm",
+      "level": 3
+    },
+    {
+      "code": "OU_222690",
+      "name": "Nongowa",
+      "shortName": "Nongowa",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "kDxbU1uSBFh"
+        },
+        {
+          "id": "l0WRLZlEgB1"
+        },
+        {
+          "id": "TNbHYOuQi8s"
+        },
+        {
+          "id": "So2b8zJfcMa"
+        },
+        {
+          "id": "FwKJ7gYEv8U"
+        },
+        {
+          "id": "Vnc2qIRLbyw"
+        },
+        {
+          "id": "GA7eQkgK5mX"
+        },
+        {
+          "id": "L4Tw4NlaMjn"
+        },
+        {
+          "id": "xEip3dtU8bp"
+        },
+        {
+          "id": "C1tAqIpKB9k"
+        },
+        {
+          "id": "up9gjdODKXE"
+        },
+        {
+          "id": "XQudzejlhJZ"
+        },
+        {
+          "id": "g10jm7jPdzf"
+        },
+        {
+          "id": "mhJQYk2Jwym"
+        },
+        {
+          "id": "m3QGt8fY3L0"
+        },
+        {
+          "id": "cC03EwJLBiO"
+        },
+        {
+          "id": "OzVuFaZgm5U"
+        },
+        {
+          "id": "TYq1YW7qs7k"
+        },
+        {
+          "id": "NqwvaQC1ni4"
+        },
+        {
+          "id": "HPg74Rr7UWp"
+        },
+        {
+          "id": "I2DzylqJa2i"
+        },
+        {
+          "id": "Kmu7ox2MiiU"
+        },
+        {
+          "id": "qIpBLa1SCZt"
+        },
+        {
+          "id": "TAN6Q7vjvuk"
+        },
+        {
+          "id": "c9wCIfbcyVo"
+        },
+        {
+          "id": "zY9ds4oNZxw"
+        },
+        {
+          "id": "qvHMAxtWWK6"
+        },
+        {
+          "id": "lwHs72tP6Kh"
+        },
+        {
+          "id": "iOA3z6Y3cq5"
+        },
+        {
+          "id": "DwlFKzDSuQU"
+        },
+        {
+          "id": "IFXdzAk7hKi"
+        },
+        {
+          "id": "djMCTPYvltl"
+        },
+        {
+          "id": "geVF87N7qTw"
+        },
+        {
+          "id": "ueuQlqb8ccl"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/KIUCimTXf8Q",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "KIUCimTXf8Q",
+      "level": 3
+    },
+    {
+      "code": "OU_193295",
+      "name": "Paki Masabong",
+      "shortName": "Paki Masabong",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "suFG8zx4bU3"
+        },
+        {
+          "id": "dmdYffw2I0F"
+        },
+        {
+          "id": "pmzk0ho80aA"
+        },
+        {
+          "id": "t0DLywkw6O1"
+        },
+        {
+          "id": "si34vmovtgR"
+        },
+        {
+          "id": "mshIal30ffW"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/L8iA6eLwKNb",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "L8iA6eLwKNb",
+      "level": 3
+    },
+    {
+      "code": "OU_204929",
+      "name": "Peje Bongre",
+      "shortName": "Peje Bongre",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "xATvj8pdYoT"
+        },
+        {
+          "id": "PaNv9VyD06n"
+        },
+        {
+          "id": "YhBJbiD5N1z"
+        },
+        {
+          "id": "F7u30K5OIpi"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/DxAPPqXvwLy",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "DxAPPqXvwLy",
+      "level": 3
+    },
+    {
+      "code": "OU_260388",
+      "name": "Pejeh",
+      "shortName": "Pejeh",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "uDzWmUDHKeR"
+        },
+        {
+          "id": "DwpbWkiqjMy"
+        },
+        {
+          "id": "BTXwf2gl7av"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/N233eZJZ1bh",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "N233eZJZ1bh",
+      "level": 3
+    },
+    {
+      "code": "OU_204924",
+      "name": "Peje West",
+      "shortName": "Peje West",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "f7yRhIeFn1k"
+        },
+        {
+          "id": "x8SUTSsJoeO"
+        },
+        {
+          "id": "lsqa3EEGHxv"
+        },
+        {
+          "id": "nv41sOz8IVM"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/pmxZm7klXBy",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "pmxZm7klXBy",
+      "level": 3
+    },
+    {
+      "code": "OU_204857",
+      "name": "Penguia",
+      "shortName": "Penguia",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "Mi4dWRtfIOC"
+        },
+        {
+          "id": "v0dXACseLuB"
+        },
+        {
+          "id": "SFQblJrFblm"
+        },
+        {
+          "id": "SVEfwJ0BGeD"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/bQiBfA2j5cw",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "bQiBfA2j5cw",
+      "level": 3
+    },
+    {
+      "code": "OU_247037",
+      "name": "Ribbi",
+      "shortName": "Ribbi",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "Eyqyhztf8G1"
+        },
+        {
+          "id": "GRc9WXp9gSy"
+        },
+        {
+          "id": "eqPIdr5yD1Q"
+        },
+        {
+          "id": "fvytjjnlQlK"
+        },
+        {
+          "id": "cHqboEGRUiY"
+        },
+        {
+          "id": "wqbyzbQ78oI"
+        },
+        {
+          "id": "DJr17K6RWzO"
+        },
+        {
+          "id": "BpWJ3cRsO6g"
+        },
+        {
+          "id": "fCFdj2T0Bq1"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/gy8rmvYT4cj",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "gy8rmvYT4cj",
+      "level": 3
+    },
+    {
+      "code": "OU_278366",
+      "name": "Rural Western Area",
+      "shortName": "Rural Western Area",
+      "parent": {
+        "name": "Western Area",
+        "id": "at6UHUQatSo"
+      },
+      "children": [
+        {
+          "id": "cZxP4NE5O9z"
+        },
+        {
+          "id": "bPJABq7F5Iy"
+        },
+        {
+          "id": "b1F5bfb7WUR"
+        },
+        {
+          "id": "RHJram03Rlm"
+        },
+        {
+          "id": "SptGAcmbgPz"
+        },
+        {
+          "id": "lmNWdmeOYmV"
+        },
+        {
+          "id": "lELJZCBxz7H"
+        },
+        {
+          "id": "pXDcgDRz8Od"
+        },
+        {
+          "id": "NRPCjDljVtu"
+        },
+        {
+          "id": "wcHRDp21Lw1"
+        },
+        {
+          "id": "Uo4cyJwAhTW"
+        },
+        {
+          "id": "h9q3qixffZT"
+        },
+        {
+          "id": "VhRX5JDVo7R"
+        },
+        {
+          "id": "ZKL5hlVG6F6"
+        },
+        {
+          "id": "F7oVR22kQ5J"
+        },
+        {
+          "id": "b09gf2vvZDb"
+        },
+        {
+          "id": "aVycEyoSBJx"
+        },
+        {
+          "id": "dQggcljEImF"
+        },
+        {
+          "id": "K0d08d3sUOv"
+        },
+        {
+          "id": "ZoHdXy2ueVn"
+        },
+        {
+          "id": "HTDuY3uxj6u"
+        },
+        {
+          "id": "oRncQGhLYNE"
+        },
+        {
+          "id": "yets9NmUcRS"
+        },
+        {
+          "id": "jjtzkzrmG7s"
+        },
+        {
+          "id": "cDw53Ej8rju"
+        },
+        {
+          "id": "vAdMjyOspGL"
+        },
+        {
+          "id": "iPcreOldeV9"
+        },
+        {
+          "id": "m8qnxndRDR6"
+        },
+        {
+          "id": "oolcy5HBlMy"
+        },
+        {
+          "id": "JrSIoCOdTH2"
+        },
+        {
+          "id": "uczMdDZXdtl"
+        },
+        {
+          "id": "uYTq3TEO2a9"
+        },
+        {
+          "id": "KxtLZtVmpur"
+        },
+        {
+          "id": "xa4F6gesVJm"
+        },
+        {
+          "id": "xWjiTeok0Sr"
+        },
+        {
+          "id": "U2QkKSeyL5r"
+        },
+        {
+          "id": "iMDr2FG7i8Q"
+        },
+        {
+          "id": "DplgrYeRIZ1"
+        },
+        {
+          "id": "HAqUY00X9N5"
+        },
+        {
+          "id": "zQpYVEyAM2t"
+        },
+        {
+          "id": "m3VnSQbE8CD"
+        },
+        {
+          "id": "FupvWBUFXr7"
+        },
+        {
+          "id": "Rp268JB6Ne4"
+        },
+        {
+          "id": "GGDHb8xd8jc"
+        }
+      ],
+      "path": "/ImspTQPwCqd/at6UHUQatSo/qtr8GGlm4gg",
+      "openingDate": "1994-01-01T00:00:00.000",
+      "id": "qtr8GGlm4gg",
+      "level": 3
+    },
+    {
+      "code": "OU_193267",
+      "name": "Safroko Limba",
+      "shortName": "Safroko Limba",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "PhR1PdMTzhW"
+        },
+        {
+          "id": "CY8cV5khn7e"
+        },
+        {
+          "id": "CbIWQQoWcLc"
+        },
+        {
+          "id": "CEoD9uQVIZB"
+        },
+        {
+          "id": "GHHvGp7tgtZ"
+        },
+        {
+          "id": "OTlKtnhvEm1"
+        },
+        {
+          "id": "GhDwjKv07iC"
+        },
+        {
+          "id": "wfGRNqXqf92"
+        },
+        {
+          "id": "dczh6Jfd4no"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/XG8HGAbrbbL",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "XG8HGAbrbbL",
+      "level": 3
+    },
+    {
+      "code": "OU_268169",
+      "name": "Sambaia Bendugu",
+      "shortName": "Sambaia Bendugu",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "kIbcKauMdlW"
+        },
+        {
+          "id": "o0BgK1dLhF8"
+        },
+        {
+          "id": "flQBQV8eyHc"
+        },
+        {
+          "id": "lCEeiuv4NaB"
+        },
+        {
+          "id": "YXdC9hjYPqQ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/r1RUyfVBkLp",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "r1RUyfVBkLp",
+      "level": 3
+    },
+    {
+      "code": "OU_211243",
+      "name": "Samu",
+      "shortName": "Samu",
+      "parent": {
+        "name": "Kambia",
+        "id": "PMa2VCrupOd"
+      },
+      "children": [
+        {
+          "id": "HMltAwIjIIe"
+        },
+        {
+          "id": "mkFoaAdosuY"
+        },
+        {
+          "id": "n2qFnUIhbq3"
+        },
+        {
+          "id": "UxpUYgdb4oU"
+        },
+        {
+          "id": "QIp6DHlMGfb"
+        },
+        {
+          "id": "weLTzWrLXCO"
+        },
+        {
+          "id": "RQgXBKxgvHf"
+        },
+        {
+          "id": "sgcHQEaB40Y"
+        },
+        {
+          "id": "cKXicCOquXe"
+        },
+        {
+          "id": "L3GgannGGKl"
+        },
+        {
+          "id": "brnL0W3Fbsj"
+        },
+        {
+          "id": "PcADvhvcaI2"
+        }
+      ],
+      "path": "/ImspTQPwCqd/PMa2VCrupOd/r06ohri9wA9",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "r06ohri9wA9",
+      "level": 3
+    },
+    {
+      "code": "OU_193239",
+      "name": "Sanda Loko",
+      "shortName": "Sanda Loko",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "CKJ9YS2AbWy"
+        },
+        {
+          "id": "pJj2r2HElLE"
+        },
+        {
+          "id": "yg7uxUol97F"
+        },
+        {
+          "id": "KaevAHPgkA8"
+        },
+        {
+          "id": "HNv1aLPdMYb"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/WXnNDWTiE9r",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "WXnNDWTiE9r",
+      "level": 3
+    },
+    {
+      "code": "OU_254999",
+      "name": "Sanda Magbolonthor",
+      "shortName": "Sanda Magbolonthor",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "OjXNuYyLaCJ"
+        },
+        {
+          "id": "w0QDch3dyPH"
+        },
+        {
+          "id": "KGN2jvZ0GJy"
+        },
+        {
+          "id": "aSxNNRxPuBP"
+        },
+        {
+          "id": "Pw9SihGDbZ5"
+        },
+        {
+          "id": "XfVYz6l2rzg"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/HWjrSuoNPte",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "HWjrSuoNPte",
+      "level": 3
+    },
+    {
+      "code": "OU_193191",
+      "name": "Sanda Tendaren",
+      "shortName": "Sanda Tendaren",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "TmCsvdJLHoX"
+        },
+        {
+          "id": "X79FDd4EAgo"
+        },
+        {
+          "id": "EXbPGmEUdnc"
+        },
+        {
+          "id": "yvDKjcRRQsR"
+        },
+        {
+          "id": "fUxVOkpX3yi"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/UhHipWG7J8b",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "UhHipWG7J8b",
+      "level": 3
+    },
+    {
+      "code": "OU_233365",
+      "name": "Sandor",
+      "shortName": "Sandor",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "bW5BaqrBM4K"
+        },
+        {
+          "id": "nAH0uNc3b5f"
+        },
+        {
+          "id": "OUPkxfQld8y"
+        },
+        {
+          "id": "VF7LfO19vxS"
+        },
+        {
+          "id": "roGdTjEqLZQ"
+        },
+        {
+          "id": "g9xUM1x1f1i"
+        },
+        {
+          "id": "e5sGsWLEn3k"
+        },
+        {
+          "id": "k8ZPul89UDm"
+        },
+        {
+          "id": "xQIU41mR69s"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/g5ptsn0SFX8",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "g5ptsn0SFX8",
+      "level": 3
+    },
+    {
+      "code": "OU_550",
+      "name": "Selenga",
+      "shortName": "Selenga",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "r93q83kZoR9"
+        },
+        {
+          "id": "wByqtWCCuDJ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/KctpIIucige",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "KctpIIucige",
+      "level": 3
+    },
+    {
+      "code": "OU_193285",
+      "name": "Sella Limba",
+      "shortName": "Sella Limba",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "NjyJYiIuKIG"
+        },
+        {
+          "id": "Crgx572DnXR"
+        },
+        {
+          "id": "eyfrdOUUkXO"
+        },
+        {
+          "id": "OwHjzJEVEUN"
+        },
+        {
+          "id": "Sglj9VCoQmc"
+        },
+        {
+          "id": "wO4z5Aqo0hf"
+        },
+        {
+          "id": "TWMVxJANJeU"
+        },
+        {
+          "id": "KnU2XHRvyiX"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/j43EZb15rjI",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "j43EZb15rjI",
+      "level": 3
+    },
+    {
+      "code": "OU_226231",
+      "name": "Sengbeh",
+      "shortName": "Sengbeh",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "DErmFP7bri7"
+        },
+        {
+          "id": "y77LiPqLMoq"
+        },
+        {
+          "id": "PLoeN9CaL7z"
+        },
+        {
+          "id": "wYLjA4vN6Y9"
+        },
+        {
+          "id": "bPHn9IgjKLC"
+        },
+        {
+          "id": "esMAQ4vs4kM"
+        },
+        {
+          "id": "iqd7BiRHor0"
+        },
+        {
+          "id": "hMBotMwWnU1"
+        },
+        {
+          "id": "OynYyQiFu82"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/VGAFxBXz16y",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "VGAFxBXz16y",
+      "level": 3
+    },
+    {
+      "code": "OU_222687",
+      "name": "Simbaru",
+      "shortName": "Simbaru",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "VH7hLUaypel"
+        },
+        {
+          "id": "L5gENbBNNup"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/A3Fh37HWBWE",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "A3Fh37HWBWE",
+      "level": 3
+    },
+    {
+      "code": "OU_197397",
+      "name": "Sittia",
+      "shortName": "Sittia",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "fAsj6a4nudH"
+        },
+        {
+          "id": "nImgPWDVQIa"
+        },
+        {
+          "id": "XsB16iHtwLL"
+        },
+        {
+          "id": "sSgOnY1Xqd9"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/g8DdBm7EmUt",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "g8DdBm7EmUt",
+      "level": 3
+    },
+    {
+      "code": "OU_222619",
+      "name": "Small Bo",
+      "shortName": "Small Bo",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "hIpcmjLrDDW"
+        },
+        {
+          "id": "Gba5bTc8NIg"
+        },
+        {
+          "id": "f90eISKFm7P"
+        },
+        {
+          "id": "PQEpIeuSTCN"
+        },
+        {
+          "id": "AiGBODidxPw"
+        },
+        {
+          "id": "kUzpbgPCwVA"
+        },
+        {
+          "id": "FZxJ0KST9jn"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/vzup1f6ynON",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "vzup1f6ynON",
+      "level": 3
+    },
+    {
+      "code": "OU_233317",
+      "name": "Soa",
+      "shortName": "Soa",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "KKoPh1lDd9j"
+        },
+        {
+          "id": "mMvt6zhCclb"
+        },
+        {
+          "id": "AlLmKZIIIT4"
+        },
+        {
+          "id": "t1aAdpBbDB3"
+        },
+        {
+          "id": "rYIkxCJFtTX"
+        },
+        {
+          "id": "EoIjKXqXxi2"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/iGHlidSFdpu",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "iGHlidSFdpu",
+      "level": 3
+    },
+    {
+      "code": "OU_197408",
+      "name": "Sogbini",
+      "shortName": "Sogbini",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "EQnfnY03sRp"
+        },
+        {
+          "id": "Vw4Uv6UPIPC"
+        },
+        {
+          "id": "ua5GXy2uhBR"
+        },
+        {
+          "id": "IpA5FViU8tk"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/cgOy0hRMGu9",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "cgOy0hRMGu9",
+      "level": 3
+    },
+    {
+      "code": "OU_260410",
+      "name": "Soro-Gbeima",
+      "shortName": "Soro-Gbeima",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "WT6JLfyR9lL"
+        },
+        {
+          "id": "MBtmOhLs7y1"
+        },
+        {
+          "id": "Gm7YUjhVi9Q"
+        },
+        {
+          "id": "PfZXxl6Wp3F"
+        },
+        {
+          "id": "zCSWBz2pyMd"
+        },
+        {
+          "id": "QzPf0qKBU4n"
+        },
+        {
+          "id": "vj0HUVazItT"
+        },
+        {
+          "id": "dCvUVvKnhMe"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/d9iMR1MpuIO",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "d9iMR1MpuIO",
+      "level": 3
+    },
+    {
+      "code": "OU_260384",
+      "name": "Sowa",
+      "shortName": "Sowa",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "TJA0eGRoRpc"
+        },
+        {
+          "id": "FNnj3jKGS7i"
+        },
+        {
+          "id": "FbD5Z8z22Yb"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/NqWaKXcg01b",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "NqWaKXcg01b",
+      "level": 3
+    },
+    {
+      "code": "OU_226225",
+      "name": "Sulima (Koinadugu)",
+      "shortName": "Sulima (Koinadugu)",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "oDAoqMWcsJQ"
+        },
+        {
+          "id": "bqSIIRuZ1qj"
+        },
+        {
+          "id": "kuqKh33SPgg"
+        },
+        {
+          "id": "SCc0TNTDJED"
+        },
+        {
+          "id": "SmhR2aaKLjw"
+        },
+        {
+          "id": "JttXgTlQAGE"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/PaqugoqjRIj",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "PaqugoqjRIj",
+      "level": 3
+    },
+    {
+      "code": "OU_255061",
+      "name": "Tainkatopa Makama Safrokoh ",
+      "shortName": "Tainkatopa Makama Safrokoh ",
+      "parent": {
+        "name": "Port Loko",
+        "id": "TEQlaapDQoK"
+      },
+      "children": [
+        {
+          "id": "pvTYrkG1d6f"
+        },
+        {
+          "id": "kO9xe2HCovK"
+        },
+        {
+          "id": "HcB2W6Fgp7i"
+        },
+        {
+          "id": "ym42ZOlfZ1P"
+        },
+        {
+          "id": "LzvoPaeLPsb"
+        }
+      ],
+      "path": "/ImspTQPwCqd/TEQlaapDQoK/PrJQHI6q7w2",
+      "openingDate": "1994-01-01T00:00:00.000",
+      "id": "PrJQHI6q7w2",
+      "level": 3
+    },
+    {
+      "code": "OU_193245",
+      "name": "Tambaka",
+      "shortName": "Tambaka",
+      "parent": {
+        "name": "Bombali",
+        "id": "fdc6uOvgoji"
+      },
+      "children": [
+        {
+          "id": "xKaB8tfbTzm"
+        },
+        {
+          "id": "BnVjTzwis3o"
+        },
+        {
+          "id": "UqHuR4IYvTY"
+        }
+      ],
+      "path": "/ImspTQPwCqd/fdc6uOvgoji/Qhmi8IZyPyD",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "Qhmi8IZyPyD",
+      "level": 3
+    },
+    {
+      "code": "OU_268217",
+      "name": "Tane",
+      "shortName": "Tane",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "KcCbIDzRcui"
+        },
+        {
+          "id": "G5NCnFJ3bbV"
+        },
+        {
+          "id": "x3ti3t9eOuX"
+        },
+        {
+          "id": "JKdMirJ02nv"
+        },
+        {
+          "id": "l3jnkNNpoD8"
+        },
+        {
+          "id": "OTn9VMNEkdo"
+        },
+        {
+          "id": "rLaGvUnv2BF"
+        },
+        {
+          "id": "mRNfATVxa3m"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/xhyjU2SVewz",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "xhyjU2SVewz",
+      "level": 3
+    },
+    {
+      "code": "OU_233324",
+      "name": "Tankoro",
+      "shortName": "Tankoro",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "UjusePB4jmP"
+        },
+        {
+          "id": "XtuhRhmbrJM"
+        },
+        {
+          "id": "SnCrOCRrxGX"
+        },
+        {
+          "id": "iIpPPnnzDo6"
+        },
+        {
+          "id": "AtZJOoQiGHd"
+        },
+        {
+          "id": "fzBpuujglTY"
+        },
+        {
+          "id": "AhnK8hb3JWm"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/M2qEv692lS6",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "M2qEv692lS6",
+      "level": 3
+    },
+    {
+      "code": "OU_551",
+      "name": "Tikonko",
+      "shortName": "Tikonko",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "KYXbIQBQgP1"
+        },
+        {
+          "id": "KR0jLuFOB3d"
+        },
+        {
+          "id": "DqfiI6NVnB1"
+        },
+        {
+          "id": "Qu0QOykPdcD"
+        },
+        {
+          "id": "jhtj3eQa1pM"
+        },
+        {
+          "id": "yh1PrRTboyg"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/sxRd2XOzFbz",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "sxRd2XOzFbz",
+      "level": 3
+    },
+    {
+      "code": "OU_247044",
+      "name": "Timidale",
+      "shortName": "Timidale",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "AIM09vwxjoN"
+        },
+        {
+          "id": "cDRQOxX1wHO"
+        },
+        {
+          "id": "H97XE5Ea089"
+        },
+        {
+          "id": "qcYG2Id7GS8"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/AovmOHadayb",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "AovmOHadayb",
+      "level": 3
+    },
+    {
+      "code": "OU_233314",
+      "name": "Toli",
+      "shortName": "Toli",
+      "parent": {
+        "name": "Kono",
+        "id": "Vth0fbpFcsO"
+      },
+      "children": [
+        {
+          "id": "GIRLSZ1tB00"
+        },
+        {
+          "id": "ZSBnWFBpPPJ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/Vth0fbpFcsO/FRxcUEwktoV",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "FRxcUEwktoV",
+      "level": 3
+    },
+    {
+      "code": "OU_211270",
+      "name": "Tonko Limba",
+      "shortName": "Tonko Limba",
+      "parent": {
+        "name": "Kambia",
+        "id": "PMa2VCrupOd"
+      },
+      "children": [
+        {
+          "id": "yZPsWcZC9WA"
+        },
+        {
+          "id": "fNL2oehab2Q"
+        },
+        {
+          "id": "MPUiud3BYRq"
+        },
+        {
+          "id": "wP1zsnNxbSE"
+        },
+        {
+          "id": "svCLFkT99Yx"
+        },
+        {
+          "id": "PduUQmdt0pB"
+        },
+        {
+          "id": "ALnjmvcRSxU"
+        },
+        {
+          "id": "b7YDjQ6DBzt"
+        },
+        {
+          "id": "cag6vQQ9SQk"
+        },
+        {
+          "id": "inpc5QsFRTm"
+        }
+      ],
+      "path": "/ImspTQPwCqd/PMa2VCrupOd/y5X4mP5XylL",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "y5X4mP5XylL",
+      "level": 3
+    },
+    {
+      "code": "OU_222634",
+      "name": "Tunkia",
+      "shortName": "Tunkia",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "PwgoRuWEDvJ"
+        },
+        {
+          "id": "Pr2stbkaSX3"
+        },
+        {
+          "id": "P4upLKrpkHP"
+        },
+        {
+          "id": "QpRIPul20Sb"
+        },
+        {
+          "id": "Fbq6Vxa4MIx"
+        },
+        {
+          "id": "KuGO75X47Gk"
+        },
+        {
+          "id": "t7bcrWLjL1m"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/l7pFejMtUoF",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "l7pFejMtUoF",
+      "level": 3
+    },
+    {
+      "code": "OU_204915",
+      "name": "Upper Bambara",
+      "shortName": "Upper Bambara",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "ndan8zClk4E"
+        },
+        {
+          "id": "D6yiaX1K5sO"
+        },
+        {
+          "id": "SlNw6FxElY9"
+        },
+        {
+          "id": "pJv8NJlJNhU"
+        },
+        {
+          "id": "cWIiusmHULW"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/LfTkc0S4b5k",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "LfTkc0S4b5k",
+      "level": 3
+    },
+    {
+      "code": "OU_247002",
+      "name": "Upper Banta",
+      "shortName": "Upper Banta",
+      "parent": {
+        "name": "Moyamba",
+        "id": "jmIPBj66vD6"
+      },
+      "children": [
+        {
+          "id": "GQpxsB7tekR"
+        },
+        {
+          "id": "fRV3Fhz1IP8"
+        },
+        {
+          "id": "JQJjsXvHE5M"
+        },
+        {
+          "id": "cXMQtUId06K"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jmIPBj66vD6/DBs6e2Oxaj1",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "DBs6e2Oxaj1",
+      "level": 3
+    },
+    {
+      "code": "OU_552",
+      "name": "Valunia",
+      "shortName": "Valunia",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "PC3Ag91n82e"
+        },
+        {
+          "id": "NLN0MvWv9tl"
+        },
+        {
+          "id": "qqF8jshIs66"
+        },
+        {
+          "id": "DcmSvQd5N8c"
+        },
+        {
+          "id": "FLjwMPWLrL2"
+        },
+        {
+          "id": "aSnKB1sWaz4"
+        },
+        {
+          "id": "S7KwVLbFlss"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/npWGUj37qDe",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "npWGUj37qDe",
+      "level": 3
+    },
+    {
+      "code": "OU_222677",
+      "name": "Wandor",
+      "shortName": "Wandor",
+      "parent": {
+        "name": "Kenema",
+        "id": "kJq2mPyFEHo"
+      },
+      "children": [
+        {
+          "id": "mUuCjQWMaOc"
+        },
+        {
+          "id": "r5WWF9WDzoa"
+        },
+        {
+          "id": "hKD6hpZUh9v"
+        },
+        {
+          "id": "W3t0pSZLtrC"
+        }
+      ],
+      "path": "/ImspTQPwCqd/kJq2mPyFEHo/X7dWcGerQIm",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "X7dWcGerQIm",
+      "level": 3
+    },
+    {
+      "code": "OU_226240",
+      "name": "Wara Wara Bafodia",
+      "shortName": "Wara Wara Bafodia",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "oiSllOTiHNx"
+        },
+        {
+          "id": "Jiymtq0A01x"
+        },
+        {
+          "id": "SKJoPDgjELa"
+        },
+        {
+          "id": "NJolnlvYgLr"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/XrF5AvaGcuw",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "XrF5AvaGcuw",
+      "level": 3
+    },
+    {
+      "code": "OU_226258",
+      "name": "Wara Wara Yagala",
+      "shortName": "Wara Wara Yagala",
+      "parent": {
+        "name": "Koinadugu",
+        "id": "qhqAxPSTUXp"
+      },
+      "children": [
+        {
+          "id": "kpDoH80fwdX"
+        },
+        {
+          "id": "UCwtaCrNUls"
+        },
+        {
+          "id": "xX4lIVqF4yb"
+        },
+        {
+          "id": "MErVkzdbsP5"
+        }
+      ],
+      "path": "/ImspTQPwCqd/qhqAxPSTUXp/EZPwuUTeIIG",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "EZPwuUTeIIG",
+      "level": 3
+    },
+    {
+      "code": "OU_553",
+      "name": "Wonde",
+      "shortName": "Wonde",
+      "parent": {
+        "name": "Bo",
+        "id": "O6uvpzGd5pu"
+      },
+      "children": [
+        {
+          "id": "GjWQK6UA4FO"
+        },
+        {
+          "id": "UGVLYrO63mR"
+        },
+        {
+          "id": "Q23tMsKOoO6"
+        },
+        {
+          "id": "k1Y0oNqPlmy"
+        }
+      ],
+      "path": "/ImspTQPwCqd/O6uvpzGd5pu/ARZ4y5i4reU",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "ARZ4y5i4reU",
+      "level": 3
+    },
+    {
+      "code": "OU_260397",
+      "name": "Ya Kpukumu Krim",
+      "shortName": "Ya Kpukumu Krim",
+      "parent": {
+        "name": "Pujehun",
+        "id": "bL4ooGhyHRQ"
+      },
+      "children": [
+        {
+          "id": "uYG1rUdsJJi"
+        },
+        {
+          "id": "pdF4XIHIGPx"
+        },
+        {
+          "id": "K00jR5dmoFZ"
+        }
+      ],
+      "path": "/ImspTQPwCqd/bL4ooGhyHRQ/pk7bUK5c1Uf",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "pk7bUK5c1Uf",
+      "level": 3
+    },
+    {
+      "code": "OU_197436",
+      "name": "Yawbeko",
+      "shortName": "Yawbeko",
+      "parent": {
+        "name": "Bonthe",
+        "id": "lc3eMKXaEfw"
+      },
+      "children": [
+        {
+          "id": "XL745P4ETSL"
+        },
+        {
+          "id": "s5aXfzOL456"
+        },
+        {
+          "id": "Efmr3Xo36DR"
+        }
+      ],
+      "path": "/ImspTQPwCqd/lc3eMKXaEfw/CG4QD1HC3h4",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "CG4QD1HC3h4",
+      "level": 3
+    },
+    {
+      "code": "OU_204933",
+      "name": "Yawei",
+      "shortName": "Yawei",
+      "parent": {
+        "name": "Kailahun",
+        "id": "jUb8gELQApl"
+      },
+      "children": [
+        {
+          "id": "DQHGtTGOP6b"
+        },
+        {
+          "id": "SzEmaH63Qe8"
+        },
+        {
+          "id": "MpcMjLmbATv"
+        },
+        {
+          "id": "iH79WhpsByj"
+        },
+        {
+          "id": "Mod8hYpQ3Ma"
+        }
+      ],
+      "path": "/ImspTQPwCqd/jUb8gELQApl/byp7w6Xd9Df",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "byp7w6Xd9Df",
+      "level": 3
+    },
+    {
+      "code": "OU_268225",
+      "name": "Yoni",
+      "shortName": "Yoni",
+      "parent": {
+        "name": "Tonkolili",
+        "id": "eIQbndfxQMb"
+      },
+      "children": [
+        {
+          "id": "dkmpOuVhBba"
+        },
+        {
+          "id": "u0SlCNJnK3K"
+        },
+        {
+          "id": "XjpmsLNjyrz"
+        },
+        {
+          "id": "BV4IomHvri4"
+        },
+        {
+          "id": "D0iakqyTknH"
+        },
+        {
+          "id": "bJ0VSATHwO2"
+        },
+        {
+          "id": "pVuRAzSstbn"
+        },
+        {
+          "id": "NwX8noGxLoz"
+        },
+        {
+          "id": "PWqwcBdRGIH"
+        },
+        {
+          "id": "Yc8Cmr5XS4B"
+        },
+        {
+          "id": "PHo0IV7Vk50"
+        },
+        {
+          "id": "sDTodaygv5u"
+        },
+        {
+          "id": "j57JudVQJtn"
+        },
+        {
+          "id": "XiORvSsxn6s"
+        },
+        {
+          "id": "Xnif5imKLlT"
+        },
+        {
+          "id": "D3oZZXtXjNk"
+        },
+        {
+          "id": "IcVHzEm0b6Z"
+        },
+        {
+          "id": "LWlh25dfvEA"
+        },
+        {
+          "id": "x5ZxMDvEQUb"
+        },
+        {
+          "id": "g5lonXJ9ndA"
+        },
+        {
+          "id": "jbfISeV6Wdu"
+        },
+        {
+          "id": "bf6PXrSNMKK"
+        },
+        {
+          "id": "oph70zH8JB2"
+        },
+        {
+          "id": "MHAWZr2Caxw"
+        },
+        {
+          "id": "B9RxRfRUi2R"
+        }
+      ],
+      "path": "/ImspTQPwCqd/eIQbndfxQMb/NNE0YMCDZkO",
+      "openingDate": "1970-01-01T00:00:00.000",
+      "id": "NNE0YMCDZkO",
+      "level": 3
+    }
+  ]
+}

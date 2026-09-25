@@ -1,0 +1,73 @@
+{
+  "args": {
+    "source": "playground"
+  },
+  "data": {
+    "order": "A-1001",
+    "customer": {
+      "name": "Ada Lovelace",
+      "email": "ada@example.org"
+    },
+    "items": [
+      {
+        "sku": "BOOK-1",
+        "title": "Learning jq",
+        "qty": 2,
+        "price": 19.5
+      },
+      {
+        "sku": "MUG-7",
+        "title": "JSON mug",
+        "qty": 1,
+        "price": 9
+      },
+      {
+        "sku": "STK-3",
+        "title": "Sticker pack",
+        "qty": 4,
+        "price": 2.25
+      }
+    ],
+    "paid": true
+  },
+  "files": {},
+  "form": {},
+  "headers": {
+    "host": "postman-echo.com",
+    "x-forwarded-proto": "https",
+    "accept": "*/*",
+    "content-type": "application/json",
+    "user-agent": "playground-jq",
+    "content-length": "276",
+    "accept-encoding": "gzip, br"
+  },
+  "json": {
+    "order": "A-1001",
+    "customer": {
+      "name": "Ada Lovelace",
+      "email": "ada@example.org"
+    },
+    "items": [
+      {
+        "sku": "BOOK-1",
+        "title": "Learning jq",
+        "qty": 2,
+        "price": 19.5
+      },
+      {
+        "sku": "MUG-7",
+        "title": "JSON mug",
+        "qty": 1,
+        "price": 9
+      },
+      {
+        "sku": "STK-3",
+        "title": "Sticker pack",
+        "qty": 4,
+        "price": 2.25
+      }
+    ],
+    "paid": true
+  },
+  "url": "https://postman-echo.com/post?source=playground"
+}

@@ -1,0 +1,2213 @@
+{
+  "pager": {
+    "page": 1,
+    "total": 1038,
+    "pageSize": 100,
+    "nextPage": "https://play.im.dhis2.org/dev-2-43/api/dataElements?page=2&pageSize=100&fields=id%2Cname%2CshortName%2Ccode%2CvalueType%2CaggregationType%2CdomainType%2CzeroIsSignificant%2CcategoryCombo%5Bid%2Cname%5D%2CdataElementGroups%5Bid%2Cname%5D&order=name%3Aasc",
+    "pageCount": 11
+  },
+  "dataElements": [
+    {
+      "code": "DE_1148614",
+      "name": "Accute Flaccid Paralysis (Deaths < 5 yrs)",
+      "shortName": "Accute Flaccid Paral (Deaths < 5 yrs)",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "FTRrcoaog83",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Mortality < 5 years",
+          "id": "rPGfUFYbcfJ"
+        },
+        {
+          "name": "Commodities Maternal Health",
+          "id": "idD1wcvBISQ"
+        },
+        {
+          "name": "Mortality",
+          "id": "QAc5FhbeFwl"
+        }
+      ]
+    },
+    {
+      "code": "DE_359049",
+      "name": "Acute Flaccid Paralysis (AFP) follow-up",
+      "shortName": "AFP follow-up",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "P3jJH5Tu5VC",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) ",
+          "id": "oDkJh5Ddh7d"
+        },
+        {
+          "name": "Follow-up",
+          "id": "g50BzGAsrvu"
+        }
+      ]
+    },
+    {
+      "code": "DE_388",
+      "name": "Acute Flaccid Paralysis (AFP) new",
+      "shortName": "AFP new",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "FQ2o8UBlcrS",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) ",
+          "id": "oDkJh5Ddh7d"
+        },
+        {
+          "name": "New cases",
+          "id": "weRMUzBs8T7"
+        }
+      ]
+    },
+    {
+      "code": "DE_358943",
+      "name": "Acute Flaccid Paralysis (AFP) referrals",
+      "shortName": "AFP referrals",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "M62VHgYT2n0",
+      "categoryCombo": {
+        "name": "Morbidity Referrals",
+        "id": "ck7mRNwGDjP"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Referrals",
+          "id": "UWaMbg9h7vF"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) ",
+          "id": "oDkJh5Ddh7d"
+        }
+      ]
+    },
+    {
+      "name": "Additional medication",
+      "shortName": "Additional medication",
+      "aggregationType": "NONE",
+      "valueType": "TEXT",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "WO8yRIZb7nb",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_1152329",
+      "name": "Additional notes related to facility",
+      "shortName": "Additional notes related to facility",
+      "aggregationType": "SUM",
+      "valueType": "LONG_TEXT",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "uF1DLnZNlWe",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Commodities Maternal Health",
+          "id": "idD1wcvBISQ"
+        }
+      ]
+    },
+    {
+      "code": "DE_3000005",
+      "name": "Admission Date",
+      "shortName": "Admission Date",
+      "aggregationType": "AVERAGE",
+      "valueType": "DATE",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "eMyVanycQSC",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Acute Flaccid Paralysis (AFP) ",
+          "id": "oDkJh5Ddh7d"
+        },
+        {
+          "name": "Anaemia",
+          "id": "KmwPVkjp7yl"
+        }
+      ]
+    },
+    {
+      "code": "DE_3000003",
+      "name": "Age in years",
+      "shortName": "Age in years",
+      "aggregationType": "AVERAGE",
+      "valueType": "INTEGER",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "qrur9Dvnyt5",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "All Others",
+          "id": "GBHN1a1Jddh"
+        }
+      ]
+    },
+    {
+      "name": "Age of LLINs",
+      "shortName": "Age of LLINs",
+      "aggregationType": "SUM",
+      "valueType": "INTEGER_ZERO_OR_POSITIVE",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "JuTpJ2Ywq5b",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_359602",
+      "name": "Albendazole given at ANC (2nd trimester)",
+      "shortName": "Albendazole at ANC",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "hCVSHjcml9g",
+      "categoryCombo": {
+        "name": "Fixed/Outreach",
+        "id": "KYYSTxeVw28"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Reproductive health",
+          "id": "OJxi4vkcTBS"
+        },
+        {
+          "name": "Anaemia",
+          "id": "KmwPVkjp7yl"
+        }
+      ]
+    },
+    {
+      "code": "DE_1151441",
+      "name": "All access routes are clearly marked and safe",
+      "shortName": "All access routes are clearly marked",
+      "aggregationType": "SUM",
+      "valueType": "TRUE_ONLY",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "rxt7nvPyRUi",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Commodities Maternal Health",
+          "id": "idD1wcvBISQ"
+        }
+      ]
+    },
+    {
+      "name": "Allergies (multi-select)",
+      "shortName": "Allergies (multi-select)",
+      "aggregationType": "NONE",
+      "valueType": "MULTI_TEXT",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "ZxH5QHtTTtX",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_359067",
+      "name": "All other follow-ups",
+      "shortName": "All other follow-ups",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "RUv0hqER0zV",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) ",
+          "id": "oDkJh5Ddh7d"
+        },
+        {
+          "name": "Follow-up",
+          "id": "g50BzGAsrvu"
+        }
+      ]
+    },
+    {
+      "code": "DE_399",
+      "name": "All other new",
+      "shortName": "Others new",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "A2VfEfPflHV",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "New cases",
+          "id": "weRMUzBs8T7"
+        }
+      ]
+    },
+    {
+      "code": "DE_358961",
+      "name": "All other referrals",
+      "shortName": "All other referrals",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "laZLQdnucV1",
+      "categoryCombo": {
+        "name": "Morbidity Referrals",
+        "id": "ck7mRNwGDjP"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Referrals",
+          "id": "UWaMbg9h7vF"
+        }
+      ]
+    },
+    {
+      "code": "DE_1151442",
+      "name": "All sterilisation equipment is validated / licensed",
+      "shortName": "All sterilisation equipment is validated",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "U7v0q0amJqi",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_359044",
+      "name": "Anaemia follow-up",
+      "shortName": "Anaemia follow-up",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "jmWyJFtE7Af",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) ",
+          "id": "oDkJh5Ddh7d"
+        },
+        {
+          "name": "Commodities Maternal Health",
+          "id": "idD1wcvBISQ"
+        },
+        {
+          "name": "Follow-up",
+          "id": "g50BzGAsrvu"
+        },
+        {
+          "name": "Anaemia",
+          "id": "KmwPVkjp7yl"
+        }
+      ]
+    },
+    {
+      "code": "DE_358909",
+      "name": "Anaemia new",
+      "shortName": "Anaemia new",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "HLPuaFB7Frw",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) ",
+          "id": "oDkJh5Ddh7d"
+        },
+        {
+          "name": "New cases",
+          "id": "weRMUzBs8T7"
+        },
+        {
+          "name": "Anaemia",
+          "id": "KmwPVkjp7yl"
+        }
+      ]
+    },
+    {
+      "code": "DE_358938",
+      "name": "Anaemia referrals",
+      "shortName": "Anaemia referrals",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "yqBkn9CWKih",
+      "categoryCombo": {
+        "name": "Morbidity Referrals",
+        "id": "ck7mRNwGDjP"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Referrals",
+          "id": "UWaMbg9h7vF"
+        },
+        {
+          "name": "Anaemia",
+          "id": "KmwPVkjp7yl"
+        }
+      ]
+    },
+    {
+      "code": "DE_1151443",
+      "name": "An alternative to communicate if telephone line is off is always available",
+      "shortName": "An alternative to communicate available",
+      "aggregationType": "SUM",
+      "valueType": "TRUE_ONLY",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "sPQgYGhXnXI",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Commodities Maternal Health",
+          "id": "idD1wcvBISQ"
+        }
+      ]
+    },
+    {
+      "code": "DE_359596",
+      "name": "ANC 1st visit",
+      "shortName": "ANC 1st visit",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "fbfJHSPpUQD",
+      "categoryCombo": {
+        "name": "Fixed/Outreach",
+        "id": "KYYSTxeVw28"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Reproductive health",
+          "id": "OJxi4vkcTBS"
+        },
+        {
+          "name": "ANC",
+          "id": "qfxEYY9xAl6"
+        }
+      ]
+    },
+    {
+      "code": "DE_359597",
+      "name": "ANC 2nd visit",
+      "shortName": "ANC 2nd visit",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "cYeuwXTCPkU",
+      "categoryCombo": {
+        "name": "Fixed/Outreach",
+        "id": "KYYSTxeVw28"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Reproductive health",
+          "id": "OJxi4vkcTBS"
+        },
+        {
+          "name": "ANC",
+          "id": "qfxEYY9xAl6"
+        }
+      ]
+    },
+    {
+      "code": "DE_359598",
+      "name": "ANC 3rd visit",
+      "shortName": "ANC 3rd visit",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "Jtf34kNZhzP",
+      "categoryCombo": {
+        "name": "Fixed/Outreach",
+        "id": "KYYSTxeVw28"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Reproductive health",
+          "id": "OJxi4vkcTBS"
+        },
+        {
+          "name": "ANC",
+          "id": "qfxEYY9xAl6"
+        }
+      ]
+    },
+    {
+      "code": "DE_359599",
+      "name": "ANC 4th or more visits",
+      "shortName": "ANC 4th or more",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "hfdmMSPBgLG",
+      "categoryCombo": {
+        "name": "Fixed/Outreach",
+        "id": "KYYSTxeVw28"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Reproductive health",
+          "id": "OJxi4vkcTBS"
+        },
+        {
+          "name": "ANC",
+          "id": "qfxEYY9xAl6"
+        }
+      ]
+    },
+    {
+      "code": "DE_1148615",
+      "name": "Animal Bites - Rabid (Deaths < 5 yrs)",
+      "shortName": "Animal Bites - Rabid (Deaths < 5 yrs)",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "LjNlMTl9Nq9",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Mortality < 5 years",
+          "id": "rPGfUFYbcfJ"
+        },
+        {
+          "name": "Mortality",
+          "id": "QAc5FhbeFwl"
+        }
+      ]
+    },
+    {
+      "code": "DE_1151447",
+      "name": "Appropriate hand washing facilities are available",
+      "shortName": "Appropriate hand washing facilities",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "a57FmdPj3Zl",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_359042",
+      "name": "ARI treated with antibiotics (pneumonia) follow-up",
+      "shortName": "ARI/Pneumonia f-u",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "FHD3wiSM7Sn",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "ARI treated with antibiotics (Pneumonia)",
+          "id": "M2cth8EmrlT"
+        },
+        {
+          "name": "Follow-up",
+          "id": "g50BzGAsrvu"
+        }
+      ]
+    },
+    {
+      "code": "DE_358929",
+      "name": "ARI treated with antibiotics (pneumonia) new",
+      "shortName": "ARI/Pneumonia new",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "iKGjnOOaPlE",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "ARI treated with antibiotics (Pneumonia)",
+          "id": "M2cth8EmrlT"
+        },
+        {
+          "name": "New cases",
+          "id": "weRMUzBs8T7"
+        }
+      ]
+    },
+    {
+      "code": "DE_358936",
+      "name": "ARI treated with antibiotics (pneumonia) referrals",
+      "shortName": "ARI/Pneumonia ref.",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "XTqOHygxDj5",
+      "categoryCombo": {
+        "name": "Morbidity Referrals",
+        "id": "ck7mRNwGDjP"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Referrals",
+          "id": "UWaMbg9h7vF"
+        },
+        {
+          "name": "ARI treated with antibiotics (Pneumonia)",
+          "id": "M2cth8EmrlT"
+        }
+      ]
+    },
+    {
+      "code": "DE_359041",
+      "name": "ARI treated without antibiotics (cough) follow-up",
+      "shortName": "ARI wo antibio. f-u",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "RF4VFVGdFRO",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ARI Treated Without Antibiotics (Cough)",
+          "id": "yhg8oYU9ekY"
+        },
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Follow-up",
+          "id": "g50BzGAsrvu"
+        }
+      ]
+    },
+    {
+      "code": "DE_358928",
+      "name": "ARI treated without antibiotics (cough) new",
+      "shortName": "ARI/Cough new",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "Cm4XUw6VAxv",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ARI Treated Without Antibiotics (Cough)",
+          "id": "yhg8oYU9ekY"
+        },
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "New cases",
+          "id": "weRMUzBs8T7"
+        }
+      ]
+    },
+    {
+      "code": "DE_358935",
+      "name": "ARI treated without antibiotics (cough) referrals",
+      "shortName": "ARI/Cough referrals",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "oLfWYAJhZb2",
+      "categoryCombo": {
+        "name": "Morbidity Referrals",
+        "id": "ck7mRNwGDjP"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ARI Treated Without Antibiotics (Cough)",
+          "id": "yhg8oYU9ekY"
+        },
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Referrals",
+          "id": "UWaMbg9h7vF"
+        }
+      ]
+    },
+    {
+      "code": "DE_8253",
+      "name": "ART clients with new adverse clinical event",
+      "shortName": "ART.CnewAdv.Clin.Ev.",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "NJnhOzjaLYk",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_365336",
+      "name": "ART defaulters",
+      "shortName": "ART defaulters",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "aIJZ2d2QgVV",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8240",
+      "name": "ART enrollment stage 1",
+      "shortName": "ART No stage 1",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "BOSZApCrBni",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART staging",
+          "id": "vxIWSNeEcf7"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8241",
+      "name": "ART enrollment stage 2",
+      "shortName": "ART No stage 2",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "dGdeotKpRed",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART staging",
+          "id": "vxIWSNeEcf7"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8242",
+      "name": "ART enrollment stage 3",
+      "shortName": "ART No stage 3",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "eRwOwCpMzyP",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART staging",
+          "id": "vxIWSNeEcf7"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8243",
+      "name": "ART enrollment stage 4",
+      "shortName": "ART No stage 4",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "zYkwbCBALhn",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART staging",
+          "id": "vxIWSNeEcf7"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8244",
+      "name": "ART entry point: No diagnostic testing",
+      "shortName": "ARTdiag.testing",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "I5MLuG16arn",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8247",
+      "name": "ART entry point: No old patients",
+      "shortName": "ART.E.P:oldPatient",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "LVaUdM3CERi",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART entry points",
+          "id": "s8FiXqB2DhB"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8248",
+      "name": "ART entry point: No other",
+      "shortName": "ART.E.P:other",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "vJSPn2R6gVe",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART entry points",
+          "id": "s8FiXqB2DhB"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8246",
+      "name": "ART entry point: No PMTCT",
+      "shortName": "ART.E.P:PMTCT",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "kVOiLDV4OC6",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART entry points",
+          "id": "s8FiXqB2DhB"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8249",
+      "name": "ART entry point: No transfer in",
+      "shortName": "ART.E.P:transferIn",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "HDZOFvdXsqE",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART entry points",
+          "id": "s8FiXqB2DhB"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8250",
+      "name": "ART entry point: No transfer out",
+      "shortName": "ART.E.P:transferOut",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "soACnRV9gOI",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART entry points",
+          "id": "s8FiXqB2DhB"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8245",
+      "name": "ART entry point: No walk in",
+      "shortName": "ART No walk in",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "FTy5pcJZ3yX",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART entry points",
+          "id": "s8FiXqB2DhB"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_374586",
+      "name": "ART entry point: TB",
+      "shortName": "ART entry point: TB",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "Yf4u4QOIdsi",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART entry points",
+          "id": "s8FiXqB2DhB"
+        },
+        {
+          "name": "ART enrollment",
+          "id": "bdiyMm9qZl5"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8252",
+      "name": "ART new clients started on ARV",
+      "shortName": "ARTnewC.startedARV",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "QrhlrvV6Xs8",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8257",
+      "name": "ART No clients who stopped TRT due to adverse clinical status/event",
+      "shortName": "ARTstop.TRT.Adv.Clin",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "wfKKFhBn0Q0",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8255",
+      "name": "ART No clients who stopped TRT due to TRT failure",
+      "shortName": "ARTStop.TRTdueFailur",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "GMd99K8gVut",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8254",
+      "name": "ART No clients with change of regimen due to drug toxicity",
+      "shortName": "ARTChangeRegDrugToxi",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "F53rTVTmSuF",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8297",
+      "name": "ART No clients with new adverse drug reaction",
+      "shortName": "ARTnewAdv.DrugReact.",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "rNEpbBxSyu7",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8251",
+      "name": "ART No started Opportunist Infection prophylaxis",
+      "shortName": "ART.OI.prophylaxis",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "CxlYcbqio4v",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8256",
+      "name": "ART treatment stopped due to death",
+      "shortName": "ARTStop.TRTdueDeath",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "ibL7BD2vn2C",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        },
+        {
+          "name": "ART",
+          "id": "k1M0nuodfhN"
+        }
+      ]
+    },
+    {
+      "code": "DE_8258",
+      "name": "ART treatment stopped due to loss to follow-up",
+      "shortName": "ARTstop.LossFollowup",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "TyQ1vOHM6JO",
+      "categoryCombo": {
+        "name": "HIV age+gender",
+        "id": "jCNGsC2NawV"
+      },
+      "dataElementGroups": [
+        {
+          "name": "ART treatment",
+          "id": "zz1lNBgRKWU"
+        }
+      ]
+    },
+    {
+      "code": "DE_359706",
+      "name": "BCG doses given",
+      "shortName": "BCG doses given",
+      "aggregationType": "SUM",
+      "valueType": "INTEGER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "s46m5MS0hxu",
+      "categoryCombo": {
+        "name": "Location and age group",
+        "id": "dzjKKQq0cSO"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Immunization",
+          "id": "h9cuJOkOwY2"
+        }
+      ]
+    },
+    {
+      "code": "DE_424405",
+      "name": "Birth certificate",
+      "shortName": "Birth certificate",
+      "aggregationType": "SUM",
+      "valueType": "FILE_RESOURCE",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "uf3svrmp8Oj",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_1151448",
+      "name": "Blood pressure monitor, electronic or manual available",
+      "shortName": "Blood pressure monitor, electronic avail",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "nzl75uHiWQO",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "name": "Blood transfusion within 3 months before onset of symptoms",
+      "shortName": "Blood Transfusion < 3 months",
+      "aggregationType": "COUNT",
+      "valueType": "BOOLEAN",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "yO0ZIegEsDk",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_359054",
+      "name": "Burns follow-up",
+      "shortName": "Burns follow-up",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "QYBJk7sqc1I",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Burns",
+          "id": "oGktdmYkRNo"
+        },
+        {
+          "name": "Follow-up",
+          "id": "g50BzGAsrvu"
+        }
+      ]
+    },
+    {
+      "code": "DE_358911",
+      "name": "Burns new",
+      "shortName": "Burns new",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "zMGEd921xd3",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Burns",
+          "id": "oGktdmYkRNo"
+        },
+        {
+          "name": "New cases",
+          "id": "weRMUzBs8T7"
+        }
+      ]
+    },
+    {
+      "code": "DE_358948",
+      "name": "Burns referrals",
+      "shortName": "Burns referrals",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "BHvVPwWrrLC",
+      "categoryCombo": {
+        "name": "Morbidity Referrals",
+        "id": "ck7mRNwGDjP"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Referrals",
+          "id": "UWaMbg9h7vF"
+        },
+        {
+          "name": "Burns",
+          "id": "oGktdmYkRNo"
+        }
+      ]
+    },
+    {
+      "code": "DE_239586",
+      "name": "Cabin fever",
+      "shortName": "Cabin fever",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "A21lT9x7pmc",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "name": "Case detection",
+      "shortName": "Case detection",
+      "aggregationType": "COUNT",
+      "valueType": "TEXT",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "fazCI2ygYkq",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "name": "Case Investigation Conducted By",
+      "shortName": "CA Investigation Conducted By",
+      "aggregationType": "NONE",
+      "valueType": "TEXT",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "eYApmORDKgx",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "name": "Case species classification",
+      "shortName": "Case species classification",
+      "aggregationType": "NONE",
+      "valueType": "TEXT",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "lvx6qda7SN0",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_374570",
+      "name": "Children from Gen.Paed. ward tested for HIV",
+      "shortName": "Child GPW HIV test",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "hhevl49MXyA",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374571",
+      "name": "Children from Gen.Paed. ward with positive HIV result",
+      "shortName": "Child GPW HIV-test +",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "HL77Pems4Cv",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374566",
+      "name": "Children from TB ward tested for HIV",
+      "shortName": "Child TBw HIV test",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "ydvyXLhIbTn",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374567",
+      "name": "Children from TB ward with positive HIV result",
+      "shortName": "Child TBw HIV-test +",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "AKJvJehDSb6",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374568",
+      "name": "Children from TFC tested for HIV",
+      "shortName": "Child TFC HIV test",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "xFpppWvT43s",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374569",
+      "name": "Children from TFC with positive HIV result",
+      "shortName": "Child TFC HIV-test +",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "KWzP8OWYQL7",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_359738",
+      "name": "Children getting therapeutic feeding",
+      "shortName": "Child thera. feeding",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "qw2sIef52Fu",
+      "categoryCombo": {
+        "name": "Location and age group",
+        "id": "dzjKKQq0cSO"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Nutrition",
+          "id": "u1ilfnoYafG"
+        }
+      ]
+    },
+    {
+      "code": "DE_374574",
+      "name": "Children HIV 1&2 positive test",
+      "shortName": "Child HIV1&2 + test",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "e73QxJpd88B",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374572",
+      "name": "Children HIV 1 positive test",
+      "shortName": "Child HIV1 + test",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "EnsFXKU7LEW",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374573",
+      "name": "Children HIV 2 positive test",
+      "shortName": "Child HIV2 + test",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "GhsYeB89HaL",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374579",
+      "name": "Children initiated ARV treatment",
+      "shortName": "Child init. ARV TRT",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "MWEGBw0pmgU",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374575",
+      "name": "Children on exclusive breastfeeding (HIV Paed.)",
+      "shortName": "Child excl. breastf.",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "SMrE2ByiyZp",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_374576",
+      "name": "Children on replacement feeding (HIV Paed.)",
+      "shortName": "Child repl. feeding",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "UMexg4VGfaY",
+      "categoryCombo": {
+        "name": "HIV Paed age+gender",
+        "id": "v1K6CE6bmtw"
+      },
+      "dataElementGroups": [
+        {
+          "name": "HIV Peadriatics",
+          "id": "ID4BbhF7Eli"
+        }
+      ]
+    },
+    {
+      "code": "DE_359737",
+      "name": "Children supplied with food supplemements",
+      "shortName": "Child food suppl.",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "Y53Jcc9LBYh",
+      "categoryCombo": {
+        "name": "Location and age group",
+        "id": "dzjKKQq0cSO"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Nutrition",
+          "id": "u1ilfnoYafG"
+        }
+      ]
+    },
+    {
+      "code": "DE_360527",
+      "name": "CHO",
+      "shortName": "CHO",
+      "aggregationType": "AVERAGE_SUM_ORG_UNIT",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "LSJ5mKpyEv1",
+      "categoryCombo": {
+        "name": "Staffing",
+        "id": "aN8uN5b15YG"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Staffing",
+          "id": "rVEe5QNBgDX"
+        }
+      ]
+    },
+    {
+      "code": "DE_1148616",
+      "name": "Cholera (Deaths < 5 yrs)",
+      "shortName": "Cholera (Deaths < 5 yrs)",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "eY5ehpbEsB7",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Cholera",
+          "id": "KUSvwZQsMSN"
+        },
+        {
+          "name": "Mortality < 5 years",
+          "id": "rPGfUFYbcfJ"
+        },
+        {
+          "name": "Mortality",
+          "id": "QAc5FhbeFwl"
+        }
+      ]
+    },
+    {
+      "code": "DE_239771",
+      "name": "Cholera (Deaths < 5 yrs) Narrative",
+      "shortName": "Cholera (Deaths < 5 yrs) Narrative",
+      "aggregationType": "SUM",
+      "valueType": "LONG_TEXT",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "mxc1T932aWM",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Mortality Narrative",
+          "id": "KU0wDurtWDM"
+        }
+      ]
+    },
+    {
+      "code": "DE_359043",
+      "name": "Clinical Malnutrition follow-up",
+      "shortName": "Clinic. Malnutr. f-u",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "HJulLfnIAE3",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Clinical Malnutrition",
+          "id": "Euvh58hLl61"
+        },
+        {
+          "name": "Follow-up",
+          "id": "g50BzGAsrvu"
+        }
+      ]
+    },
+    {
+      "code": "DE_390",
+      "name": "Clinical Malnutrition new",
+      "shortName": "Malnutriti new",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "TBbCcJfZ91x",
+      "categoryCombo": {
+        "name": "Morbidity Cases",
+        "id": "t3aNCvHsoSn"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Clinical Malnutrition",
+          "id": "Euvh58hLl61"
+        },
+        {
+          "name": "New cases",
+          "id": "weRMUzBs8T7"
+        }
+      ]
+    },
+    {
+      "code": "DE_358937",
+      "name": "Clinical Malnutrition referrals",
+      "shortName": "Clinic. Malnutr. ref",
+      "aggregationType": "SUM",
+      "valueType": "NUMBER",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "oNyB0VOXIM8",
+      "categoryCombo": {
+        "name": "Morbidity Referrals",
+        "id": "ck7mRNwGDjP"
+      },
+      "dataElementGroups": [
+        {
+          "name": "Morbidity",
+          "id": "SLsJy3zqUbD"
+        },
+        {
+          "name": "Clinical Malnutrition",
+          "id": "Euvh58hLl61"
+        },
+        {
+          "name": "Referrals",
+          "id": "UWaMbg9h7vF"
+        }
+      ]
+    },
+    {
+      "code": "CS016",
+      "name": "Clinical status",
+      "shortName": "Clinical status",
+      "aggregationType": "NONE",
+      "valueType": "TEXT",
+      "domainType": "TRACKER",
+      "zeroIsSignificant": false,
+      "id": "SzVk2KvkSSd",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217099",
+      "name": "CMC Clients offered information on range of methods exist",
+      "shortName": "CMC Clients offered information on range of met",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "LHXqz53TmPe",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217107",
+      "name": "CMC COPE has been introduced at the facility and staff conducted a COPE exercise during the past quarter",
+      "shortName": "CMC COPE has been introduced at the facility and",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "OJSkJXzhdU1",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217092",
+      "name": "CMC Counseling rooms in FP and CAC service units ensure client privacy and confidentiality",
+      "shortName": "CMC Counseling rooms in FP and CAC service units",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "DF0B07U2lPZ",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217020",
+      "name": "CMC Date of clinical monitoring visit",
+      "shortName": "CMC Date of clinical monitoring visit",
+      "aggregationType": "SUM",
+      "valueType": "DATE",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "rkAZZFGFEQ7",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217105",
+      "name": "CMC Facility part of health care finance (HCF) board scheme",
+      "shortName": "CMC Facility part of health care finance (HCF) bo",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "wokFPoIO3NK",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217074",
+      "name": "CMC Facility receives FP referrals from community health workers",
+      "shortName": "CMC Facility receives FP referrals from CHW",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "rTYZHPHVULr",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217089",
+      "name": "CMC FP and CAC commodity requests correctly based on previous consumption / stock at hand",
+      "shortName": "CMC FP and CAC commodity requests correctly",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "rZiGA1lv7Ah",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217094",
+      "name": "CMC FP and CAC procedure rooms have adequate lighting for the performance of all procedures",
+      "shortName": "CMC FP and CAC procedure rooms have adequate lig",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "EonDTYTVXxM",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217106",
+      "name": "CMC FP and CAC service units have dedicated hours or space for youth clients",
+      "shortName": "CMC FP and CAC service units have dedicated hours",
+      "aggregationType": "SUM",
+      "valueType": "BOOLEAN",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "LadMythncw2",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217032",
+      "name": "CMC FP services available - Contraceptive pills",
+      "shortName": "CMC FP services - Contraceptive pills",
+      "aggregationType": "SUM",
+      "valueType": "TRUE_ONLY",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "UysSLXGhwrC",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217035",
+      "name": "CMC FP services available - Female condoms",
+      "shortName": "CMC FP services - Female condoms",
+      "aggregationType": "SUM",
+      "valueType": "TRUE_ONLY",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "ZVqZ600pgzC",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217037",
+      "name": "CMC FP services available - Female Sterilization",
+      "shortName": "CMC FP services - Female Sterilization",
+      "aggregationType": "SUM",
+      "valueType": "TRUE_ONLY",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "X4SRfUAnrHD",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217031",
+      "name": "CMC FP services available - Implanon",
+      "shortName": "CMC FP services - Implanon",
+      "aggregationType": "SUM",
+      "valueType": "TRUE_ONLY",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "xqlapchAEVR",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    },
+    {
+      "code": "DE_217033",
+      "name": "CMC FP services available - Injectables (DMPA)",
+      "shortName": "CMC FP services - Injectables (DMPA)",
+      "aggregationType": "SUM",
+      "valueType": "TRUE_ONLY",
+      "domainType": "AGGREGATE",
+      "zeroIsSignificant": false,
+      "id": "NKoGfjnFWcE",
+      "categoryCombo": {
+        "name": "default",
+        "id": "bjDvmb4bfuf"
+      },
+      "dataElementGroups": []
+    }
+  ]
+}

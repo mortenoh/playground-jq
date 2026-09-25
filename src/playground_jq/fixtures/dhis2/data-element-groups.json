@@ -1,0 +1,4198 @@
+{
+  "dataElementGroups": [
+    {
+      "name": "Acute Flaccid Paralysis (AFP) ",
+      "id": "oDkJh5Ddh7d",
+      "dataElements": [
+        {
+          "name": "Acute Flaccid Paralysis (AFP) follow-up",
+          "id": "P3jJH5Tu5VC"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) referrals",
+          "id": "M62VHgYT2n0"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) new",
+          "id": "FQ2o8UBlcrS"
+        },
+        {
+          "name": "Admission Date",
+          "id": "eMyVanycQSC"
+        },
+        {
+          "name": "Anaemia new",
+          "id": "HLPuaFB7Frw"
+        },
+        {
+          "name": "All other follow-ups",
+          "id": "RUv0hqER0zV"
+        },
+        {
+          "name": "Anaemia follow-up",
+          "id": "jmWyJFtE7Af"
+        }
+      ]
+    },
+    {
+      "name": "All Others",
+      "id": "GBHN1a1Jddh",
+      "dataElements": [
+        {
+          "name": "Age in years",
+          "id": "qrur9Dvnyt5"
+        }
+      ]
+    },
+    {
+      "name": "Anaemia",
+      "id": "KmwPVkjp7yl",
+      "dataElements": [
+        {
+          "name": "Anaemia referrals",
+          "id": "yqBkn9CWKih"
+        },
+        {
+          "name": "Albendazole given at ANC (2nd trimester)",
+          "id": "hCVSHjcml9g"
+        },
+        {
+          "name": "Anaemia new",
+          "id": "HLPuaFB7Frw"
+        },
+        {
+          "name": "Admission Date",
+          "id": "eMyVanycQSC"
+        },
+        {
+          "name": "Anaemia follow-up",
+          "id": "jmWyJFtE7Af"
+        }
+      ]
+    },
+    {
+      "name": "ANC",
+      "id": "qfxEYY9xAl6",
+      "dataElements": [
+        {
+          "name": "IPT 2nd dose given at PHU",
+          "id": "V37YqbqpEhV"
+        },
+        {
+          "name": "ANC 4th or more visits",
+          "id": "hfdmMSPBgLG"
+        },
+        {
+          "name": "IPT 1st dose given at PHU",
+          "id": "bqK6eSIwo3h"
+        },
+        {
+          "name": "IPT 1st dose given by TBA",
+          "id": "yTHydhurQQU"
+        },
+        {
+          "name": "ANC 3rd visit",
+          "id": "Jtf34kNZhzP"
+        },
+        {
+          "name": "ANC 2nd visit",
+          "id": "cYeuwXTCPkU"
+        },
+        {
+          "name": "ANC 1st visit",
+          "id": "fbfJHSPpUQD"
+        },
+        {
+          "name": "IPT 2nd dose given by TBA",
+          "id": "SA7WeFZnUci"
+        }
+      ]
+    },
+    {
+      "name": "ARI treated with antibiotics (Pneumonia)",
+      "id": "M2cth8EmrlT",
+      "dataElements": [
+        {
+          "name": "ARI treated with antibiotics (pneumonia) referrals",
+          "id": "XTqOHygxDj5"
+        },
+        {
+          "name": "ARI treated with antibiotics (pneumonia) new",
+          "id": "iKGjnOOaPlE"
+        },
+        {
+          "name": "ARI treated with antibiotics (pneumonia) follow-up",
+          "id": "FHD3wiSM7Sn"
+        }
+      ]
+    },
+    {
+      "name": "ARI Treated Without Antibiotics (Cough)",
+      "id": "yhg8oYU9ekY",
+      "dataElements": [
+        {
+          "name": "ARI treated without antibiotics (cough) new",
+          "id": "Cm4XUw6VAxv"
+        },
+        {
+          "name": "ARI treated without antibiotics (cough) referrals",
+          "id": "oLfWYAJhZb2"
+        },
+        {
+          "name": "ARI treated without antibiotics (cough) follow-up",
+          "id": "RF4VFVGdFRO"
+        }
+      ]
+    },
+    {
+      "name": "ART",
+      "id": "k1M0nuodfhN",
+      "dataElements": [
+        {
+          "name": "ART No clients who stopped TRT due to adverse clinical status/event",
+          "id": "wfKKFhBn0Q0"
+        },
+        {
+          "name": "Shift to TDF 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "ZgIaamZjBjz"
+        },
+        {
+          "name": "Received treatment for both TB and HIV",
+          "id": "gVfwyHBGWec"
+        },
+        {
+          "name": "Shift from d4T 30mg + 3TC 100mg + ABC 300mg",
+          "id": "ZGKUt190yEn"
+        },
+        {
+          "name": "ART entry point: No transfer in",
+          "id": "HDZOFvdXsqE"
+        },
+        {
+          "name": "New on AZT 300mg + 3TC 150mg + TDF 300mg ",
+          "id": "wIQ5ugpWYUH"
+        },
+        {
+          "name": "New on AZT 300mg /  3TC 150mg + EFV 600mg",
+          "id": "tZLjsE0VXrL"
+        },
+        {
+          "name": "Prev. month on AZT 10mg/ml + 3TC 10mg/ml + NVP 10mg/ml",
+          "id": "yXZd6HTew4q"
+        },
+        {
+          "name": "Shift to d4T 40mg + 3TC 150mg + EFV 600mg",
+          "id": "a5MxE5H7d3q"
+        },
+        {
+          "name": "Shift from AZT + 3TC + NVP 300mg + 150mg + 200mg",
+          "id": "AzwEuYfWAtN"
+        },
+        {
+          "name": "ART entry point: No old patients",
+          "id": "LVaUdM3CERi"
+        },
+        {
+          "name": "ART entry point: No PMTCT",
+          "id": "kVOiLDV4OC6"
+        },
+        {
+          "name": "New on TDF 300mg + ddI 200mg + LPV/r 133.3mg/33.3mg",
+          "id": "w1554hhXNcq"
+        },
+        {
+          "name": "ART enrollment stage 3",
+          "id": "eRwOwCpMzyP"
+        },
+        {
+          "name": "New on d4T 30mg + 3TC 150mg + EFV 600mg",
+          "id": "x98jMXibptT"
+        },
+        {
+          "name": "Shift from d4T 40mg + 3TC 150mg + EFV 600mg",
+          "id": "BtXmKYNBc3k"
+        },
+        {
+          "name": "Prev. month on Infant NVP 10mg/ml (2mg/kg)",
+          "id": "iri7NSiuRc3"
+        },
+        {
+          "name": "New on ABC 300mg + ddI 200mg + LPV/r 133.3/33.3mg",
+          "id": "la1f7sqY9sb"
+        },
+        {
+          "name": "Shift to AZT + 3TC 300mg + 150mg on labour",
+          "id": "IJ4yZ027EmK"
+        },
+        {
+          "name": "New on AZT 300mg / 3TC 150mg + NVP 200mg",
+          "id": "YX1MQLgAD92"
+        },
+        {
+          "name": "Prev. month on AZT + 3TC 300mg + 150mg for 7 days",
+          "id": "FDpeT1lFQMM"
+        },
+        {
+          "name": "New on NVP + AZT + 3TC 10mg/ml (2mg/kg) + 10mg/ml + 10mg/ml for 7 days",
+          "id": "D4PywWuIwy0"
+        },
+        {
+          "name": "New on Infant NVP 10mg/ml (2mg/kg)",
+          "id": "uN64b5MivTO"
+        },
+        {
+          "name": "Prev. month on AZT 300mg + 3TC 150mg + ABC 300mg ",
+          "id": "BVU4XA3aL0Y"
+        },
+        {
+          "name": "ART No started Opportunist Infection prophylaxis",
+          "id": "CxlYcbqio4v"
+        },
+        {
+          "name": "Shift from d4T 30mg / 3TC 150mg / NVP 200mg",
+          "id": "mmHNj6THZNH"
+        },
+        {
+          "name": "Shift from AZT 300mg / 3TC 150mg + NVP 200mg",
+          "id": "pSHgU0Wf4ir"
+        },
+        {
+          "name": "Prev. month on d4T 40mg + 3TC 150mg + EFV 600mg",
+          "id": "XVzfK55tu7h"
+        },
+        {
+          "name": "Prev. month on ABC 300mg + ddI 200mg + LPV/r 133.3/33.3mg",
+          "id": "obbSEvaKTyW"
+        },
+        {
+          "name": "Shift from AZT + 3TC 300mg + 150mg for 7 days",
+          "id": "Mow8dnhE6FJ"
+        },
+        {
+          "name": "New on d4T 40mg + 3TC 150mg + EFV 600mg",
+          "id": "fDkcJaO15aQ"
+        },
+        {
+          "name": "Shift from AZT 10mg/ml + 3TC 10mg/ml + NVP 10mg/ml",
+          "id": "t6YgakIbFif"
+        },
+        {
+          "name": "Shift to d4T / 3TC / NVP 6mg/30mg/50mg",
+          "id": "eCIPNNYj9ZM"
+        },
+        {
+          "name": "New on AZT + 3TC 300mg + 150mg on labour",
+          "id": "ozmEltb5V8d"
+        },
+        {
+          "name": "New on AZT + 3TC + NVP 300mg + 150mg + 200mg",
+          "id": "pVImQlMAla4"
+        },
+        {
+          "name": "Shift from ART other regimen",
+          "id": "Jw8BIUYVMGE"
+        },
+        {
+          "name": "Shift from ABC 300mg + ddI 200mg + LPV/r 133.3/33.3mg",
+          "id": "lznF009R6XI"
+        },
+        {
+          "name": "New on AZT + 3TC 300mg + 150mg for 7 days after 36 weeks",
+          "id": "nvsNqhfSSxd"
+        },
+        {
+          "name": "ART entry point: No other",
+          "id": "vJSPn2R6gVe"
+        },
+        {
+          "name": "Prev. month on AZT 300mg + 3TC 150mg + TDF 300mg ",
+          "id": "FOWABOOZtPg"
+        },
+        {
+          "name": "ART No clients with change of regimen due to drug toxicity",
+          "id": "F53rTVTmSuF"
+        },
+        {
+          "name": "ART enrollment stage 1",
+          "id": "BOSZApCrBni"
+        },
+        {
+          "name": "Prev. month on d4T / 3TC / NVP 6mg/30mg/50mg",
+          "id": "YknvQAH4LnL"
+        },
+        {
+          "name": "Prev. month on AZT + 3TC 300mg + 150mg for 7 days after 36w",
+          "id": "deGkTqbpTlS"
+        },
+        {
+          "name": "Shift from ABC 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "hI7NM78r3Rg"
+        },
+        {
+          "name": "Prev. month on ABC 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "D33rH8UHKlZ"
+        },
+        {
+          "name": "Prev. month on AZT 300mg at 28 wks",
+          "id": "ReljOufQV11"
+        },
+        {
+          "name": "Prev. month on NVP + AZT + 3TC 10mg/ml (2mg/kg) + 10mg/ml + 10mg/ml for 7 days",
+          "id": "CUVDjGzRmmU"
+        },
+        {
+          "name": "New on AZT 10mg/ml + 3TC 10mg/ml + NVP 10mg/ml",
+          "id": "xrbIG3L9DdO"
+        },
+        {
+          "name": "Shift from NVP + AZT + 3TC 10mg/ml (2mg/kg) + 10mg/ml + 10mg/ml for 7 days",
+          "id": "HmBwa7GWGRG"
+        },
+        {
+          "name": "Shift from TDF 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "y6noHe7ltxY"
+        },
+        {
+          "name": "Shift from AZT 300mg /  3TC 150mg + EFV 600mg",
+          "id": "jHxFwWMbXT2"
+        },
+        {
+          "name": "Shift to AZT 300mg + 3TC 150mg + TDF 300mg ",
+          "id": "NV0OXpHu6x4"
+        },
+        {
+          "name": "ART treatment stopped due to death",
+          "id": "ibL7BD2vn2C"
+        },
+        {
+          "name": "Shift to ABC 300mg + ddI 200mg + LPV/r 133.3/33.3mg",
+          "id": "PBXQFnb2AOk"
+        },
+        {
+          "name": "Shift from AZT + 3TC 300mg + 150mg for 7 days after 36w",
+          "id": "supsI55QU7E"
+        },
+        {
+          "name": "Shift to ABC 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "hUSSNufoUQz"
+        },
+        {
+          "name": "New on d4T 40mg / 3TC 150mg / NVP 200mg",
+          "id": "xUNvvqqhNwz"
+        },
+        {
+          "name": "Shift to ART other regimen",
+          "id": "DlZORv7kWSl"
+        },
+        {
+          "name": "New on d4T 30mg / 3TC 150mg / NVP 200mg",
+          "id": "o44j6gPqFlA"
+        },
+        {
+          "name": "Prev. month on AZT 300mg / 3TC 150mg + NVP 200mg",
+          "id": "pgzNTiQwMES"
+        },
+        {
+          "name": "Prev. month on ART other regimen",
+          "id": "VZPWjoT6Iyb"
+        },
+        {
+          "name": "Prev. month on d4T 30mg + 3TC 150mg + EFV 600mg",
+          "id": "FQhY9n5Ft7t"
+        },
+        {
+          "name": "Shift to AZT 300mg at 28 wks",
+          "id": "AyLbN9fhY4W"
+        },
+        {
+          "name": "Shift to d4T 30mg + 3TC 150mg + EFV 600mg",
+          "id": "qUY0i7PnaLS"
+        },
+        {
+          "name": "New on AZT 300mg at 28 wks",
+          "id": "GgsWqA0YETj"
+        },
+        {
+          "name": "Prev. month on d4T 30mg + 3TC 100mg + TDF 300mg ",
+          "id": "KD5UjA5V16r"
+        },
+        {
+          "name": "Shift from TDF 300mg + ddI 200mg + LPV/r 133.3mg/33.3mg",
+          "id": "oJLoUSMs3Ud"
+        },
+        {
+          "name": "Prev. month on TDF 300mg + ddI 200mg + LPV/r 133.3mg/33.3mg",
+          "id": "cQxY2T8GenX"
+        },
+        {
+          "name": "New on ART other regimen",
+          "id": "lmj0xtl5P6C"
+        },
+        {
+          "name": "ART enrollment stage 2",
+          "id": "dGdeotKpRed"
+        },
+        {
+          "name": "New on TDF 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "tnDQ80ycQus"
+        },
+        {
+          "name": "New on d4T 30mg + 3TC 100mg + TDF 300mg ",
+          "id": "SLcj0Swq8rD"
+        },
+        {
+          "name": "ART entry point: TB",
+          "id": "Yf4u4QOIdsi"
+        },
+        {
+          "name": "ART entry point: No walk in",
+          "id": "FTy5pcJZ3yX"
+        },
+        {
+          "name": "Shift to d4T 40mg / 3TC 150mg / NVP 200mg",
+          "id": "C6yhZddXLCX"
+        },
+        {
+          "name": "New on d4T / 3TC / NVP 12mg/60mg/100mg",
+          "id": "YIDKw3om85t"
+        },
+        {
+          "name": "Shift to Infant NVP 10mg/ml (2mg/kg)",
+          "id": "E7QJ0voitk7"
+        },
+        {
+          "name": "Prev. month on d4T 30mg + 3TC 100mg + ABC 300mg",
+          "id": "oYZug9IEm3Q"
+        },
+        {
+          "name": "ART clients with new adverse clinical event",
+          "id": "NJnhOzjaLYk"
+        },
+        {
+          "name": "New on d4T 30mg + 3TC 100mg + ABC 300mg",
+          "id": "hoj1wTJT6ZW"
+        },
+        {
+          "name": "Shift to d4T / 3TC / NVP 12mg/60mg/100mg",
+          "id": "EEEu3r8z1Rg"
+        },
+        {
+          "name": "Shift from Infant NVP 10mg/ml (2mg/kg)",
+          "id": "Z5uEjG9zJNK"
+        },
+        {
+          "name": "Shift from d4T 30mg + 3TC 150mg + EFV 600mg",
+          "id": "ksGURIlASZB"
+        },
+        {
+          "name": "Shift to d4T 30mg + 3TC 100mg + ABC 300mg",
+          "id": "YTmhoGBxE2m"
+        },
+        {
+          "name": "ART entry point: No transfer out",
+          "id": "soACnRV9gOI"
+        },
+        {
+          "name": "Prev. month on AZT 300mg /  3TC 150mg + EFV 600mg",
+          "id": "rFkRvm5Ns4a"
+        },
+        {
+          "name": "Shift from AZT 300mg at 28 wks",
+          "id": "LJBV91hapop"
+        },
+        {
+          "name": "ART No clients who stopped TRT due to TRT failure",
+          "id": "GMd99K8gVut"
+        },
+        {
+          "name": "New on ABC 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "PxT44IblPCq"
+        },
+        {
+          "name": "Prev. month on TDF 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "n91IylSb1JQ"
+        },
+        {
+          "name": "Shift to AZT 300mg + 3TC 150mg + ABC 300mg ",
+          "id": "PNlOOplRNOp"
+        },
+        {
+          "name": "Shift from AZT 300mg + 3TC 150mg + ABC 300mg ",
+          "id": "gSD3Znye1hY"
+        },
+        {
+          "name": "Prev. month on AZT + 3TC + NVP 300mg + 150mg + 200mg",
+          "id": "e1eDe6JsE9j"
+        },
+        {
+          "name": "ART entry point: No diagnostic testing",
+          "id": "I5MLuG16arn"
+        },
+        {
+          "name": "Shift to AZT + 3TC + NVP 300mg + 150mg + 200mg",
+          "id": "YgsAnqU3I7B"
+        },
+        {
+          "name": "Shift to NVP + AZT + 3TC 10mg/ml (2mg/kg) + 10mg/ml + 10mg/ml for 7 days",
+          "id": "un5mkYkVKqV"
+        },
+        {
+          "name": "Shift from AZT + 3TC 300mg + 150mg on labour",
+          "id": "q9CskFaFGE6"
+        },
+        {
+          "name": "Shift to AZT 300mg / 3TC 150mg + NVP 200mg",
+          "id": "kxcIr99QcAO"
+        },
+        {
+          "name": "Shift to AZT 10mg/ml + 3TC 10mg/ml + NVP 10mg/ml",
+          "id": "vhT3YzTev3B"
+        },
+        {
+          "name": "New on d4T / 3TC / NVP 6mg/30mg/50mg",
+          "id": "pq4msirdtpr"
+        },
+        {
+          "name": "ART defaulters",
+          "id": "aIJZ2d2QgVV"
+        },
+        {
+          "name": "Shift to TDF 300mg + ddI 200mg + LPV/r 133.3mg/33.3mg",
+          "id": "aJ9oon0aJ87"
+        },
+        {
+          "name": "Shift to AZT 300mg /  3TC 150mg + EFV 600mg",
+          "id": "XMsORYe4ZcA"
+        },
+        {
+          "name": "New on AZT + 3TC 300mg + 150mg for 7 days",
+          "id": "GNY9KvEmRjy"
+        },
+        {
+          "name": "ART new clients started on ARV",
+          "id": "QrhlrvV6Xs8"
+        },
+        {
+          "name": "Prev. month on d4T 30mg / 3TC 150mg / NVP 200mg",
+          "id": "ZecQS9lx4j9"
+        },
+        {
+          "name": "Shift to d4T 30mg / 3TC 150mg / NVP 200mg",
+          "id": "V651s5yIbnR"
+        },
+        {
+          "name": "Prev. month on d4T 40mg / 3TC 150mg / NVP 200mg",
+          "id": "Sdfo0RBu1W3"
+        },
+        {
+          "name": "Prev. month on AZT + 3TC 300mg + 150mg on labour",
+          "id": "BI5CBuRJVSV"
+        },
+        {
+          "name": "ART No clients with new adverse drug reaction",
+          "id": "rNEpbBxSyu7"
+        },
+        {
+          "name": "New on AZT 300mg + 3TC 150mg + ABC 300mg ",
+          "id": "xETRo03ZfOM"
+        },
+        {
+          "name": "ART enrollment stage 4",
+          "id": "zYkwbCBALhn"
+        },
+        {
+          "name": "Shift to d4T 30mg + 3TC 100mg + TDF 300mg ",
+          "id": "yB3qDR4Mlqk"
+        },
+        {
+          "name": "Shift from d4T / 3TC / NVP 6mg/30mg/50mg",
+          "id": "tlSucW8wn23"
+        },
+        {
+          "name": "Shift from d4T / 3TC / NVP 12mg/60mg/100mg",
+          "id": "iCGDtgPA28k"
+        },
+        {
+          "name": "Prev. month on d4T / 3TC / NVP 12mg/60mg/100mg",
+          "id": "gyudBBtgGCv"
+        },
+        {
+          "name": "Shift to AZT + 3TC 300mg + 150mg for 7 days",
+          "id": "zTWitarSrae"
+        },
+        {
+          "name": "Shift to AZT + 3TC 300mg + 150mg for 7 days after 36w",
+          "id": "jYYxzqd1dqM"
+        },
+        {
+          "name": "Shift from d4T 40mg / 3TC 150mg / NVP 200mg",
+          "id": "dAnZOL5kxlK"
+        },
+        {
+          "name": "Shift from d4T 30mg + 3TC 100mg + TDF 300mg ",
+          "id": "a7Pue4ht1n1"
+        },
+        {
+          "name": "Shift from AZT 300mg + 3TC 150mg + TDF 300mg ",
+          "id": "MeAvt39JtqN"
+        }
+      ]
+    },
+    {
+      "name": "ART enrollment",
+      "id": "bdiyMm9qZl5",
+      "dataElements": [
+        {
+          "name": "ART entry point: No walk in",
+          "id": "FTy5pcJZ3yX"
+        },
+        {
+          "name": "ART entry point: No diagnostic testing",
+          "id": "I5MLuG16arn"
+        },
+        {
+          "name": "ART entry point: No transfer out",
+          "id": "soACnRV9gOI"
+        },
+        {
+          "name": "ART enrollment stage 2",
+          "id": "dGdeotKpRed"
+        },
+        {
+          "name": "ART entry point: No other",
+          "id": "vJSPn2R6gVe"
+        },
+        {
+          "name": "ART entry point: No transfer in",
+          "id": "HDZOFvdXsqE"
+        },
+        {
+          "name": "ART enrollment stage 4",
+          "id": "zYkwbCBALhn"
+        },
+        {
+          "name": "ART entry point: No old patients",
+          "id": "LVaUdM3CERi"
+        },
+        {
+          "name": "ART enrollment stage 1",
+          "id": "BOSZApCrBni"
+        },
+        {
+          "name": "ART entry point: No PMTCT",
+          "id": "kVOiLDV4OC6"
+        },
+        {
+          "name": "ART entry point: TB",
+          "id": "Yf4u4QOIdsi"
+        },
+        {
+          "name": "ART enrollment stage 3",
+          "id": "eRwOwCpMzyP"
+        }
+      ]
+    },
+    {
+      "name": "ART entry points",
+      "id": "s8FiXqB2DhB",
+      "dataElements": [
+        {
+          "name": "ART entry point: No walk in",
+          "id": "FTy5pcJZ3yX"
+        },
+        {
+          "name": "ART entry point: No transfer out",
+          "id": "soACnRV9gOI"
+        },
+        {
+          "name": "ART entry point: No other",
+          "id": "vJSPn2R6gVe"
+        },
+        {
+          "name": "ART entry point: No transfer in",
+          "id": "HDZOFvdXsqE"
+        },
+        {
+          "name": "ART entry point: No old patients",
+          "id": "LVaUdM3CERi"
+        },
+        {
+          "name": "ART entry point: No PMTCT",
+          "id": "kVOiLDV4OC6"
+        },
+        {
+          "name": "ART entry point: TB",
+          "id": "Yf4u4QOIdsi"
+        }
+      ]
+    },
+    {
+      "name": "ART pediatric 1st line",
+      "id": "TcxHxMlYzpv",
+      "dataElements": []
+    },
+    {
+      "name": "ART staging",
+      "id": "vxIWSNeEcf7",
+      "dataElements": [
+        {
+          "name": "ART enrollment stage 2",
+          "id": "dGdeotKpRed"
+        },
+        {
+          "name": "ART enrollment stage 4",
+          "id": "zYkwbCBALhn"
+        },
+        {
+          "name": "ART enrollment stage 1",
+          "id": "BOSZApCrBni"
+        },
+        {
+          "name": "ART enrollment stage 3",
+          "id": "eRwOwCpMzyP"
+        }
+      ]
+    },
+    {
+      "name": "ART treatment",
+      "id": "zz1lNBgRKWU",
+      "dataElements": [
+        {
+          "name": "ART No clients who stopped TRT due to adverse clinical status/event",
+          "id": "wfKKFhBn0Q0"
+        },
+        {
+          "name": "ART defaulters",
+          "id": "aIJZ2d2QgVV"
+        },
+        {
+          "name": "ART treatment stopped due to death",
+          "id": "ibL7BD2vn2C"
+        },
+        {
+          "name": "ART No started Opportunist Infection prophylaxis",
+          "id": "CxlYcbqio4v"
+        },
+        {
+          "name": "Received treatment for both TB and HIV",
+          "id": "gVfwyHBGWec"
+        },
+        {
+          "name": "ART new clients started on ARV",
+          "id": "QrhlrvV6Xs8"
+        },
+        {
+          "name": "ART No clients who stopped TRT due to TRT failure",
+          "id": "GMd99K8gVut"
+        },
+        {
+          "name": "ART No clients with new adverse drug reaction",
+          "id": "rNEpbBxSyu7"
+        },
+        {
+          "name": "ART treatment stopped due to loss to follow-up",
+          "id": "TyQ1vOHM6JO"
+        },
+        {
+          "name": "ART clients with new adverse clinical event",
+          "id": "NJnhOzjaLYk"
+        },
+        {
+          "name": "ART No clients with change of regimen due to drug toxicity",
+          "id": "F53rTVTmSuF"
+        }
+      ]
+    },
+    {
+      "name": "Burns",
+      "id": "oGktdmYkRNo",
+      "dataElements": [
+        {
+          "name": "Burns follow-up",
+          "id": "QYBJk7sqc1I"
+        },
+        {
+          "name": "Burns referrals",
+          "id": "BHvVPwWrrLC"
+        },
+        {
+          "name": "Burns new",
+          "id": "zMGEd921xd3"
+        }
+      ]
+    },
+    {
+      "name": "Cholera",
+      "id": "KUSvwZQsMSN",
+      "dataElements": [
+        {
+          "name": "Cholera (Deaths < 5 yrs)",
+          "id": "eY5ehpbEsB7"
+        }
+      ]
+    },
+    {
+      "name": "Clinical Malnutrition",
+      "id": "Euvh58hLl61",
+      "dataElements": [
+        {
+          "name": "Clinical Malnutrition follow-up",
+          "id": "HJulLfnIAE3"
+        },
+        {
+          "name": "Clinical Malnutrition new",
+          "id": "TBbCcJfZ91x"
+        },
+        {
+          "name": "Clinical Malnutrition referrals",
+          "id": "oNyB0VOXIM8"
+        }
+      ]
+    },
+    {
+      "name": "Commodities",
+      "id": "Svac1cNQhRS",
+      "dataElements": [
+        {
+          "name": "Commodities - Implants",
+          "id": "Dkapzovo8Ll"
+        },
+        {
+          "name": "Commodities - Misoprostol",
+          "id": "f27B1G7B3m3"
+        },
+        {
+          "name": "Commodities - Emergency Contraception",
+          "id": "BXgDHhPdFVU"
+        },
+        {
+          "name": "Commodities - Antenatal Corticosteroids",
+          "id": "d9vZ3HOlzAd"
+        },
+        {
+          "name": "Commodities - Resuscitation Equipment",
+          "id": "W1XtQhP6BGd"
+        },
+        {
+          "name": "Commodities - Chlorhexidine",
+          "id": "WjDoIR27f31"
+        },
+        {
+          "name": "Commodities - Oral Rehydration Salts",
+          "id": "Lz8MM2Y9DNh"
+        },
+        {
+          "name": "Commodities - Female Condoms",
+          "id": "dY4OCwl0Y7Y"
+        },
+        {
+          "name": "Commodities - Zinc",
+          "id": "TCfIC3NDgQK"
+        },
+        {
+          "name": "Commodities - Amoxicillin",
+          "id": "Boy3QwztgeZ"
+        },
+        {
+          "name": "Commodities - Oxytocin",
+          "id": "hJNC4Bu2Mkv"
+        },
+        {
+          "name": "Commodities - Magnesium Sulfate",
+          "id": "o15CyZiTvxa"
+        },
+        {
+          "name": "Commodities - Injectable Antibiotics",
+          "id": "JIazHXNSnFJ"
+        }
+      ]
+    },
+    {
+      "name": "Commodities Child Health",
+      "id": "KJKWrWBcJdf",
+      "dataElements": [
+        {
+          "name": "Commodities - Oral Rehydration Salts",
+          "id": "Lz8MM2Y9DNh"
+        },
+        {
+          "name": "Commodities - Zinc",
+          "id": "TCfIC3NDgQK"
+        },
+        {
+          "name": "Commodities - Amoxicillin",
+          "id": "Boy3QwztgeZ"
+        }
+      ]
+    },
+    {
+      "name": "Commodities Maternal Health",
+      "id": "idD1wcvBISQ",
+      "dataElements": [
+        {
+          "name": "Commodities - Misoprostol",
+          "id": "f27B1G7B3m3"
+        },
+        {
+          "name": "Additional notes related to facility",
+          "id": "uF1DLnZNlWe"
+        },
+        {
+          "name": "Commodities - Oxytocin",
+          "id": "hJNC4Bu2Mkv"
+        },
+        {
+          "name": "An alternative to communicate if telephone line is off is always available",
+          "id": "sPQgYGhXnXI"
+        },
+        {
+          "name": "Commodities - Magnesium Sulfate",
+          "id": "o15CyZiTvxa"
+        },
+        {
+          "name": "All access routes are clearly marked and safe",
+          "id": "rxt7nvPyRUi"
+        },
+        {
+          "name": "Anaemia follow-up",
+          "id": "jmWyJFtE7Af"
+        },
+        {
+          "name": "Accute Flaccid Paralysis (Deaths < 5 yrs)",
+          "id": "FTRrcoaog83"
+        }
+      ]
+    },
+    {
+      "name": "Commodities Newborn Health",
+      "id": "rioWDAi1S7z",
+      "dataElements": [
+        {
+          "name": "Commodities - Antenatal Corticosteroids",
+          "id": "d9vZ3HOlzAd"
+        },
+        {
+          "name": "Commodities - Resuscitation Equipment",
+          "id": "W1XtQhP6BGd"
+        },
+        {
+          "name": "Commodities - Chlorhexidine",
+          "id": "WjDoIR27f31"
+        },
+        {
+          "name": "Commodities - Injectable Antibiotics",
+          "id": "JIazHXNSnFJ"
+        }
+      ]
+    },
+    {
+      "name": "Commodities Reproductive Health",
+      "id": "IyIa0h8CbCZ",
+      "dataElements": [
+        {
+          "name": "Commodities - Implants",
+          "id": "Dkapzovo8Ll"
+        },
+        {
+          "name": "Commodities - Emergency Contraception",
+          "id": "BXgDHhPdFVU"
+        },
+        {
+          "name": "Commodities - Female Condoms",
+          "id": "dY4OCwl0Y7Y"
+        }
+      ]
+    },
+    {
+      "name": "Deaths",
+      "id": "PfJGQacYpjn",
+      "dataElements": [
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 10-19y at PHU",
+          "id": "d6GUgNWCDfl"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 20-35y in comm.",
+          "id": "ZuAqHa7ekka"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 35+ y at PHU",
+          "id": "ZjLFpnq46QF"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 20-35y at PHU",
+          "id": "pnMGI9pJTxH"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 35+ y in comm.",
+          "id": "GHvwvsJzV4x"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 10-19y in comm.",
+          "id": "z1q4VpzJvEh"
+        }
+      ]
+    },
+    {
+      "name": "Delivery",
+      "id": "t5W0AAqvK5b",
+      "dataElements": [
+        {
+          "name": "Complicated deliveries in community live birth",
+          "id": "tn3p7vIxoKY"
+        },
+        {
+          "name": "Low birth weight in PHU",
+          "id": "DvEF1SdMORa"
+        },
+        {
+          "name": "Live births",
+          "id": "gQNFkFkObU8"
+        },
+        {
+          "name": "Still births",
+          "id": "HZSdnO5fCUc"
+        },
+        {
+          "name": "Complicated deliveries in PHU still births",
+          "id": "ncEnqRPHFvk"
+        },
+        {
+          "name": "Complicated deliveries in community still births",
+          "id": "FE82N2sA0YI"
+        },
+        {
+          "name": "Low birth weight in community",
+          "id": "Ce6kAvaHsxR"
+        },
+        {
+          "name": "LLITN given after delivery",
+          "id": "ntzmpYRSKGg"
+        },
+        {
+          "name": "Complicated deliveries in PHU live birth",
+          "id": "R1WAv9bVXff"
+        }
+      ]
+    },
+    {
+      "name": "Diarrhoea With Blood (Dysentery)",
+      "id": "mcjC3qZgIkO",
+      "dataElements": [
+        {
+          "name": "Diarrhoea with blood (Dysentery) follow-up",
+          "id": "vLA3KVFcZIw"
+        },
+        {
+          "name": "Diarrhoea with blood (Dysentery) new",
+          "id": "nymNRxmnj4z"
+        },
+        {
+          "name": "Diarrhoea with blood (Dysentery) referrals",
+          "id": "HQv1p570ldT"
+        }
+      ]
+    },
+    {
+      "name": "Diarrhoea Without Severe Dehydration",
+      "id": "kE8lP5t0b5R",
+      "dataElements": [
+        {
+          "name": "Diarrhoea without severe dehydration follow-up",
+          "id": "nvkbuPrYmDd"
+        },
+        {
+          "name": "Diarrhoea without severe dehydration new",
+          "id": "U3jd8zVFKxY"
+        }
+      ]
+    },
+    {
+      "name": "Diarrhoea With Severe Dehydration",
+      "id": "RSFc8ADyKTw",
+      "dataElements": [
+        {
+          "name": "Diarrhoea with severe dehydration referrals",
+          "id": "HpM1I5qc3Pb"
+        },
+        {
+          "name": "Diarrhoea with severe dehydration follow-up",
+          "id": "ndb4fIRrQbM"
+        },
+        {
+          "name": "Diarrhoea with severe dehydration new",
+          "id": "UfZcabJUVcZ"
+        }
+      ]
+    },
+    {
+      "name": "Emergency Response",
+      "id": "qiF051Ue9Ei",
+      "dataElements": [
+        {
+          "name": "ER Visits in schools",
+          "id": "oI6YtDaVFcw"
+        },
+        {
+          "name": "ER Teachers trained",
+          "id": "EX2jDbKe4Yq"
+        },
+        {
+          "name": "ER Teaching materials improved",
+          "id": "l8gZXKhwawK"
+        },
+        {
+          "name": "ER Technical support visits",
+          "id": "DCSDJH4IFUG"
+        },
+        {
+          "name": "ER Teacher training programs designed",
+          "id": "zFFb3bar4Ct"
+        },
+        {
+          "name": "ER Vulnerable families receiving follow-up visits",
+          "id": "LCmAJHuXaoG"
+        },
+        {
+          "name": "ER Workshops conducted",
+          "id": "qiaHMoI3bjA"
+        },
+        {
+          "name": "ER Teacher accommodation constructed",
+          "id": "AcXiLSABIOe"
+        },
+        {
+          "name": "ER Children trained on key survival skills",
+          "id": "KFnFpbqDqji"
+        },
+        {
+          "name": "ER Census reports produced",
+          "id": "w1G4l0cSxOi"
+        }
+      ]
+    },
+    {
+      "name": "Expenditures",
+      "id": "GbSz3TobZcc",
+      "dataElements": [
+        {
+          "name": "EXP Cars Expense",
+          "id": "BDuY694ZAFa"
+        },
+        {
+          "name": "EXP Salary Expense",
+          "id": "M3anTdbJ7iJ"
+        },
+        {
+          "name": "EXP Sheets Expense",
+          "id": "RR538iV9G1X"
+        },
+        {
+          "name": "EXP Security Expense",
+          "id": "dHrtL2a4EcD"
+        },
+        {
+          "name": "EXP Drugs Expense",
+          "id": "ixDKJGrGtFg"
+        }
+      ]
+    },
+    {
+      "name": "Eye Infection",
+      "id": "lLKpwhjd1dM",
+      "dataElements": [
+        {
+          "name": "Eye infection follow-up",
+          "id": "QV7HsRncdCz"
+        },
+        {
+          "name": "Eye infection new",
+          "id": "BQI18TPLR7W"
+        },
+        {
+          "name": "Eye infection referrals",
+          "id": "XfsVSt4zciP"
+        }
+      ]
+    },
+    {
+      "name": "Facility infrastructure",
+      "id": "Sp1jJqzsiOi",
+      "dataElements": [
+        {
+          "name": "Facility has access to stable Internet connectivity",
+          "id": "MJYalhqFsHK"
+        },
+        {
+          "name": "Facility has access to running water",
+          "id": "TLSChlBcw7L"
+        },
+        {
+          "name": "Facility has access to stable electrical power",
+          "id": "UMJym1vYPSu"
+        }
+      ]
+    },
+    {
+      "name": "Follow-up",
+      "id": "g50BzGAsrvu",
+      "dataElements": [
+        {
+          "name": "Eye infection follow-up",
+          "id": "QV7HsRncdCz"
+        },
+        {
+          "name": "Skin infection follow-up",
+          "id": "i0vXh1P92m3"
+        },
+        {
+          "name": "Schistosomiasis follow-up",
+          "id": "GYm08KsVDOz"
+        },
+        {
+          "name": "Diarrhoea without severe dehydration follow-up",
+          "id": "nvkbuPrYmDd"
+        },
+        {
+          "name": "STI - Genital Ulcer follow-up",
+          "id": "RZNJFsg7fQp"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT < 24 hrs f-up",
+          "id": "iIBbZPAqnMt"
+        },
+        {
+          "name": "Wounds/Trauma follow-up",
+          "id": "yJwdE6XJbrF"
+        },
+        {
+          "name": "Leprosy follow-up",
+          "id": "kqqgh0EOlcA"
+        },
+        {
+          "name": "Anaemia follow-up",
+          "id": "jmWyJFtE7Af"
+        },
+        {
+          "name": "Yaws follow-up",
+          "id": "plfo9ai1jtW"
+        },
+        {
+          "name": "Diarrhoea with severe dehydration follow-up",
+          "id": "ndb4fIRrQbM"
+        },
+        {
+          "name": "Diarrhoea with blood (Dysentery) follow-up",
+          "id": "vLA3KVFcZIw"
+        },
+        {
+          "name": "ARI treated with antibiotics (pneumonia) follow-up",
+          "id": "FHD3wiSM7Sn"
+        },
+        {
+          "name": "Measles follow-up",
+          "id": "uCVKV6PGGNB"
+        },
+        {
+          "name": "All other follow-ups",
+          "id": "RUv0hqER0zV"
+        },
+        {
+          "name": "ARI treated without antibiotics (cough) follow-up",
+          "id": "RF4VFVGdFRO"
+        },
+        {
+          "name": "Yellow fever follow-up",
+          "id": "hvdCBRWUk80"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT > 24 hrs f-up",
+          "id": "pgi981WXhas"
+        },
+        {
+          "name": "Typhoid fever follow-up",
+          "id": "rNi710XHPXY"
+        },
+        {
+          "name": "Worm infestation follow-up",
+          "id": "E62UwxnYf26"
+        },
+        {
+          "name": "Burns follow-up",
+          "id": "QYBJk7sqc1I"
+        },
+        {
+          "name": "Tetanus (not incl. 0-28 days) follow-up",
+          "id": "nG0tBc37z0q"
+        },
+        {
+          "name": "Malaria treated in community with ACT >24 hrs f-up",
+          "id": "vzcahelbU5s"
+        },
+        {
+          "name": "Tuberculosis follow-up",
+          "id": "madOetOj4Ye"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT < 24 hrs f-up",
+          "id": "CecywZWejT3"
+        },
+        {
+          "name": "Otitis media follow-up",
+          "id": "ArS7VyuL95f"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT > 24 hrs f-up",
+          "id": "bVkFujnp3F2"
+        },
+        {
+          "name": "Onchocerciasis follow-up",
+          "id": "BvuQnfq1C4J"
+        },
+        {
+          "name": "Hypertension follow-up",
+          "id": "h0BwBQO9XUf"
+        },
+        {
+          "name": "Meningitis/severe bacterial infection follow-up",
+          "id": "bBiAGF9UhUy"
+        },
+        {
+          "name": "Lassa fever follow-up",
+          "id": "dVdxnTNL2jZ"
+        },
+        {
+          "name": "STI - Genital Discharge follow-up",
+          "id": "tl03DMc49UT"
+        },
+        {
+          "name": "Neonatal Tetanus follow-up",
+          "id": "sFMVaj1mHBk"
+        },
+        {
+          "name": "Clinical Malnutrition follow-up",
+          "id": "HJulLfnIAE3"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) follow-up",
+          "id": "P3jJH5Tu5VC"
+        },
+        {
+          "name": "Malaria treated in community with ACT <24 hrs f-up",
+          "id": "TQnDEASFsVH"
+        }
+      ]
+    },
+    {
+      "name": "HIV/AIDS",
+      "id": "HKU7L73im5r",
+      "dataElements": []
+    },
+    {
+      "name": "HIV Care",
+      "id": "URmi41e0SFH",
+      "dataElements": [
+        {
+          "name": "HIV: new on care",
+          "id": "veW7w0xDDOQ"
+        },
+        {
+          "name": "HIV: counseling",
+          "id": "o0fOD1HLuv8"
+        },
+        {
+          "name": "HIV: testing",
+          "id": "R4KStuS8qt7"
+        },
+        {
+          "name": "HIV: currently on care",
+          "id": "ZwrIPRUiHEB"
+        }
+      ]
+    },
+    {
+      "name": "HIV Peadriatics",
+      "id": "ID4BbhF7Eli",
+      "dataElements": [
+        {
+          "name": "Children from TB ward with positive HIV result",
+          "id": "AKJvJehDSb6"
+        },
+        {
+          "name": "Infants delivered in the health facility female",
+          "id": "avs8Dhz3OoG"
+        },
+        {
+          "name": "Children HIV 2 positive test",
+          "id": "GhsYeB89HaL"
+        },
+        {
+          "name": "HIV exposed children with positive result at 12 months",
+          "id": "ifTgszmp25q"
+        },
+        {
+          "name": "Children from Gen.Paed. ward tested for HIV",
+          "id": "hhevl49MXyA"
+        },
+        {
+          "name": "Children from TFC with positive HIV result",
+          "id": "KWzP8OWYQL7"
+        },
+        {
+          "name": "Children HIV 1&2 positive test",
+          "id": "e73QxJpd88B"
+        },
+        {
+          "name": "HIV exposed children with positive result at 18 months",
+          "id": "cxkB6Csdae7"
+        },
+        {
+          "name": "HIV exposed children tested at 12 months",
+          "id": "ESGq1GV8YEE"
+        },
+        {
+          "name": "Children from Gen.Paed. ward with positive HIV result",
+          "id": "HL77Pems4Cv"
+        },
+        {
+          "name": "HIV exposed children tested at 18 months",
+          "id": "ECYnLIh3IdU"
+        },
+        {
+          "name": "Children on exclusive breastfeeding (HIV Paed.)",
+          "id": "SMrE2ByiyZp"
+        },
+        {
+          "name": "Children on replacement feeding (HIV Paed.)",
+          "id": "UMexg4VGfaY"
+        },
+        {
+          "name": "HIV infected children given cotrim prophylaxis (18m-18y)",
+          "id": "ofqavN7bUXQ"
+        },
+        {
+          "name": "HIV exposed infants initiated cotrim from age 6 wks",
+          "id": "dL7MKVOSCUf"
+        },
+        {
+          "name": "Children initiated ARV treatment",
+          "id": "MWEGBw0pmgU"
+        },
+        {
+          "name": "Children from TFC tested for HIV",
+          "id": "xFpppWvT43s"
+        },
+        {
+          "name": "HIV positive children lost to follow-up",
+          "id": "PwAOGo407Kq"
+        },
+        {
+          "name": "Infants delivered in the health facility male",
+          "id": "N9vniUuCcqY"
+        },
+        {
+          "name": "Infants born to HIV Positive mothers (exposed)",
+          "id": "XB4uzhs4Is4"
+        },
+        {
+          "name": "Children HIV 1 positive test",
+          "id": "EnsFXKU7LEW"
+        },
+        {
+          "name": "Children from TB ward tested for HIV",
+          "id": "ydvyXLhIbTn"
+        },
+        {
+          "name": "HIV related deaths (children)",
+          "id": "pN3V4jZeCmU"
+        }
+      ]
+    },
+    {
+      "name": "Hypertension",
+      "id": "jWgEsdH87Jk",
+      "dataElements": [
+        {
+          "name": "Hypertension referrals",
+          "id": "X5GbcxQCasr"
+        },
+        {
+          "name": "Hypertension new",
+          "id": "UXW5hWW8dE1"
+        },
+        {
+          "name": "Hypertension follow-up",
+          "id": "h0BwBQO9XUf"
+        }
+      ]
+    },
+    {
+      "name": "ICS Children",
+      "id": "nb3rBNvVHtp",
+      "dataElements": [
+        {
+          "name": "Q_Exclusive breastfeeding at time of Penta 3",
+          "id": "pEOVd4Z3TAS"
+        },
+        {
+          "name": "Yellow Fever doses given",
+          "id": "l6byfWFUGaP"
+        },
+        {
+          "name": "Penta3 doses given",
+          "id": "n6aMJNLdvep"
+        },
+        {
+          "name": "Penta1 doses given",
+          "id": "fClA2Erf6IO"
+        },
+        {
+          "name": "OPV3 doses given",
+          "id": "vI2csg55S9C"
+        },
+        {
+          "name": "OPV1 doses given",
+          "id": "pikOziyCXbM"
+        },
+        {
+          "name": "OPV2 doses given",
+          "id": "O05mAByOgAv"
+        },
+        {
+          "name": "Measles doses given",
+          "id": "YtbsuPPo010"
+        },
+        {
+          "name": "Q_Early breastfeeding (within 1 hr after delivery) at BCG",
+          "id": "dU0GquGkGQr"
+        },
+        {
+          "name": "Fully Immunized child",
+          "id": "UOlfIjgN8X6"
+        },
+        {
+          "name": "Q_Slept under LLIN last night Measles",
+          "id": "GCGfEY82Wz6"
+        },
+        {
+          "name": "Penta2 doses given",
+          "id": "I78gJm4KBo7"
+        }
+      ]
+    },
+    {
+      "name": "ICS mother",
+      "id": "dMyLpSQn6hu",
+      "dataElements": [
+        {
+          "name": "TT2 doses given",
+          "id": "DUTSJE8MGCw"
+        },
+        {
+          "name": "Low birth weight in PHU",
+          "id": "DvEF1SdMORa"
+        },
+        {
+          "name": "TT4 doses given",
+          "id": "tbudfYMNFS5"
+        },
+        {
+          "name": "TT1 doses given",
+          "id": "zzHwXqxKYy1"
+        },
+        {
+          "name": "TT3 doses given",
+          "id": "jWaNoH0X0Am"
+        },
+        {
+          "name": "Low birth weight in community",
+          "id": "Ce6kAvaHsxR"
+        },
+        {
+          "name": "TT5 doses given",
+          "id": "B2ocYtYkPBD"
+        }
+      ]
+    },
+    {
+      "name": "IDSR",
+      "id": "b3gDdvmrSFc",
+      "dataElements": [
+        {
+          "name": "IDSR Measles",
+          "id": "YazgqXbizv1"
+        },
+        {
+          "name": "IDSR Plague",
+          "id": "HS9zqaBdOQ4"
+        },
+        {
+          "name": "IDSR Yellow fever",
+          "id": "noIzB569hTM"
+        },
+        {
+          "name": "IDSR Cholera",
+          "id": "UsSUX0cpKsH"
+        },
+        {
+          "name": "IDSR Malaria",
+          "id": "vq2qO3eTrNi"
+        }
+      ]
+    },
+    {
+      "name": "Immunization",
+      "id": "h9cuJOkOwY2",
+      "dataElements": [
+        {
+          "name": "Yellow Fever doses given",
+          "id": "l6byfWFUGaP"
+        },
+        {
+          "name": "Penta3 doses given",
+          "id": "n6aMJNLdvep"
+        },
+        {
+          "name": "BCG doses given",
+          "id": "s46m5MS0hxu"
+        },
+        {
+          "name": "Penta1 doses given",
+          "id": "fClA2Erf6IO"
+        },
+        {
+          "name": "OPV0 doses given",
+          "id": "x3Do5e7g4Qo"
+        },
+        {
+          "name": "OPV3 doses given",
+          "id": "vI2csg55S9C"
+        },
+        {
+          "name": "OPV1 doses given",
+          "id": "pikOziyCXbM"
+        },
+        {
+          "name": "OPV2 doses given",
+          "id": "O05mAByOgAv"
+        },
+        {
+          "name": "Measles doses given",
+          "id": "YtbsuPPo010"
+        },
+        {
+          "name": "Penta2 doses given",
+          "id": "I78gJm4KBo7"
+        },
+        {
+          "name": "Fully Immunized child",
+          "id": "UOlfIjgN8X6"
+        }
+      ]
+    },
+    {
+      "name": "Inpatient morbidity/mortality aggregates",
+      "id": "OP4dLqk0JTH",
+      "dataElements": [
+        {
+          "name": "Inpatient deaths",
+          "id": "ZRVfMoPKK05"
+        },
+        {
+          "name": "Inpatient cases",
+          "id": "WHBtsCMZVAE"
+        },
+        {
+          "name": "Inpatient malaria cases",
+          "id": "p4K11MFEWtw"
+        },
+        {
+          "name": "Inpatient malaria deaths",
+          "id": "wWy5TE9cQ0V"
+        }
+      ]
+    },
+    {
+      "name": "Lassa Fever",
+      "id": "SriP0jBXMr6",
+      "dataElements": [
+        {
+          "name": "Lassa fever follow-up",
+          "id": "dVdxnTNL2jZ"
+        },
+        {
+          "name": "Lassa fever new",
+          "id": "NCteyX2xpMf"
+        },
+        {
+          "name": "Lassa fever referrals",
+          "id": "uz8dqEzuxyc"
+        }
+      ]
+    },
+    {
+      "name": "Leprosy",
+      "id": "U0uJG4kydwE",
+      "dataElements": [
+        {
+          "name": "Leprosy referrals",
+          "id": "KAXjpSLFlhB"
+        },
+        {
+          "name": "Leprosy new",
+          "id": "zAW6b5Owalk"
+        },
+        {
+          "name": "Leprosy follow-up",
+          "id": "kqqgh0EOlcA"
+        }
+      ]
+    },
+    {
+      "name": "Low birth",
+      "id": "eeQCyjnMyGY",
+      "dataElements": [
+        {
+          "name": "Complicated deliveries in PHU still births",
+          "id": "ncEnqRPHFvk"
+        },
+        {
+          "name": "Complicated deliveries in community still births",
+          "id": "FE82N2sA0YI"
+        },
+        {
+          "name": "LLITN given after delivery",
+          "id": "ntzmpYRSKGg"
+        }
+      ]
+    },
+    {
+      "name": "Malaria",
+      "id": "TzwKbcw1nUK",
+      "dataElements": [
+        {
+          "name": "Malaria treated in community with ACT >24 hrs new",
+          "id": "kcbTUfABUck"
+        },
+        {
+          "name": "Malaria treated in community with ACT <24 hrs new",
+          "id": "x8gsvCKjGdZ"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT < 24 hrs f-up",
+          "id": "iIBbZPAqnMt"
+        },
+        {
+          "name": "Malaria treated in community with ACT >24 hrs f-up",
+          "id": "vzcahelbU5s"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT < 24 hrs new",
+          "id": "nmh0BSu3vaV"
+        },
+        {
+          "name": "Malaria referrals",
+          "id": "hnwWyM4gDSg"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT < 24 hrs f-up",
+          "id": "CecywZWejT3"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT > 24 hrs f-up",
+          "id": "bVkFujnp3F2"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT < 24 hrs new",
+          "id": "AFM5H0wNq3t"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT > 24 hrs new",
+          "id": "d92E7cpMvdl"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT > 24 hrs new",
+          "id": "EGUJY3jQdJ6"
+        },
+        {
+          "name": "Malaria treated in community with ACT <24 hrs f-up",
+          "id": "TQnDEASFsVH"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT > 24 hrs f-up",
+          "id": "pgi981WXhas"
+        }
+      ]
+    },
+    {
+      "name": "Measles",
+      "id": "qk2KOBMX4Mf",
+      "dataElements": [
+        {
+          "name": "Measles referrals",
+          "id": "eomLLbWJfcx"
+        },
+        {
+          "name": "Measles follow-up",
+          "id": "uCVKV6PGGNB"
+        },
+        {
+          "name": "Measles new",
+          "id": "GCvqIM3IzN0"
+        }
+      ]
+    },
+    {
+      "name": "Meningitis / Severe Bacterial Infection",
+      "id": "lnLbEej0gwe",
+      "dataElements": [
+        {
+          "name": "Meningitis/severe bacterial infection referrals",
+          "id": "hfuTiKOkuKs"
+        },
+        {
+          "name": "Meningitis/severe bacterial infection new",
+          "id": "JFFUt8yR2iW"
+        },
+        {
+          "name": "Meningitis/severe bacterial infection follow-up",
+          "id": "bBiAGF9UhUy"
+        }
+      ]
+    },
+    {
+      "name": "MNCH Aggregates",
+      "id": "LEet4tb49IP",
+      "dataElements": [
+        {
+          "name": "MNCH Normal deliveries",
+          "id": "SqvCDfGBFzM"
+        },
+        {
+          "name": "MNCH ANC registrants",
+          "id": "iYCGteGcr6Q"
+        },
+        {
+          "name": "MNCH Caesarean section deliveries",
+          "id": "DosHq4vnsYv"
+        },
+        {
+          "name": "MNCH Destructive operations delivery",
+          "id": "Q8lOv2CAUjf"
+        },
+        {
+          "name": "MNCH Breech/shoulder delivery",
+          "id": "ijIsjbvXFJL"
+        },
+        {
+          "name": "MNCH Cases of anaemia during ANC",
+          "id": "QhKQD2wHowC"
+        },
+        {
+          "name": "MNCH vacuum/forceps delivery",
+          "id": "g9Tso8plX88"
+        },
+        {
+          "name": "MNCH Heamoglobin checks performed during ANC",
+          "id": "aLF5wmCZrKF"
+        },
+        {
+          "name": "MNCH ANC Attendance",
+          "id": "WQSdEl9xUMA"
+        }
+      ]
+    },
+    {
+      "name": "Morbidity",
+      "id": "SLsJy3zqUbD",
+      "dataElements": [
+        {
+          "name": "Meningitis/severe bacterial infection referrals",
+          "id": "hfuTiKOkuKs"
+        },
+        {
+          "name": "Anaemia referrals",
+          "id": "yqBkn9CWKih"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT < 24 hrs f-up",
+          "id": "iIBbZPAqnMt"
+        },
+        {
+          "name": "Tuberculosis new",
+          "id": "z9dYcQ2DlBG"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT > 24 hrs new",
+          "id": "d92E7cpMvdl"
+        },
+        {
+          "name": "Neonatal Tetanus new",
+          "id": "wcwbN1jR0ar"
+        },
+        {
+          "name": "STI - Genital Ulcer referrals",
+          "id": "saMXNnGMaBw"
+        },
+        {
+          "name": "Worm infestation follow-up",
+          "id": "E62UwxnYf26"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) referrals",
+          "id": "M62VHgYT2n0"
+        },
+        {
+          "name": "Burns follow-up",
+          "id": "QYBJk7sqc1I"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT < 24 hrs new",
+          "id": "nmh0BSu3vaV"
+        },
+        {
+          "name": "Measles referrals",
+          "id": "eomLLbWJfcx"
+        },
+        {
+          "name": "Otitis media follow-up",
+          "id": "ArS7VyuL95f"
+        },
+        {
+          "name": "Onchocerciasis follow-up",
+          "id": "BvuQnfq1C4J"
+        },
+        {
+          "name": "Typhoid fever referrals",
+          "id": "LaTxwutQILW"
+        },
+        {
+          "name": "Hypertension follow-up",
+          "id": "h0BwBQO9XUf"
+        },
+        {
+          "name": "Neonatal Tetanus follow-up",
+          "id": "sFMVaj1mHBk"
+        },
+        {
+          "name": "Clinical Malnutrition follow-up",
+          "id": "HJulLfnIAE3"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) follow-up",
+          "id": "P3jJH5Tu5VC"
+        },
+        {
+          "name": "Onchocerciasis referrals",
+          "id": "q9AIeFQD7zj"
+        },
+        {
+          "name": "Neonatal Tetanus referrals",
+          "id": "HFw6q0jUFKI"
+        },
+        {
+          "name": "Malaria treated in community with ACT <24 hrs f-up",
+          "id": "TQnDEASFsVH"
+        },
+        {
+          "name": "Skin infection follow-up",
+          "id": "i0vXh1P92m3"
+        },
+        {
+          "name": "ARI treated without antibiotics (cough) new",
+          "id": "Cm4XUw6VAxv"
+        },
+        {
+          "name": "Tetanus (not incl. 0-28 days) new",
+          "id": "Uoj2wmnr5Dw"
+        },
+        {
+          "name": "Diarrhoea without severe dehydration follow-up",
+          "id": "nvkbuPrYmDd"
+        },
+        {
+          "name": "Wounds/Trauma follow-up",
+          "id": "yJwdE6XJbrF"
+        },
+        {
+          "name": "Malaria referrals",
+          "id": "hnwWyM4gDSg"
+        },
+        {
+          "name": "STI - Genital Discharge referrals",
+          "id": "bcxWMsa1ZwU"
+        },
+        {
+          "name": "Clinical Malnutrition new",
+          "id": "TBbCcJfZ91x"
+        },
+        {
+          "name": "Eye infection referrals",
+          "id": "XfsVSt4zciP"
+        },
+        {
+          "name": "Typhoid fever new",
+          "id": "Cj5rTc9nEvl"
+        },
+        {
+          "name": "Diarrhoea with severe dehydration referrals",
+          "id": "HpM1I5qc3Pb"
+        },
+        {
+          "name": "Schistosomiasis referrals",
+          "id": "l76gpVSWoSE"
+        },
+        {
+          "name": "ARI treated with antibiotics (pneumonia) referrals",
+          "id": "XTqOHygxDj5"
+        },
+        {
+          "name": "Yaws follow-up",
+          "id": "plfo9ai1jtW"
+        },
+        {
+          "name": "Hypertension new",
+          "id": "UXW5hWW8dE1"
+        },
+        {
+          "name": "ARI treated without antibiotics (cough) referrals",
+          "id": "oLfWYAJhZb2"
+        },
+        {
+          "name": "ARI treated with antibiotics (pneumonia) follow-up",
+          "id": "FHD3wiSM7Sn"
+        },
+        {
+          "name": "Measles follow-up",
+          "id": "uCVKV6PGGNB"
+        },
+        {
+          "name": "All other follow-ups",
+          "id": "RUv0hqER0zV"
+        },
+        {
+          "name": "Malaria treated in community with ACT <24 hrs new",
+          "id": "x8gsvCKjGdZ"
+        },
+        {
+          "name": "Onchocerciasis new",
+          "id": "DrEOxW8mbbh"
+        },
+        {
+          "name": "Eye infection new",
+          "id": "BQI18TPLR7W"
+        },
+        {
+          "name": "Meningitis/severe bacterial infection new",
+          "id": "JFFUt8yR2iW"
+        },
+        {
+          "name": "Anaemia new",
+          "id": "HLPuaFB7Frw"
+        },
+        {
+          "name": "Yellow fever new",
+          "id": "XWU1Huh0Luy"
+        },
+        {
+          "name": "Lassa fever follow-up",
+          "id": "dVdxnTNL2jZ"
+        },
+        {
+          "name": "All other referrals",
+          "id": "laZLQdnucV1"
+        },
+        {
+          "name": "Diarrhoea with severe dehydration new",
+          "id": "UfZcabJUVcZ"
+        },
+        {
+          "name": "Worm infestation referrals",
+          "id": "VmoPqzwBgkx"
+        },
+        {
+          "name": "Diarrhoea without severe dehydration new",
+          "id": "U3jd8zVFKxY"
+        },
+        {
+          "name": "Leprosy referrals",
+          "id": "KAXjpSLFlhB"
+        },
+        {
+          "name": "Malaria treated in community with ACT >24 hrs new",
+          "id": "kcbTUfABUck"
+        },
+        {
+          "name": "Schistosomiasis follow-up",
+          "id": "GYm08KsVDOz"
+        },
+        {
+          "name": "Yellow fever referrals",
+          "id": "zSJF2b48kOg"
+        },
+        {
+          "name": "ARI treated with antibiotics (pneumonia) new",
+          "id": "iKGjnOOaPlE"
+        },
+        {
+          "name": "Leprosy follow-up",
+          "id": "kqqgh0EOlcA"
+        },
+        {
+          "name": "Diarrhoea with blood (Dysentery) referrals",
+          "id": "HQv1p570ldT"
+        },
+        {
+          "name": "Anaemia follow-up",
+          "id": "jmWyJFtE7Af"
+        },
+        {
+          "name": "Tuberculosis referrals",
+          "id": "hdHLjKFmxB4"
+        },
+        {
+          "name": "Worm infestation new",
+          "id": "Usk9Asj5DED"
+        },
+        {
+          "name": "Skin infection new",
+          "id": "Y4cFzB4A9ZQ"
+        },
+        {
+          "name": "Wounds/Trauma new",
+          "id": "FJs8ZjlQE6f"
+        },
+        {
+          "name": "STI - Genital Discharge new",
+          "id": "CN9Oxawn7bD"
+        },
+        {
+          "name": "Otitis media referrals",
+          "id": "j73ScVBTyP0"
+        },
+        {
+          "name": "Lassa fever new",
+          "id": "NCteyX2xpMf"
+        },
+        {
+          "name": "Clinical Malnutrition referrals",
+          "id": "oNyB0VOXIM8"
+        },
+        {
+          "name": "Meningitis/severe bacterial infection follow-up",
+          "id": "bBiAGF9UhUy"
+        },
+        {
+          "name": "Hypertension referrals",
+          "id": "X5GbcxQCasr"
+        },
+        {
+          "name": "STI - Genital Discharge follow-up",
+          "id": "tl03DMc49UT"
+        },
+        {
+          "name": "Tetanus (not incl. 0-28 days) referrals",
+          "id": "Bc7pt6MgY0j"
+        },
+        {
+          "name": "Lassa fever referrals",
+          "id": "uz8dqEzuxyc"
+        },
+        {
+          "name": "Eye infection follow-up",
+          "id": "QV7HsRncdCz"
+        },
+        {
+          "name": "All other new",
+          "id": "A2VfEfPflHV"
+        },
+        {
+          "name": "Yaws referrals",
+          "id": "gQAAvbLx8MM"
+        },
+        {
+          "name": "STI - Genital Ulcer follow-up",
+          "id": "RZNJFsg7fQp"
+        },
+        {
+          "name": "Otitis media new",
+          "id": "DWLCM68Q7Zl"
+        },
+        {
+          "name": "Diarrhoea with blood (Dysentery) new",
+          "id": "nymNRxmnj4z"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT < 24 hrs new",
+          "id": "AFM5H0wNq3t"
+        },
+        {
+          "name": "Yaws new",
+          "id": "FF3Ev33BuCh"
+        },
+        {
+          "name": "Diarrhoea with severe dehydration follow-up",
+          "id": "ndb4fIRrQbM"
+        },
+        {
+          "name": "Diarrhoea with blood (Dysentery) follow-up",
+          "id": "vLA3KVFcZIw"
+        },
+        {
+          "name": "Skin infection referrals",
+          "id": "AoVvYq5mtLL"
+        },
+        {
+          "name": "ARI treated without antibiotics (cough) follow-up",
+          "id": "RF4VFVGdFRO"
+        },
+        {
+          "name": "Yellow fever follow-up",
+          "id": "hvdCBRWUk80"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT > 24 hrs f-up",
+          "id": "pgi981WXhas"
+        },
+        {
+          "name": "Typhoid fever follow-up",
+          "id": "rNi710XHPXY"
+        },
+        {
+          "name": "Tetanus (not incl. 0-28 days) follow-up",
+          "id": "nG0tBc37z0q"
+        },
+        {
+          "name": "Malaria treated in community with ACT >24 hrs f-up",
+          "id": "vzcahelbU5s"
+        },
+        {
+          "name": "Wounds/Trauma referrals",
+          "id": "JMKtVQ5HasH"
+        },
+        {
+          "name": "Tuberculosis follow-up",
+          "id": "madOetOj4Ye"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT < 24 hrs f-up",
+          "id": "CecywZWejT3"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT > 24 hrs f-up",
+          "id": "bVkFujnp3F2"
+        },
+        {
+          "name": "Leprosy new",
+          "id": "zAW6b5Owalk"
+        },
+        {
+          "name": "Schistosomiasis new",
+          "id": "Y7Oq71I3ASg"
+        },
+        {
+          "name": "STI - Genital Ulcer new",
+          "id": "IeO1sWXVyp6"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) new",
+          "id": "FQ2o8UBlcrS"
+        },
+        {
+          "name": "Burns referrals",
+          "id": "BHvVPwWrrLC"
+        },
+        {
+          "name": "Burns new",
+          "id": "zMGEd921xd3"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT > 24 hrs new",
+          "id": "EGUJY3jQdJ6"
+        },
+        {
+          "name": "Measles new",
+          "id": "GCvqIM3IzN0"
+        }
+      ]
+    },
+    {
+      "name": "Mortality",
+      "id": "QAc5FhbeFwl",
+      "dataElements": [
+        {
+          "name": "Tetanus Neonatal (Deaths < 5 yrs)",
+          "id": "Vp12ncSU1Av"
+        },
+        {
+          "name": "Meningitis (Deaths < 5 yrs)",
+          "id": "MSZuQ1mTsia"
+        },
+        {
+          "name": "Louse Borne Typhus - Relapsing fever (Deaths < 5 yrs)",
+          "id": "NpJtsQkMTm3"
+        },
+        {
+          "name": "Rabies (Deaths < 5 yrs)",
+          "id": "jVDAvs6kIAP"
+        },
+        {
+          "name": "Dysentery (Deaths < 5 yrs)",
+          "id": "Ix2HsbDMLea"
+        },
+        {
+          "name": "Typhoid (Deaths < 5 yrs)",
+          "id": "Yy9NtNfwYZJ"
+        },
+        {
+          "name": "Measles (Deaths < 5 yrs)",
+          "id": "f7n9E0hX8qk"
+        },
+        {
+          "name": "Animal Bites - Rabid (Deaths < 5 yrs)",
+          "id": "LjNlMTl9Nq9"
+        },
+        {
+          "name": "Cholera (Deaths < 5 yrs)",
+          "id": "eY5ehpbEsB7"
+        },
+        {
+          "name": "Yellow Fever (Deaths < 5 yrs)",
+          "id": "USBq0VHSkZq"
+        },
+        {
+          "name": "Plague (Deaths < 5 yrs)",
+          "id": "lXolhoWewYH"
+        },
+        {
+          "name": "Malaria (Deaths < 5 yrs)",
+          "id": "r6nrJANOqMw"
+        },
+        {
+          "name": "Tetanus Other (Deaths < 5 yrs)",
+          "id": "hM4ya5T2AqX"
+        },
+        {
+          "name": "Accute Flaccid Paralysis (Deaths < 5 yrs)",
+          "id": "FTRrcoaog83"
+        }
+      ]
+    },
+    {
+      "name": "Mortality < 5 years",
+      "id": "rPGfUFYbcfJ",
+      "dataElements": [
+        {
+          "name": "Tetanus Neonatal (Deaths < 5 yrs)",
+          "id": "Vp12ncSU1Av"
+        },
+        {
+          "name": "Meningitis (Deaths < 5 yrs)",
+          "id": "MSZuQ1mTsia"
+        },
+        {
+          "name": "Louse Borne Typhus - Relapsing fever (Deaths < 5 yrs)",
+          "id": "NpJtsQkMTm3"
+        },
+        {
+          "name": "Rabies (Deaths < 5 yrs)",
+          "id": "jVDAvs6kIAP"
+        },
+        {
+          "name": "Dysentery (Deaths < 5 yrs)",
+          "id": "Ix2HsbDMLea"
+        },
+        {
+          "name": "Typhoid (Deaths < 5 yrs)",
+          "id": "Yy9NtNfwYZJ"
+        },
+        {
+          "name": "Measles (Deaths < 5 yrs)",
+          "id": "f7n9E0hX8qk"
+        },
+        {
+          "name": "Animal Bites - Rabid (Deaths < 5 yrs)",
+          "id": "LjNlMTl9Nq9"
+        },
+        {
+          "name": "Cholera (Deaths < 5 yrs)",
+          "id": "eY5ehpbEsB7"
+        },
+        {
+          "name": "Yellow Fever (Deaths < 5 yrs)",
+          "id": "USBq0VHSkZq"
+        },
+        {
+          "name": "Plague (Deaths < 5 yrs)",
+          "id": "lXolhoWewYH"
+        },
+        {
+          "name": "Malaria (Deaths < 5 yrs)",
+          "id": "r6nrJANOqMw"
+        },
+        {
+          "name": "Tetanus Other (Deaths < 5 yrs)",
+          "id": "hM4ya5T2AqX"
+        },
+        {
+          "name": "Accute Flaccid Paralysis (Deaths < 5 yrs)",
+          "id": "FTRrcoaog83"
+        }
+      ]
+    },
+    {
+      "name": "Mortality Narrative",
+      "id": "KU0wDurtWDM",
+      "dataElements": [
+        {
+          "name": "Measles (Deaths < 5 yrs) Narrative",
+          "id": "FaVPxpiCab5"
+        },
+        {
+          "name": "Cholera (Deaths < 5 yrs) Narrative",
+          "id": "mxc1T932aWM"
+        },
+        {
+          "name": "Yellow Fever (Deaths < 5 yrs) Narrative",
+          "id": "rj9mw1J6sBg"
+        },
+        {
+          "name": "Malaria (Deaths < 5 yrs) Narrative",
+          "id": "a0WhmKHnZ6J"
+        },
+        {
+          "name": "Plague (Deaths < 5 yrs) Narrative",
+          "id": "iT8n0tI3nRW"
+        }
+      ]
+    },
+    {
+      "name": "Neonatal Tetanus",
+      "id": "UAEhIWpoQFN",
+      "dataElements": [
+        {
+          "name": "Neonatal Tetanus follow-up",
+          "id": "sFMVaj1mHBk"
+        },
+        {
+          "name": "Neonatal Tetanus referrals",
+          "id": "HFw6q0jUFKI"
+        },
+        {
+          "name": "Neonatal Tetanus new",
+          "id": "wcwbN1jR0ar"
+        }
+      ]
+    },
+    {
+      "name": "New cases",
+      "id": "weRMUzBs8T7",
+      "dataElements": [
+        {
+          "name": "ARI treated without antibiotics (cough) new",
+          "id": "Cm4XUw6VAxv"
+        },
+        {
+          "name": "Tetanus (not incl. 0-28 days) new",
+          "id": "Uoj2wmnr5Dw"
+        },
+        {
+          "name": "Malaria treated in community with ACT >24 hrs new",
+          "id": "kcbTUfABUck"
+        },
+        {
+          "name": "All other new",
+          "id": "A2VfEfPflHV"
+        },
+        {
+          "name": "Otitis media new",
+          "id": "DWLCM68Q7Zl"
+        },
+        {
+          "name": "Clinical Malnutrition new",
+          "id": "TBbCcJfZ91x"
+        },
+        {
+          "name": "ARI treated with antibiotics (pneumonia) new",
+          "id": "iKGjnOOaPlE"
+        },
+        {
+          "name": "Diarrhoea with blood (Dysentery) new",
+          "id": "nymNRxmnj4z"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT < 24 hrs new",
+          "id": "AFM5H0wNq3t"
+        },
+        {
+          "name": "Typhoid fever new",
+          "id": "Cj5rTc9nEvl"
+        },
+        {
+          "name": "Tuberculosis new",
+          "id": "z9dYcQ2DlBG"
+        },
+        {
+          "name": "Yaws new",
+          "id": "FF3Ev33BuCh"
+        },
+        {
+          "name": "Hypertension new",
+          "id": "UXW5hWW8dE1"
+        },
+        {
+          "name": "Worm infestation new",
+          "id": "Usk9Asj5DED"
+        },
+        {
+          "name": "Skin infection new",
+          "id": "Y4cFzB4A9ZQ"
+        },
+        {
+          "name": "Malaria treated at PHU with ACT > 24 hrs new",
+          "id": "d92E7cpMvdl"
+        },
+        {
+          "name": "Neonatal Tetanus new",
+          "id": "wcwbN1jR0ar"
+        },
+        {
+          "name": "Wounds/Trauma new",
+          "id": "FJs8ZjlQE6f"
+        },
+        {
+          "name": "STI - Genital Discharge new",
+          "id": "CN9Oxawn7bD"
+        },
+        {
+          "name": "Malaria treated in community with ACT <24 hrs new",
+          "id": "x8gsvCKjGdZ"
+        },
+        {
+          "name": "Onchocerciasis new",
+          "id": "DrEOxW8mbbh"
+        },
+        {
+          "name": "Eye infection new",
+          "id": "BQI18TPLR7W"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT < 24 hrs new",
+          "id": "nmh0BSu3vaV"
+        },
+        {
+          "name": "Meningitis/severe bacterial infection new",
+          "id": "JFFUt8yR2iW"
+        },
+        {
+          "name": "Lassa fever new",
+          "id": "NCteyX2xpMf"
+        },
+        {
+          "name": "Anaemia new",
+          "id": "HLPuaFB7Frw"
+        },
+        {
+          "name": "Leprosy new",
+          "id": "zAW6b5Owalk"
+        },
+        {
+          "name": "Schistosomiasis new",
+          "id": "Y7Oq71I3ASg"
+        },
+        {
+          "name": "STI - Genital Ulcer new",
+          "id": "IeO1sWXVyp6"
+        },
+        {
+          "name": "Yellow fever new",
+          "id": "XWU1Huh0Luy"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) new",
+          "id": "FQ2o8UBlcrS"
+        },
+        {
+          "name": "Burns new",
+          "id": "zMGEd921xd3"
+        },
+        {
+          "name": "Diarrhoea with severe dehydration new",
+          "id": "UfZcabJUVcZ"
+        },
+        {
+          "name": "Malaria treated at PHU without ACT > 24 hrs new",
+          "id": "EGUJY3jQdJ6"
+        },
+        {
+          "name": "Measles new",
+          "id": "GCvqIM3IzN0"
+        },
+        {
+          "name": "Diarrhoea without severe dehydration new",
+          "id": "U3jd8zVFKxY"
+        }
+      ]
+    },
+    {
+      "name": "New on ART",
+      "id": "XGSHYf5uOlJ",
+      "dataElements": [
+        {
+          "name": "New on d4T 30mg / 3TC 150mg / NVP 200mg",
+          "id": "o44j6gPqFlA"
+        },
+        {
+          "name": "New on d4T 30mg + 3TC 150mg + EFV 600mg",
+          "id": "x98jMXibptT"
+        },
+        {
+          "name": "New on AZT + 3TC 300mg + 150mg on labour",
+          "id": "ozmEltb5V8d"
+        },
+        {
+          "name": "New on d4T / 3TC / NVP 12mg/60mg/100mg",
+          "id": "YIDKw3om85t"
+        },
+        {
+          "name": "New on ABC 300mg + ddI 200mg + LPV/r 133.3/33.3mg",
+          "id": "la1f7sqY9sb"
+        },
+        {
+          "name": "New on AZT + 3TC + NVP 300mg + 150mg + 200mg",
+          "id": "pVImQlMAla4"
+        },
+        {
+          "name": "New on AZT 300mg at 28 wks",
+          "id": "GgsWqA0YETj"
+        },
+        {
+          "name": "New on AZT 300mg + 3TC 150mg + ABC 300mg ",
+          "id": "xETRo03ZfOM"
+        },
+        {
+          "name": "New on AZT 300mg / 3TC 150mg + NVP 200mg",
+          "id": "YX1MQLgAD92"
+        },
+        {
+          "name": "New on AZT 10mg/ml + 3TC 10mg/ml + NVP 10mg/ml",
+          "id": "xrbIG3L9DdO"
+        },
+        {
+          "name": "New on d4T 30mg + 3TC 100mg + ABC 300mg",
+          "id": "hoj1wTJT6ZW"
+        },
+        {
+          "name": "New on AZT 300mg + 3TC 150mg + TDF 300mg ",
+          "id": "wIQ5ugpWYUH"
+        },
+        {
+          "name": "New on NVP + AZT + 3TC 10mg/ml (2mg/kg) + 10mg/ml + 10mg/ml for 7 days",
+          "id": "D4PywWuIwy0"
+        },
+        {
+          "name": "New on AZT 300mg /  3TC 150mg + EFV 600mg",
+          "id": "tZLjsE0VXrL"
+        },
+        {
+          "name": "New on ART other regimen",
+          "id": "lmj0xtl5P6C"
+        },
+        {
+          "name": "New on d4T / 3TC / NVP 6mg/30mg/50mg",
+          "id": "pq4msirdtpr"
+        },
+        {
+          "name": "New on Infant NVP 10mg/ml (2mg/kg)",
+          "id": "uN64b5MivTO"
+        },
+        {
+          "name": "New on AZT + 3TC 300mg + 150mg for 7 days",
+          "id": "GNY9KvEmRjy"
+        },
+        {
+          "name": "New on TDF 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "tnDQ80ycQus"
+        },
+        {
+          "name": "New on ABC 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "PxT44IblPCq"
+        },
+        {
+          "name": "New on d4T 40mg + 3TC 150mg + EFV 600mg",
+          "id": "fDkcJaO15aQ"
+        },
+        {
+          "name": "New on d4T 30mg + 3TC 100mg + TDF 300mg ",
+          "id": "SLcj0Swq8rD"
+        },
+        {
+          "name": "New on d4T 40mg / 3TC 150mg / NVP 200mg",
+          "id": "xUNvvqqhNwz"
+        },
+        {
+          "name": "New on TDF 300mg + ddI 200mg + LPV/r 133.3mg/33.3mg",
+          "id": "w1554hhXNcq"
+        }
+      ]
+    },
+    {
+      "name": "Nutrition",
+      "id": "u1ilfnoYafG",
+      "dataElements": [
+        {
+          "name": "Children getting therapeutic feeding",
+          "id": "qw2sIef52Fu"
+        },
+        {
+          "name": "Weight for age between middle and lower line (yellow)",
+          "id": "ldGXl6SEdqf"
+        },
+        {
+          "name": "Vitamin A given to < 5y",
+          "id": "tU7GixyHhsv"
+        },
+        {
+          "name": "Weight for age below lower line (red)",
+          "id": "bTcRDVjC66S"
+        },
+        {
+          "name": "Q_Vitamin A received 4-6 months ago at 12-59 dose",
+          "id": "ca8lfO062zg"
+        },
+        {
+          "name": "Q_LLITN given at time of 2nd Vit A dose",
+          "id": "Rmixc9wJl0G"
+        },
+        {
+          "name": "Children supplied with food supplemements",
+          "id": "Y53Jcc9LBYh"
+        },
+        {
+          "name": "Weight for age on or above middle line (green)",
+          "id": "NLnXLV5YpZF"
+        },
+        {
+          "name": "Weight for height 80 percent and above",
+          "id": "qPVDd87kS9Z"
+        },
+        {
+          "name": "Weight for height below 70 percent",
+          "id": "lVsbKXoF0zX"
+        },
+        {
+          "name": "Weight for height 70-79 percent",
+          "id": "pnL2VG8Bn7N"
+        },
+        {
+          "name": "Mebendazole/Albendazole (for children 12-59 months)",
+          "id": "d5xTg3WR3DP"
+        }
+      ]
+    },
+    {
+      "name": "Onchocerciasis",
+      "id": "HDdnX6XqxIn",
+      "dataElements": [
+        {
+          "name": "Onchocerciasis new",
+          "id": "DrEOxW8mbbh"
+        },
+        {
+          "name": "Onchocerciasis referrals",
+          "id": "q9AIeFQD7zj"
+        },
+        {
+          "name": "Onchocerciasis follow-up",
+          "id": "BvuQnfq1C4J"
+        }
+      ]
+    },
+    {
+      "name": "Otitis Media",
+      "id": "JZ3usxLEcc9",
+      "dataElements": [
+        {
+          "name": "Otitis media new",
+          "id": "DWLCM68Q7Zl"
+        },
+        {
+          "name": "Otitis media referrals",
+          "id": "j73ScVBTyP0"
+        },
+        {
+          "name": "Otitis media follow-up",
+          "id": "ArS7VyuL95f"
+        }
+      ]
+    },
+    {
+      "name": "PMTCT",
+      "id": "WS3MniopkOQ",
+      "dataElements": [
+        {
+          "name": "PMTCT male partners tested HIV positive",
+          "id": "MIKpDxt5ZvE"
+        },
+        {
+          "name": "PMTCT total expected preg. women for the month",
+          "id": "aO5TCNZ4OOr"
+        },
+        {
+          "name": "PMTCT women received ZDV & 3CT after delivery",
+          "id": "HPZd1WtTArI"
+        },
+        {
+          "name": "PMTCT women lost to contact",
+          "id": "f3vP3dSjUrS"
+        },
+        {
+          "name": "PMTCT infant who received NVP within 72hrs",
+          "id": "wZqi8EXN5x4"
+        },
+        {
+          "name": "PMTCT No HIV women who delivered in the health facility (CS)",
+          "id": "RoCtZpDLVS7"
+        },
+        {
+          "name": "PMTCT women HIV2",
+          "id": "hQkv3NaAjqv"
+        },
+        {
+          "name": "PMTCT HIV positive Women received ZDV and 3TC during labor",
+          "id": "hxh8X16Gvip"
+        },
+        {
+          "name": "PMTCT discordant partners or couples",
+          "id": "yMtFhLsbZaL"
+        },
+        {
+          "name": "PMTCT No HIV women who delivered in the health facility (Normal)",
+          "id": "tAQe5dZ6wRv"
+        },
+        {
+          "name": "PMTCT reported mother death",
+          "id": "FGdTDgQrsBy"
+        },
+        {
+          "name": "PMTCT No of expected HIV exposed children",
+          "id": "rFTnRXMFgxC"
+        },
+        {
+          "name": "PMTCT positive w. offered FP during ANC/Post natal",
+          "id": "L4G4X567SeK"
+        },
+        {
+          "name": "PMTCT women seen for 1st ANC",
+          "id": "ONgKakbp7wR"
+        },
+        {
+          "name": "PMTCT women received post test counselling and result",
+          "id": "OCU92ttHmic"
+        },
+        {
+          "name": "PMTCT male partners tested for HIV",
+          "id": "WqbXHjN95Xw"
+        },
+        {
+          "name": "PMTCT positive w. referred for FP from ANC",
+          "id": "zCPMzMGWyHU"
+        },
+        {
+          "name": "HIV positive women assessed for ART eligibility by clinical staging",
+          "id": "CwnEqKR0ebt"
+        },
+        {
+          "name": "PMTCT HIV positive women received ZDV at ANC",
+          "id": "dWqQVwKJTSu"
+        },
+        {
+          "name": "PMTCT women received NVP during labour",
+          "id": "e87Gl0315MV"
+        },
+        {
+          "name": "HIV positive women assessed for ART eligibility by CD4 counting",
+          "id": "u6yhzgWPIsj"
+        },
+        {
+          "name": "PMTCT women received complete ARV for PMTCT",
+          "id": "WQqSx9H0RDf"
+        },
+        {
+          "name": "PMTCT HIV positive w. received ART for own health",
+          "id": "gnKnwQbY3UK"
+        },
+        {
+          "name": "PMTCT women tested for HIV",
+          "id": "fxOM6VBQhBy"
+        },
+        {
+          "name": "PMTCT women received pre- test counselling",
+          "id": "CJKrsPzuY8R"
+        },
+        {
+          "name": "PMTCT infant who received ZDV & Lamivudine",
+          "id": "HdQ2QsgMtCc"
+        },
+        {
+          "name": "PMTCT women HIV positve",
+          "id": "TvQ1myd6oTE"
+        },
+        {
+          "name": "PMTCT women HIV1 and HIV2",
+          "id": "yhrP2vizKlf"
+        },
+        {
+          "name": "PMTCT women HIV1",
+          "id": "fQ46YRJj7Yq"
+        },
+        {
+          "name": "PMTCT HIV exposed children registered during the course of the month",
+          "id": "x0PshcPLSk1"
+        },
+        {
+          "name": "PMTCT expected delivery among HIV+ women",
+          "id": "ZFC9MdnFHFJ"
+        },
+        {
+          "name": "PMTCT women counselled for infant feeding",
+          "id": "kfSFuD4Q8rF"
+        }
+      ]
+    },
+    {
+      "name": "PMTCT ANC",
+      "id": "e5NGCRQR8Yo",
+      "dataElements": [
+        {
+          "name": "PMTCT male partners tested HIV positive",
+          "id": "MIKpDxt5ZvE"
+        },
+        {
+          "name": "PMTCT total expected preg. women for the month",
+          "id": "aO5TCNZ4OOr"
+        },
+        {
+          "name": "PMTCT male partners tested for HIV",
+          "id": "WqbXHjN95Xw"
+        },
+        {
+          "name": "PMTCT positive w. referred for FP from ANC",
+          "id": "zCPMzMGWyHU"
+        },
+        {
+          "name": "HIV positive women assessed for ART eligibility by clinical staging",
+          "id": "CwnEqKR0ebt"
+        },
+        {
+          "name": "PMTCT HIV positive women received ZDV at ANC",
+          "id": "dWqQVwKJTSu"
+        },
+        {
+          "name": "PMTCT women HIV2",
+          "id": "hQkv3NaAjqv"
+        },
+        {
+          "name": "HIV positive women assessed for ART eligibility by CD4 counting",
+          "id": "u6yhzgWPIsj"
+        },
+        {
+          "name": "PMTCT HIV positive w. received ART for own health",
+          "id": "gnKnwQbY3UK"
+        },
+        {
+          "name": "PMTCT women tested for HIV",
+          "id": "fxOM6VBQhBy"
+        },
+        {
+          "name": "PMTCT women received pre- test counselling",
+          "id": "CJKrsPzuY8R"
+        },
+        {
+          "name": "PMTCT discordant partners or couples",
+          "id": "yMtFhLsbZaL"
+        },
+        {
+          "name": "PMTCT women HIV positve",
+          "id": "TvQ1myd6oTE"
+        },
+        {
+          "name": "PMTCT women HIV1 and HIV2",
+          "id": "yhrP2vizKlf"
+        },
+        {
+          "name": "PMTCT women HIV1",
+          "id": "fQ46YRJj7Yq"
+        },
+        {
+          "name": "PMTCT positive w. offered FP during ANC/Post natal",
+          "id": "L4G4X567SeK"
+        },
+        {
+          "name": "PMTCT women seen for 1st ANC",
+          "id": "ONgKakbp7wR"
+        },
+        {
+          "name": "PMTCT women received post test counselling and result",
+          "id": "OCU92ttHmic"
+        },
+        {
+          "name": "PMTCT women counselled for infant feeding",
+          "id": "kfSFuD4Q8rF"
+        }
+      ]
+    },
+    {
+      "name": "PMTCT Maternity/Delivery",
+      "id": "bXpe2ByvlFR",
+      "dataElements": [
+        {
+          "name": "PMTCT HIV positive Women received ZDV and 3TC during labor",
+          "id": "hxh8X16Gvip"
+        },
+        {
+          "name": "PMTCT No HIV women who delivered in the health facility (Normal)",
+          "id": "tAQe5dZ6wRv"
+        },
+        {
+          "name": "PMTCT women received ZDV & 3CT after delivery",
+          "id": "HPZd1WtTArI"
+        },
+        {
+          "name": "PMTCT women lost to contact",
+          "id": "f3vP3dSjUrS"
+        },
+        {
+          "name": "PMTCT reported mother death",
+          "id": "FGdTDgQrsBy"
+        },
+        {
+          "name": "PMTCT expected delivery among HIV+ women",
+          "id": "ZFC9MdnFHFJ"
+        },
+        {
+          "name": "PMTCT women received NVP during labour",
+          "id": "e87Gl0315MV"
+        },
+        {
+          "name": "PMTCT No HIV women who delivered in the health facility (CS)",
+          "id": "RoCtZpDLVS7"
+        },
+        {
+          "name": "PMTCT women received complete ARV for PMTCT",
+          "id": "WQqSx9H0RDf"
+        }
+      ]
+    },
+    {
+      "name": "PMTCT Postnatal",
+      "id": "sGLusXgmaOT",
+      "dataElements": [
+        {
+          "name": "PMTCT infant who received ZDV & Lamivudine",
+          "id": "HdQ2QsgMtCc"
+        },
+        {
+          "name": "PMTCT infant who received NVP within 72hrs",
+          "id": "wZqi8EXN5x4"
+        },
+        {
+          "name": "PMTCT HIV exposed children registered during the course of the month",
+          "id": "x0PshcPLSk1"
+        },
+        {
+          "name": "PMTCT No of expected HIV exposed children",
+          "id": "rFTnRXMFgxC"
+        }
+      ]
+    },
+    {
+      "name": "Population Estimates",
+      "id": "sP7jTt3YGBb",
+      "dataElements": [
+        {
+          "name": "Total Population",
+          "id": "WUg3MYWQ7pt"
+        },
+        {
+          "name": "Population of women of child bearing age (WRA)",
+          "id": "vg6pdjObxsm"
+        },
+        {
+          "name": "Total population < 1 year",
+          "id": "DTVRnCGamkV"
+        },
+        {
+          "name": "Total population < 5 years",
+          "id": "DTtCy7Nx5jH"
+        },
+        {
+          "name": "Expected pregnancies",
+          "id": "h0xKKjijTdI"
+        }
+      ]
+    },
+    {
+      "name": "Postnatal",
+      "id": "ubJrVb4v5xy",
+      "dataElements": [
+        {
+          "name": "Postnatal 1st contact (within 1 week)",
+          "id": "LhoRsqtRn4r"
+        },
+        {
+          "name": "Postnatal 2nd contact (at 6 weeks)",
+          "id": "k1vnEuKnRYE"
+        },
+        {
+          "name": "Vitamin A given at postnatal",
+          "id": "btSSE4w61kd"
+        }
+      ]
+    },
+    {
+      "name": "Pregnancy complications and deaths",
+      "id": "qkrZMU4Y2h5",
+      "dataElements": [
+        {
+          "name": "Maternal death",
+          "id": "FUrCpcvMAmC"
+        },
+        {
+          "name": "Pregnancy-related complications",
+          "id": "h8vtacmZL5j"
+        }
+      ]
+    },
+    {
+      "name": "Pregnancy-related (PHUF5)",
+      "id": "ZPtRFVLY40u",
+      "dataElements": [
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 10-19y at PHU",
+          "id": "d6GUgNWCDfl"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 20-35y in comm.",
+          "id": "ZuAqHa7ekka"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 35+ y at PHU",
+          "id": "ZjLFpnq46QF"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 20-35y at PHU",
+          "id": "pnMGI9pJTxH"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 35+ y in comm.",
+          "id": "GHvwvsJzV4x"
+        },
+        {
+          "name": "Pregnancy-related deaths (6 weeks of birth) 10-19y in comm.",
+          "id": "z1q4VpzJvEh"
+        }
+      ]
+    },
+    {
+      "name": "Prev month on ART",
+      "id": "AiytigJkHP6",
+      "dataElements": [
+        {
+          "name": "Prev. month on d4T 30mg / 3TC 150mg / NVP 200mg",
+          "id": "ZecQS9lx4j9"
+        },
+        {
+          "name": "Prev. month on d4T / 3TC / NVP 6mg/30mg/50mg",
+          "id": "YknvQAH4LnL"
+        },
+        {
+          "name": "Prev. month on AZT + 3TC + NVP 300mg + 150mg + 200mg",
+          "id": "e1eDe6JsE9j"
+        },
+        {
+          "name": "Prev. month on AZT 300mg / 3TC 150mg + NVP 200mg",
+          "id": "pgzNTiQwMES"
+        },
+        {
+          "name": "Prev. month on ART other regimen",
+          "id": "VZPWjoT6Iyb"
+        },
+        {
+          "name": "Prev. month on Infant NVP 10mg/ml (2mg/kg)",
+          "id": "iri7NSiuRc3"
+        },
+        {
+          "name": "Prev. month on d4T 30mg + 3TC 150mg + EFV 600mg",
+          "id": "FQhY9n5Ft7t"
+        },
+        {
+          "name": "Prev. month on d4T 40mg / 3TC 150mg / NVP 200mg",
+          "id": "Sdfo0RBu1W3"
+        },
+        {
+          "name": "Prev. month on d4T 30mg + 3TC 100mg + ABC 300mg",
+          "id": "oYZug9IEm3Q"
+        },
+        {
+          "name": "Prev. month on ABC 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "D33rH8UHKlZ"
+        },
+        {
+          "name": "Prev. month on AZT + 3TC 300mg + 150mg on labour",
+          "id": "BI5CBuRJVSV"
+        },
+        {
+          "name": "Prev. month on AZT 300mg at 28 wks",
+          "id": "ReljOufQV11"
+        },
+        {
+          "name": "Prev. month on d4T 30mg + 3TC 100mg + TDF 300mg ",
+          "id": "KD5UjA5V16r"
+        },
+        {
+          "name": "Prev. month on NVP + AZT + 3TC 10mg/ml (2mg/kg) + 10mg/ml + 10mg/ml for 7 days",
+          "id": "CUVDjGzRmmU"
+        },
+        {
+          "name": "Prev. month on AZT + 3TC 300mg + 150mg for 7 days",
+          "id": "FDpeT1lFQMM"
+        },
+        {
+          "name": "Prev. month on TDF 300mg + ddI 200mg + LPV/r 133.3mg/33.3mg",
+          "id": "cQxY2T8GenX"
+        },
+        {
+          "name": "Prev. month on AZT 10mg/ml + 3TC 10mg/ml + NVP 10mg/ml",
+          "id": "yXZd6HTew4q"
+        },
+        {
+          "name": "Prev. month on AZT 300mg /  3TC 150mg + EFV 600mg",
+          "id": "rFkRvm5Ns4a"
+        },
+        {
+          "name": "Prev. month on d4T / 3TC / NVP 12mg/60mg/100mg",
+          "id": "gyudBBtgGCv"
+        },
+        {
+          "name": "Prev. month on AZT 300mg + 3TC 150mg + ABC 300mg ",
+          "id": "BVU4XA3aL0Y"
+        },
+        {
+          "name": "Prev. month on AZT 300mg + 3TC 150mg + TDF 300mg ",
+          "id": "FOWABOOZtPg"
+        },
+        {
+          "name": "Prev. month on d4T 40mg + 3TC 150mg + EFV 600mg",
+          "id": "XVzfK55tu7h"
+        },
+        {
+          "name": "Prev. month on ABC 300mg + ddI 200mg + LPV/r 133.3/33.3mg",
+          "id": "obbSEvaKTyW"
+        },
+        {
+          "name": "Prev. month on TDF 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "n91IylSb1JQ"
+        }
+      ]
+    },
+    {
+      "name": "Referrals",
+      "id": "UWaMbg9h7vF",
+      "dataElements": [
+        {
+          "name": "Meningitis/severe bacterial infection referrals",
+          "id": "hfuTiKOkuKs"
+        },
+        {
+          "name": "Leprosy referrals",
+          "id": "KAXjpSLFlhB"
+        },
+        {
+          "name": "Anaemia referrals",
+          "id": "yqBkn9CWKih"
+        },
+        {
+          "name": "Yaws referrals",
+          "id": "gQAAvbLx8MM"
+        },
+        {
+          "name": "Yellow fever referrals",
+          "id": "zSJF2b48kOg"
+        },
+        {
+          "name": "Malaria referrals",
+          "id": "hnwWyM4gDSg"
+        },
+        {
+          "name": "STI - Genital Discharge referrals",
+          "id": "bcxWMsa1ZwU"
+        },
+        {
+          "name": "Eye infection referrals",
+          "id": "XfsVSt4zciP"
+        },
+        {
+          "name": "Diarrhoea with blood (Dysentery) referrals",
+          "id": "HQv1p570ldT"
+        },
+        {
+          "name": "Tuberculosis referrals",
+          "id": "hdHLjKFmxB4"
+        },
+        {
+          "name": "Diarrhoea with severe dehydration referrals",
+          "id": "HpM1I5qc3Pb"
+        },
+        {
+          "name": "Schistosomiasis referrals",
+          "id": "l76gpVSWoSE"
+        },
+        {
+          "name": "ARI treated with antibiotics (pneumonia) referrals",
+          "id": "XTqOHygxDj5"
+        },
+        {
+          "name": "ARI treated without antibiotics (cough) referrals",
+          "id": "oLfWYAJhZb2"
+        },
+        {
+          "name": "Skin infection referrals",
+          "id": "AoVvYq5mtLL"
+        },
+        {
+          "name": "STI - Genital Ulcer referrals",
+          "id": "saMXNnGMaBw"
+        },
+        {
+          "name": "Acute Flaccid Paralysis (AFP) referrals",
+          "id": "M62VHgYT2n0"
+        },
+        {
+          "name": "Measles referrals",
+          "id": "eomLLbWJfcx"
+        },
+        {
+          "name": "Wounds/Trauma referrals",
+          "id": "JMKtVQ5HasH"
+        },
+        {
+          "name": "Otitis media referrals",
+          "id": "j73ScVBTyP0"
+        },
+        {
+          "name": "Typhoid fever referrals",
+          "id": "LaTxwutQILW"
+        },
+        {
+          "name": "Clinical Malnutrition referrals",
+          "id": "oNyB0VOXIM8"
+        },
+        {
+          "name": "Hypertension referrals",
+          "id": "X5GbcxQCasr"
+        },
+        {
+          "name": "All other referrals",
+          "id": "laZLQdnucV1"
+        },
+        {
+          "name": "Tetanus (not incl. 0-28 days) referrals",
+          "id": "Bc7pt6MgY0j"
+        },
+        {
+          "name": "Burns referrals",
+          "id": "BHvVPwWrrLC"
+        },
+        {
+          "name": "Onchocerciasis referrals",
+          "id": "q9AIeFQD7zj"
+        },
+        {
+          "name": "Worm infestation referrals",
+          "id": "VmoPqzwBgkx"
+        },
+        {
+          "name": "Lassa fever referrals",
+          "id": "uz8dqEzuxyc"
+        },
+        {
+          "name": "Neonatal Tetanus referrals",
+          "id": "HFw6q0jUFKI"
+        }
+      ]
+    },
+    {
+      "name": "Reproductive health",
+      "id": "OJxi4vkcTBS",
+      "dataElements": [
+        {
+          "name": "TT2 doses given",
+          "id": "DUTSJE8MGCw"
+        },
+        {
+          "name": "TT4 doses given",
+          "id": "tbudfYMNFS5"
+        },
+        {
+          "name": "Albendazole given at ANC (2nd trimester)",
+          "id": "hCVSHjcml9g"
+        },
+        {
+          "name": "Live births",
+          "id": "gQNFkFkObU8"
+        },
+        {
+          "name": "Iron Folate given at ANC 3rd",
+          "id": "rbkr8PL0rwM"
+        },
+        {
+          "name": "TT3 doses given",
+          "id": "jWaNoH0X0Am"
+        },
+        {
+          "name": "ANC 4th or more visits",
+          "id": "hfdmMSPBgLG"
+        },
+        {
+          "name": "Maternal death",
+          "id": "FUrCpcvMAmC"
+        },
+        {
+          "name": "ANC 3rd visit",
+          "id": "Jtf34kNZhzP"
+        },
+        {
+          "name": "Low birth weight in community",
+          "id": "Ce6kAvaHsxR"
+        },
+        {
+          "name": "LLITN given after delivery",
+          "id": "ntzmpYRSKGg"
+        },
+        {
+          "name": "Pregnancy-related complications",
+          "id": "h8vtacmZL5j"
+        },
+        {
+          "name": "Vitamin A given at postnatal",
+          "id": "btSSE4w61kd"
+        },
+        {
+          "name": "Low birth weight in PHU",
+          "id": "DvEF1SdMORa"
+        },
+        {
+          "name": "TT1 doses given",
+          "id": "zzHwXqxKYy1"
+        },
+        {
+          "name": "Complicated deliveries in community still births",
+          "id": "FE82N2sA0YI"
+        },
+        {
+          "name": "Complicated deliveries in PHU still births",
+          "id": "ncEnqRPHFvk"
+        },
+        {
+          "name": "Still births",
+          "id": "HZSdnO5fCUc"
+        },
+        {
+          "name": "Postnatal 1st contact (within 1 week)",
+          "id": "LhoRsqtRn4r"
+        },
+        {
+          "name": "LLITN given at ANC 1st",
+          "id": "ybzlGLjWwnK"
+        },
+        {
+          "name": "ANC 2nd visit",
+          "id": "cYeuwXTCPkU"
+        },
+        {
+          "name": "Postnatal 2nd contact (at 6 weeks)",
+          "id": "k1vnEuKnRYE"
+        },
+        {
+          "name": "ANC 1st visit",
+          "id": "fbfJHSPpUQD"
+        },
+        {
+          "name": "TT5 doses given",
+          "id": "B2ocYtYkPBD"
+        }
+      ]
+    },
+    {
+      "name": "Schistosomiasis",
+      "id": "LqG1FnAUhyb",
+      "dataElements": [
+        {
+          "name": "Schistosomiasis referrals",
+          "id": "l76gpVSWoSE"
+        },
+        {
+          "name": "Schistosomiasis follow-up",
+          "id": "GYm08KsVDOz"
+        },
+        {
+          "name": "Schistosomiasis new",
+          "id": "Y7Oq71I3ASg"
+        }
+      ]
+    },
+    {
+      "name": "Shift from ART reg.",
+      "id": "rwG73cCi66Z",
+      "dataElements": [
+        {
+          "name": "Shift from d4T 40mg + 3TC 150mg + EFV 600mg",
+          "id": "BtXmKYNBc3k"
+        },
+        {
+          "name": "Shift from ABC 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "hI7NM78r3Rg"
+        },
+        {
+          "name": "Shift from AZT + 3TC 300mg + 150mg on labour",
+          "id": "q9CskFaFGE6"
+        },
+        {
+          "name": "Shift from d4T 30mg + 3TC 100mg + ABC 300mg",
+          "id": "ZGKUt190yEn"
+        },
+        {
+          "name": "Shift from NVP + AZT + 3TC 10mg/ml (2mg/kg) + 10mg/ml + 10mg/ml for 7 days",
+          "id": "HmBwa7GWGRG"
+        },
+        {
+          "name": "Shift from TDF 300mg + ddI 200mg + LPV/r 133.3mg/33.3mg",
+          "id": "oJLoUSMs3Ud"
+        },
+        {
+          "name": "Shift from TDF 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "y6noHe7ltxY"
+        },
+        {
+          "name": "Shift from Infant NVP 10mg/ml (2mg/kg)",
+          "id": "Z5uEjG9zJNK"
+        },
+        {
+          "name": "Shift from d4T 30mg + 3TC 150mg + EFV 600mg",
+          "id": "ksGURIlASZB"
+        },
+        {
+          "name": "Shift from ART other regimen",
+          "id": "Jw8BIUYVMGE"
+        },
+        {
+          "name": "Shift from AZT 300mg /  3TC 150mg + EFV 600mg",
+          "id": "jHxFwWMbXT2"
+        },
+        {
+          "name": "Shift from d4T / 3TC / NVP 6mg/30mg/50mg",
+          "id": "tlSucW8wn23"
+        },
+        {
+          "name": "Shift from d4T / 3TC / NVP 12mg/60mg/100mg",
+          "id": "iCGDtgPA28k"
+        },
+        {
+          "name": "Shift from ABC 300mg + ddI 200mg + LPV/r 133.3/33.3mg",
+          "id": "lznF009R6XI"
+        },
+        {
+          "name": "Shift from AZT 300mg at 28 wks",
+          "id": "LJBV91hapop"
+        },
+        {
+          "name": "Shift from d4T 30mg / 3TC 150mg / NVP 200mg",
+          "id": "mmHNj6THZNH"
+        },
+        {
+          "name": "Shift from AZT + 3TC + NVP 300mg + 150mg + 200mg",
+          "id": "AzwEuYfWAtN"
+        },
+        {
+          "name": "Shift from AZT 300mg / 3TC 150mg + NVP 200mg",
+          "id": "pSHgU0Wf4ir"
+        },
+        {
+          "name": "Shift from AZT + 3TC 300mg + 150mg for 7 days",
+          "id": "Mow8dnhE6FJ"
+        },
+        {
+          "name": "Shift from d4T 40mg / 3TC 150mg / NVP 200mg",
+          "id": "dAnZOL5kxlK"
+        },
+        {
+          "name": "Shift from AZT 10mg/ml + 3TC 10mg/ml + NVP 10mg/ml",
+          "id": "t6YgakIbFif"
+        },
+        {
+          "name": "Shift from d4T 30mg + 3TC 100mg + TDF 300mg ",
+          "id": "a7Pue4ht1n1"
+        },
+        {
+          "name": "Shift from AZT 300mg + 3TC 150mg + ABC 300mg ",
+          "id": "gSD3Znye1hY"
+        },
+        {
+          "name": "Shift from AZT 300mg + 3TC 150mg + TDF 300mg ",
+          "id": "MeAvt39JtqN"
+        }
+      ]
+    },
+    {
+      "name": "Shift to ART reg.",
+      "id": "rgTZ4mKjZza",
+      "dataElements": [
+        {
+          "name": "Shift to d4T 40mg / 3TC 150mg / NVP 200mg",
+          "id": "C6yhZddXLCX"
+        },
+        {
+          "name": "Shift to TDF 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "ZgIaamZjBjz"
+        },
+        {
+          "name": "Shift to AZT + 3TC + NVP 300mg + 150mg + 200mg",
+          "id": "YgsAnqU3I7B"
+        },
+        {
+          "name": "Shift to d4T 30mg / 3TC 150mg / NVP 200mg",
+          "id": "V651s5yIbnR"
+        },
+        {
+          "name": "Shift to NVP + AZT + 3TC 10mg/ml (2mg/kg) + 10mg/ml + 10mg/ml for 7 days",
+          "id": "un5mkYkVKqV"
+        },
+        {
+          "name": "Shift to AZT 300mg at 28 wks",
+          "id": "AyLbN9fhY4W"
+        },
+        {
+          "name": "Shift to AZT 300mg / 3TC 150mg + NVP 200mg",
+          "id": "kxcIr99QcAO"
+        },
+        {
+          "name": "Shift to Infant NVP 10mg/ml (2mg/kg)",
+          "id": "E7QJ0voitk7"
+        },
+        {
+          "name": "Shift to AZT 10mg/ml + 3TC 10mg/ml + NVP 10mg/ml",
+          "id": "vhT3YzTev3B"
+        },
+        {
+          "name": "Shift to d4T 30mg + 3TC 150mg + EFV 600mg",
+          "id": "qUY0i7PnaLS"
+        },
+        {
+          "name": "Shift to AZT + 3TC 300mg + 150mg on labour",
+          "id": "IJ4yZ027EmK"
+        },
+        {
+          "name": "Shift to d4T 30mg + 3TC 100mg + TDF 300mg ",
+          "id": "yB3qDR4Mlqk"
+        },
+        {
+          "name": "Shift to d4T / 3TC / NVP 12mg/60mg/100mg",
+          "id": "EEEu3r8z1Rg"
+        },
+        {
+          "name": "Shift to AZT 300mg + 3TC 150mg + TDF 300mg ",
+          "id": "NV0OXpHu6x4"
+        },
+        {
+          "name": "Shift to ABC 300mg + ddI 200mg + LPV/r 133.3/33.3mg",
+          "id": "PBXQFnb2AOk"
+        },
+        {
+          "name": "Shift to TDF 300mg + ddI 200mg + LPV/r 133.3mg/33.3mg",
+          "id": "aJ9oon0aJ87"
+        },
+        {
+          "name": "Shift to d4T 30mg + 3TC 100mg + ABC 300mg",
+          "id": "YTmhoGBxE2m"
+        },
+        {
+          "name": "Shift to AZT 300mg /  3TC 150mg + EFV 600mg",
+          "id": "XMsORYe4ZcA"
+        },
+        {
+          "name": "Shift to d4T 40mg + 3TC 150mg + EFV 600mg",
+          "id": "a5MxE5H7d3q"
+        },
+        {
+          "name": "Shift to AZT + 3TC 300mg + 150mg for 7 days",
+          "id": "zTWitarSrae"
+        },
+        {
+          "name": "Shift to ABC 300mg + ddI 200mg + IDV 400mg + r 100mg",
+          "id": "hUSSNufoUQz"
+        },
+        {
+          "name": "Shift to AZT 300mg + 3TC 150mg + ABC 300mg ",
+          "id": "PNlOOplRNOp"
+        },
+        {
+          "name": "Shift to ART other regimen",
+          "id": "DlZORv7kWSl"
+        },
+        {
+          "name": "Shift to d4T / 3TC / NVP 6mg/30mg/50mg",
+          "id": "eCIPNNYj9ZM"
+        }
+      ]
+    },
+    {
+      "name": "Skin Infection",
+      "id": "VCoSeRRVS1n",
+      "dataElements": [
+        {
+          "name": "Skin infection follow-up",
+          "id": "i0vXh1P92m3"
+        },
+        {
+          "name": "Skin infection new",
+          "id": "Y4cFzB4A9ZQ"
+        },
+        {
+          "name": "Skin infection referrals",
+          "id": "AoVvYq5mtLL"
+        }
+      ]
+    },
+    {
+      "name": "Staffing",
+      "id": "rVEe5QNBgDX",
+      "dataElements": [
+        {
+          "name": "SECHN",
+          "id": "hkfMucdRMQG"
+        },
+        {
+          "name": "EDC Unit Assitant",
+          "id": "zSl1hUZBDHY"
+        },
+        {
+          "name": "Doctor",
+          "id": "nlQztbooKAj"
+        },
+        {
+          "name": "Security worker",
+          "id": "iVla5mEZiZo"
+        },
+        {
+          "name": "Laboratory Technician",
+          "id": "v0Shu9zrSh0"
+        },
+        {
+          "name": "PH Aide",
+          "id": "dIqx7rdnVc9"
+        },
+        {
+          "name": "Midwife",
+          "id": "OKj6vV8hmTP"
+        },
+        {
+          "name": "EHO",
+          "id": "kFmyXB7IYrK"
+        },
+        {
+          "name": "Nursing Aide",
+          "id": "DUtltDE5ma1"
+        },
+        {
+          "name": "CHO",
+          "id": "LSJ5mKpyEv1"
+        },
+        {
+          "name": "MCH Aide",
+          "id": "q7QXzNnSstn"
+        },
+        {
+          "name": "SRN",
+          "id": "nu3vYkWgl2x"
+        },
+        {
+          "name": "Community Health Assistant (CHA)",
+          "id": "vBu1MTGwcZh"
+        },
+        {
+          "name": "Porter",
+          "id": "zgeAdnpSY5K"
+        },
+        {
+          "name": "Dispenser",
+          "id": "EzR5Y2V0JF9"
+        },
+        {
+          "name": "Vaccinator",
+          "id": "Nz5YtOpDyuV"
+        },
+        {
+          "name": "Laboratory Assistant",
+          "id": "eizakNwF2ep"
+        },
+        {
+          "name": "Other staff",
+          "id": "viFyEk7JmVd"
+        }
+      ]
+    },
+    {
+      "name": "STI - Genital Discharge",
+      "id": "xNrDrDbJgnm",
+      "dataElements": [
+        {
+          "name": "STI - Genital Discharge follow-up",
+          "id": "tl03DMc49UT"
+        },
+        {
+          "name": "STI - Genital Discharge new",
+          "id": "CN9Oxawn7bD"
+        },
+        {
+          "name": "STI - Genital Discharge referrals",
+          "id": "bcxWMsa1ZwU"
+        }
+      ]
+    },
+    {
+      "name": "STI - Genital Ulcer",
+      "id": "UmyRWILcoed",
+      "dataElements": [
+        {
+          "name": "STI - Genital Ulcer follow-up",
+          "id": "RZNJFsg7fQp"
+        },
+        {
+          "name": "STI - Genital Ulcer new",
+          "id": "IeO1sWXVyp6"
+        },
+        {
+          "name": "STI - Genital Ulcer referrals",
+          "id": "saMXNnGMaBw"
+        }
+      ]
+    },
+    {
+      "name": "Stock PHU",
+      "id": "pxWhf42tCIs",
+      "dataElements": [
+        {
+          "name": "Stock PHU received  BCG",
+          "id": "axVhq1itoQD"
+        },
+        {
+          "name": "Stock PHU dispensed Measles",
+          "id": "lVknokmR4Ip"
+        },
+        {
+          "name": "Stock PHU discarded OPV",
+          "id": "WVrH6j3Wfye"
+        },
+        {
+          "name": "Stock PHU discarded Measles",
+          "id": "FvKdfA2SuWI"
+        },
+        {
+          "name": "Stock PHU start balance OPV",
+          "id": "iuSIObmKutb"
+        },
+        {
+          "name": "Stock PHU discarded BCG",
+          "id": "cZnQDuF3IDz"
+        },
+        {
+          "name": "Stock PHU received OPV",
+          "id": "nGCLjZDn0Q4"
+        },
+        {
+          "name": "Stock PHU received Measles",
+          "id": "XNrjXqZrHD8"
+        },
+        {
+          "name": "Stock PHU start balance Measles",
+          "id": "vEAo4KwsAzl"
+        },
+        {
+          "name": "Stock PHU start balance BCG",
+          "id": "t99PL3gUxIl"
+        },
+        {
+          "name": "Stock PHU dispensed  BCG",
+          "id": "p1MDHOT6ENy"
+        },
+        {
+          "name": "Stock PHU dispensed OPV",
+          "id": "FTINmL2lehN"
+        }
+      ]
+    },
+    {
+      "name": "TB",
+      "id": "OnAQ2lsilN9",
+      "dataElements": [
+        {
+          "name": "TB Cohort new SS+ failed",
+          "id": "iM7agdDyMAv"
+        },
+        {
+          "name": "TB Cohort new SS+ registered",
+          "id": "ax9QMVVaWzT"
+        },
+        {
+          "name": "TB Cohort new SS+ defaulted",
+          "id": "iGWmygJhJ0W"
+        },
+        {
+          "name": "TB Smear not done",
+          "id": "QmqSvR8y1VP"
+        },
+        {
+          "name": "TB Referred by community member",
+          "id": "Vacgoqzb0a9"
+        },
+        {
+          "name": "TB Cohort new SS+ completed",
+          "id": "JFJfrQRwKUH"
+        },
+        {
+          "name": "TB Smear Negative",
+          "id": "NzUztyjtUm2"
+        },
+        {
+          "name": "TB Smear Positve Relapse",
+          "id": "uwbLjPhducc"
+        },
+        {
+          "name": "TB Smear Positve Failure",
+          "id": "auVPuAdFCmY"
+        },
+        {
+          "name": "TB No. of suspects screened",
+          "id": "sVDDqpaKwBH"
+        },
+        {
+          "name": "TB Referred by private provider",
+          "id": "BexcJLSBmoI"
+        },
+        {
+          "name": "TB Cohort new SS+ trans out",
+          "id": "zg2HS37R0S0"
+        },
+        {
+          "name": "TB Cohort new SS+ cured",
+          "id": "LwqtuNuXzMO"
+        },
+        {
+          "name": "TB Referred by other",
+          "id": "x4KonEdVrf4"
+        },
+        {
+          "name": "TB Cohort new SS+ died",
+          "id": "iwKQb6AzcyA"
+        },
+        {
+          "name": "TB Referred by public facility",
+          "id": "HihtAAbmIKd"
+        },
+        {
+          "name": "TB Smear Positive T.A.I",
+          "id": "NRmkLQkTbHw"
+        },
+        {
+          "name": "TB New SS+ cases",
+          "id": "PcdVnX3EthS"
+        },
+        {
+          "name": "TB Extra pulmonary TB",
+          "id": "tHFKyPb1db7"
+        },
+        {
+          "name": "TB Cohort new SS+ trans. in",
+          "id": "LvVagpDFHVd"
+        },
+        {
+          "name": "TB Self referral",
+          "id": "DfxIW8gECPb"
+        }
+      ]
+    },
+    {
+      "name": "Tetanus",
+      "id": "LgtuBcNaMB3",
+      "dataElements": [
+        {
+          "name": "Tetanus (not incl. 0-28 days) new",
+          "id": "Uoj2wmnr5Dw"
+        },
+        {
+          "name": "Tetanus (not incl. 0-28 days) follow-up",
+          "id": "nG0tBc37z0q"
+        },
+        {
+          "name": "Tetanus (not incl. 0-28 days) referrals",
+          "id": "Bc7pt6MgY0j"
+        }
+      ]
+    },
+    {
+      "name": "Tuberculosis",
+      "id": "yHtsPZqpAxm",
+      "dataElements": [
+        {
+          "name": "Tuberculosis new",
+          "id": "z9dYcQ2DlBG"
+        },
+        {
+          "name": "Tuberculosis follow-up",
+          "id": "madOetOj4Ye"
+        },
+        {
+          "name": "Tuberculosis referrals",
+          "id": "hdHLjKFmxB4"
+        }
+      ]
+    },
+    {
+      "name": "Typhoid Fever",
+      "id": "dUK38PhdUdV",
+      "dataElements": [
+        {
+          "name": "Typhoid fever follow-up",
+          "id": "rNi710XHPXY"
+        },
+        {
+          "name": "Typhoid fever new",
+          "id": "Cj5rTc9nEvl"
+        },
+        {
+          "name": "Typhoid fever referrals",
+          "id": "LaTxwutQILW"
+        }
+      ]
+    },
+    {
+      "name": "VCCT",
+      "id": "U9wcARyKSzx",
+      "dataElements": [
+        {
+          "name": "PLHIVs with a positive TB result",
+          "id": "oxht1VLqF6x"
+        },
+        {
+          "name": "VCCT No receiving positive test results",
+          "id": "EASG4IZChNr"
+        },
+        {
+          "name": "PLHIVs referred for TB test (Sputum/CXRay)",
+          "id": "ZydlV51mGuj"
+        },
+        {
+          "name": "VCCT No receiving Pre-test counselling",
+          "id": "IpwsH1GUjCs"
+        },
+        {
+          "name": "PLHIVs referred for TB screening",
+          "id": "srXmZTeJxxT"
+        },
+        {
+          "name": "VCCT No Test",
+          "id": "bmW8ktueArb"
+        },
+        {
+          "name": "VCCT No positive test HIV1 and HIV2",
+          "id": "ZjILYaYGEBM"
+        },
+        {
+          "name": "VCCT No positive test HIV1 only",
+          "id": "LicY0q8cagk"
+        },
+        {
+          "name": "VCCT No positive test HIV2 only",
+          "id": "LgYtBqVkADK"
+        },
+        {
+          "name": "VCCT No reiciving result & post-test counselling",
+          "id": "CjLP7zAhlP4"
+        }
+      ]
+    },
+    {
+      "name": "Worm Infestation",
+      "id": "LzDaTmQYWcj",
+      "dataElements": [
+        {
+          "name": "Worm infestation follow-up",
+          "id": "E62UwxnYf26"
+        },
+        {
+          "name": "Worm infestation new",
+          "id": "Usk9Asj5DED"
+        },
+        {
+          "name": "Worm infestation referrals",
+          "id": "VmoPqzwBgkx"
+        }
+      ]
+    },
+    {
+      "name": "Wounds/Trauma",
+      "id": "IUZ0GidX0jh",
+      "dataElements": [
+        {
+          "name": "Wounds/Trauma new",
+          "id": "FJs8ZjlQE6f"
+        },
+        {
+          "name": "Wounds/Trauma follow-up",
+          "id": "yJwdE6XJbrF"
+        },
+        {
+          "name": "Wounds/Trauma referrals",
+          "id": "JMKtVQ5HasH"
+        }
+      ]
+    },
+    {
+      "name": "Yaws",
+      "id": "zmWJAEjfv59",
+      "dataElements": [
+        {
+          "name": "Yaws referrals",
+          "id": "gQAAvbLx8MM"
+        },
+        {
+          "name": "Yaws follow-up",
+          "id": "plfo9ai1jtW"
+        },
+        {
+          "name": "Yaws new",
+          "id": "FF3Ev33BuCh"
+        }
+      ]
+    },
+    {
+      "name": "Yellow Fever",
+      "id": "HAraPb0v7ex",
+      "dataElements": [
+        {
+          "name": "Yellow fever referrals",
+          "id": "zSJF2b48kOg"
+        },
+        {
+          "name": "Yellow fever new",
+          "id": "XWU1Huh0Luy"
+        },
+        {
+          "name": "Yellow fever follow-up",
+          "id": "hvdCBRWUk80"
+        }
+      ]
+    }
+  ]
+}

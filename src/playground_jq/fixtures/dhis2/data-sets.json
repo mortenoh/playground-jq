@@ -1,0 +1,301 @@
+{
+  "dataSets": [
+    {
+      "name": "ART monthly summary",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "Implementing Partner and Projects"
+      },
+      "openFuturePeriods": 0,
+      "id": "lyLU2wR22tC",
+      "elements": 123,
+      "orgUnits": 1096
+    },
+    {
+      "name": "Child Health",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 10,
+      "id": "BfMAe6Itzgt",
+      "elements": 31,
+      "orgUnits": 1161
+    },
+    {
+      "name": "Clinical Monitoring Checklist ",
+      "periodType": "SixMonthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "VTdjfLXXmoi",
+      "elements": 95,
+      "orgUnits": 1167
+    },
+    {
+      "name": "Emergency Response",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "Target vs Result"
+      },
+      "openFuturePeriods": 0,
+      "id": "Lpw6GcnTrmS",
+      "elements": 10,
+      "orgUnits": 1167
+    },
+    {
+      "name": "EPI Stock",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "Project"
+      },
+      "openFuturePeriods": 0,
+      "id": "TuL8IOPzpHh",
+      "elements": 12,
+      "orgUnits": 1169
+    },
+    {
+      "name": "Expenditures",
+      "periodType": "FinancialApril",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 2,
+      "id": "rsyjyJmYD4J",
+      "elements": 5,
+      "orgUnits": 1166
+    },
+    {
+      "name": "Facility Assessment",
+      "periodType": "Yearly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "V8MHeZHIrcP",
+      "elements": 19,
+      "orgUnits": 1332
+    },
+    {
+      "name": "HIV Care Monthly",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "vc6nF5yZsPR",
+      "elements": 4,
+      "orgUnits": 1
+    },
+    {
+      "name": "HIV Peadiatric monthly summary",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "EDzMBk0RRji",
+      "elements": 23,
+      "orgUnits": 1101
+    },
+    {
+      "name": "IDSR Weekly",
+      "periodType": "Weekly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "Nyh6laLdBEJ",
+      "elements": 5,
+      "orgUnits": 1167
+    },
+    {
+      "name": "IDSR Weekly (Start Wednesday)",
+      "periodType": "WeeklyWednesday",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "j38YW1Am7he",
+      "elements": 5,
+      "orgUnits": 1167
+    },
+    {
+      "name": "Inpatient Morbidity/Mortality Summary",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "PLq9sJluXvc",
+      "elements": 4,
+      "orgUnits": 1166
+    },
+    {
+      "name": "Life-Saving Commodities",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "ULowA8V3ucd",
+      "elements": 13,
+      "orgUnits": 1167
+    },
+    {
+      "name": "MNCH Quarterly Report",
+      "periodType": "Quarterly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "EKWVBc5C0ms",
+      "elements": 9,
+      "orgUnits": 1166
+    },
+    {
+      "name": "Morbidity",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "eZDhcZi6FLP",
+      "elements": 104,
+      "orgUnits": 1159
+    },
+    {
+      "name": "Mortality < 5 years",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 12,
+      "id": "pBOMPrpg1QX",
+      "elements": 14,
+      "orgUnits": 1169
+    },
+    {
+      "name": "Mortality < 5 years by age group",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "ce7DSxx5H2I",
+      "elements": 14,
+      "orgUnits": 1169
+    },
+    {
+      "name": "Mortality < 5 years by gender",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "YFTk3VdO9av",
+      "elements": 14,
+      "orgUnits": 1169
+    },
+    {
+      "name": "Mortality < 5 years Narratives",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "YZhd4nu3mzY",
+      "elements": 5,
+      "orgUnits": 1169
+    },
+    {
+      "name": "NUT- Outpatient Therapeutic Programme (OTP)",
+      "periodType": "Weekly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 1,
+      "id": "GUwCZVk783a",
+      "elements": 1,
+      "orgUnits": 1
+    },
+    {
+      "name": "PMTCT monthly summary",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "Rl58JxmKJo2",
+      "elements": 32,
+      "orgUnits": 1118
+    },
+    {
+      "name": "Population",
+      "periodType": "Yearly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 12,
+      "id": "aLpVgfXiz0f",
+      "elements": 5,
+      "orgUnits": 1167
+    },
+    {
+      "name": "Project Management",
+      "periodType": "Quarterly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "Y8gAn9DfAGU",
+      "elements": 9,
+      "orgUnits": 1169
+    },
+    {
+      "name": "Reproductive Health",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "QX4ZTUbOt3a",
+      "elements": 30,
+      "orgUnits": 1161
+    },
+    {
+      "name": "Staffing",
+      "periodType": "SixMonthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "N4fIX1HL3TQ",
+      "elements": 18,
+      "orgUnits": 1162
+    },
+    {
+      "name": "TB Facility Reporting Form",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "SF8FDSqw30D",
+      "elements": 21,
+      "orgUnits": 1167
+    },
+    {
+      "name": "TB/HIV (VCCT) monthly summary",
+      "periodType": "Monthly",
+      "categoryCombo": {
+        "name": "default"
+      },
+      "openFuturePeriods": 0,
+      "id": "OsPTWNqq26W",
+      "elements": 10,
+      "orgUnits": 1117
+    }
+  ]
+}

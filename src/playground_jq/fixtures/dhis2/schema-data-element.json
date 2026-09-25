@@ -1,0 +1,284 @@
+{
+  "klass": "org.hisp.dhis.dataelement.DataElement",
+  "name": "dataElement",
+  "shareable": true,
+  "properties": [
+    {
+      "propertyType": "COLLECTION",
+      "name": "favorite",
+      "collection": true,
+      "required": false
+    },
+    {
+      "propertyType": "CONSTANT",
+      "name": "aggregationType",
+      "collection": false,
+      "required": true,
+      "length": 50
+    },
+    {
+      "propertyType": "COMPLEX",
+      "name": "access",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "IDENTIFIER",
+      "name": "code",
+      "collection": false,
+      "required": false,
+      "length": 50
+    },
+    {
+      "propertyType": "COLLECTION",
+      "name": "dataSetElements",
+      "collection": true,
+      "required": false
+    },
+    {
+      "propertyType": "CONSTANT",
+      "name": "domainType",
+      "collection": false,
+      "required": true,
+      "length": 255
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "displayName",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "description",
+      "collection": false,
+      "required": false,
+      "length": 2147483647
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "displayShortName",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "DATE",
+      "name": "lastUpdated",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "REFERENCE",
+      "name": "optionSet",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "COMPLEX",
+      "name": "queryMods",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "REFERENCE",
+      "name": "categoryCombo",
+      "collection": false,
+      "required": true,
+      "length": 255
+    },
+    {
+      "propertyType": "COLLECTION",
+      "name": "translation",
+      "collection": true,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "CONSTANT",
+      "name": "valueType",
+      "collection": false,
+      "required": true,
+      "length": 50
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "formName",
+      "collection": false,
+      "required": false,
+      "length": 230
+    },
+    {
+      "propertyType": "REFERENCE",
+      "name": "commentOptionSet",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "IDENTIFIER",
+      "name": "id",
+      "collection": false,
+      "required": false,
+      "length": 11
+    },
+    {
+      "propertyType": "URL",
+      "name": "href",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "fieldMask",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "displayDescription",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "REFERENCE",
+      "name": "lastUpdatedBy",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "COMPLEX",
+      "name": "valueTypeOptions",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "dimensionItem",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "DATE",
+      "name": "created",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "COLLECTION",
+      "name": "dataElementGroup",
+      "collection": true,
+      "required": false
+    },
+    {
+      "propertyType": "COMPLEX",
+      "name": "attributeValues",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "COMPLEX",
+      "name": "sharing",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "BOOLEAN",
+      "name": "zeroIsSignificant",
+      "collection": false,
+      "required": true,
+      "length": 255
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "displayFormName",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "URL",
+      "name": "url",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "REFERENCE",
+      "name": "createdBy",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "REFERENCE",
+      "name": "legendSet",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "name",
+      "collection": false,
+      "required": true,
+      "length": 230
+    },
+    {
+      "propertyType": "COLLECTION",
+      "name": "legendSets",
+      "collection": true,
+      "required": false
+    },
+    {
+      "propertyType": "COMPLEX",
+      "name": "style",
+      "collection": false,
+      "required": false,
+      "length": 255
+    },
+    {
+      "propertyType": "COLLECTION",
+      "name": "aggregationLevels",
+      "collection": true,
+      "required": false
+    },
+    {
+      "propertyType": "TEXT",
+      "name": "shortName",
+      "collection": false,
+      "required": true,
+      "length": 50
+    },
+    {
+      "propertyType": "REFERENCE",
+      "name": "user",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "BOOLEAN",
+      "name": "favorite",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "CONSTANT",
+      "name": "dimensionItemType",
+      "collection": false,
+      "required": false
+    },
+    {
+      "propertyType": "BOOLEAN",
+      "name": "optionSetValue",
+      "collection": false,
+      "required": false
+    }
+  ],
+  "translatable": true
+}

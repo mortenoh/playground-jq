@@ -1,0 +1,11 @@
+{
+  "gzipped": true,
+  "headers": {
+    "host": "postman-echo.com",
+    "x-forwarded-proto": "https",
+    "accept": "*/*",
+    "user-agent": "playground-jq",
+    "accept-encoding": "gzip, br"
+  },
+  "method": "GET"
+}

@@ -1,0 +1,10 @@
+{
+  "headers": {
+    "host": "postman-echo.com",
+    "accept-encoding": "gzip, br",
+    "user-agent": "playground-jq",
+    "accept": "application/json",
+    "x-tenant": "sierra-leone",
+    "x-forwarded-proto": "https"
+  }
+}

@@ -1,0 +1,561 @@
+{
+  "pager": {
+    "page": 1,
+    "total": 83,
+    "pageSize": 50,
+    "nextPage": "https://play.im.dhis2.org/dev-2-43/api/indicators?page=2&fields=id%2Cname%2Cnumerator%2Cdenominator%2Cannualized%2CindicatorType%5Bname%2Cfactor%5D",
+    "pageCount": 2
+  },
+  "indicators": [
+    {
+      "name": "Albendazole/ Mebendazole Balance end of period",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number11",
+        "factor": 1
+      },
+      "numerator": "(#{F2fghR7q97C.v1zZbpr1GKV} + #{F2fghR7q97C.AuXo3xeDhM5}) \n\n- \n\n(#{F2fghR7q97C.sL2nHckg0mI} + #{F2fghR7q97C.QoAtX3tx6dy})",
+      "denominator": "1",
+      "id": "Bpo4Ge0VwKL"
+    },
+    {
+      "name": "Amoxicillin Balance end of period",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number11",
+        "factor": 1
+      },
+      "numerator": "(#{lXUEMIud5HE.v1zZbpr1GKV} + #{lXUEMIud5HE.AuXo3xeDhM5}) \n\n- \n\n(#{lXUEMIud5HE.sL2nHckg0mI} + #{lXUEMIud5HE.QoAtX3tx6dy})",
+      "denominator": "1",
+      "id": "RB64ELrm4wQ"
+    },
+    {
+      "name": "ANC 1-3 Dropout Rate",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}-#{Jtf34kNZhzP.pq2XI5kz2BY}-#{Jtf34kNZhzP.PT59n8BQbqM}",
+      "denominator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}",
+      "id": "ReUHfIn0pTQ"
+    },
+    {
+      "name": "ANC 1 Coverage",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{fbfJHSPpUQD}",
+      "denominator": "#{h0xKKjijTdI}",
+      "id": "Uvn6LCg7dVU"
+    },
+    {
+      "name": "ANC 2 Coverage",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{cYeuwXTCPkU}",
+      "denominator": "#{h0xKKjijTdI}",
+      "id": "OdiHJayrsKo"
+    },
+    {
+      "name": "ANC 3 Coverage",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{Jtf34kNZhzP}",
+      "denominator": "#{h0xKKjijTdI}",
+      "id": "sB79w2hiLp8"
+    },
+    {
+      "name": "ANC => 4 Coverage",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{hfdmMSPBgLG}",
+      "denominator": "#{h0xKKjijTdI}",
+      "id": "AUqdhY4mpvp"
+    },
+    {
+      "name": "ANC IPT 1 Coverage",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{bqK6eSIwo3h.pq2XI5kz2BY}+#{bqK6eSIwo3h.PT59n8BQbqM}+#{yTHydhurQQU.pq2XI5kz2BY}+#{yTHydhurQQU.PT59n8BQbqM}",
+      "denominator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}",
+      "id": "dwEq7wi6nXV"
+    },
+    {
+      "name": "ANC IPT 2 Coverage",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{V37YqbqpEhV.pq2XI5kz2BY}+#{V37YqbqpEhV.PT59n8BQbqM}+#{SA7WeFZnUci.pq2XI5kz2BY}+#{SA7WeFZnUci.PT59n8BQbqM}",
+      "denominator": "#{cYeuwXTCPkU.pq2XI5kz2BY}+#{cYeuwXTCPkU.PT59n8BQbqM}",
+      "id": "c8fABiNpT0B"
+    },
+    {
+      "name": "ANC LLITN coverage",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{ybzlGLjWwnK.pq2XI5kz2BY}+#{ybzlGLjWwnK.PT59n8BQbqM}",
+      "denominator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}",
+      "id": "Tt5TAvdfdVK"
+    },
+    {
+      "name": "ANC TT2 coverage",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{DUTSJE8MGCw}",
+      "denominator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}",
+      "id": "puykO1tbcdi"
+    },
+    {
+      "name": "ANC visits per clinical professional",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}+#{cYeuwXTCPkU.pq2XI5kz2BY}+#{cYeuwXTCPkU.PT59n8BQbqM}+#{Jtf34kNZhzP.pq2XI5kz2BY}+#{Jtf34kNZhzP.PT59n8BQbqM}+#{hfdmMSPBgLG.pq2XI5kz2BY}+#{hfdmMSPBgLG.PT59n8BQbqM}",
+      "denominator": "#{LSJ5mKpyEv1.DOC7emLzyRi}+#{LSJ5mKpyEv1.R23h9QZRbRt}+#{nlQztbooKAj.DOC7emLzyRi}+#{nlQztbooKAj.R23h9QZRbRt}+#{q7QXzNnSstn.DOC7emLzyRi}+#{q7QXzNnSstn.DOC7emLzyRi}+#{OKj6vV8hmTP.R23h9QZRbRt}+#{OKj6vV8hmTP.DOC7emLzyRi}",
+      "id": "Lzg9LtG1xg3"
+    },
+    {
+      "name": "ANC visits total",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{fbfJHSPpUQD}+#{cYeuwXTCPkU}+#{Jtf34kNZhzP}",
+      "denominator": "1",
+      "id": "dy1a1mseGR7"
+    },
+    {
+      "name": "BCG Coverage <1y",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{s46m5MS0hxu.V6L425pT3A0}+#{s46m5MS0hxu.Prlt0C1RF0s}",
+      "denominator": "#{DTVRnCGamkV}",
+      "id": "FnYCr2EAzWS"
+    },
+    {
+      "name": "BCG Coverage - Adjusted for reporting",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "(#{s46m5MS0hxu.V6L425pT3A0}+#{s46m5MS0hxu.Prlt0C1RF0s})*(R{BfMAe6Itzgt.REPORTING_RATE}/100)",
+      "denominator": "#{DTVRnCGamkV}",
+      "id": "iCBpPh3ehjg"
+    },
+    {
+      "name": "BCG doses coverage at facility",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "D{IpHINAT79UW.bx6fsa0t90x}",
+      "denominator": "#{DTVRnCGamkV}",
+      "id": "Z33QjkcycFQ"
+    },
+    {
+      "name": "BCG Stock PHU",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{t99PL3gUxIl}+#{axVhq1itoQD}-#{p1MDHOT6ENy}-#{cZnQDuF3IDz}",
+      "denominator": "1",
+      "id": "OEWO2PpiUKx"
+    },
+    {
+      "name": "Births attended by skilled health personnel (estimated pregancies)",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{gQNFkFkObU8.AKQ15Z2uqit}+#{gQNFkFkObU8.YEmiuCcgNQI}+#{gQNFkFkObU8.w3BcsdjOcfk}+#{gQNFkFkObU8.L4P9VSgHkF6}+#{gQNFkFkObU8.b19Ye0TWs1D}+#{gQNFkFkObU8.Tzg8I9KyEwd}+#{gQNFkFkObU8.PvFFIeF2J9x}+#{gQNFkFkObU8.MaXD86iob3M}",
+      "denominator": "#{h0xKKjijTdI}",
+      "id": "elTqMUTRgdk"
+    },
+    {
+      "name": "Births attended by skilled health personnel (registered live births)",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{gQNFkFkObU8.AKQ15Z2uqit}+#{gQNFkFkObU8.YEmiuCcgNQI}+#{gQNFkFkObU8.w3BcsdjOcfk}+#{gQNFkFkObU8.L4P9VSgHkF6}+#{gQNFkFkObU8.b19Ye0TWs1D}+#{gQNFkFkObU8.Tzg8I9KyEwd}+#{gQNFkFkObU8.PvFFIeF2J9x}+#{gQNFkFkObU8.MaXD86iob3M}",
+      "denominator": "#{gQNFkFkObU8.AKQ15Z2uqit}+#{gQNFkFkObU8.YEmiuCcgNQI}+#{gQNFkFkObU8.HVFCn1yjoGx}+#{gQNFkFkObU8.CYHGl18lR0W}+#{gQNFkFkObU8.w3BcsdjOcfk}+#{gQNFkFkObU8.L4P9VSgHkF6}+#{gQNFkFkObU8.b19Ye0TWs1D}+#{gQNFkFkObU8.Gmbgme7z9BF}+#{gQNFkFkObU8.Tzg8I9KyEwd}+#{gQNFkFkObU8.s3jlIgFCbUb}+#{gQNFkFkObU8.PvFFIeF2J9x}+#{gQNFkFkObU8.MaXD86iob3M}",
+      "id": "ulgL07PF8rq"
+    },
+    {
+      "name": "Births total",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{gQNFkFkObU8}+#{HZSdnO5fCUc}",
+      "denominator": "1",
+      "id": "gNAXtpqAqW2"
+    },
+    {
+      "name": "Complicated deliveries total",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{tn3p7vIxoKY}+#{FE82N2sA0YI}+#{R1WAv9bVXff}+#{ncEnqRPHFvk}",
+      "denominator": "1",
+      "id": "po1QxztD1K1"
+    },
+    {
+      "name": "Consumption vs population",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{Boy3QwztgeZ.J2Qf1jtZuj8}",
+      "denominator": "#{DTVRnCGamkV}",
+      "id": "aRabHjSGuGK"
+    },
+    {
+      "name": "Diarrhoea <5 y incidence rate (%)",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{nymNRxmnj4z}+#{ndb4fIRrQbM}",
+      "denominator": "#{DTtCy7Nx5jH}",
+      "id": "JIVMtpjVZqJ"
+    },
+    {
+      "name": "Dropout rate Penta 1 - 3",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "((#{fClA2Erf6IO.Prlt0C1RF0s}+#{fClA2Erf6IO.V6L425pT3A0})-(#{n6aMJNLdvep.Prlt0C1RF0s}+#{n6aMJNLdvep.V6L425pT3A0}))",
+      "denominator": "(#{fClA2Erf6IO.Prlt0C1RF0s}+#{fClA2Erf6IO.V6L425pT3A0})",
+      "id": "EdN7qlmI5FS"
+    },
+    {
+      "name": "Dropout rate Penta 1 - Measles",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "(#{fClA2Erf6IO.Prlt0C1RF0s}+#{fClA2Erf6IO.V6L425pT3A0})-(#{YtbsuPPo010.Prlt0C1RF0s}+#{YtbsuPPo010.V6L425pT3A0})",
+      "denominator": "(#{fClA2Erf6IO.Prlt0C1RF0s}+#{fClA2Erf6IO.V6L425pT3A0})",
+      "id": "d9thHOJMROr"
+    },
+    {
+      "name": "ER Census reports produced Result vs Target",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{w1G4l0cSxOi.*.gQhAMdimKO4}",
+      "denominator": "#{w1G4l0cSxOi.*.lTHuSO6awqE}",
+      "id": "ryFBhJdetdM"
+    },
+    {
+      "name": "ER Children trained on key survival skills Result vs Target",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{KFnFpbqDqji.*.gQhAMdimKO4}",
+      "denominator": "#{KFnFpbqDqji.*.lTHuSO6awqE}",
+      "id": "MkXHDfrFRKV"
+    },
+    {
+      "name": "ER Teacher accommodation constructed Urban Result vs Target",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{AcXiLSABIOe.IGhnY0XeHXe.gQhAMdimKO4}",
+      "denominator": "#{AcXiLSABIOe.IGhnY0XeHXe.lTHuSO6awqE}",
+      "id": "qmCKRmVj4WX"
+    },
+    {
+      "name": "ER Teachers trained Result vs Target",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{EX2jDbKe4Yq.*.gQhAMdimKO4}",
+      "denominator": "#{EX2jDbKe4Yq.*.lTHuSO6awqE}",
+      "id": "oTOpKabJA1v"
+    },
+    {
+      "name": "ER Teacher training programs designed Result vs Target",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{zFFb3bar4Ct.*.gQhAMdimKO4}",
+      "denominator": "#{zFFb3bar4Ct.*.lTHuSO6awqE}",
+      "id": "ULW9dQOiiTS"
+    },
+    {
+      "name": "ER Technical support visits Result vs Target",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{DCSDJH4IFUG.*.gQhAMdimKO4}",
+      "denominator": "#{DCSDJH4IFUG.*.lTHuSO6awqE}",
+      "id": "iug406zdfTE"
+    },
+    {
+      "name": "ER Technical support visits Rural Result vs Target",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{DCSDJH4IFUG.mPBwiaWc2sk.gQhAMdimKO4}",
+      "denominator": "#{DCSDJH4IFUG.mPBwiaWc2sk.lTHuSO6awqE}",
+      "id": "EY8gsfEomc0"
+    },
+    {
+      "name": "ER Visits in schools Rural Result vs Target",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{oI6YtDaVFcw.mPBwiaWc2sk.gQhAMdimKO4}",
+      "denominator": "#{oI6YtDaVFcw.mPBwiaWc2sk.lTHuSO6awqE}",
+      "id": "X2XfzgH4NOR"
+    },
+    {
+      "name": "Exclusive breast feeding at Penta 3",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "(#{pEOVd4Z3TAS.V6L425pT3A0}+#{pEOVd4Z3TAS.Prlt0C1RF0s})",
+      "denominator": "(#{n6aMJNLdvep.V6L425pT3A0}+#{n6aMJNLdvep.Prlt0C1RF0s})",
+      "id": "X3taFC1HtE5"
+    },
+    {
+      "name": "F100 Balance end of period",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number11",
+        "factor": 1
+      },
+      "numerator": "(#{esmkJ7oiYft.v1zZbpr1GKV} + #{esmkJ7oiYft.AuXo3xeDhM5})\n\n-\n\n(#{esmkJ7oiYft.sL2nHckg0mI}  + #{esmkJ7oiYft.QoAtX3tx6dy})",
+      "denominator": "1",
+      "id": "HCLL8qKT6eT"
+    },
+    {
+      "name": "F75 Balance end of period",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number11",
+        "factor": 1
+      },
+      "numerator": "(#{sGr5yQ2bWol.v1zZbpr1GKV}  + #{sGr5yQ2bWol.AuXo3xeDhM5})\n\n - \n\n(#{sGr5yQ2bWol.sL2nHckg0mI} + #{sGr5yQ2bWol.QoAtX3tx6dy})",
+      "denominator": "1",
+      "id": "WXma1uOV8ac"
+    },
+    {
+      "name": "FIC <1y",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{UOlfIjgN8X6.Prlt0C1RF0s}+#{UOlfIjgN8X6.V6L425pT3A0}",
+      "denominator": "#{DTVRnCGamkV}",
+      "id": "eTDtyyaSA7f"
+    },
+    {
+      "name": "FIC <1y - Adjusted for reporting",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "(#{UOlfIjgN8X6.Prlt0C1RF0s}+#{UOlfIjgN8X6.V6L425pT3A0})*(#{BfMAe6Itzgt.REPORTING_RATE}/100)",
+      "denominator": "#{DTVRnCGamkV}",
+      "id": "IT8EAeFRAat"
+    },
+    {
+      "name": "HIV: testing and counseling 15-24y",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{R4KStuS8qt7.u5fU9rr67xo} + #{o0fOD1HLuv8.u5fU9rr67xo}",
+      "denominator": "1",
+      "id": "sMTMkudvLCD"
+    },
+    {
+      "name": "HIV: testing and counseling <15y",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{R4KStuS8qt7.YBhrfw1dP2J} + #{o0fOD1HLuv8.YBhrfw1dP2J}",
+      "denominator": "1",
+      "id": "lI5Q5vkydYu"
+    },
+    {
+      "name": "HIV: testing and counseling 25-49y",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{R4KStuS8qt7.LbkJRbDblhe} + #{o0fOD1HLuv8.LbkJRbDblhe}",
+      "denominator": "1",
+      "id": "lOiynlltFdy"
+    },
+    {
+      "name": "HIV: testing and counseling >49y",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{R4KStuS8qt7.z858fbdqWwF} + #{o0fOD1HLuv8.z858fbdqWwF}",
+      "denominator": "1",
+      "id": "btgZ1oeF9pJ"
+    },
+    {
+      "name": "Inpatient cases per 10 000 population",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per ten thousand",
+        "factor": 10000
+      },
+      "numerator": "I{luLGbE2WKGP}",
+      "denominator": "#{WUg3MYWQ7pt}",
+      "id": "gKv1pdjF3wM"
+    },
+    {
+      "name": "Inpatient cases under 5 y per 100 00 population",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per ten thousand",
+        "factor": 10000
+      },
+      "numerator": "I{vDdRoZYybP2}",
+      "denominator": "#{DTtCy7Nx5jH}",
+      "id": "TwdhB9Db4Po"
+    },
+    {
+      "name": "Inpatient visits per 10 000 people",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per ten thousand",
+        "factor": 10000
+      },
+      "numerator": "I{luLGbE2WKGP}",
+      "denominator": "#{WUg3MYWQ7pt}",
+      "id": "zkukIvlFlhy"
+    },
+    {
+      "name": "IPT doses total",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{bqK6eSIwo3h}+#{yTHydhurQQU}+#{V37YqbqpEhV}+#{SA7WeFZnUci}",
+      "denominator": "1",
+      "id": "W7MxOZjZ1VC"
+    },
+    {
+      "name": "Live births in the community",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{gQNFkFkObU8.b19Ye0TWs1D}+#{gQNFkFkObU8.MaXD86iob3M}+#{gQNFkFkObU8.AKQ15Z2uqit}+#{gQNFkFkObU8.w3BcsdjOcfk}+#{gQNFkFkObU8.CYHGl18lR0W}+#{gQNFkFkObU8.HVFCn1yjoGx}",
+      "denominator": "1",
+      "id": "RdkKj1rVp8R"
+    },
+    {
+      "name": "Live births in the PHU",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Number (Factor 1)",
+        "factor": 1
+      },
+      "numerator": "#{gQNFkFkObU8.L4P9VSgHkF6}+#{gQNFkFkObU8.YEmiuCcgNQI}+#{gQNFkFkObU8.Tzg8I9KyEwd}+#{gQNFkFkObU8.PvFFIeF2J9x}+#{gQNFkFkObU8.Gmbgme7z9BF}+#{gQNFkFkObU8.s3jlIgFCbUb}",
+      "denominator": "1",
+      "id": "Rigf2d2Zbjp"
+    },
+    {
+      "name": "Maternal death rate by registered live births",
+      "annualized": false,
+      "indicatorType": {
+        "name": "Per hundred thousand",
+        "factor": 100000
+      },
+      "numerator": "#{FUrCpcvMAmC}",
+      "denominator": "#{gQNFkFkObU8.AKQ15Z2uqit}+#{gQNFkFkObU8.YEmiuCcgNQI}+#{gQNFkFkObU8.HVFCn1yjoGx}+#{gQNFkFkObU8.CYHGl18lR0W}+#{gQNFkFkObU8.w3BcsdjOcfk}+#{gQNFkFkObU8.L4P9VSgHkF6}+#{gQNFkFkObU8.b19Ye0TWs1D}+#{gQNFkFkObU8.Gmbgme7z9BF}+#{gQNFkFkObU8.Tzg8I9KyEwd}+#{gQNFkFkObU8.s3jlIgFCbUb}+#{gQNFkFkObU8.PvFFIeF2J9x}+#{gQNFkFkObU8.MaXD86iob3M}",
+      "id": "tcs5YGnjiKo"
+    },
+    {
+      "name": "Measles Coverage <1y",
+      "annualized": true,
+      "indicatorType": {
+        "name": "Per cent",
+        "factor": 100
+      },
+      "numerator": "#{YtbsuPPo010.Prlt0C1RF0s}+#{YtbsuPPo010.V6L425pT3A0}",
+      "denominator": "#{DTVRnCGamkV}",
+      "id": "FbKK4ofIv5R"
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "organisationUnitGroups": [
+    {
+      "name": "CHC",
+      "shortName": "CHC",
+      "groupSets": [
+        {
+          "name": "Facility Type",
+          "id": "J5jldMd8OHv"
+        }
+      ],
+      "id": "CXw2yu5fodb",
+      "members": 194
+    },
+    {
+      "name": "Chiefdom",
+      "shortName": "Chiefdom",
+      "groupSets": [],
+      "id": "gzcv65VyaGq",
+      "members": 152
+    },
+    {
+      "name": "CHP",
+      "shortName": "CHP",
+      "groupSets": [
+        {
+          "name": "Facility Type",
+          "id": "J5jldMd8OHv"
+        }
+      ],
+      "id": "uYxK4wmcPqA",
+      "members": 223
+    },
+    {
+      "name": "Clinic",
+      "shortName": "Clinic",
+      "groupSets": [
+        {
+          "name": "Facility Type",
+          "id": "J5jldMd8OHv"
+        }
+      ],
+      "id": "RXL3lPSK8oG",
+      "members": 51
+    },
+    {
+      "name": "Country",
+      "shortName": "Country",
+      "groupSets": [],
+      "id": "RpbiCJpIYEj",
+      "members": 1
+    },
+    {
+      "name": "District",
+      "shortName": "District",
+      "groupSets": [],
+      "id": "w1Atoz18PCL",
+      "members": 13
+    },
+    {
+      "name": "Eastern Area",
+      "shortName": "Eastern Area",
+      "groupSets": [
+        {
+          "name": "Area",
+          "id": "uIuxlbV1vRT"
+        }
+      ],
+      "id": "nlX2VoouN63",
+      "members": 3
+    },
+    {
+      "name": "Hospital",
+      "shortName": "Hospital",
+      "groupSets": [
+        {
+          "name": "Facility Type",
+          "id": "J5jldMd8OHv"
+        }
+      ],
+      "id": "tDZVQ1WtwpA",
+      "members": 34
+    },
+    {
+      "name": "MCHP",
+      "shortName": "MCHP",
+      "groupSets": [
+        {
+          "name": "Facility Type",
+          "id": "J5jldMd8OHv"
+        }
+      ],
+      "id": "EYbopBOJWsW",
+      "members": 594
+    },
+    {
+      "name": "Mission",
+      "shortName": "Mission",
+      "groupSets": [
+        {
+          "name": "Facility Ownership",
+          "id": "Bpx0589u8y0"
+        }
+      ],
+      "id": "w0gFTTmsUcF",
+      "members": 6
+    },
+    {
+      "name": "NGO",
+      "shortName": "NGO",
+      "groupSets": [
+        {
+          "name": "Facility Ownership",
+          "id": "Bpx0589u8y0"
+        }
+      ],
+      "id": "PVLOW4bCshG",
+      "members": 3
+    },
+    {
+      "name": "Northern Area",
+      "shortName": "Northern Area",
+      "groupSets": [
+        {
+          "name": "Area",
+          "id": "uIuxlbV1vRT"
+        }
+      ],
+      "id": "J40PpdN4Wkk",
+      "members": 4
+    },
+    {
+      "name": "Private Clinic",
+      "shortName": "Private Clinic",
+      "groupSets": [
+        {
+          "name": "Facility Ownership",
+          "id": "Bpx0589u8y0"
+        }
+      ],
+      "id": "MAs88nJc9nL",
+      "members": 11
+    },
+    {
+      "name": "Public facilities",
+      "shortName": "Public facilities",
+      "groupSets": [
+        {
+          "name": "Facility Ownership",
+          "id": "Bpx0589u8y0"
+        }
+      ],
+      "id": "oRVt7g429ZO",
+      "members": 1097
+    },
+    {
+      "name": "Rural",
+      "shortName": "Rural",
+      "groupSets": [
+        {
+          "name": "Location Rural/Urban",
+          "id": "Cbuj0VCyDjL"
+        }
+      ],
+      "id": "GGghZsfu7qV",
+      "members": 432
+    },
+    {
+      "name": "Southern Area",
+      "shortName": "Southern Area",
+      "groupSets": [
+        {
+          "name": "Area",
+          "id": "uIuxlbV1vRT"
+        }
+      ],
+      "id": "jqBqIXoXpfy",
+      "members": 3
+    },
+    {
+      "name": "Urban",
+      "shortName": "Urban",
+      "groupSets": [
+        {
+          "name": "Location Rural/Urban",
+          "id": "Cbuj0VCyDjL"
+        }
+      ],
+      "id": "f25dqv3Y7Z0",
+      "members": 868
+    },
+    {
+      "name": "Western Area",
+      "shortName": "Western Area",
+      "groupSets": [
+        {
+          "name": "Area",
+          "id": "uIuxlbV1vRT"
+        }
+      ],
+      "id": "b0EsAxm8Nge",
+      "members": 3
+    }
+  ]
+}

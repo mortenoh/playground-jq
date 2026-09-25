@@ -1,0 +1,1741 @@
+{
+  "pager": {
+    "page": 1,
+    "total": 132,
+    "pageSize": 30,
+    "nextPage": "https://play.im.dhis2.org/dev-2-43/api/users?page=2&pageSize=30&fields=id%2Cusername%2CfirstName%2Csurname%2Cdisabled%2ClastLogin%2CuserRoles%5Bname%5D%2CuserGroups%5Bname%5D%2CorganisationUnits%5Bid%2Cname%5D",
+    "pageCount": 5
+  },
+  "users": [
+    {
+      "username": "traore",
+      "lastLogin": "2013-12-30T17:16:43.235",
+      "disabled": false,
+      "surname": "Traore",
+      "firstName": "Alain",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "oXD88WWSQpR",
+      "userRoles": [
+        {
+          "name": "Superuser"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "Partner for Health International"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "World Health Program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        }
+      ]
+    },
+    {
+      "username": "alinana",
+      "disabled": false,
+      "surname": "Nana",
+      "firstName": "Ali",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "gEnZri18JsV",
+      "userRoles": [
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "Family Health Partner"
+        },
+        {
+          "name": "Cape Town University Research Group"
+        }
+      ]
+    },
+    {
+      "username": "arabicB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "Arabic",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "Rq9TNYOyS6a",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "arabiceB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "ArabicE",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "IC1o0DI2iWu",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "arabice",
+      "disabled": false,
+      "surname": "Egypt",
+      "firstName": "ArabicE",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "FVsLhslRbTK",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "arabiceS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "ArabicE",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "akw4ilMLc24",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    },
+    {
+      "username": "arabiciB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "ArabicI",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "G2ysGXpcZWr",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "arabici",
+      "disabled": false,
+      "surname": "Iraq",
+      "firstName": "ArabicI",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "NG6JReWSInT",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "arabiciS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "ArabicI",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "iswBgC3ROmB",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    },
+    {
+      "username": "arabicsB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "ArabicS",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "EGwENMFCpbm",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "arabics",
+      "disabled": false,
+      "surname": "Sudan",
+      "firstName": "ArabicS",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "DdfFqqZkBhd",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "arabicsS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "ArabicS",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "EyUuSlSe50U",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    },
+    {
+      "username": "arabicS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "Arabic",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "OSWYhAwJqiC",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    },
+    {
+      "username": "arabic",
+      "disabled": false,
+      "surname": "UAE",
+      "firstName": "Arabic",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "OF1mSOFpygN",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "bengali",
+      "disabled": false,
+      "surname": "Bangladesh",
+      "firstName": "Bengali",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "wQ1F32Aa9Ug",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "bengaliB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "Bengali",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "nFNQNgrbTED",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "bengaliS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "Bengali",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "wQTgefEcyTG",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    },
+    {
+      "username": "bislamaB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "Bislama",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "DLjZWMsVsq2",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "bislamaS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "Bislama",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "C6fqFRbKe6r",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    },
+    {
+      "username": "bislama",
+      "disabled": false,
+      "surname": "Vanuatu",
+      "firstName": "Bislama",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "JyMUTHHxh3B",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "bombali",
+      "lastLogin": "2014-09-28T23:19:34.514",
+      "disabled": false,
+      "surname": "District",
+      "firstName": "Bombali",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "NOOF56dveaZ",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "burmeseB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "Burmese",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "WYDN4b4yRlg",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "burmese",
+      "disabled": false,
+      "surname": "Myanmar",
+      "firstName": "Burmese",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "T4AwvxjfaFy",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "burmeseS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "Burmese",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "rIouAxmW0vD",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    },
+    {
+      "username": "chinese",
+      "disabled": false,
+      "surname": "Asia",
+      "firstName": "Chinese",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "yarlPr6DsOF",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "chineseB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "Chinese",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "rH2032EPFvr",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "chinesecB",
+      "disabled": false,
+      "surname": "Bombali",
+      "firstName": "ChineseC",
+      "organisationUnits": [
+        {
+          "name": "Bombali",
+          "id": "fdc6uOvgoji"
+        }
+      ],
+      "id": "SpuKahMLsAr",
+      "userRoles": [
+        {
+          "name": "M and E Officer"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_DATASET_M and E Officer"
+        }
+      ]
+    },
+    {
+      "username": "chinesec",
+      "disabled": false,
+      "surname": "China",
+      "firstName": "ChineseC",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "t6ijJxbHBCa",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_TB program"
+        },
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "_PROGRAM_Inpatient program"
+        },
+        {
+          "name": "_DATASET_Superuser"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Malaria program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_DATASET_M and E Officer"
+        },
+        {
+          "name": "_DATASET_Child Health Program Manager"
+        },
+        {
+          "name": "_PROGRAM_MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "_PROGRAM_WHO MCH program"
+        },
+        {
+          "name": "_PROGRAM_Superuser"
+        },
+        {
+          "name": "_DATASET_Data entry clerk"
+        },
+        {
+          "name": "_PROGRAM_Child Health Tracker"
+        }
+      ]
+    },
+    {
+      "username": "chinesecS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "ChineseC",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "xbAzaTwEGx0",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    },
+    {
+      "username": "chineseS",
+      "disabled": false,
+      "surname": "Super",
+      "firstName": "Chinese",
+      "organisationUnits": [
+        {
+          "name": "Sierra Leone",
+          "id": "ImspTQPwCqd"
+        }
+      ],
+      "id": "ITrQQlJqbaE",
+      "userRoles": [
+        {
+          "name": "Antenatal care program"
+        },
+        {
+          "name": "Superuser"
+        },
+        {
+          "name": "Data entry clerk"
+        },
+        {
+          "name": "TB program"
+        },
+        {
+          "name": "MNCH / PNC (Adult Woman) program"
+        },
+        {
+          "name": "Child Health Tracker"
+        },
+        {
+          "name": "Child Health Program Manager"
+        },
+        {
+          "name": "WHO MCH program"
+        },
+        {
+          "name": "Inpatient program"
+        },
+        {
+          "name": "System administrator (ALL)"
+        },
+        {
+          "name": "M and E Officer"
+        },
+        {
+          "name": "Facility tracker"
+        },
+        {
+          "name": "User manager"
+        },
+        {
+          "name": "Guest"
+        }
+      ],
+      "userGroups": [
+        {
+          "name": "_PROGRAM_Antenatal care program"
+        },
+        {
+          "name": "Africare HQ"
+        },
+        {
+          "name": "_PROGRAM_System administrator (ALL)"
+        },
+        {
+          "name": "Administrators"
+        },
+        {
+          "name": "Feedback Message Recipients"
+        },
+        {
+          "name": "EPI Stock Completeness Notification Recipients"
+        },
+        {
+          "name": "System administrators"
+        },
+        {
+          "name": "Wakiki"
+        },
+        {
+          "name": "_DATASET_System administrator (ALL)"
+        },
+        {
+          "name": "Malaria program"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "args": {},
+  "data": "",
+  "files": {},
+  "form": {
+    "username": "ada",
+    "plan": "pro",
+    "newsletter": "yes"
+  },
+  "headers": {
+    "host": "postman-echo.com",
+    "x-forwarded-proto": "https",
+    "accept": "*/*",
+    "content-type": "application/x-www-form-urlencoded",
+    "user-agent": "playground-jq",
+    "content-length": "36",
+    "accept-encoding": "gzip, br"
+  },
+  "json": {
+    "username": "ada",
+    "plan": "pro",
+    "newsletter": "yes"
+  },
+  "url": "https://postman-echo.com/post"
+}

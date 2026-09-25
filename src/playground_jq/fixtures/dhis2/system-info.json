@@ -1,0 +1,36 @@
+{
+  "contextPath": "https://play.im.dhis2.org/dev-2-43",
+  "userAgent": "python-httpx2/2.13.1",
+  "calendar": "iso8601",
+  "dateFormat": "yyyy-mm-dd",
+  "serverDate": "2026-09-25T21:49:54.880",
+  "serverTimeZoneId": "Etc/UTC",
+  "sessionTimeout": 3600,
+  "serverTimeZoneDisplayName": "Coordinated Universal Time",
+  "lastAnalyticsTableSuccess": "2026-08-05T10:45:00.115",
+  "intervalSinceLastAnalyticsTableSuccess": "1235 h, 4 m, 54 s",
+  "lastAnalyticsTableRuntime": "00:44:04.141",
+  "lastSystemMonitoringSuccess": "2019-03-26T17:07:15.418",
+  "lastAnalyticsTablePartitionSuccess": "1970-01-01T00:00:00.000",
+  "intervalSinceLastAnalyticsTablePartitionSuccess": "497325 h, 49 m, 54 s",
+  "lastAnalyticsTablePartitionRuntime": "",
+  "databaseInfo": {
+    "spatialSupport": true,
+    "time": "2026-09-25T21:49:54.880"
+  },
+  "capability": {
+    "analyticsTotalCounts": false
+  },
+  "version": "2.43.3-SNAPSHOT",
+  "revision": "d6b645f",
+  "buildTime": "2026-09-24T12:22:19.000",
+  "encryption": false,
+  "emailConfigured": false,
+  "redisEnabled": false,
+  "systemId": "eed3d451-4ff5-4193-b951-ffcc68954299",
+  "systemName": "DHIS 2 Demo - Sierra Leone",
+  "systemMetadataVersion": "",
+  "instanceBaseUrl": "https://play.im.dhis2.org/",
+  "isMetadataVersionEnabled": true,
+  "lastMetadataVersionSyncAttempt": "1970-01-01T00:00:00.000"
+}
