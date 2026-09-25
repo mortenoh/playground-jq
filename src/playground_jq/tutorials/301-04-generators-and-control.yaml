@@ -30,7 +30,7 @@ steps:
     body: |
       `limit(n; f)` emits at most `n` outputs of `f` and then stops evaluating
       `f`. Combined with `select` it answers "the first few that match".
-    task: 'Collect the first three numbers greater than 5, in input order.'
+    task: 'Collect the first three numbers greater than 5, in input order, into one array.'
     hints:
       - 'The matching numbers are `.numbers[] | select(. > 5)`.'
       - 'Wrap that generator in `limit(3; ...)`.'
@@ -64,7 +64,7 @@ steps:
       `skip(n; f)` drops the first `n` outputs of `f` and emits the rest. With
       `limit` it pages through any generator: skip `(page - 1) * size`
       outputs, then take `size`.
-    task: 'Collect page `.page` of `.words`, with `.size` words per page (pages count from 1).'
+    task: 'Collect page `.page` of `.words`, with `.size` words per page (pages count from 1), into one array.'
     hints:
       - 'The number to skip is `(.page - 1) * .size`.'
       - '`skip(N; .words[])` emits the words after the first N.'
@@ -82,7 +82,7 @@ steps:
       on for as long as `f` produces output. With `f` = `. * 2` that is
       forever. An infinite generator is safe as long as something stops
       asking for more, and `limit` is that something.
-    task: 'Collect the first six powers of two, starting with 1.'
+    task: 'Collect the first six powers of two, starting with 1, into one array.'
     hints:
       - '`1 | recurse(. * 2)` emits 1, 2, 4, 8, ... without end.'
       - 'Take six of them with `limit`.'
@@ -102,7 +102,7 @@ steps:
 
       The Collatz sequence halves an even number and maps an odd number `n`
       to `3n + 1`, until it reaches 1.
-    task: 'Collect the Collatz sequence that starts at `.start`, ending with 1.'
+    task: 'Collect the Collatz sequence that starts at `.start`, ending with 1, into one array.'
     hints:
       - 'The step: `if . % 2 == 0 then . / 2 else 3 * . + 1 end`.'
       - 'Stop at 1 by producing nothing: `if . == 1 then empty elif ...`.'
@@ -136,7 +136,7 @@ steps:
       `label $name | expr` marks a place; `break $name` inside `expr` stops the
       whole generator at once, as if it had run out. It is the only way to end
       a stream early based on the values themselves, not on a count.
-    task: 'Collect the words from the start of `.words` up to, but not including, the first word longer than five characters.'
+    task: 'Collect the words from the start of `.words` up to, but not including, the first word longer than five characters, into one array.'
     hints:
       - 'Emit each word unless it is too long: `if length > 5 then break $stop else . end`.'
       - 'The label goes before the generator: `label $stop | .words[] | ...`.'

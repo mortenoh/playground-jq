@@ -157,7 +157,9 @@ examples:
       elements reported anywhere in the district serve as the expected list; subtracting each
       facility's reported elements from it gives the gaps. Of the 24 x 28 = 672 possible
       facility and element pairs, 532 have at least one value. `vELbGdEphPd` left 13 elements
-      empty.
+      empty. The method only sees facilities that sent something: Bo has 125 facilities (count
+      the chiefdoms' children in `dhis2:org-unit-tree`), and the 101 that reported nothing this
+      month have no rows at all, so they need the org unit list, not the data, to be found.
     program: '(.dataValues | map(.dataElement) | unique) as $all | .dataValues | group_by(.orgUnit) | map({orgUnit: .[0].orgUnit, missing: ($all - map(.dataElement) | length)}) | sort_by(-.missing, .orgUnit) | .[:5]'
     input: {ref: dhis2:data-value-set-bo-children}
     manual: [https://jqlang.org/manual/v1.8/#unique-unique_by]
@@ -211,11 +213,12 @@ examples:
     level: 201
     tags: [data-values, group_by, add]
     explanation: |
-      `s46m5MS0hxu` is the data element the BCG coverage indicator counts. Its values in Bo are
+      `s46m5MS0hxu` is the data element the BCG coverage indicators count. Its values in Bo are
       split over the four category option combos of "Location and age group"; totals per combo
       show how the district total of 1149 is made up. `Prlt0C1RF0s` is "Fixed, <1y", the
       largest part, and `V6L425pT3A0` is "Outreach, <1y" (the names are in
-      `dhis2:category-combos`).
+      `dhis2:category-combos`). The "BCG Coverage <1y" numerator in `dhis2:indicators` names
+      exactly these two combos, so it counts 883 of the 1149 doses, not the element total.
     program: '[.dataValues[] | select(.dataElement == "s46m5MS0hxu")] | group_by(.categoryOptionCombo) | map({categoryOptionCombo: .[0].categoryOptionCombo, total: (map(.value | tonumber) | add)}) | {combos: ., total: (map(.total) | add)}'
     input: {ref: dhis2:data-value-set-bo-children}
     manual: [https://jqlang.org/manual/v1.8/#group_by]
@@ -243,8 +246,9 @@ examples:
     tags: [analytics, join, metadata]
     explanation: |
       Rows contain ids; `metaData.items` maps every id (data, org units, periods) to a display
-      name. Looking each id up turns a row into a readable record. Analytics sends values such
-      as `"1204.0"`; they are whole counts, so `tonumber | round` makes them integers.
+      name. Looking each id up turns a row into a readable record. The values in this response
+      are strings such as `"1204.0"`; they are whole counts, so `tonumber | round` makes them
+      integers.
     program: '.metaData.items as $i | .rows[:4] | map({data: $i[.[0]].name, orgUnit: $i[.[1]].name, period: $i[.[2]].name, value: (.[3] | tonumber | round)})'
     input: {ref: static:analytics-response}
     manual: [https://jqlang.org/manual/v1.8/#tonumber, https://jqlang.org/manual/v1.8/#math]

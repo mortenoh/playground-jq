@@ -29,9 +29,14 @@ steps:
   - title: Which pods need attention
     body: |
       A healthy pod is `Running`, or `Succeeded` for a finished job. Anything
-      else (`Pending`, `CrashLoopBackOff`, `Failed`) needs a look. `IN(...)`
-      tests a value against a list of alternatives.
-    task: 'Collect the names of the pods whose phase is neither `Running` nor `Succeeded`.'
+      else (`Pending`, `Failed`, `Unknown`) needs a look. `IN(...)` tests a
+      value against a list of alternatives.
+
+      This sample simplifies one thing: it puts `CrashLoopBackOff` in the
+      phase. A real cluster reports that as a container's waiting reason
+      (`.status.containerStatuses[].state.waiting.reason`) while the pod's
+      phase stays `Running`, so a real report checks both.
+    task: 'Collect the names of the pods whose phase is neither `Running` nor `Succeeded` into one array, in list order.'
     hints:
       - 'Test the phase with `.status.phase | IN("Running", "Succeeded")`.'
       - 'Negate it with `| not` inside `select`.'
@@ -121,7 +126,7 @@ steps:
       `.spec.nodeName` is `null` for a pod the scheduler has not placed yet.
       `group_by` sorts `null` before every string, so the unscheduled pods
       form the first group, and `//` gives that group a readable name.
-    task: 'Output an array of `{node, pods}` objects, one per node, with `pods` the list of pod names on it, and `"unscheduled"` as the node for pods without one.'
+    task: 'Output an array of `{node, pods}` objects, one per node, with `pods` the list of pod names on it, and `"unscheduled"` as the node for pods without one. Keep the order `group_by` gives: the unscheduled group first, then the nodes by name.'
     hints:
       - '`.items | group_by(.spec.nodeName)`'
       - 'For each group: `{node: (.[0].spec.nodeName // "unscheduled"), pods: map(.metadata.name)}`.'

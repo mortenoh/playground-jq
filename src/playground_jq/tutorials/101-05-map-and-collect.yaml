@@ -43,8 +43,10 @@ steps:
       - '`.store.books | map(.price)`'
     solution: .store.books | map(.price)
     why: |
-      `map(.price)` applies `.price` to each book and keeps the results in order. Prices such as
-      `24.0` print as `24`, because jq stores numbers without a notion of trailing zeros.
+      `map(.price)` applies `.price` to each book and keeps the results in order. The file
+      writes one price as `24.0`; the playground prints it as `24`, while jq 1.8 on the command
+      line keeps the original spelling `24.0` for a number it passes through unchanged. Either
+      way it is the same number, and `24.0 == 24` is `true`.
 
       Variation: `[.store.books[].price]` gives exactly the same array.
     expected: [[8.5, 24, 6.25, 31.9, 19.99, 14.5, 22, 27.75]]

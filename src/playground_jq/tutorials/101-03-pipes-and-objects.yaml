@@ -80,7 +80,7 @@ steps:
       ```
 
       outputs three objects, each with just `name` and `since`.
-    task: 'For every book, output an object with only its `title` and `price`, in that order.'
+    task: 'For every book, output an object with only its `title` and `price`, in that order, as one output per book (not an array).'
     hints:
       - Iterate the books and pipe each into an object.
       - Use the shorthand for both keys.
@@ -101,7 +101,7 @@ steps:
       ```
 
       outputs `{"book": "Learning jq", "by": "Ada Filter"}`.
-    task: 'For every staff member, output an object with the key `person` (their name) and the key `joined` (their `since` year), in that order.'
+    task: 'For every staff member, output an object with the key `person` (their name) and the key `joined` (their `since` year), in that order, as one output per person.'
     hints:
       - Iterate `.store.staff` and pipe into an object.
       - The values are `.name` and `.since`.
@@ -123,7 +123,7 @@ steps:
       ```
 
       outputs `{"title": "Learning jq", "older": false}`.
-    task: 'For every book, output an object with its `title` and the key `available`, which is `true` when `inStock` is greater than 0 and `false` otherwise.'
+    task: 'For every book, output an object with its `title` and the key `available`, which is `true` when `inStock` is greater than 0 and `false` otherwise, as one output per book in shelf order.'
     hints:
       - Compare `.inStock > 0`; the comparison gives `true` or `false`.
       - Wrap the comparison in parentheses as the value of `available`.
@@ -144,7 +144,7 @@ steps:
       ```
 
       outputs `"Ingrid is the owner"`.
-    task: 'For every book, output a string of the form `TITLE by AUTHOR`, for example `"Learning jq by Ada Filter"`.'
+    task: 'For every book, output a string of the form `TITLE by AUTHOR`, for example `"Learning jq by Ada Filter"`, one output per book in shelf order.'
     hints:
       - Iterate the books and pipe each into a string.
       - Use `\(.title)` and `\(.author)` inside the string.
