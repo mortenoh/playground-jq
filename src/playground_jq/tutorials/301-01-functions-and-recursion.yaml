@@ -26,10 +26,7 @@ steps:
       A definition is only a name for a filter. `.children[] | caption` produces
       three nodes and `caption` runs once for each, so you get three strings. A
       function has no special input: `.` inside it is whatever flows into it.
-    expected:
-    - '1: Books'
-    - '6: Music'
-    - '10: Games'
+    expected: ["1: Books", "6: Music", "10: Games"]
   - title: Filter parameters
     body: |
       A parameter written without `$` is a *filter* parameter: the caller passes
@@ -50,8 +47,7 @@ steps:
       folds over each output. The tree holds 11 nodes, ids 0 to 10. The builtin
       way to write the same thing is `[.. | objects] | length`, which builds an
       array first; the `reduce` version never holds more than a number.
-    expected:
-    - 11
+    expected: [11]
   - title: A function that calls itself
     body: |
       A function may call itself. Recursion needs a base case that stops it:
@@ -69,8 +65,7 @@ steps:
       works on a smaller subtree, and leaves return without recursing, so the
       recursion always ends. `[.children[] | depth] | max` is the usual way to
       combine the answers of a generator.
-    expected:
-    - 4
+    expected: [4]
   - title: Value parameters carry state down
     body: |
       A `$name` parameter is a *value* parameter: it is evaluated once, before
@@ -91,17 +86,7 @@ steps:
       list on. The output is in pre-order (a node, then everything below it),
       because the node's own breadcrumb comes before the comma and the
       recursive call after it.
-    expected:
-    - Books
-    - Books > Programming
-    - Books > Programming > jq
-    - Books > Programming > Python
-    - Books > Fiction
-    - Music
-    - Music > Jazz
-    - Music > Jazz > Bebop
-    - Music > Folk
-    - Games
+    expected: ["Books", "Books > Programming", "Books > Programming > jq", "Books > Programming > Python", "Books > Fiction", "Music", "Music > Jazz", "Music > Jazz > Bebop", "Music > Folk", "Games"]
   - title: Collect the leaves
     body: |
       A recursive generator can also *skip* nodes: emit something only in the
@@ -117,13 +102,7 @@ steps:
     why: |
       Every call either emits one name or delegates to its children, never both.
       Six nodes have an empty `children` array, from `jq` to `Games`.
-    expected:
-    - - jq
-      - Python
-      - Fiction
-      - Bebop
-      - Folk
-      - Games
+    expected: [["jq", "Python", "Fiction", "Bebop", "Folk", "Games"]]
   - title: The builtin recurse
     body: |
       Many recursive functions are a walk down one field. `recurse(f)` does that
@@ -142,13 +121,7 @@ steps:
       a recursive function with an inner helper. Reach for `def` when the walk
       needs state (like the breadcrumbs) or a result built from the children
       (like the depth); `recurse` is enough when you only visit.
-    expected:
-    - - jq
-      - Python
-      - Fiction
-      - Bebop
-      - Folk
-      - Games
+    expected: [["jq", "Python", "Fiction", "Bebop", "Folk", "Games"]]
   - title: Build a new tree
     body: |
       A recursive function can return a new structure built from its children's
@@ -165,18 +138,7 @@ steps:
       Each call returns a one-key object; the parent merges its children's
       objects with `add`. This is the shape many configuration formats use,
       and it drops the `id`s you did not ask for.
-    expected:
-    - root:
-        Books:
-          Programming:
-            jq: null
-            Python: null
-          Fiction: null
-        Music:
-          Jazz:
-            Bebop: null
-          Folk: null
-        Games: null
+    expected: [{"root": {"Books": {"Programming": {"jq": null, "Python": null}, "Fiction": null}, "Music": {"Jazz": {"Bebop": null}, "Folk": null}, "Games": null}}]
   - title: Search and return the path
     body: |
       The last pattern combines everything: a recursive search that returns
@@ -197,8 +159,4 @@ steps:
       Leaves that do not match have no children, so `.children[]` produces
       nothing and the branch dies out quietly. Only the chain that ends at
       Bebop (id 8) emits, and each level adds its own name on the way back up.
-    expected:
-    - - root
-      - Music
-      - Jazz
-      - Bebop
+    expected: [["root", "Music", "Jazz", "Bebop"]]

@@ -110,6 +110,8 @@ def run_command(
     compact: Annotated[bool, typer.Option("--compact-output", "-c")] = False,
     sort_keys: Annotated[bool, typer.Option("--sort-keys", "-S")] = False,
     engine: Annotated[str, typer.Option(help="auto, library or cli.")] = "auto",
+    arg: Annotated[list[str] | None, typer.Option("--arg", help="name=value, a string variable $name.")] = None,
+    argjson: Annotated[list[str] | None, typer.Option("--argjson", help="name=json, a JSON variable $name.")] = None,
 ) -> None:
     """Run a program the way the playground does: over stdin, a file, or a source preset."""
     from playground_jq.sources.registry import InputRef
@@ -125,6 +127,8 @@ def run_command(
             "compact": compact,
             "sort_keys": sort_keys,
             "engine": engine,
+            "args": dict(item.split("=", 1) for item in arg or []),
+            "argjson": {name: json.loads(value) for name, value in (item.split("=", 1) for item in argjson or [])},
         }
     )
 

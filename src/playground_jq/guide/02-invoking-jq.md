@@ -175,7 +175,7 @@ program: '.'
 input: '{"b": 2, "a": {"z": 1, "y": 2}}'
 options: {sort_keys: true}
 caption: The keys come out sorted at every level.
-expected: [{"a": {"y": 2, "z": 1}, "b": 2}]
+expected: [{"b": 2, "a": {"z": 1, "y": 2}}]
 ```
 
 ## -a: ASCII output

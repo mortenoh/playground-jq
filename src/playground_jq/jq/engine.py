@@ -19,6 +19,9 @@ from playground_jq.sources.geojson import is_geojson
 CLI_ONLY = re.compile(r"(?<![\w$.])(input|inputs|input_filename|input_line_number|debug|stderr|halt|halt_error)\b")
 
 
+#: String literals, blanked before looking for builtin names so words inside strings do not count.
+STRING_LITERAL = re.compile(r'"(?:\\.|[^"\\])*"')
+
 #: An integer literal longer than a double holds exactly; jq 1.8 keeps it, jq.py rounds it.
 BIG_INTEGER = re.compile(r"(?<![\d.])\d{16,}(?![\d.])")
 
@@ -29,7 +32,8 @@ def needs_cli(program: str, options: RunOptions, input_text: str = "") -> bool:
     `--seq` changes how input is read as well as how output is written, so it runs where jq
     implements both; large integer literals keep their precision only in jq itself.
     """
-    if options.stream or options.seq or CLI_ONLY.search(program):
+    code = STRING_LITERAL.sub('""', program)
+    if options.stream or options.seq or CLI_ONLY.search(code):
         return True
     return bool(BIG_INTEGER.search(program) or BIG_INTEGER.search(input_text))
 

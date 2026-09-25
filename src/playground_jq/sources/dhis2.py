@@ -183,7 +183,7 @@ PRESETS: list[tuple[Preset, Dhis2Request]] = [
     _preset(
         "data-value-set",
         "Data value set (one facility, one month)",
-        "Reproductive health values for one facility for January 2025, one row per data element and option combo.",
+        "Child Health values for one facility for January 2025, one row per data element and option combo.",
         "/api/dataValueSets",
         {"dataSet": "BfMAe6Itzgt", "period": "202501", "orgUnit": "DiszpKrYNg8"},
         "data",
@@ -191,7 +191,7 @@ PRESETS: list[tuple[Preset, Dhis2Request]] = [
     _preset(
         "data-value-set-bo-children",
         "Data values across Bo facilities",
-        "One month of one data set across every facility in the Bo district, for aggregating with jq.",
+        "One month of the Child Health data set across every facility in the Bo district, for aggregating with jq.",
         "/api/dataValueSets",
         {"dataSet": "BfMAe6Itzgt", "period": "202501", "orgUnit": "O6uvpzGd5pu", "children": True},
         "data",
@@ -349,7 +349,12 @@ class Dhis2Source:
             params = {
                 key: (str(value).lower() if isinstance(value, bool) else value) for key, value in request.params.items()
             }
-            body: JsonValue = await client.get_raw(request.path, params=params)
+            # The response body as the API sends it: dhis2w's get_raw wraps a top-level array
+            # (geoFeatures, for one) in {"data": ...}, which is not what DHIS2 answers.
+            response = await client.get_response(request.path, params=params)
+            if response.status_code >= 400:
+                raise RuntimeError(f"{response.status_code} {response.text[:200]}")
+            body: JsonValue = response.json()
         except Exception as error:
             _logger.warning("dhis2 request failed", path=request.path, error=str(error))
             raise Refusal(f"DHIS2 refused {request.path}: {error}", code="source_failed", status=502) from error

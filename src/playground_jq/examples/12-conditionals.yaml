@@ -124,7 +124,7 @@ examples:
     options: {compact: true}
     manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
     guide: [conditionals-and-comparisons, values-and-types]
-    expected: [[null, false, true, -1, 3, "10", [1], "a": 1], true]
+    expected: [[null, false, true, -1, 3, "10", [1], {"a": 1}], true]
 
   - id: conditionals-string-number-pitfall
     title: A number stored as a string escapes a numeric filter

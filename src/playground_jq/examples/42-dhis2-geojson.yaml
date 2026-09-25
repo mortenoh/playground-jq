@@ -486,7 +486,7 @@ examples:
     input: {ref: dhis2:org-units-geojson-level-4}
     manual: [https://jqlang.org/manual/v1.8/#math]
     guide: [geojson-with-jq]
-    expected: ["km": 38.8]
+    expected: [{"km": 38.8}]
 
   - id: dhis2-geojson-join-value-counts
     title: Which data value org units have a location
@@ -564,7 +564,7 @@ examples:
       `/api/geoFeatures` is DHIS2's own map format: short keys (`na` name, `le` level, `pi`
       parent id, `pn` parent name, `pg` parent graph, `ty` type) and the coordinates in `co` as
       a JSON-encoded string. `fromjson` parses the string into the real nested array.
-    program: '.data[0] | {na, le, pn, coType: (.co | type), co: (.co | .[:40]), parsedType: (.co | fromjson | type), positions: (.co | fromjson | length)}'
+    program: '.[0] | {na, le, pn, coType: (.co | type), co: (.co | .[:40]), parsedType: (.co | fromjson | type), positions: (.co | fromjson | length)}'
     input: {ref: dhis2:geo-features-facilities-bo}
     manual: [https://jqlang.org/manual/v1.8/]
     guide: [geojson-with-jq]
@@ -579,7 +579,7 @@ examples:
       The nesting depth of the parsed coordinates tells them apart: the longest path is 1 for a
       Point, 3 for a Polygon and 4 for a MultiPolygon. Seven districts are Polygons and six are
       MultiPolygons, all with `ty` 2.
-    program: '.data | map({na, ty, depth: ((.co | fromjson) | [paths | length] | max)}) | group_by([.ty, .depth]) | map({ty: .[0].ty, depth: .[0].depth, districts: map(.na)})'
+    program: 'map({na, ty, depth: ((.co | fromjson) | [paths | length] | max)}) | group_by([.ty, .depth]) | map({ty: .[0].ty, depth: .[0].depth, districts: map(.na)})'
     input: {ref: dhis2:geo-features-level-2}
     manual: [https://jqlang.org/manual/v1.8/#paths]
     guide: [geojson-with-jq, paths]
@@ -594,7 +594,7 @@ examples:
       depth (not from `ty`), and map the short keys to readable properties. The geometries are
       identical to those of `dhis2:org-units-geojson-level-2`, so the two endpoints draw the
       same map.
-    program: '{type: "FeatureCollection", features: [.data[] | (.co | fromjson) as $c | ($c | [paths | length] | max) as $depth | {type: "Feature", id, properties: {name: .na, code, level: .le, parent: .pn}, geometry: {type: (if $depth == 1 then "Point" elif $depth == 3 then "Polygon" else "MultiPolygon" end), coordinates: $c}}]}'
+    program: '{type: "FeatureCollection", features: [.[] | (.co | fromjson) as $c | ($c | [paths | length] | max) as $depth | {type: "Feature", id, properties: {name: .na, code, level: .le, parent: .pn}, geometry: {type: (if $depth == 1 then "Point" elif $depth == 3 then "Polygon" else "MultiPolygon" end), coordinates: $c}}]}'
     input: {ref: dhis2:geo-features-level-2}
     geojson: true
     manual: [https://jqlang.org/manual/v1.8/]
@@ -609,7 +609,7 @@ examples:
       For facilities every `co` parses to a `[lon, lat]` pair, so the geometry is always a
       Point. The chiefdom name `pn` comes along as a property, which the GeoJSON endpoint does
       not provide (it only has the parent id).
-    program: '{type: "FeatureCollection", features: [.data[] | {type: "Feature", id, properties: {name: .na, chiefdom: .pn}, geometry: {type: "Point", coordinates: (.co | fromjson)}}]}'
+    program: '{type: "FeatureCollection", features: [.[] | {type: "Feature", id, properties: {name: .na, chiefdom: .pn}, geometry: {type: "Point", coordinates: (.co | fromjson)}}]}'
     input: {ref: dhis2:geo-features-facilities-bo}
     geojson: true
     manual: [https://jqlang.org/manual/v1.8/]
@@ -624,7 +624,7 @@ examples:
       Because geoFeatures carry the parent's name in `pn`, counting facilities per chiefdom
       needs no lookup. Kakua has 10 facilities with coordinates, although the org unit tree
       lists 40 children for it: most of its facilities have no location.
-    program: '.data | group_by(.pn) | map({chiefdom: .[0].pn, facilities: length}) | sort_by(-.facilities, .chiefdom) | .[:5]'
+    program: 'group_by(.pn) | map({chiefdom: .[0].pn, facilities: length}) | sort_by(-.facilities, .chiefdom) | .[:5]'
     input: {ref: dhis2:geo-features-facilities-bo}
     manual: [https://jqlang.org/manual/v1.8/#group_by]
     guide: [geojson-with-jq, sorting-and-grouping]
@@ -640,7 +640,7 @@ examples:
       or up. All 13 districts can drill down but not up, because the country itself has no
       boundary. In `dhis2:geo-features-facilities-bo` it is the reverse: the facilities can go
       up to their chiefdom but have no children.
-    program: '{level: .data[0].le, flags: (.data | map({hcd, hcu}) | group_by(.) | map(.[0] + {count: length}))}'
+    program: '{level: .[0].le, flags: (map({hcd, hcu}) | group_by(.) | map(.[0] + {count: length}))}'
     input: {ref: dhis2:geo-features-level-2}
     manual: [https://jqlang.org/manual/v1.8/#group_by]
     guide: [geojson-with-jq]

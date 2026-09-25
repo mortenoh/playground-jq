@@ -85,7 +85,7 @@ examples:
     program: '{note: "\(.country) \(.week): \(.readings | length) readings"}'
     input: {ref: static:sensor-readings}
     manual: [https://jqlang.org/manual/v1.8/#string-interpolation]
-    expected: ["note": "Sierra Leone 2026-W12: 9 readings"]
+    expected: [{"note": "Sierra Leone 2026-W12: 9 readings"}]
   - id: patterns-dirigent-ndjson-string
     title: Parse NDJSON that arrives as one string
     level: 301

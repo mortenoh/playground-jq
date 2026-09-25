@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+import httpx2 as httpx
 import pytest
 
 from playground_jq.config import Settings
@@ -18,11 +19,11 @@ class FakeClient:
         self.fail = fail
         self.raw_version = "2.43.0"
 
-    async def get_raw(self, path: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    async def get_response(self, path: str, params: dict[str, Any] | None = None) -> httpx.Response:
         self.calls.append((path, params or {}))
         if self.fail:
-            raise RuntimeError("409 analytics tables missing")
-        return {"path": path, "params": params}
+            return httpx.Response(409, text="analytics tables missing")
+        return httpx.Response(200, json={"path": path, "params": params})
 
 
 def live_source(client: FakeClient) -> Dhis2Source:

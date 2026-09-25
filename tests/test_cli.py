@@ -36,6 +36,8 @@ def test_run_over_stdin_file_and_source(tmp_path: Path) -> None:
     assert from_source.stdout == "The jq Bookshop\n"
     failing = runner.invoke(app, ["run", ".a |", "-n"])
     assert failing.exit_code == 5
+    named = runner.invoke(app, ["run", "[$a, $b.n]", "-n", "-c", "--arg", "a=x", "--argjson", 'b={"n":2}'])
+    assert named.stdout == '["x",2]\n'
     debug = runner.invoke(app, ["run", "1 | debug", "-n"])
     assert debug.exit_code == 0
 

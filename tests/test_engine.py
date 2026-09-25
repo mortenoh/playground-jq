@@ -163,6 +163,7 @@ async def test_geojson_output_is_detected(settings: Settings) -> None:
         (".input | .inputs", RunOptions(), False),
         ("$input", RunOptions(), False),
         ("map(.a)", RunOptions(), False),
+        ('"invalid input" | debug_not', RunOptions(), False),
     ],
 )
 def test_needs_cli(program: str, options: RunOptions, expected: bool) -> None:

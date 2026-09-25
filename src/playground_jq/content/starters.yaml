@@ -97,11 +97,11 @@ starters:
     program: '.organisationUnits | map({name, type: .geometry.type, rings: (.geometry.coordinates | length)})'
     expected: [[{"name": "Bo", "type": "Polygon", "rings": 1}, {"name": "Bombali", "type": "Polygon", "rings": 1}, {"name": "Bonthe", "type": "MultiPolygon", "rings": 39}, {"name": "Kailahun", "type": "Polygon", "rings": 1}, {"name": "Kambia", "type": "MultiPolygon", "rings": 14}, {"name": "Kenema", "type": "Polygon", "rings": 1}, {"name": "Koinadugu", "type": "Polygon", "rings": 1}, {"name": "Kono", "type": "Polygon", "rings": 1}, {"name": "Moyamba", "type": "MultiPolygon", "rings": 7}, {"name": "Port Loko", "type": "MultiPolygon", "rings": 17}, {"name": "Pujehun", "type": "MultiPolygon", "rings": 3}, {"name": "Tonkolili", "type": "Polygon", "rings": 1}, {"name": "Western Area", "type": "MultiPolygon", "rings": 5}]]
   - ref: dhis2:geo-features-level-2
-    program: '{type: "FeatureCollection", features: [.data[] | (.co | fromjson) as $c | ($c | [paths | length] | max) as $depth | {type: "Feature", id, properties: {name: .na, code, level: .le}, geometry: {type: (if $depth == 1 then "Point" elif $depth == 3 then "Polygon" else "MultiPolygon" end), coordinates: $c}}]}'
+    program: '{type: "FeatureCollection", features: [.[] | (.co | fromjson) as $c | ($c | [paths | length] | max) as $depth | {type: "Feature", id, properties: {name: .na, code, level: .le}, geometry: {type: (if $depth == 1 then "Point" elif $depth == 3 then "Polygon" else "MultiPolygon" end), coordinates: $c}}]}'
     geojson: true
     digest: c0fd76e9b8be37f877ad3f6fc5cc5f169eebe4d7e66545cbc4dadeff266ec4d2
   - ref: dhis2:geo-features-facilities-bo
-    program: '[.data[] | {name: .na, coordinates: (.co | fromjson)}] | length'
+    program: '[.[] | {name: .na, coordinates: (.co | fromjson)}] | length'
     expected: [54]
   - ref: dhis2:org-unit-tree
     program: '.organisationUnits | group_by(.level) | map({level: .[0].level, count: length})'

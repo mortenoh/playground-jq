@@ -181,11 +181,11 @@ expected: [[{"name": "Bo", "km": 174}, {"name": "Kenema", "km": 234}, {"name": "
 
 Besides the `.geojson` endpoint, DHIS2 has `/api/geoFeatures`, the format its own maps use.
 It is compact but not GeoJSON: keys are abbreviated (`na` for name, `le` for level, `pn` for
-parent name), and the coordinates arrive as a JSON *string* in `co`. The recorded snapshot
-wraps the response array in a `data` field.
+parent name), and the coordinates arrive as a JSON *string* in `co`. The response is a bare
+array with one object per org unit.
 
 ```jq-try
-program: '.data[0] | (.co |= .[0:60] + "...")'
+program: '.[0] | (.co |= .[0:60] + "...")'
 ref: dhis2:geo-features-level-2
 caption: One district in geoFeatures form, with the long coordinate string shortened for display.
 expected: [{"id": "O6uvpzGd5pu", "code": "OU_264", "na": "Bo", "hcd": true, "hcu": false, "le": 2, "pg": "ImspTQPwCqd", "pi": "ImspTQPwCqd", "pn": "Sierra Leone", "ty": 2, "co": "[[[-11.5914,8.4875],[-11.5906,8.4769],[-11.5898,8.4717],[-11...", "dimensions": {}}]
@@ -197,7 +197,7 @@ coordinates themselves. After `fromjson`, the longest path into the coordinate a
 nesting depth: 1 for a point, 3 for a polygon, 4 for a multipolygon.
 
 ```jq-try
-program: '[.data[] | {ty, depth: (.co | fromjson | [paths | length] | max)}] | group_by(.depth) | map({ty: .[0].ty, depth: .[0].depth, districts: length})'
+program: '[.[] | {ty, depth: (.co | fromjson | [paths | length] | max)}] | group_by(.depth) | map({ty: .[0].ty, depth: .[0].depth, districts: length})'
 ref: dhis2:geo-features-level-2
 caption: All thirteen districts have ty 2, but seven are nested three deep (Polygon) and six four deep (MultiPolygon).
 expected: [[{"ty": 2, "depth": 3, "districts": 7}, {"ty": 2, "depth": 4, "districts": 6}]]
@@ -210,7 +210,7 @@ conversion builds a Feature per entry, with readable property names:
 program: |
   def geomtype: if length == 0 then null else ([paths | length] | max) as $d | {"1": "Point", "2": "LineString", "3": "Polygon", "4": "MultiPolygon"}["\($d)"] end;
   {type: "FeatureCollection",
-   features: [.data[] | (.co | fromjson) as $c | {
+   features: [.[] | (.co | fromjson) as $c | {
      type: "Feature",
      id,
      geometry: {type: ($c | geomtype), coordinates: $c},
@@ -226,7 +226,7 @@ For points the conversion is simpler, since every entry has `ty` 1 and a two-num
 position:
 
 ```jq-try
-program: '{type: "FeatureCollection", features: [.data[] | {type: "Feature", id, geometry: {type: "Point", coordinates: (.co | fromjson)}, properties: {name: .na, chiefdom: .pn}}]}'
+program: '{type: "FeatureCollection", features: [.[] | {type: "Feature", id, geometry: {type: "Point", coordinates: (.co | fromjson)}, properties: {name: .na, chiefdom: .pn}}]}'
 ref: dhis2:geo-features-facilities-bo
 geojson: true
 caption: The 54 health facilities in Bo as points.

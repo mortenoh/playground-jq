@@ -41,6 +41,41 @@ BUILTIN_SECTIONS = {
 #: A name as it appears at the start of a signature.
 NAME = re.compile(r"^(\$__loc__|\$ENV|\$__prog_args|@[a-z0-9]+|[a-z_][a-z0-9_]*)")
 
+#: Builtins the manual documents in an entry's prose rather than its title: the anchor of that
+#: entry and the builtin's forms.
+DATES = "dates"
+DOCUMENTED_ELSEWHERE: dict[str, tuple[str, list[str]]] = {
+    "//": ("alternative-operator", ["a // b"]),
+    "IN": ("sql-style-operators", ["IN(s)", "IN(source; s)"]),
+    "INDEX": ("sql-style-operators", ["INDEX(idx_expr)", "INDEX(stream; idx_expr)"]),
+    "JOIN": (
+        "sql-style-operators",
+        ["JOIN($idx; idx_expr)", "JOIN($idx; stream; idx_expr)", "JOIN($idx; stream; idx_expr; join_expr)"],
+    ),
+    "tojson": ("convert-to-from-json", ["tojson"]),
+    "fromjson": ("convert-to-from-json", ["fromjson"]),
+    "fromdate": (DATES, ["fromdate"]),
+    "todate": (DATES, ["todate"]),
+    "fromdateiso8601": (DATES, ["fromdateiso8601"]),
+    "todateiso8601": (DATES, ["todateiso8601"]),
+    "now": (DATES, ["now"]),
+    "mktime": (DATES, ["mktime"]),
+    "gmtime": (DATES, ["gmtime"]),
+    "localtime": (DATES, ["localtime"]),
+    "strptime": (DATES, ["strptime(fmt)"]),
+    "strftime": (DATES, ["strftime(fmt)"]),
+    "strflocaltime": (DATES, ["strflocaltime(fmt)"]),
+    "format": ("format-strings-and-escaping", ['format("csv")', 'format("json")', "format(name)"]),
+    "erf": ("math", ["erf"]),
+    "erfc": ("math", ["erfc"]),
+    "jn": ("math", ["jn(n; x)"]),
+    "yn": ("math", ["yn(n; x)"]),
+    "modulemeta": ("modulemeta", ["modulemeta"]),
+    "get_search_list": ("modules", ["get_search_list"]),
+    "get_prog_origin": ("modules", ["get_prog_origin"]),
+    "get_jq_origin": ("modules", ["get_jq_origin"]),
+}
+
 #: What the C math library functions do, since the manual lists them only by name.
 MATH_SUMMARIES = {
     1: "One-input C math function: applies to the input number.",
@@ -86,12 +121,16 @@ def main() -> None:
     anchor_of = iter(anchors)
 
     builtins: dict[str, dict[str, Any]] = {}
+    entry_of: dict[str, dict[str, Any]] = {}
+    section_of: dict[str, str] = {}
     order = 900
     for section in manual["sections"]:
         section_anchor = next(anchor_of)
         examples: list[dict[str, Any]] = []
         for index, entry in enumerate(section.get("entries") or [], start=1):
             anchor = next(anchor_of)
+            entry_of[anchor] = entry
+            section_of[anchor] = section["title"]
             key = slug(anchor) or f"{slug(section['title'])}-{index}"
             link = MANUAL_BASE + "#" + anchor
             for number, example in enumerate(entry.get("examples") or [], start=1):
@@ -154,6 +193,25 @@ def main() -> None:
             path = EXAMPLES / f"{order}-manual-{slug(section['title'])}.yaml"
             path.write_text(yaml.safe_dump(group, sort_keys=False, allow_unicode=True, width=120))
             print(f"wrote {path.relative_to(ROOT)}: {len(examples)} examples")
+
+    for name, (anchor, signatures) in DOCUMENTED_ELSEWHERE.items():
+        entry = entry_of.get(anchor)
+        body = (entry.get("body") or "").strip() if entry else ""
+        # An entry that documents several builtins as `* NAME(...)`: bullets gives each its own text.
+        bullet = re.search(rf"\* `?{re.escape(name)}\([^\n]*\n\s*\n((?:  .*\n?)+)", body)
+        summary = first_sentence(" ".join(bullet.group(1).split())) if bullet else first_sentence(body)
+        if not body and anchor == "math":
+            summary = "C math library function available as a jq builtin."
+        if not body and anchor == "modules":
+            summary = "Module system introspection."
+        builtins[name] = {
+            "name": name,
+            "signatures": signatures,
+            "summary": summary,
+            "section": section_of.get(anchor, {"math": "Math", "modules": "Modules"}.get(anchor, "Other")),
+            "body": body,
+            "manual": MANUAL_BASE + "#" + anchor,
+        }
 
     listed = subprocess.run(["jq", "-rn", "builtins[]"], capture_output=True, text=True, check=True).stdout.split()
     math_anchor = MANUAL_BASE + "#math"
