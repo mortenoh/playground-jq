@@ -92,7 +92,8 @@ expected: [["JQ", "jq", "Jq"]]
 
 [`ltrimstr(s)` and `rtrimstr(s)`](https://jqlang.org/manual/v1.8/#ltrimstr) remove a prefix or
 suffix if it is there, and otherwise return the string unchanged. That makes them safe to apply
-to every element. jq 1.8 adds [`trim`, `ltrim` and `rtrim`](https://jqlang.org/manual/v1.8/#trim-ltrim-rtrim),
+to every string in a list. The input must be a string, though: since jq 1.8 a number or `null`
+is an error rather than passing through. jq 1.8 also adds [`trim`, `ltrim` and `rtrim`](https://jqlang.org/manual/v1.8/#trim-ltrim-rtrim),
 which remove whitespace from both ends, the start or the end.
 
 ```jq-try
@@ -100,6 +101,13 @@ program: 'map(ltrimstr("v") | rtrimstr("-beta"))'
 input: '["v1.2.0", "1.3.0", "v2.0.0-beta"]'
 caption: Prefix and suffix removed only where present.
 expected: [["1.2.0", "1.3.0", "2.0.0"]]
+```
+
+```jq-try
+program: 'map(ltrimstr("v"))'
+input: '["v1.2.0", 2]'
+caption: 'Common mistake: the number 2 is not a string, so ltrimstr fails on it.'
+error: 'requires string inputs'
 ```
 
 ```jq-try

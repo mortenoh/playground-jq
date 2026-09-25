@@ -148,8 +148,8 @@ caption: One staff member per line, as NDJSON.
 expected: [{"name": "Ingrid", "role": "owner", "since": 2012}, {"name": "Omar", "role": "clerk", "since": 2020}, {"name": "Lena", "role": "clerk", "since": 2023}]
 ```
 
-`--tab` indents with tab characters and `--indent n` with n spaces (`--indent 0` is the same
-as `-c`):
+`--tab` indents with tab characters and `--indent n` with n spaces. For one line per value,
+use `-c` rather than `--indent 0`, which in jq 1.8 still breaks the value over several lines:
 
 ```jq-try
 program: '.store.location'
@@ -188,7 +188,7 @@ through a system that mishandles UTF-8.
 program: '.city'
 input: '{"city": "Tromsø"}'
 options: {ascii_output: true}
-caption: On the command line this prints "Tromsø".
+caption: 'On the command line this prints "Troms\u00f8": the same string, spelled with an escape.'
 expected: ["Tromsø"]
 ```
 
