@@ -1,0 +1,184 @@
+id: collections
+title: Working with collections
+description: Summing, testing, flattening, ranges, extremes, uniqueness, positions and slices of streams.
+order: 14
+track: language
+examples:
+  - id: collections-add-sum
+    title: Sum an array with add
+    level: 101
+    tags: [add, map]
+    explanation: |
+      `add` combines all elements of an array with `+`. On numbers that is a sum: the program
+      totals the number of books in stock across the shop, 12 + 0 + 3 + 7 + 5 + 0 + 9 + 1 =
+      37.
+    program: '[.store.books[].inStock] | add'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#add]
+    guide: [collections]
+    expected: [37]
+
+  - id: collections-add-empty-average
+    title: Averages and the empty array
+    level: 201
+    tags: [add, length, pitfall]
+    explanation: |
+      `add` of an empty array is `null`, and `null / 0` is an error, so a naive average breaks
+      on books without ratings. Guarding with `if length > 0` gives `null` for the unrated
+      book instead. Averages are rounded to two decimals.
+    program: '.store.books[] | {title, avg: (.ratings | if length > 0 then add / length * 100 | round / 100 else null end)}'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#add, https://jqlang.org/manual/v1.8/#length]
+    guide: [collections, idioms-and-pitfalls]
+    expected: [{"title": "Learning jq", "avg": 4.75}, {"title": "JSON at Scale", "avg": 3.67}, {"title": "Pipes and Paths", "avg": 5}, {"title": "The Art of the Shell", "avg": 3.2}, {"title": "Functional Filters", "avg": null}, {"title": "Data Wrangling Recipes", "avg": 4.33}, {"title": "Regular Expressions Unleashed", "avg": 2.5}, {"title": "Streams and Generators", "avg": 4.5}]
+
+  - id: collections-add-slurped
+    title: Sum a field over NDJSON lines
+    level: 101
+    tags: [add, slurp]
+    explanation: |
+      An NDJSON log is a stream of separate objects, so there is no array to sum. With
+      `--slurp` (`slurp: true`) jq reads every line into one array first; the program then
+      collects the latencies and adds them, giving the total time spent across all 16
+      requests.
+    program: '[.[].latency_ms] | add'
+    input: {ref: static:access-log}
+    options: {slurp: true}
+    manual: [https://jqlang.org/manual/v1.8/#add]
+    guide: [collections, invoking-jq]
+    expected: [34370]
+
+  - id: collections-any-all
+    title: Test a whole collection with any and all
+    level: 101
+    tags: [any, all]
+    explanation: |
+      `all(cond)` is true when every element meets the condition, `any(cond)` when at least
+      one does. All pods request some CPU, not all containers are ready (the worker, the
+      migration and the pending web pod are not), and at least one container has restarted.
+    program: '.items | {all_request_cpu: all(.spec.containers[0].resources.requests.cpu != null), all_ready: all(.status.containerStatuses[0].ready), any_restarts: any(.status.containerStatuses[0].restartCount > 0)}'
+    input: {ref: static:k8s-pods}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#all, https://jqlang.org/manual/v1.8/#any]
+    guide: [collections]
+    expected: [{"all_request_cpu": true, "all_ready": false, "any_restarts": true}]
+
+  - id: collections-flatten
+    title: Flatten nested arrays
+    level: 101
+    tags: [flatten, unique]
+    explanation: |
+      Collecting every book's tags gives an array of arrays. `flatten` removes the nesting,
+      and `unique` then sorts the tags and drops duplicates, giving the shop's tag
+      vocabulary.
+    program: '[.store.books[].tags] | flatten | unique'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#flatten, https://jqlang.org/manual/v1.8/#unique-unique_by]
+    guide: [collections]
+    expected: [["advanced", "beginner", "cli", "data", "functional", "jq", "json", "recipes", "regex", "unix"]]
+
+  - id: collections-range
+    title: Generate numbers with range
+    level: 101
+    tags: [range]
+    explanation: |
+      `range(n)` produces `0` up to `n - 1`, `range(from; upto)` starts elsewhere, and
+      `range(from; upto; by)` sets the step, which may be negative. Each call is collected
+      into its own array.
+    program: '[range(4)], [range(2; 5)], [range(0; 1; 0.25)], [range(10; 0; -3)]'
+    input: {text: 'null'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#range]
+    guide: [collections, generators-and-control-flow]
+    expected: [[0, 1, 2, 3], [2, 3, 4], [0, 0.25, 0.5, 0.75], [10, 7, 4, 1]]
+
+  - id: collections-min-max-by
+    title: The cheapest and most expensive book
+    level: 101
+    tags: [min_by, max_by]
+    explanation: |
+      `min_by(f)` and `max_by(f)` return the whole element with the smallest or largest
+      value of `f`, not just the value. The cheapest book is Pipes and Paths at 6.25 and the
+      most expensive is The Art of the Shell at 31.9.
+    program: '.store.books | (min_by(.price), max_by(.price)) | {title, price}'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
+    guide: [collections]
+    expected: [{"title": "Pipes and Paths", "price": 6.25}, {"title": "The Art of the Shell", "price": 31.9}]
+
+  - id: collections-unique-by
+    title: One record per key with unique_by
+    level: 201
+    tags: [unique_by]
+    explanation: |
+      `unique_by(f)` keeps one element for each distinct value of `f`, sorted by that value.
+      Applied to orders by customer id, it gives one order per customer; the order kept is
+      the first one for that customer in the input.
+    program: 'unique_by(.customer.id) | map({customer: .customer.id, first_order: .id})'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#unique-unique_by]
+    guide: [collections]
+    expected: [[{"customer": "c-03", "first_order": "A-1002"}, {"customer": "c-08", "first_order": "A-1005"}, {"customer": "c-17", "first_order": "A-1001"}, {"customer": "c-21", "first_order": "A-1004"}, {"customer": "c-30", "first_order": "A-1007"}]]
+
+  - id: collections-indices
+    title: Find positions with indices and index
+    level: 201
+    tags: [indices, index, rindex]
+    explanation: |
+      On a string, `indices(s)` lists every position where `s` starts, and `index`/`rindex`
+      give the first and last. On an array the argument is an element (or a sub-array), so
+      `indices("clerk")` finds the positions of both clerks in the list of roles.
+    program: '("a,b,,c" | indices(","), index(","), rindex(",")), ([.store.staff[].role] | indices("clerk"))'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#indices, https://jqlang.org/manual/v1.8/#index-rindex]
+    guide: [collections, strings]
+    expected: [[1, 3, 4], 1, 4, [1, 2]]
+
+  - id: collections-limit-first-last
+    title: Take part of a stream with limit, first and last
+    level: 101
+    tags: [limit, first, last, nth]
+    explanation: |
+      `limit(n; f)` stops `f` after `n` outputs, and `first(f)`, `last(f)` and `nth(n; f)`
+      pick single outputs from a stream. Here the stream is the titles of the books in
+      stock, in document order.
+    program: '[limit(2; .store.books[] | select(.inStock > 0) | .title)], first(.store.books[] | select(.inStock > 0) | .title), last(.store.books[] | select(.inStock > 0) | .title), nth(2; .store.books[] | select(.inStock > 0) | .title)'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#limit, https://jqlang.org/manual/v1.8/#first-last-nth-2]
+    guide: [collections, generators-and-control-flow]
+    expected: [["Learning jq", "Pipes and Paths"], "Learning jq", "Streams and Generators", "The Art of the Shell"]
+
+  - id: collections-pick
+    title: Keep a few paths with pick
+    level: 201
+    tags: [pick]
+    explanation: |
+      `pick(path)` (new in jq 1.7) keeps only the given paths and preserves the nesting, so
+      the result has the same shape as the input with everything else removed. Several paths
+      can be given with the comma.
+    program: 'pick(.app.name, .server.port, .database.pool.max)'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#pick]
+    guide: [collections, paths]
+    expected: [{"app": {"name": "weather-api"}, "server": {"port": 8080}, "database": {"pool": {"max": 20}}}]
+
+  - id: collections-getpath
+    title: Read a value by a computed path
+    level: 201
+    tags: [getpath]
+    explanation: |
+      `getpath(["a", "b"])` is `.a.b` with the path given as data, so the path can come from
+      a string. Splitting `"server.tls.cert"` on dots gives the path array. A path that does
+      not exist gives `null` rather than an error.
+    program: '("server.tls.cert", "server.tls.ca") as $key | getpath($key | split("."))'
+    input: {ref: static:config}
+    manual: [https://jqlang.org/manual/v1.8/#getpath]
+    guide: [collections, paths]
+    expected: ["/etc/ssl/app.pem", null]

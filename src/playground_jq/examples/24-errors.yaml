@@ -1,0 +1,111 @@
+id: errors
+title: Errors and control flow
+description: Catching errors with try/catch and ?, raising your own with error, and leaving a loop early with label and break.
+order: 24
+track: language
+examples:
+  - id: errors-uncaught
+    title: An uncaught error stops the program
+    level: 101
+    tags: [error]
+    explanation: |
+      Outputs produced before an error are still printed, but the error ends the program.
+      The third element is a string, and `.name` on a string is an error, so the fourth
+      element is never reached. The next examples show how to handle this.
+    program: '.[] | .name'
+    input: {text: '[{"name": "a"}, {"name": "b"}, "oops", {"name": "d"}]'}
+    expected: ["a", "b"]
+    error: Cannot index string
+    manual: [https://jqlang.org/manual/v1.8/#error]
+    guide: [error-handling]
+
+  - id: errors-try-catch
+    title: Recover with try and catch
+    level: 101
+    tags: [try, catch, tonumber]
+    explanation: |
+      `try expr catch handler` runs `handler` with the error message as input when `expr`
+      fails. Converting the station temperatures, `null` fails and is replaced with a marker,
+      while the string `"32.1"` converts successfully.
+    program: '.readings[] | {station, celsius: (try (.celsius | tonumber) catch "unreadable")}'
+    input: {ref: static:sensor-readings}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#try-catch, https://jqlang.org/manual/v1.8/#tonumber]
+    guide: [error-handling]
+    expected: [{"station": "FNA-01", "celsius": 31.2}, {"station": "FNA-02", "celsius": 30.4}, {"station": "BO-01", "celsius": 33.8}, {"station": "BO-02", "celsius": "unreadable"}, {"station": "KEN-01", "celsius": 34.9}, {"station": "KEN-02", "celsius": 35.6}, {"station": "MAK-01", "celsius": 36.1}, {"station": "PORT-01", "celsius": 32.7}, {"station": "PORT-02", "celsius": 32.1}]
+
+  - id: errors-optional-operator
+    title: Skip failures with ?
+    level: 101
+    tags: ['?', try]
+    explanation: |
+      `expr?` is shorthand for `try expr`: errors are dropped silently and produce no
+      output. Parsing a list of mixed strings with `tonumber?` keeps only the numbers; the
+      empty string is not a number either.
+    program: '[.[] | tonumber?]'
+    input: {text: '["12", "abc", "3.5", "", "-7"]'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#error-suppression-optional-operator]
+    guide: [error-handling]
+    expected: [[12, 3.5, -7]]
+
+  - id: errors-raise-and-catch-objects
+    title: Raise and catch structured errors
+    level: 201
+    tags: [error, try, catch]
+    explanation: |
+      `error(value)` raises an error carrying any JSON value, not just a string. A `catch`
+      receives that value unchanged, so validation code can report a structured problem.
+      Each pod is validated, and failures become `{pod, problem}` records instead of stopping
+      the run.
+    program: 'def check: if .status.phase == "CrashLoopBackOff" then error({pod: .metadata.name, problem: "crash loop"}) elif .status.containerStatuses[0].restartCount > 2 then error({pod: .metadata.name, problem: "restarts"}) else empty end; .items[] | try check catch .'
+    input: {ref: static:k8s-pods}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#error, https://jqlang.org/manual/v1.8/#try-catch]
+    guide: [error-handling]
+    expected: [{"pod": "api-7d9f8-fghij", "problem": "restarts"}, {"pod": "worker-66f5-pqrst", "problem": "crash loop"}]
+
+  - id: errors-validation-fails
+    title: Fail with a clear message
+    level: 201
+    tags: [error]
+    explanation: |
+      A program can check its input and stop with a message of its own. The ports are
+      checked one by one: the first passes, and the second fails validation with a message
+      that names the offending value, so the third is never checked.
+    program: '.[] | if (.port | type) != "number" or .port > 65535 then error("invalid port: \(.port)") else .port end'
+    input: {text: '[{"port": 8080}, {"port": 70000}, {"port": 443}]'}
+    expected: [8080]
+    error: 'invalid port: 70000'
+    manual: [https://jqlang.org/manual/v1.8/#error]
+    guide: [error-handling]
+
+  - id: errors-try-stops-generator
+    title: try stops a generator at the first error
+    level: 201
+    tags: [try, pitfall]
+    explanation: |
+      When an error occurs inside `try`, the outputs produced so far are kept, but the rest of
+      the expression is abandoned. Wrapping the whole loop gives `[1, 2]`, because the error
+      on `"x"` ends it; wrapping each element keeps going and gives `[1, 2, 4]`.
+    program: '[try (.[] | tonumber)], [.[] | try tonumber]'
+    input: {text: '["1", "2", "x", "4"]'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#try-catch]
+    guide: [error-handling, generators-and-control-flow]
+    expected: [[1, 2], [1, 2, 4]]
+
+  - id: errors-label-break
+    title: Stop early with label and break
+    level: 301
+    tags: [label, break]
+    explanation: |
+      `label $name | expr` marks a point that `break $name` can jump back to, ending `expr`
+      without an error. The program walks the log in order and stops at the first server
+      error, emitting the lines that came before it and then the failing line.
+    program: 'label $stop | .[] | if .status >= 500 then (., break $stop) else . end | "\(.ts[11:19]) \(.status) \(.path)"'
+    input: {ref: static:access-log}
+    options: {slurp: true, raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#breaking-out-of-control-structures]
+    guide: [error-handling, generators-and-control-flow]
+    expected: ["10:00:01 200 /v1/forecast", "10:00:02 200 /v1/forecast", "10:00:04 429 /v1/radar", "10:00:05 200 /login", "10:00:07 500 /v1/alerts"]

@@ -1,0 +1,162 @@
+id: basics
+title: Basics
+description: Fields, optional access, iteration, pipes and the comma operator.
+order: 10
+track: language
+examples:
+  - id: basics-nested-field
+    title: Read a nested field
+    level: 101
+    tags: [field access]
+    explanation: |
+      `.store.name` walks into the `store` object and then reads its `name` key. Each `.key`
+      step is applied to the output of the previous one, so a chain of field names is a path
+      from the top of the document down to one value.
+    program: '.store.name'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#object-identifier-index]
+    guide: [identity-and-fields]
+    expected: ["The jq Bookshop"]
+
+  - id: basics-missing-field-is-null
+    title: A missing key gives null, not an error
+    level: 101
+    tags: [field access, 'null']
+    explanation: |
+      Reading a key that an object does not have produces `null`. Here the first user has an
+      `email`, but no `phone`, so the program outputs the email and then `null`. Indexing
+      `null` itself is also allowed (`null.x` is `null`), which is why deep chains over
+      missing data quietly produce `null` instead of failing.
+    program: '.[0] | .email, .phone, .phone.mobile'
+    input: {ref: static:users}
+    manual: [https://jqlang.org/manual/v1.8/#object-identifier-index]
+    guide: [identity-and-fields]
+    expected: ["ada@example.org", null, null]
+
+  - id: basics-optional-access
+    title: Optional access on mixed values
+    level: 101
+    tags: ['?', field access]
+    explanation: |
+      The inputs are an object, a string and another object. `.name` on a string is an error,
+      but `.name?` suppresses that error and produces no output for it. The result is the two
+      names only, with nothing in place of the string.
+    program: '.name?'
+    input: {text: '{"name": "alpha"} "just a string" {"name": "beta"}'}
+    manual: [https://jqlang.org/manual/v1.8/#optional-object-identifier-index]
+    guide: [identity-and-fields, error-handling]
+    expected: ["alpha", "beta"]
+
+  - id: basics-iterate-array
+    title: Iterate over an array
+    level: 101
+    tags: ['.[]']
+    explanation: |
+      `.[]` produces every element of an array as a separate output. Piping those into
+      `.title` reads the title of each book, so the program outputs eight strings, one per
+      book, in document order.
+    program: '.store.books[] | .title'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#array-object-value-iterator]
+    guide: [arrays-and-slices, pipes-and-comma]
+    expected: ["Learning jq", "JSON at Scale", "Pipes and Paths", "The Art of the Shell", "Functional Filters", "Data Wrangling Recipes", "Regular Expressions Unleashed", "Streams and Generators"]
+
+  - id: basics-iterate-object-values
+    title: Iterate over the values of an object
+    level: 101
+    tags: ['.[]']
+    explanation: |
+      On an object, `.[]` produces the values and drops the keys. The `timeouts` object has
+      three entries, so the program outputs the three numbers `30`, `30` and `120` in key
+      order as written in the input.
+    program: '.server.timeouts[]'
+    input: {ref: static:config}
+    manual: [https://jqlang.org/manual/v1.8/#array-object-value-iterator]
+    guide: [arrays-and-slices]
+    expected: [30, 30, 120]
+
+  - id: basics-index-and-slice
+    title: Index, negative index and slice
+    level: 101
+    tags: ['.[n]', slice]
+    explanation: |
+      `.[0]` is the first element, `.[-1]` counts from the end, and `.[1:3]` is a slice from
+      index 1 up to but not including index 3. Slices work on strings too: `.[-1][:5]` takes
+      the first five characters of the last tag.
+    program: '.store.books[0].tags | .[0], .[-1], .[1:3], .[-1][:5]'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#array-index, https://jqlang.org/manual/v1.8/#array-string-slice]
+    guide: [arrays-and-slices]
+    expected: ["jq", "beginner", ["cli", "beginner"], "begin"]
+
+  - id: basics-comma
+    title: The comma produces several outputs
+    level: 101
+    tags: [',']
+    explanation: |
+      The comma runs both expressions against the same input and emits the outputs of the
+      left one followed by the outputs of the right one. This program outputs the app name
+      and then the server port, as two separate results.
+    program: '.app.name, .server.port'
+    input: {ref: static:config}
+    manual: [https://jqlang.org/manual/v1.8/#comma]
+    guide: [pipes-and-comma]
+    expected: ["weather-api", 8080]
+
+  - id: basics-pipe-into-comma
+    title: Pipe a stream into a comma
+    level: 101
+    tags: ['|', ',', '.[]']
+    explanation: |
+      The pipe binds more loosely than the comma, so `.staff[] | .name, .role` means "for each
+      staff member, output the name and then the role". Three staff members give six outputs,
+      alternating name and role.
+    program: '.store.staff[] | .name, .role'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#pipe, https://jqlang.org/manual/v1.8/#comma]
+    guide: [pipes-and-comma]
+    expected: ["Ingrid", "owner", "Omar", "clerk", "Lena", "clerk"]
+
+  - id: basics-collect-into-array
+    title: Collect a stream into an array
+    level: 101
+    tags: ['[]', '.[]']
+    explanation: |
+      Wrapping a stream in `[...]` collects all of its outputs into one array. Without the
+      brackets the program would print eight separate numbers; with them it prints a single
+      array of the eight book years.
+    program: '[.store.books[].year]'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#array-construction]
+    guide: [building-values, pipes-and-comma]
+    expected: [[2021, 2019, 2023, 2015, 2024, 2020, 2018, 2022]]
+
+  - id: basics-iterate-optional
+    title: Iterate only where there is something to iterate
+    level: 101
+    tags: ['.[]?']
+    explanation: |
+      Linus has no `notifications` object in his preferences and Margaret has no `preferences`
+      at all. `.[]` over `null` is an error, but `.[]?` suppresses it, so the program
+      collects the notification flags of the users that have them: `ada`, `grace`, `ken` and
+      `barbara`, two flags each.
+    program: '[.[] | .preferences.notifications | .[]?]'
+    input: {ref: static:users}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#array-object-value-iterator, https://jqlang.org/manual/v1.8/#error-suppression-optional-operator]
+    guide: [identity-and-fields, error-handling]
+    expected: [[true, false, false, false, true, true, true, false]]
+
+  - id: basics-length-by-type
+    title: length depends on the type
+    level: 101
+    tags: [length]
+    explanation: |
+      `length` is the number of elements of an array, the number of keys of an object, the
+      number of characters of a string, the absolute value of a number and zero for `null`.
+      Each of the five inputs shows one case.
+    program: 'length'
+    input: {text: '[1, 2, 3] {"a": 1, "b": 2} "héllo" -4.5 null'}
+    manual: [https://jqlang.org/manual/v1.8/#length]
+    guide: [values-and-types]
+    expected: [3, 2, 5, 4.5, 0]

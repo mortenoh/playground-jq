@@ -1,0 +1,125 @@
+id: regex
+title: Regular expressions
+description: test, match, capture, scan, sub and gsub, and splitting on a pattern.
+order: 17
+track: language
+examples:
+  - id: regex-test-filter
+    title: Filter with a regular expression
+    level: 101
+    tags: [test, select]
+    explanation: |
+      `test(re)` is true when the regular expression matches anywhere in the string. The
+      pattern `^/v1/(alerts|radar)` keeps the log lines for the alert and radar endpoints.
+      jq uses the Oniguruma engine with Perl-style syntax.
+    program: '.[] | select(.path | test("^/v1/(alerts|radar)")) | [.status, .path]'
+    input: {ref: static:access-log}
+    options: {slurp: true, compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#test]
+    guide: [regular-expressions]
+    expected: [[429, "/v1/radar"], [500, "/v1/alerts"], [204, "/v1/alerts/17"], [503, "/v1/alerts"]]
+
+  - id: regex-test-flags
+    title: Case-insensitive matching with flags
+    level: 101
+    tags: [test]
+    explanation: |
+      The second argument holds flags: `"i"` ignores case and `"x"` allows whitespace and
+      comments in the pattern. Without `"i"`, `"^bump"` misses the dependabot titles, which
+      start with a capital letter.
+    program: '[.[] | select(.title | test("^bump")) | .number], [.[] | select(.title | test("^bump"; "i")) | .number]'
+    input: {ref: static:github-issues}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#test]
+    guide: [regular-expressions]
+    expected: [[], [104, 109]]
+
+  - id: regex-capture
+    title: Named captures into an object
+    level: 201
+    tags: [capture]
+    explanation: |
+      `capture(re)` returns an object with one key per named group `(?<name>...)`. Splitting
+      an image reference into registry, repository and tag this way is more robust than
+      splitting on `/` and `:`. Captured values are always strings.
+    program: '.items[] | .spec.containers[0].image | capture("^(?<registry>[^/]+)/(?<repo>[^:]+):(?<tag>.+)$")'
+    input: {ref: static:k8s-pods}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#capture]
+    guide: [regular-expressions]
+    expected: [{"registry": "ghcr.io", "repo": "acme/api", "tag": "2.4.1"}, {"registry": "ghcr.io", "repo": "acme/api", "tag": "2.4.1"}, {"registry": "ghcr.io", "repo": "acme/web", "tag": "1.9.0"}, {"registry": "ghcr.io", "repo": "acme/worker", "tag": "0.8.3"}, {"registry": "ghcr.io", "repo": "acme/api", "tag": "2.5.0-rc1"}, {"registry": "ghcr.io", "repo": "acme/api", "tag": "2.5.0-rc1"}, {"registry": "ghcr.io", "repo": "acme/web", "tag": "2.0.0-rc2"}]
+
+  - id: regex-match-offsets
+    title: Where does it match? match gives offsets
+    level: 201
+    tags: [match]
+    explanation: |
+      `match(re)` returns a match object with the offset, length and text of the match, and
+      a `captures` array for the groups. With the `"g"` flag it produces one object per
+      match; here two version numbers are found in one string.
+    program: '"upgrade 1.7.1 to 1.8.2" | match("(\\d+)\\.(\\d+)\\.(\\d+)"; "g") | {offset, string, major: .captures[0].string}'
+    input: {text: 'null'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#match]
+    guide: [regular-expressions]
+    expected: [{"offset": 8, "string": "1.7.1", "major": "1"}, {"offset": 17, "string": "1.8.2", "major": "1"}]
+
+  - id: regex-scan
+    title: Extract every match with scan
+    level: 101
+    tags: [scan]
+    explanation: |
+      `scan(re)` produces every non-overlapping match as a string (or, if the pattern has
+      groups, an array of the groups). The pattern here is an alternation that recognises
+      pieces of jq syntax inside the issue titles: command-line options, `@` formats, a
+      function with its arity and the `.[]` iterator.
+    program: '[.[].title | scan("-{1,2}[A-Za-z]+|@[a-z0-9]+|[a-z_]+/\\d|\\.\\[\\]")]'
+    input: {ref: static:github-issues}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#scan]
+    guide: [regular-expressions]
+    expected: [["--tab", "@base32d", ".[]", "limit/2", "-R"]]
+
+  - id: regex-sub-named-captures
+    title: Rewrite text with sub and named captures
+    level: 201
+    tags: [sub, capture]
+    explanation: |
+      In the replacement of `sub(re; repl)`, the named captures are available as fields of
+      `.`, so `"\(.d)/\(.m)/\(.y)"` reorders the parts of the date. `sub` replaces the first
+      match only, which is all an ISO date has.
+    program: '.employees[:3][] | .hired | sub("(?<y>\\d{4})-(?<m>\\d{2})-(?<d>\\d{2})"; "\(.d)/\(.m)/\(.y)")'
+    input: {ref: static:employees}
+    manual: [https://jqlang.org/manual/v1.8/#sub]
+    guide: [regular-expressions]
+    expected: ["01/03/2014", "15/06/2019", "20/01/2018"]
+
+  - id: regex-gsub
+    title: Replace every match with gsub
+    level: 101
+    tags: [gsub]
+    explanation: |
+      `gsub(re; repl)` replaces every match. Turning a title into a URL slug is two passes:
+      lowercase it, replace every run of non-alphanumeric characters with a single dash, and
+      then strip dashes at either end.
+    program: '.store.books[] | .title | ascii_downcase | gsub("[^a-z0-9]+"; "-") | gsub("^-|-$"; "")'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#gsub]
+    guide: [regular-expressions, strings]
+    expected: ["learning-jq", "json-at-scale", "pipes-and-paths", "the-art-of-the-shell", "functional-filters", "data-wrangling-recipes", "regular-expressions-unleashed", "streams-and-generators"]
+
+  - id: regex-split-pattern
+    title: Split on a pattern
+    level: 201
+    tags: [split, splits]
+    explanation: |
+      `split(re; flags)` with two arguments splits on a regular expression rather than a
+      fixed string, so a separator made of a comma or semicolon with optional spaces is
+      handled in one step. `splits(re)` produces the same pieces as a stream instead of an
+      array.
+    program: '"jq, sed;awk ;  grep" | split("\\s*[,;]\\s*"; null), [splits("\\s*[,;]\\s*")]'
+    input: {text: 'null'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#split-2, https://jqlang.org/manual/v1.8/#splits]
+    guide: [regular-expressions]
+    expected: [["jq", "sed", "awk", "grep"], ["jq", "sed", "awk", "grep"]]

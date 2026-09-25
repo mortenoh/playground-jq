@@ -1,0 +1,173 @@
+id: select-map
+title: select, map and empty
+description: Filtering streams and arrays, transforming every element, and producing nothing.
+order: 13
+track: language
+examples:
+  - id: select-map-select-stream
+    title: Keep the items that match
+    level: 101
+    tags: [select]
+    explanation: |
+      `select(cond)` passes its input through when the condition is truthy and produces
+      nothing otherwise. Applied to each book, it keeps the ones by Ada Filter, and the pipe
+      afterwards reads their titles.
+    program: '.store.books[] | select(.author == "Ada Filter") | .title'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#select]
+    guide: [select-map-empty]
+    expected: ["Learning jq", "Functional Filters"]
+
+  - id: select-map-filter-array
+    title: Filter an array and keep it an array
+    level: 101
+    tags: [map, select]
+    explanation: |
+      `map(select(cond))` filters an array and returns an array, which is usually what you
+      want when the result is saved or counted. Here it keeps the pods that are not in the
+      `Running` phase: the crash-looping worker, the finished migration and the pending web
+      pod.
+    program: '.items | map(select(.status.phase != "Running")) | map({name: .metadata.name, phase: .status.phase})'
+    input: {ref: static:k8s-pods}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values, https://jqlang.org/manual/v1.8/#select]
+    guide: [select-map-empty]
+    expected: [[{"name": "worker-66f5-pqrst", "phase": "CrashLoopBackOff"}, {"name": "migrate-1234-zzzzz", "phase": "Succeeded"}, {"name": "web-9a8b7-aaaaa", "phase": "Pending"}]]
+
+  - id: select-map-map-transform
+    title: Transform every element
+    level: 101
+    tags: [map]
+    explanation: |
+      `map(f)` is `[.[] | f]`: it runs `f` on each element and collects the results. The
+      program computes the order total of each order from its items, rounding to cents to
+      hide binary floating-point noise.
+    program: 'map({id, total: ([.items[] | .qty * .price] | add * 100 | round / 100)})'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values]
+    guide: [select-map-empty]
+    expected: [[{"id": "A-1001", "total": 26}, {"id": "A-1002", "total": 31.9}, {"id": "A-1003", "total": 22.5}, {"id": "A-1004", "total": 34.75}, {"id": "A-1005", "total": 59.97}, {"id": "A-1006", "total": 44.5}, {"id": "A-1007", "total": 27.75}, {"id": "A-1008", "total": 31}]]
+
+  - id: select-map-map-values
+    title: Change every value of an object
+    level: 101
+    tags: [map_values]
+    explanation: |
+      `map_values(f)` runs `f` on every value of an object and keeps the keys. Here every
+      dependency version range has its leading `^` removed with `ltrimstr`.
+    program: '.dependencies | map_values(ltrimstr("^"))'
+    input: {ref: static:package-json}
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values, https://jqlang.org/manual/v1.8/#ltrimstr]
+    guide: [select-map-empty]
+    expected: [{"react": "19.3.0", "react-dom": "19.3.0", "maplibre-gl": "6.11.2", "date-fns": "4.1.0"}]
+
+  - id: select-map-map-vs-map-values-empty
+    title: map and map_values differ when f produces nothing
+    level: 201
+    tags: [map, map_values, empty]
+    explanation: |
+      `map(f)` collects all outputs of `f`, so an element for which `f` is empty is dropped.
+      `map_values(f)` is an update (`.[] |= f`); when `f` is empty the element is deleted
+      too, but when `f` produces several outputs only the first is kept. The last two
+      results show that difference on `. , . * 10`.
+    program: 'map(select(. > 1)), map_values(select(. > 1)), map(., . * 10), map_values(., . * 10)'
+    input: {text: '[1, 2, 3]'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values, https://jqlang.org/manual/v1.8/#empty]
+    guide: [select-map-empty, assignment-and-update]
+    expected: [[2, 3], [2, 3], [1, 10, 2, 20, 3, 30], [1, 2, 3]]
+
+  - id: select-map-empty
+    title: empty produces no output at all
+    level: 101
+    tags: [empty]
+    explanation: |
+      `empty` produces nothing, so it vanishes from a comma, removes an element from an
+      array constructor and makes a pipe produce nothing downstream. Here only `1` and `3`
+      reach the array, and the object constructor yields no object at all.
+    program: '[1, empty, 3], {a: empty}'
+    input: {text: 'null'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#empty]
+    guide: [select-map-empty]
+    expected: [[1, 3]]
+
+  - id: select-map-nested-array-filter
+    title: Filter a nested array inside each record
+    level: 201
+    tags: [map, select, '|=']
+    explanation: |
+      To keep every order but only the book lines inside it, update the nested array with
+      `|=`. The `select` inside the inner `map` works on items, not orders, so orders are
+      never removed: the first order keeps one of its two lines, and the third, which only
+      had stickers, keeps an empty list. The last step shows just the ids and SKUs of the
+      first four orders.
+    program: 'map(.items |= map(select(.sku | startswith("BOOK")))) | map({id, skus: [.items[].sku]}) | .[:4]'
+    input: {ref: static:orders}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values, https://jqlang.org/manual/v1.8/#startswith]
+    guide: [select-map-empty]
+    expected: [[{"id": "A-1001", "skus": ["BOOK-1"]}, {"id": "A-1002", "skus": ["BOOK-4"]}, {"id": "A-1003", "skus": []}, {"id": "A-1004", "skus": ["BOOK-2", "BOOK-3"]}]]
+
+  - id: select-map-select-by-nested-any
+    title: Select records by something in a nested array
+    level: 201
+    tags: [select, any]
+    explanation: |
+      `any(generator; condition)` is true when at least one output of the generator meets
+      the condition. It keeps the issues that have a `priority: high` label: 101 and 107.
+      Unlike `select(.labels[].name == ...)`, it cannot emit the same issue twice.
+    program: '.[] | select(any(.labels[]; .name == "priority: high")) | {number, title}'
+    input: {ref: static:github-issues}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#any, https://jqlang.org/manual/v1.8/#select]
+    guide: [select-map-empty]
+    expected: [{"number": 101, "title": "Crash when input is empty"}, {"number": 107, "title": "Segfault with deeply nested arrays"}]
+
+  - id: select-map-duplicate-select-pitfall
+    title: select with a generator can duplicate records
+    level: 201
+    tags: [select, pitfall]
+    explanation: |
+      `select(.assignees[].login == "bob" or .assignees[].login == "erin")` evaluates its
+      condition once per combination of assignees, and emits the input once for every true
+      result. Issues 103 and 107 have two assignees each and are emitted twice. Wrapping the
+      condition in `any` fixes it, as the second array shows.
+    program: '[.[] | select(.assignees[].login == "bob" or .assignees[].login == "erin") | .number], [.[] | select(any(.assignees[].login; . == "bob" or . == "erin")) | .number]'
+    input: {ref: static:github-issues}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#select, https://jqlang.org/manual/v1.8/#any]
+    guide: [select-map-empty, idioms-and-pitfalls]
+    expected: [[101, 103, 103, 107, 107, 110], [101, 103, 107, 110]]
+
+  - id: select-map-select-by-type
+    title: Keep only values of one type
+    level: 101
+    tags: [numbers, strings, select, type]
+    explanation: |
+      `numbers`, `strings`, `nulls` and friends are shorthands for `select(type == ...)`. The
+      station readings mix numbers, a string and `null` in `celsius`; `numbers` keeps the
+      seven real numbers and drops the rest.
+    program: '[.readings[].celsius | numbers]'
+    input: {ref: static:sensor-readings}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#arrays-objects-iterables-booleans-numbers-normals-finites-strings-nulls-values-scalars]
+    guide: [select-map-empty, values-and-types]
+    expected: [[31.2, 30.4, 33.8, 34.9, 35.6, 36.1, 32.7]]
+
+  - id: select-map-geojson-filter
+    title: Filter the features of a FeatureCollection in place
+    level: 201
+    tags: [select, map, '|=', geojson]
+    explanation: |
+      Updating `.features` with `|=` keeps the rest of the document (its `type`) intact, so
+      the output is still a FeatureCollection. The filter keeps capitals with more than
+      three million inhabitants: Nairobi, Hanoi, Dhaka, Lima and Lusaka.
+    program: '.features |= map(select(.properties.capital and .properties.population > 3000000))'
+    input: {ref: static:world-cities}
+    options: {compact: true}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#update-assignment, https://jqlang.org/manual/v1.8/#select]
+    guide: [select-map-empty, geojson-with-jq]
+    expected: [{"type": "FeatureCollection", "features": [{"type": "Feature", "id": 7, "geometry": {"type": "Point", "coordinates": [36.8219, -1.2921]}, "properties": {"name": "Nairobi", "country": "KE", "population": 4397073, "capital": true}}, {"type": "Feature", "id": 9, "geometry": {"type": "Point", "coordinates": [105.8342, 21.0278]}, "properties": {"name": "Hanoi", "country": "VN", "population": 8053663, "capital": true}}, {"type": "Feature", "id": 10, "geometry": {"type": "Point", "coordinates": [90.4125, 23.8103]}, "properties": {"name": "Dhaka", "country": "BD", "population": 10278882, "capital": true}}, {"type": "Feature", "id": 11, "geometry": {"type": "Point", "coordinates": [-77.0428, -12.0464]}, "properties": {"name": "Lima", "country": "PE", "population": 9751000, "capital": true}}, {"type": "Feature", "id": 14, "geometry": {"type": "Point", "coordinates": [28.3228, -15.3875]}, "properties": {"name": "Lusaka", "country": "ZM", "population": 3041789, "capital": true}}]}]

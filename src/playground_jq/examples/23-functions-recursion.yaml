@@ -1,0 +1,113 @@
+id: functions-recursion
+title: Functions and recursion
+description: Defining functions, filter and value arguments, recursive functions, walk, recurse and recursive descent.
+order: 23
+track: language
+examples:
+  - id: functions-recursion-def
+    title: Define a helper function
+    level: 101
+    tags: [def]
+    explanation: |
+      `def name: body;` defines a filter that can be used later in the program. A function
+      takes the same input as any other filter. `money` formats a number as a price with the
+      currency code in front, and is used twice: for the unit price and for the value of
+      the stock.
+    program: 'def money: "EUR \(. * 100 | round / 100)"; .store.books[:2][] | {title, price: (.price | money), total_stock_value: (.price * .inStock | money)}'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions]
+    guide: [user-defined-functions]
+    expected: [{"title": "Learning jq", "price": "EUR 8.5", "total_stock_value": "EUR 102"}, {"title": "JSON at Scale", "price": "EUR 24", "total_stock_value": "EUR 0"}]
+
+  - id: functions-recursion-arguments
+    title: Filter arguments and value arguments
+    level: 201
+    tags: [def, arguments]
+    explanation: |
+      A parameter written `f` is a filter, evaluated against whatever input the body gives
+      it; a parameter written `$n` is a value, evaluated once against the caller's input.
+      `count_by(f)` groups by any expression, and `top($n)` limits the result to `$n`
+      entries.
+    program: 'def count_by(f): group_by(f) | map({key: (.[0] | f), count: length}); def top($n): sort_by(-.count) | .[:$n]; .items | count_by(.metadata.labels.tier) | top(2)'
+    input: {ref: static:k8s-pods}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions]
+    guide: [user-defined-functions]
+    expected: [[{"key": "backend", "count": 4}, {"key": "frontend", "count": 2}]]
+
+  - id: functions-recursion-recursive-def
+    title: A recursive function over a tree
+    level: 301
+    tags: [def, recursion]
+    explanation: |
+      A function may call itself. `depth` is 0 for a leaf and one more than the deepest child
+      otherwise, so it walks the whole category tree. `max` of an empty array is `null`,
+      which is why leaves are handled first.
+    program: 'def depth: if (.children | length) == 0 then 0 else 1 + ([.children[] | depth] | max) end; depth, (.children[] | {name, depth: depth})'
+    input: {ref: static:category-tree}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions, https://jqlang.org/manual/v1.8/#recursion]
+    guide: [user-defined-functions, recursion-and-trees]
+    expected: [3, {"name": "Books", "depth": 2}, {"name": "Music", "depth": 2}, {"name": "Games", "depth": 0}]
+
+  - id: functions-recursion-breadcrumbs
+    title: Breadcrumb paths through a tree
+    level: 301
+    tags: [def, recursion]
+    explanation: |
+      Passing the path so far as a value argument turns a recursive walk into a list of
+      breadcrumbs. Each node outputs its own trail and then recurses into its children with
+      the trail extended. Only leaves are kept at the end.
+    program: 'def crumbs($trail): ($trail + [.name]) as $t | {trail: ($t | join(" > ")), leaf: (.children == [])}, (.children[] | crumbs($t)); [.children[] | crumbs([]) | select(.leaf) | .trail]'
+    input: {ref: static:category-tree}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions]
+    guide: [user-defined-functions, recursion-and-trees]
+    expected: [["Books > Programming > jq", "Books > Programming > Python", "Books > Fiction", "Music > Jazz > Bebop", "Music > Folk", "Games"]]
+
+  - id: functions-recursion-recurse
+    title: Visit every node with recurse
+    level: 201
+    tags: [recurse]
+    explanation: |
+      `recurse(f)` outputs its input, then recursively the outputs of `f` on it. With
+      `f` = `.children[]` it visits every category in the tree, depth first, so counting and
+      listing nodes needs no hand-written recursion.
+    program: '[recurse(.children[]) | .name] | length, .'
+    input: {ref: static:category-tree}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#recurse]
+    guide: [recursion-and-trees]
+    expected: [11, ["root", "Books", "Programming", "jq", "Python", "Fiction", "Music", "Jazz", "Bebop", "Folk", "Games"]]
+
+  - id: functions-recursion-descent
+    title: Find values at any depth with ..
+    level: 201
+    tags: ['..', recurse]
+    explanation: |
+      `..` is `recurse`: every value in the document, at every depth. Selecting objects with
+      a `path` key finds the log file path wherever it is, and `.. | numbers` collects every
+      number in the config, in document order.
+    program: '[.. | objects | select(has("path")) | .path], [.. | numbers]'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#recursive-descent]
+    guide: [recursion-and-trees]
+    expected: [["/var/log/app.log"], [8080, 30, 30, 120, 5432, 2, 20, 300, 100, 5, 3000, 443, 100]]
+
+  - id: functions-recursion-walk
+    title: Transform every value with walk
+    level: 201
+    tags: [walk]
+    explanation: |
+      `walk(f)` applies `f` bottom-up to every value in the document and rebuilds it. Here it
+      masks the value of every `password` key at any depth with `"***"`, and joins every
+      array of strings into one comma-separated string. Values that match neither branch
+      pass through unchanged; the last step shows the two parts that changed.
+    program: 'walk(if type == "object" and has("password") then .password = "***" elif type == "array" and all(type == "string") then join(",") else . end) | {database: .database.password, backends: .cache.backends}'
+    input: {ref: static:config}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#walk]
+    guide: [recursion-and-trees, assignment-and-update]
+    expected: [{"database": "***", "backends": "memory,redis"}]

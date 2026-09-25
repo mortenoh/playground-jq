@@ -1,0 +1,142 @@
+id: strings
+title: Strings
+description: Splitting, joining, trimming, case, interpolation, conversion and code points.
+order: 16
+track: language
+examples:
+  - id: strings-split-join
+    title: Split a string and join it back
+    level: 101
+    tags: [split, join]
+    explanation: |
+      `split(s)` cuts a string at every occurrence of `s` and returns an array; `join(s)`
+      glues an array of strings back together. Converting the pod name's dashes into
+      underscores is a split followed by a join.
+    program: '.items[0].metadata.name | split("-"), (split("-") | join("_"))'
+    input: {ref: static:k8s-pods}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#split-1, https://jqlang.org/manual/v1.8/#join]
+    guide: [strings]
+    expected: [["api", "7d9f8", "abcde"], "api_7d9f8_abcde"]
+
+  - id: strings-parse-csv-lines
+    title: Parse simple CSV lines with raw input
+    level: 201
+    tags: [split, raw input, tonumber]
+    explanation: |
+      With `--raw-input` (`raw_input: true`) each line of the file arrives as a string. The
+      header line is skipped by testing its first field, the rest are split on commas, and
+      the age is converted with `tonumber`. This only works for CSV without quoted commas.
+    program: 'split(",") | select(.[0] != "name") | {name: .[0], age: (.[1] | tonumber), city: .[2], team: .[3]}'
+    input: {ref: static:people-csv}
+    options: {raw_input: true, compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#split-1, https://jqlang.org/manual/v1.8/#tonumber]
+    guide: [strings, invoking-jq]
+    expected: [{"name": "Astrid", "age": 41, "city": "Oslo", "team": "platform"}, {"name": "Bjorn", "age": 29, "city": "Bergen", "team": "platform"}, {"name": "Chiara", "age": 35, "city": "Milan", "team": "data"}, {"name": "Dmitri", "age": 47, "city": "Riga", "team": "ops"}, {"name": "Efua", "age": 31, "city": "Accra", "team": "ops"}, {"name": "Farid", "age": 26, "city": "Lyon", "team": "sales"}]
+
+  - id: strings-trim
+    title: Trim whitespace and fixed prefixes
+    level: 101
+    tags: [trim, ltrim, rtrim, ltrimstr, rtrimstr]
+    explanation: |
+      `trim`, `ltrim` and `rtrim` (jq 1.7.1) remove whitespace from both ends, the start or
+      the end. `ltrimstr` and `rtrimstr` remove an exact prefix or suffix, and leave the
+      string unchanged when it does not start or end with it.
+    program: '"  padded  " | [trim, ltrim, rtrim], ("v2.4.1" | ltrimstr("v")), ("report.json" | rtrimstr(".json"), rtrimstr(".csv"))'
+    input: {text: 'null'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#trim-ltrim-rtrim, https://jqlang.org/manual/v1.8/#ltrimstr, https://jqlang.org/manual/v1.8/#rtrimstr]
+    guide: [strings]
+    expected: [["padded", "padded  ", "  padded"], "2.4.1", "report", "report.json"]
+
+  - id: strings-case
+    title: Change case and compare case-insensitively
+    level: 101
+    tags: [ascii_downcase, ascii_upcase]
+    explanation: |
+      `ascii_downcase` and `ascii_upcase` change the case of ASCII letters only. Lowercasing
+      both sides is the usual way to compare without regard to case: the search `"JQ"` finds
+      every book tagged `jq`.
+    program: '"JQ" as $q | [.store.books[] | select(.tags | map(ascii_downcase) | index($q | ascii_downcase)) | .title | ascii_upcase]'
+    input: {ref: static:bookstore}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#ascii_downcase-ascii_upcase]
+    guide: [strings]
+    expected: [["LEARNING JQ", "PIPES AND PATHS", "FUNCTIONAL FILTERS", "STREAMS AND GENERATORS"]]
+
+  - id: strings-interpolation
+    title: Build text with string interpolation
+    level: 101
+    tags: [string interpolation]
+    explanation: |
+      Inside a string, `\(expr)` inserts the result of `expr`. Non-string values are
+      converted as with `tojson`, so numbers appear as written. With `raw_output` the lines
+      print without quotes, ready for a terminal or a report.
+    program: '.[] | "\(.id): \(.customer.name) ordered \(.items | length) item line(s), status \(.status)"'
+    input: {ref: static:orders}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#string-interpolation]
+    guide: [strings, formats-and-escaping]
+    expected: ["A-1001: Ada Lovelace ordered 2 item line(s), status shipped", "A-1002: Grace Hopper ordered 1 item line(s), status delivered", "A-1003: Ada Lovelace ordered 1 item line(s), status cancelled", "A-1004: Linus T ordered 3 item line(s), status pending", "A-1005: Margaret H ordered 1 item line(s), status shipped", "A-1006: Grace Hopper ordered 2 item line(s), status delivered", "A-1007: Ken Thompson ordered 1 item line(s), status pending", "A-1008: Linus T ordered 2 item line(s), status shipped"]
+
+  - id: strings-tostring-tonumber
+    title: Convert between strings and numbers
+    level: 101
+    tags: [tostring, tonumber]
+    explanation: |
+      `tostring` turns any value into a string (a string is left as it is, other values are
+      JSON-encoded), and `tonumber` parses a numeric string (a number passes through).
+      Normalising the temperatures, which include the string `"32.1"`, makes `min` and `max`
+      meaningful; without `tonumber`, `max` would return that string, because strings sort
+      after all numbers.
+    program: '([.readings[].celsius | select(. != null) | tonumber] | {count: length, min: min, max: max}), ([1, "a", [2], {"b": null}] | map(tostring))'
+    input: {ref: static:sensor-readings}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#tostring, https://jqlang.org/manual/v1.8/#tonumber]
+    guide: [strings, values-and-types]
+    expected: [{"count": 8, "min": 30.4, "max": 36.1}, ["1", "a", "[2]", "{\"b\":null}"]]
+
+  - id: strings-explode-implode
+    title: Work with code points using explode and implode
+    level: 101
+    tags: [explode, implode]
+    explanation: |
+      `explode` turns a string into an array of Unicode code points, and `implode` turns such
+      an array back into a string. Adding 1 to every code point is a toy Caesar shift:
+      `HAL` becomes `IBM`.
+    program: '"HAL" | explode, (explode | map(. + 1) | implode)'
+    input: {text: 'null'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#explode, https://jqlang.org/manual/v1.8/#implode]
+    guide: [strings]
+    expected: [[72, 65, 76], "IBM"]
+
+  - id: strings-startswith-contains
+    title: Test prefixes, suffixes and substrings
+    level: 101
+    tags: [startswith, endswith, contains]
+    explanation: |
+      `startswith`, `endswith` and `contains` answer yes-or-no questions about a string.
+      Here they classify access log paths: API routes start with `/v1/`, background jobs
+      start with `job:`, and three log lines hit a path containing `alerts`. The parentheses
+      matter: without them, the comma would bind inside the pipe after `unique`.
+    program: '([.[].path | select(startswith("/v1/"))] | unique), [.[].path | select(startswith("job:"))], ([.[].path | select(contains("alerts"))] | length)'
+    input: {ref: static:access-log}
+    options: {slurp: true, compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#startswith, https://jqlang.org/manual/v1.8/#contains]
+    guide: [strings]
+    expected: [["/v1/alerts", "/v1/alerts/17", "/v1/forecast", "/v1/radar", "/v1/stations"], ["job:refresh-radar", "job:cleanup"], 3]
+
+  - id: strings-length-bytes
+    title: Characters versus bytes
+    level: 201
+    tags: [length, utf8bytelength]
+    explanation: |
+      `length` counts Unicode code points, while `utf8bytelength` counts the bytes of the
+      UTF-8 encoding. They differ for any text outside ASCII: `ø` is one character but two
+      bytes, so `Bjørvika` has 8 characters and 9 bytes.
+    program: '"Bjørvika" | length, utf8bytelength'
+    input: {text: 'null'}
+    manual: [https://jqlang.org/manual/v1.8/#length, https://jqlang.org/manual/v1.8/#utf8bytelength]
+    guide: [strings]
+    expected: [8, 9]

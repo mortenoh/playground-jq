@@ -1,0 +1,126 @@
+id: variables
+title: Variables and destructuring
+description: Binding values with as, destructuring objects and arrays, alternatives, and passing values in from the command line.
+order: 20
+track: language
+examples:
+  - id: variables-keep-outer-value
+    title: Keep an outer value while iterating
+    level: 101
+    tags: [as, variables]
+    explanation: |
+      Inside `.books[]`, the input is one book, so the shop name is out of reach. Binding it
+      first with `.store.name as $shop` makes it available anywhere later in the pipeline.
+      `expr as $x | body` runs `body` with the original input, not with the value of `expr`.
+    program: '.store.name as $shop | .store.books[:3][] | "\(.title) is sold by \($shop)"'
+    input: {ref: static:bookstore}
+    manual: [https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator]
+    guide: [variables-and-destructuring]
+    expected: ["Learning jq is sold by The jq Bookshop", "JSON at Scale is sold by The jq Bookshop", "Pipes and Paths is sold by The jq Bookshop"]
+
+  - id: variables-lookup-join
+    title: Join two lists through a lookup table
+    level: 201
+    tags: [as, variables, add]
+    explanation: |
+      Build a lookup object from department id to name once, bind it to `$dept`, and then
+      index it with each employee's `dept` key. This is a hash join: every lookup is a
+      single object access instead of a search through the departments list. The
+      `select` keeps the employees without a manager, the four department heads.
+    program: '(.departments | map({(.id): .name}) | add) as $dept | .employees[] | select(.manager == null) | {name, department: $dept[.dept]}'
+    input: {ref: static:employees}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator]
+    guide: [variables-and-destructuring, sql-style-and-joins]
+    expected: [{"name": "Astrid", "department": "Engineering"}, {"name": "Dmitri", "department": "Operations"}, {"name": "Hiro", "department": "Sales"}, {"name": "Ines", "department": "People"}]
+
+  - id: variables-destructure-object
+    title: Destructure an object
+    level: 201
+    tags: [as, destructuring]
+    explanation: |
+      `. as {username: $u, name: {first: $first}, address: {$city}}` pulls several nested
+      values into variables in one step. `{$city}` is shorthand for `{city: $city}`. The
+      variables are then combined into a sentence.
+    program: '.[:3][] | . as {username: $u, name: {first: $first}, address: {$city}} | "\($first) (@\($u)) lives in \($city)"'
+    input: {ref: static:users}
+    manual: [https://jqlang.org/manual/v1.8/#destructuring-alternative-operator, https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator]
+    guide: [variables-and-destructuring]
+    expected: ["Ada (@ada) lives in London", "Grace (@grace) lives in New York", "Linus (@linus) lives in Helsinki"]
+
+  - id: variables-destructure-array
+    title: Destructure arrays of coordinates
+    level: 201
+    tags: [as, destructuring]
+    explanation: |
+      Array patterns bind by position: `[$lon, $lat]` takes the first two elements of a
+      GeoJSON coordinate pair. GeoJSON stores longitude first, which is a common source of
+      swapped maps; naming the positions makes the order explicit.
+    program: '.features[:3][] | .geometry.coordinates as [$lon, $lat] | {city: .properties.name, lat: $lat, lon: $lon}'
+    input: {ref: static:world-cities}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#destructuring-alternative-operator]
+    guide: [variables-and-destructuring, geojson-with-jq]
+    expected: [{"city": "Oslo", "lat": 59.9139, "lon": 10.7522}, {"city": "Bergen", "lat": 60.3913, "lon": 5.3221}, {"city": "Freetown", "lat": 8.4657, "lon": -13.2317}]
+
+  - id: variables-destructuring-alternative
+    title: Accept two shapes with ?//
+    level: 301
+    tags: ['?//', destructuring]
+    explanation: |
+      The destructuring alternative `?//` tries each pattern in turn and uses the first that
+      does not raise an error. Here a point arrives either as an array `[x, y]` or as an
+      object `{x, y}`. Destructuring an object with an array pattern fails, so jq falls back
+      to the object pattern. Every variable in any pattern exists; unmatched ones are `null`.
+    program: '.[] as [$x, $y] ?// {$x, $y} | {x: $x, y: $y}'
+    input: {text: '[[1, 2], {"x": 3, "y": 4}, [5, 6]]'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#destructuring-alternative-operator]
+    guide: [variables-and-destructuring]
+    expected: [{"x": 1, "y": 2}, {"x": 3, "y": 4}, {"x": 5, "y": 6}]
+
+  - id: variables-arg
+    title: Pass a string in with --arg
+    level: 101
+    tags: [--arg, variables]
+    explanation: |
+      `--arg name value` binds `$name` to a string before the program runs, so the same
+      program can be reused with different inputs from a shell script. Here `options.args`
+      stands for `--arg status shipped`, and the program lists the shipped orders.
+    program: '[.[] | select(.status == $status) | .id]'
+    input: {ref: static:orders}
+    options: {compact: true, args: {status: shipped}}
+    manual: [https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator]
+    guide: [variables-and-destructuring, invoking-jq]
+    expected: [["A-1001", "A-1005", "A-1008"]]
+
+  - id: variables-argjson
+    title: Pass numbers and JSON in with --argjson
+    level: 201
+    tags: [--argjson, variables]
+    explanation: |
+      `--arg` always gives a string, so `$min > 20` would compare a number with a string.
+      `--argjson` parses its value as JSON, so `$min` is the number 20 and `$tags` a real
+      array. The program lists books above the price with at least one of the tags.
+    program: '[.store.books[] | select(.price > $min and any(.tags[]; IN($tags[]))) | .title]'
+    input: {ref: static:bookstore}
+    options: {compact: true, argjson: {min: 20, tags: [jq, unix]}}
+    manual: [https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator, https://jqlang.org/manual/v1.8/#in]
+    guide: [variables-and-destructuring, invoking-jq]
+    expected: [["The Art of the Shell", "Streams and Generators"]]
+
+  - id: variables-env
+    title: Read environment variables with $ENV
+    level: 101
+    tags: [$ENV, env]
+    explanation: |
+      `$ENV` is an object of the environment variables jq was started with, and `env` is the
+      same object as a function. The playground uses a fixed stand-in environment, so the
+      output is the same everywhere. A missing variable gives `null`, so `//` supplies a
+      default.
+    program: '{user: $ENV.USER, home: env.HOME, editor: ($ENV.EDITOR // "vi")}'
+    input: {text: 'null'}
+    options: {compact: true}
+    manual: [https://jqlang.org/manual/v1.8/#$env-env]
+    guide: [variables-and-destructuring, invoking-jq]
+    expected: [{"user": "learner", "home": "/home/learner", "editor": "vi"}]
