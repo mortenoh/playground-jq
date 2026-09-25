@@ -1,0 +1,257 @@
+/* Tailwind v4, CSS-first: there is no tailwind.config.js. The theme tokens are declared under
+   `@theme inline`, the palette as custom properties below, dark under `.dark` (next-themes
+   writes the class). The palette follows dirigent's: cool neutral surfaces at hue 255, amber
+   at hue 80 spent on action only. */
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/ibm-plex-sans';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+    --text-xs: 0.75rem;
+    --text-xs--line-height: 1.125rem;
+    --text-sm: 0.875rem;
+    --text-sm--line-height: 1.25rem;
+    --text-base: 1rem;
+    --text-base--line-height: 1.5rem;
+    --text-lg: 1.125rem;
+    --text-lg--line-height: 1.75rem;
+    --text-2xl: 1.5rem;
+    --text-2xl--line-height: 2rem;
+
+    --spacing-shell-top: 46px;
+
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 6px;
+    --radius-xl: 6px;
+    --radius-2xl: 6px;
+    --radius-3xl: 8px;
+    --radius-4xl: 8px;
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary-ink: var(--primary-ink);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-border-strong: var(--border-strong);
+    --color-input: var(--input);
+    --color-field: var(--field);
+    --color-ring: var(--ring);
+    --color-faint: var(--faint);
+
+    --color-good: var(--good);
+    --color-good-ink: var(--good-ink);
+    --color-critical: var(--critical);
+    --color-critical-ink: var(--critical-ink);
+    --color-warning: var(--warning);
+    --color-warning-ink: var(--warning-ink);
+    --color-info: var(--info);
+    --color-info-ink: var(--info-ink);
+
+    --color-kind-green: var(--kind-green);
+    --color-kind-green-ink: var(--kind-green-ink);
+    --color-kind-teal: var(--kind-teal);
+    --color-kind-teal-ink: var(--kind-teal-ink);
+    --color-kind-blue: var(--kind-blue);
+    --color-kind-blue-ink: var(--kind-blue-ink);
+    --color-kind-violet: var(--kind-violet);
+    --color-kind-violet-ink: var(--kind-violet-ink);
+    --color-kind-pink: var(--kind-pink);
+    --color-kind-pink-ink: var(--kind-pink-ink);
+}
+
+:root {
+    --background: oklch(0.985 0.002 255);
+    --foreground: oklch(0.18 0.012 255);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.18 0.012 255);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.18 0.012 255);
+    --primary: oklch(0.57 0.125 80);
+    --primary-foreground: oklch(0.985 0.002 255);
+    --primary-ink: oklch(0.52 0.13 80);
+    --secondary: oklch(0.955 0.004 255);
+    --secondary-foreground: oklch(0.22 0.012 255);
+    --muted: oklch(0.925 0.005 255);
+    --muted-foreground: oklch(0.48 0.015 255);
+    --faint: oklch(0.58 0.015 255);
+    --accent: oklch(0.94 0.02 80);
+    --accent-foreground: oklch(0.34 0.09 80);
+    --destructive: oklch(0.55 0.19 25);
+    --border: oklch(0.9 0.005 255);
+    --border-strong: oklch(0.85 0.008 255);
+    --input: oklch(0.87 0.008 255);
+    --field: oklch(1 0 0);
+    --ring: oklch(0.57 0.125 80);
+
+    --good: oklch(0.58 0.13 160);
+    --good-ink: oklch(0.44 0.12 160);
+    --critical: oklch(0.55 0.19 25);
+    --critical-ink: oklch(0.45 0.18 25);
+    --warning: oklch(0.66 0.13 75);
+    --warning-ink: oklch(0.48 0.12 75);
+    --info: oklch(0.56 0.14 230);
+    --info-ink: oklch(0.44 0.14 230);
+
+    --kind-green: oklch(0.55 0.11 125);
+    --kind-green-ink: oklch(0.43 0.1 125);
+    --kind-teal: oklch(0.55 0.11 200);
+    --kind-teal-ink: oklch(0.43 0.1 200);
+    --kind-blue: oklch(0.55 0.11 265);
+    --kind-blue-ink: oklch(0.43 0.1 265);
+    --kind-violet: oklch(0.55 0.11 305);
+    --kind-violet-ink: oklch(0.43 0.1 305);
+    --kind-pink: oklch(0.55 0.11 340);
+    --kind-pink-ink: oklch(0.43 0.1 340);
+}
+
+.dark {
+    --background: oklch(0.145 0.012 255);
+    --foreground: oklch(0.95 0.01 255);
+    --card: oklch(0.195 0.015 255);
+    --card-foreground: oklch(0.95 0.01 255);
+    --popover: oklch(0.195 0.015 255);
+    --popover-foreground: oklch(0.95 0.01 255);
+    --primary: oklch(0.8 0.13 80);
+    --primary-foreground: oklch(0.16 0.01 255);
+    --primary-ink: var(--primary);
+    --secondary: oklch(0.235 0.017 255);
+    --secondary-foreground: oklch(0.95 0.01 255);
+    --muted: oklch(0.235 0.017 255);
+    --muted-foreground: oklch(0.62 0.02 255);
+    --faint: oklch(0.55 0.02 255);
+    --accent: oklch(0.28 0.03 80);
+    --accent-foreground: oklch(0.86 0.11 80);
+    --destructive: oklch(0.65 0.19 25);
+    --border: oklch(0.3 0.015 255);
+    --border-strong: oklch(0.34 0.018 255);
+    --input: oklch(0.36 0.02 255);
+    --field: oklch(0.125 0.012 255);
+    --ring: oklch(0.8 0.13 80);
+
+    --good: oklch(0.72 0.14 160);
+    --good-ink: oklch(0.8 0.13 160);
+    --critical: oklch(0.65 0.19 25);
+    --critical-ink: oklch(0.75 0.17 25);
+    --warning: oklch(0.78 0.14 75);
+    --warning-ink: oklch(0.85 0.13 75);
+    --info: oklch(0.68 0.15 230);
+    --info-ink: oklch(0.78 0.13 230);
+
+    --kind-green: oklch(0.68 0.12 125);
+    --kind-green-ink: oklch(0.78 0.11 125);
+    --kind-teal: oklch(0.68 0.12 200);
+    --kind-teal-ink: oklch(0.78 0.11 200);
+    --kind-blue: oklch(0.68 0.12 265);
+    --kind-blue-ink: oklch(0.78 0.11 265);
+    --kind-violet: oklch(0.68 0.12 305);
+    --kind-violet-ink: oklch(0.78 0.11 305);
+    --kind-pink: oklch(0.68 0.12 340);
+    --kind-pink-ink: oklch(0.78 0.11 340);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    html,
+    body,
+    #root {
+        @apply h-full;
+    }
+    body {
+        @apply bg-background font-sans text-foreground antialiased;
+    }
+}
+
+/* A chip that names what a thing is (a level, a source, a tag): its hue at 14% under its ink. */
+.chip {
+    @apply inline-flex items-center gap-1 rounded-sm px-1.5 py-0.5 font-mono text-xs leading-none whitespace-nowrap;
+    background: color-mix(in oklch, var(--chip) 14%, transparent);
+    color: var(--chip-ink);
+}
+
+/* Markdown rendered from the guide, tutorials and explanations. */
+.prose-jq {
+    @apply text-sm leading-6 text-foreground;
+}
+.prose-jq h1 {
+    @apply mt-2 mb-4 text-2xl font-semibold tracking-tight;
+}
+.prose-jq h2 {
+    @apply mt-8 mb-3 border-b pb-1 text-lg font-semibold;
+}
+.prose-jq h3 {
+    @apply mt-6 mb-2 text-base font-semibold;
+}
+.prose-jq p {
+    @apply my-3;
+}
+.prose-jq ul {
+    @apply my-3 list-disc pl-6;
+}
+.prose-jq ol {
+    @apply my-3 list-decimal pl-6;
+}
+.prose-jq li {
+    @apply my-1;
+}
+.prose-jq a {
+    @apply text-primary-ink underline underline-offset-2;
+}
+.prose-jq code {
+    @apply rounded-sm bg-muted px-1 py-0.5 font-mono text-[0.85em];
+}
+.prose-jq pre {
+    @apply my-4 overflow-x-auto rounded-md border bg-muted/50 p-3 font-mono text-xs leading-5;
+}
+.prose-jq pre code {
+    @apply bg-transparent p-0;
+}
+.prose-jq table {
+    @apply my-4 w-full border-collapse text-sm;
+}
+.prose-jq th {
+    @apply border-b-2 px-2 py-1 text-left font-semibold;
+}
+.prose-jq td {
+    @apply border-b px-2 py-1 align-top;
+}
+.prose-jq blockquote {
+    @apply my-4 border-l-4 border-primary/60 bg-accent/40 px-4 py-2 text-muted-foreground;
+}
+.prose-jq strong {
+    @apply font-semibold;
+}
+
+/* A compile error marked in the program editor. */
+.jq-error-glyph {
+    background: var(--critical);
+    border-radius: 50%;
+    margin-left: 6px;
+    width: 8px !important;
+    height: 8px !important;
+    margin-top: 6px;
+}
