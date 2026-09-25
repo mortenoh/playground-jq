@@ -162,8 +162,16 @@ caption: Everything before the sentinel; c is never reached.
 expected: [["a", "b"]]
 ```
 
-`break` is not an error, so it does not trigger `catch`, and it can only refer to a label
-that encloses it.
+`break` can only refer to a label that encloses it. It is not meant to be handled, but jq
+implements it much like an error on its way out to the label, so a `try` placed between the
+`break` and its `label` swallows it (the handler receives an internal `{"__jq": ...}` object) and the loop carries on:
+
+```jq-try
+program: '[label $done | .[] | try (if . == "END" then break $done else . end) catch "caught"]'
+input: '["a", "b", "END", "c"]'
+caption: 'Common mistake: the try around the break catches it, so c is still reached. Keep break outside any try.'
+expected: [["a", "b", "caught", "c"]]
+```
 
 ## Reading input values: input and inputs
 

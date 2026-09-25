@@ -265,7 +265,8 @@ expected: [{"min": 2, "max": "50"}]
 ```
 
 With `reduce` you can apply a whole list of such changes in one go, which is how
-environment overrides are usually merged:
+environment overrides are usually merged. (`paths(scalars)` is safe here only because no
+override is `false` or `null`; chapter 19 shows the condition that keeps those leaves too.)
 
 ```jq-try
 program: '. as $root | reduce ($root.environments.prod | paths(scalars)) as $p ($root; setpath($p; $root.environments.prod | getpath($p))) | {server: .server.port, db: .database.host, pool: .database.pool}'

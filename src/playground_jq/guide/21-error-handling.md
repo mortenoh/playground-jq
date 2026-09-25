@@ -23,6 +23,7 @@ program: '.[] | if . < 0 then error("negative value: \(.)") else . end'
 input: '[3, -1, 4]'
 error: 'negative value: -1'
 caption: 3 is printed, then -1 raises the error and 4 is never reached.
+expected: [3]
 ```
 
 Built-in operations raise errors too: indexing a string with a field name, adding an object
@@ -182,8 +183,9 @@ expected: [[2, "skipped", 42]]
 
 [`label $name | ... break $name`](https://jqlang.org/manual/v1.8/#breaking-out-of-control-structures)
 stops a generator from the inside. `break $name` ends the nearest enclosing `label $name`,
-and the label expression produces nothing more. It is not an error, so nothing needs to catch
-it.
+and the label expression produces nothing more. It is not an error you have to handle:
+nothing needs to catch it. (Do not wrap the `break` itself in `try`, though; a `try` between
+`break` and its label swallows it, as the chapter on generators shows.)
 
 ```jq-try
 program: '[label $found | .[] | if . > 6 then ., break $found else empty end]'

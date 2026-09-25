@@ -108,9 +108,10 @@ expected: [{"a": [1, {"b": 2}]}]
 ```
 
 On its own that only rebuilds what you started with. The useful part is to rebuild *pieces*.
-[`truncate_stream(depth; events)`](https://jqlang.org/manual/v1.8/#truncate_stream), usually
-written `depth | truncate_stream(events)`, removes the first `depth` elements from each event
-path and drops events that do not reach that deep. Values that sat at that depth become
+[`truncate_stream(events)`](https://jqlang.org/manual/v1.8/#truncate_stream) takes the depth
+as its input, so it is written `depth | truncate_stream(events)` (there is no two-argument
+form). It removes the first `depth` elements from each event path and drops events that do not
+reach deeper than that. Values that sat at that depth become
 top-level values:
 
 ```jq-try
