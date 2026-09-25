@@ -52,7 +52,7 @@ class RunOptions(BaseModel):
     """`--tab`: indent with a tab."""
 
     indent: int = Field(default=2, ge=0, le=7)
-    """`--indent n`: spaces per indent level (0 means compact)."""
+    """`--indent n`: spaces per indent level (0 puts each value on its own line, unindented; use `-c` for compact)."""
 
     seq: bool = False
     """`--seq`: prefix every output with the ASCII record separator (RFC 7464)."""

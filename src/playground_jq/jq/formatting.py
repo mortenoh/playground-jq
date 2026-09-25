@@ -15,7 +15,7 @@ def format_value(value: JsonValue, options: RunOptions) -> str:
     """One output, formatted per the flags."""
     if isinstance(value, str) and (options.raw_output or options.join_output):
         return value
-    compact = options.compact or (options.indent == 0 and not options.tab)
+    compact = options.compact
     indent: str | int | None = None if compact else ("\t" if options.tab else options.indent)
     separators = (",", ":") if compact else (",", ": ")
     return json.dumps(

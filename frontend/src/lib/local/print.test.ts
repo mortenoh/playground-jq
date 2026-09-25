@@ -8,7 +8,7 @@ describe('printOutputs', () => {
         expect(printOutputs([{ a: [1] }], DEFAULT_OPTIONS)).toBe('{\n  "a": [\n    1\n  ]\n}')
         expect(printOutputs([{ a: [1] }], { ...DEFAULT_OPTIONS, compact: true })).toBe('{"a":[1]}')
         expect(printOutputs([[1]], { ...DEFAULT_OPTIONS, tab: true })).toBe('[\n\t1\n]')
-        expect(printOutputs([[1]], { ...DEFAULT_OPTIONS, indent: 0 })).toBe('[1]')
+        expect(printOutputs([{ a: [1] }], { ...DEFAULT_OPTIONS, indent: 0 })).toBe('{\n"a": [\n1\n]\n}')
     })
 
     it('sorts keys, escapes non-ASCII and prints raw strings', () => {

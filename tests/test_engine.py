@@ -31,8 +31,8 @@ async def test_compact_sort_keys_and_tab(settings: Settings) -> None:
     assert compact.text == '{"a":[1],"b":1}\n'
     tabbed = await run_program(".", "[1]", RunOptions(tab=True), settings)
     assert tabbed.text == "[\n\t1\n]\n"
-    zero = await run_program(".", "[1]", RunOptions(indent=0), settings)
-    assert zero.text == "[1]\n"
+    zero = await run_program(".", '{"a": [1]}', RunOptions(indent=0), settings)
+    assert zero.text == '{\n"a": [\n1\n]\n}\n'
 
 
 async def test_ascii_output_and_seq(settings: Settings) -> None:

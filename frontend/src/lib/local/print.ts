@@ -32,9 +32,12 @@ function asciiOnly(text: string): string {
 export function printValue(value: JsonValue, options: RunOptions): string {
     if (typeof value === 'string' && (options.raw_output || options.join_output)) return value
     const shown = options.sort_keys ? sortKeys(value) : value
-    const compact = options.compact || (options.indent === 0 && !options.tab)
-    const indent = compact ? undefined : options.tab ? '\t' : options.indent
-    const text = JSON.stringify(shown, null, indent)
+    let text: string
+    if (options.compact) text = JSON.stringify(shown)
+    else if (options.tab) text = JSON.stringify(shown, null, '\t')
+    // jq 1.8 prints `--indent 0` over several lines with no indentation; JSON.stringify would compact it.
+    else if (options.indent === 0) text = JSON.stringify(shown, null, 1).replace(/^ +/gm, '')
+    else text = JSON.stringify(shown, null, options.indent)
     return options.ascii_output ? asciiOnly(text) : text
 }
 
