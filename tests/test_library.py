@@ -106,3 +106,19 @@ def test_diagnostics_fallbacks() -> None:
     assert error.message == "something odd"
     assert error.line is None
     assert plain_error("runtime", "jq: error (at <stdin>:3): boom").message == "boom"
+
+
+def test_manual_links_must_be_real_anchors(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    anchors = tmp_path / "anchors.txt"
+    anchors.write_text("# every anchor\nmap-map_values\n")
+    assert library_module.manual_anchors(anchors) == {"map-map_values"}
+    examples = tmp_path / "examples"
+    examples.mkdir()
+    (examples / "10-a.yaml").write_text(
+        "id: a\ntitle: T\nexamples:\n  - id: a-1\n    title: S\n    program: '.'\n    input: {text: '1'}\n"
+        "    manual: ['https://jqlang.org/manual/v1.8/#map-map']\n"
+    )
+    monkeypatch.setattr(library_module, "manual_anchors", lambda: {"map-map_values"})
+    monkeypatch.setattr(library_module, "load_groups", lambda: load_groups(examples))
+    with pytest.raises(ContentError, match="#map-map"):
+        load_library()

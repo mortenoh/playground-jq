@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "src" / "playground_jq"
 EXAMPLES = PACKAGE / "examples"
 BUILTINS = PACKAGE / "content" / "builtins.yaml"
+ANCHORS = PACKAGE / "content" / "manual-anchors.txt"
 
 #: Manual sections whose entries document builtins, functions and operators.
 BUILTIN_SECTIONS = {
@@ -111,7 +112,12 @@ def first_sentence(body: str) -> str:
 def main() -> None:
     """Download the manual and write the example groups and the builtin catalogue."""
     manual = yaml.safe_load(fetch(MANUAL_YML))
-    anchors = [html.unescape(anchor) for anchor in re.findall(r'<section[^>]* id="([^"]*)"', fetch(MANUAL_HTML))]
+    page = fetch(MANUAL_HTML)
+    anchors = [html.unescape(anchor) for anchor in re.findall(r'<section[^>]* id="([^"]*)"', page)]
+    every_id = sorted({html.unescape(anchor) for anchor in re.findall(r' id="([^"]*)"', page)})
+    ANCHORS.write_text(
+        "# Every anchor in the jq 1.8 manual page; content links are checked against it.\n" + "\n".join(every_id) + "\n"
+    )
     titles: list[str] = []
     for section in manual["sections"]:
         titles.append(section["title"])
