@@ -1,0 +1,163 @@
+id: 301-05-streaming-and-ndjson
+level: 301
+order: 5
+title: Streaming and NDJSON with inputs
+summary: Process a log of one JSON object per line as a stream, with -s, -n and inputs, and read documents as path events with --stream.
+input: {ref: static:access-log}
+steps:
+  - title: Every line is an input
+    body: |
+      NDJSON (newline-delimited JSON) is one JSON value per line, the format
+      most services log in. jq does not need an array around it: it reads
+      each value as a separate input and runs the program once per input.
+
+      The input is an access log of 16 requests to three services (`api`,
+      `auth` and `worker`), each line with a status and a latency in
+      milliseconds.
+    task: Output the `path` of every line whose `level` is `"error"`.
+    hints:
+      - 'The program runs once per line, so `.` is one log object.'
+      - 'Keep the error lines with `select(.level == "error")`.'
+      - '`select(.level == "error") | .path`'
+    solution: 'select(.level == "error") | .path'
+    starter: '.level'
+    why: |
+      Three lines are errors. Because the program sees one line at a time, it
+      needs memory for one line only, however long the log is.
+    expected: ["/v1/alerts", "job:refresh-radar", "/v1/alerts"]
+  - title: Slurp to see everything at once
+    body: |
+      Some questions need all lines together, such as a count. `-s`
+      (`--slurp`) reads every input into one array and runs the program once
+      over that array. This step runs with `-s`.
+    task: Count the lines whose status is 500 or higher.
+    hints:
+      - 'With `-s`, `.` is an array of all 16 log objects.'
+      - 'Filter the array with `map(select(...))`, then take its `length`.'
+      - '`map(select(.status >= 500)) | length`'
+    solution: 'map(select(.status >= 500)) | length'
+    starter: 'length'
+    options: {slurp: true}
+    why: |
+      Two 500s and one 503. Slurping is simple but holds the whole file in
+      memory at once, which is fine for 16 lines and not for 16 gigabytes.
+    expected: [3]
+  - title: -n and inputs
+    body: |
+      With `-n` (`--null-input`) the program runs once with `null` as its
+      input and reads the inputs itself: `input` reads the next one, and
+      `inputs` is a generator over all that are left. This step runs with
+      `-n`.
+
+      Collecting `[inputs]` gives the same array as `-s`, but the program now
+      decides how the inputs are consumed.
+    task: Output the sum of all latencies, reading the lines with `inputs`.
+    hints:
+      - '`inputs` emits each log object in turn.'
+      - '`[inputs | .latency_ms]` collects the latencies.'
+      - '`[inputs | .latency_ms] | add`'
+    solution: '[inputs | .latency_ms] | add'
+    starter: 'inputs'
+    options: {null_input: true}
+    why: |
+      34370 milliseconds, of which 30211 is one worker job. Forgetting `-n` is
+      a classic mistake: jq then consumes the first line as `.` before your
+      program runs, and `inputs` only sees the other fifteen.
+    expected: [34370]
+  - title: reduce over inputs
+    body: |
+      `reduce inputs as $line (init; update)` aggregates a stream while holding
+      only the running state, never the whole file. It is the streaming
+      version of `-s` with `group_by`.
+    task: 'With `-n`, count the lines per service into an object such as `{"api": 11, ...}`.'
+    hints:
+      - 'Start from `{}`.'
+      - 'For each line, add one to the key named by its service: `.[$line.service] += 1`.'
+      - '`reduce inputs as $line ({}; .[$line.service] += 1)`'
+    solution: 'reduce inputs as $line ({}; .[$line.service] += 1)'
+    starter: 'reduce inputs as $line ({}; .)'
+    options: {null_input: true}
+    why: |
+      11 api lines, 3 auth and 2 worker, 16 in all. Keys appear in the order
+      they are first seen, because each `+=` on a missing key adds it at the
+      end of the object.
+    expected: [{"api": 11, "auth": 3, "worker": 2}]
+  - title: input consumes
+    body: |
+      `input` and `inputs` share one queue: whatever `input` reads is gone for
+      `inputs`. That makes it easy to treat the first line differently, like
+      a header.
+    task: 'With `-n`, output the timestamp of the first line, then the number of lines that remain after it.'
+    hints:
+      - '`input.ts` reads the first line and takes its timestamp.'
+      - 'Then `[inputs] | length` counts what is left.'
+      - '`input.ts, ([inputs] | length)`'
+    solution: 'input.ts, ([inputs] | length)'
+    starter: 'input.ts'
+    options: {null_input: true}
+    why: |
+      The comma evaluates left to right, so `input` runs first and `inputs`
+      starts at the second line: 15 remain.
+    expected: ["2026-03-16T10:00:01Z", 15]
+  - title: foreach over inputs
+    body: |
+      `foreach` combines well with `inputs`: a running state over a stream,
+      with output as you go, like `tail -f` with memory.
+    task: 'With `-n`, number the failing requests (status 500 or higher) as they occur, emitting strings like `"2026-03-16T10:00:07Z error #1"`.'
+    hints:
+      - 'Count failures in the state: `foreach inputs as $l (0; if $l.status >= 500 then . + 1 else . end; ...)`.'
+      - 'In the extract, emit only for failing lines: `select($l.status >= 500)`.'
+      - '`foreach inputs as $l (0; if $l.status >= 500 then . + 1 else . end; select($l.status >= 500) | "\($l.ts) error #\(.)")`'
+    solution: 'foreach inputs as $l (0; if $l.status >= 500 then . + 1 else . end; select($l.status >= 500) | "\($l.ts) error #\(.)")'
+    starter: 'foreach inputs as $l (0; .; .)'
+    options: {null_input: true}
+    why: |
+      The count lives in the state and the text in the extract. `select` in the
+      extract drops the lines that are not failures without resetting anything.
+    expected: ["2026-03-16T10:00:07Z error #1", "2026-03-16T10:00:18Z error #2", "2026-03-16T10:00:30Z error #3"]
+  - title: '--stream: documents as events'
+    body: |
+      `--stream` reads a document as a sequence of *events* instead of whole
+      values. A leaf becomes `[path, value]`, and the end of an array or
+      object becomes a one-element `[path]` event. A log line such as
+      `{"ts": ..., "latency_ms": 42}` becomes `[["ts"], "..."]`, ...,
+      `[["latency_ms"], 42]`, `[["latency_ms"]]`.
+
+      This step runs with `--stream`, so the program runs once per event, and
+      a single huge document can be processed without ever being held whole.
+    task: Output every latency above 1000 milliseconds, working on the stream events.
+    hints:
+      - 'Leaf events have two elements: `select(length == 2)`.'
+      - 'The latency events have the path `["latency_ms"]`: `select(.[0] == ["latency_ms"])`.'
+      - '`select(length == 2 and .[0] == ["latency_ms"]) | .[1] | select(. > 1000)`'
+    solution: 'select(length == 2 and .[0] == ["latency_ms"]) | .[1] | select(. > 1000)'
+    starter: 'select(length == 2)'
+    options: {stream: true}
+    why: |
+      Three requests were that slow. The closing event of each line is
+      `[["latency_ms"]]`, with one element, which is why the program checks
+      `length == 2` before reading `.[1]`.
+    expected: [1503, 30211, 2001]
+  - title: Rebuild objects with fromstream
+    body: |
+      `fromstream(events)` does the reverse: it assembles values from events.
+      Filter the events first and you rebuild only the fields you keep, which
+      is how large files are projected without being loaded.
+
+      This step runs with `--stream` and `-n`, so `inputs` is the stream of
+      events of every line. Keep the leaf events for `service` and `status`,
+      and every one-element closing event, which tells `fromstream` a line is
+      complete.
+    task: 'Rebuild one `{service, status}` object per log line from the stream events.'
+    hints:
+      - 'The closing events are the ones with `length == 1`.'
+      - 'The leaf events to keep: `.[0][0] | IN("service", "status")`.'
+      - '`fromstream(inputs | select(length == 1 or (.[0][0] | IN("service", "status"))))`'
+    solution: 'fromstream(inputs | select(length == 1 or (.[0][0] | IN("service", "status"))))'
+    starter: 'fromstream(inputs)'
+    options: {stream: true, null_input: true}
+    why: |
+      `fromstream(inputs)` alone would rebuild every line unchanged. Dropping
+      the other leaf events before they reach `fromstream` means those fields
+      are never assembled at all.
+    expected: [{"service": "api", "status": 200}, {"service": "api", "status": 200}, {"service": "api", "status": 429}, {"service": "auth", "status": 200}, {"service": "api", "status": 500}, {"service": "api", "status": 200}, {"service": "api", "status": 200}, {"service": "auth", "status": 401}, {"service": "api", "status": 304}, {"service": "worker", "status": 500}, {"service": "api", "status": 200}, {"service": "api", "status": 204}, {"service": "worker", "status": 200}, {"service": "auth", "status": 200}, {"service": "api", "status": 503}, {"service": "api", "status": 200}]

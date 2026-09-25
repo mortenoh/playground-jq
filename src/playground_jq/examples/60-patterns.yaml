@@ -1,0 +1,559 @@
+id: patterns
+title: Real-world patterns
+description: Programs people actually run, over the shapes real tools produce - pipeline steps from dirigent, FHIR to DHIS2 mapping, kubectl and AWS CLI output, package manifests, GitHub issues, access logs, CSV export and config redaction.
+order: 60
+track: patterns
+examples:
+  # dirigent pipeline steps (static:sensor-readings is shaped like dirigent's demo readings)
+  - id: patterns-dirigent-active-readings
+    title: Keep the active readings (dirigent filter step)
+    level: 201
+    tags: [dirigent, select, object-construction]
+    explanation: |
+      **Pattern: filter and project.** A dirigent pipeline step that keeps the
+      readings of active stations and only the three fields the next step
+      needs. `{station, region, celsius}` is shorthand for
+      `{station: .station, region: .region, celsius: .celsius}`.
+
+      Filtering on `status` drops the offline and the maintenance station.
+      Note that one active station reports its temperature as the string
+      `"32.1"`: projection does not change types, so the next step has to
+      deal with it.
+    program: '[.readings[] | select(.status == "active") | {station, region, celsius}]'
+    input: {ref: static:sensor-readings}
+    manual: [https://jqlang.org/manual/v1.8/#select, https://jqlang.org/manual/v1.8/#object-construction]
+    expected: [[{"station": "FNA-01", "region": "Western Area", "celsius": 31.2}, {"station": "FNA-02", "region": "Western Area", "celsius": 30.4}, {"station": "BO-01", "region": "Southern", "celsius": 33.8}, {"station": "KEN-01", "region": "Eastern", "celsius": 34.9}, {"station": "MAK-01", "region": "North East", "celsius": 36.1}, {"station": "PORT-01", "region": "North West", "celsius": 32.7}, {"station": "PORT-02", "region": "North West", "celsius": "32.1"}]]
+  - id: patterns-dirigent-string-to-number
+    title: Clean up numbers that arrive as strings
+    level: 201
+    tags: [dirigent, tonumber, types, error-suppression]
+    explanation: |
+      **Pattern: coerce or null.** Sensor feeds mix `31.2`, `"32.1"` and
+      `null`. `tonumber? // null` converts what can be converted: a number
+      stays a number, a numeric string is parsed, and anything that fails
+      (here `null`) becomes `null` instead of stopping the whole run.
+
+      `?` suppresses the error and produces no output; `// null` then
+      supplies the fallback. Run this before any arithmetic step.
+    program: '[.readings[] | {station, celsius: (.celsius | tonumber? // null)}]'
+    input: {ref: static:sensor-readings}
+    manual: [https://jqlang.org/manual/v1.8/#tonumber, https://jqlang.org/manual/v1.8/#error-suppression-optional-operator, https://jqlang.org/manual/v1.8/#alternative-operator]
+    expected: [[{"station": "FNA-01", "celsius": 31.2}, {"station": "FNA-02", "celsius": 30.4}, {"station": "BO-01", "celsius": 33.8}, {"station": "BO-02", "celsius": null}, {"station": "KEN-01", "celsius": 34.9}, {"station": "KEN-02", "celsius": 35.6}, {"station": "MAK-01", "celsius": 36.1}, {"station": "PORT-01", "celsius": 32.7}, {"station": "PORT-02", "celsius": 32.1}]]
+  - id: patterns-dirigent-fahrenheit
+    title: Convert every active reading to Fahrenheit (dirigent map step)
+    level: 201
+    tags: [dirigent, arithmetic, round]
+    explanation: |
+      **Pattern: per-record transform.** dirigent's conversion step computes
+      `{station, region, fahrenheit: (.celsius * 9 / 5 + 32 | round)}` for each
+      reading. Here it runs after the active filter, with `.celsius |=
+      tonumber` in between: without it, the string `"32.1"` would be
+      repeated nine times by `*` (string times number repeats a string in
+      jq 1.8) and the division would fail.
+
+      `| round` binds to the whole arithmetic expression, because the pipe
+      has the lowest precedence inside the parentheses.
+    program: '[.readings[] | select(.status == "active") | .celsius |= tonumber | {station, region, fahrenheit: (.celsius * 9 / 5 + 32 | round)}]'
+    input: {ref: static:sensor-readings}
+    manual: [https://jqlang.org/manual/v1.8/#multiplication-division-modulo, https://jqlang.org/manual/v1.8/#update-assignment]
+    expected: [[{"station": "FNA-01", "region": "Western Area", "fahrenheit": 88}, {"station": "FNA-02", "region": "Western Area", "fahrenheit": 87}, {"station": "BO-01", "region": "Southern", "fahrenheit": 93}, {"station": "KEN-01", "region": "Eastern", "fahrenheit": 95}, {"station": "MAK-01", "region": "North East", "fahrenheit": 97}, {"station": "PORT-01", "region": "North West", "fahrenheit": 91}, {"station": "PORT-02", "region": "North West", "fahrenheit": 90}]]
+  - id: patterns-dirigent-summary
+    title: Summarise the converted readings (dirigent reduce step)
+    level: 201
+    tags: [dirigent, unique, max_by]
+    explanation: |
+      **Pattern: summary object.** The last step of the dirigent demo turns
+      the list of converted readings into one summary:
+      `{stations: length, regions: (map(.region) | unique), warmest:
+      (max_by(.fahrenheit) | .station)}`. The first part of this program
+      rebuilds that list; the summary runs over it.
+
+      `unique` sorts as it de-duplicates, and `max_by` returns the whole
+      record, from which the station name is taken.
+    program: '[.readings[] | select(.status == "active") | .celsius |= tonumber | {station, region, fahrenheit: (.celsius * 9 / 5 + 32 | round)}] | {stations: length, regions: (map(.region) | unique), warmest: (max_by(.fahrenheit) | .station)}'
+    input: {ref: static:sensor-readings}
+    manual: [https://jqlang.org/manual/v1.8/#unique-unique, https://jqlang.org/manual/v1.8/#min-max-min]
+    expected: [{"stations": 7, "regions": ["Eastern", "North East", "North West", "Southern", "Western Area"], "warmest": "MAK-01"}]
+  - id: patterns-dirigent-note
+    title: A one-line note with string interpolation
+    level: 101
+    tags: [dirigent, string-interpolation]
+    explanation: |
+      **Pattern: message template.** dirigent pipelines end with a note for a
+      log or a chat channel. `"\(expr)"` evaluates any expression inside a
+      string, including `.readings | length`.
+    program: '{note: "\(.country) \(.week): \(.readings | length) readings"}'
+    input: {ref: static:sensor-readings}
+    manual: [https://jqlang.org/manual/v1.8/#string-interpolation]
+    expected: ["note": "Sierra Leone 2026-W12: 9 readings"]
+  - id: patterns-dirigent-ndjson-string
+    title: Parse NDJSON that arrives as one string
+    level: 301
+    tags: [dirigent, ndjson, fromjson, raw-input]
+    explanation: |
+      **Pattern: parse embedded NDJSON.** When a pipeline step receives a
+      whole log file as a single string (an HTTP body, a file read by another
+      tool), `split("\n") | map(select(length > 0) | fromjson)` turns it into
+      an array of objects. Here `-R -s` reproduces that: the whole file
+      becomes one string.
+
+      `select(length > 0)` drops the empty string after the final newline,
+      which `fromjson` would reject. The last `map(.status)` just keeps the
+      output short.
+    program: 'split("\n") | map(select(length > 0) | fromjson) | map(.status)'
+    input: {ref: static:access-log}
+    options: {raw_input: true, slurp: true}
+    manual: [https://jqlang.org/manual/v1.8/#split-1, https://jqlang.org/manual/v1.8/#convert-to-from-json]
+    expected: [[200, 200, 429, 200, 500, 200, 200, 401, 304, 500, 200, 204, 200, 200, 503, 200]]
+  - id: patterns-readings-per-region
+    title: Group readings per region
+    level: 201
+    tags: [dirigent, group_by, average]
+    explanation: |
+      **Pattern: group and aggregate.** Clean the numbers first, drop the
+      readings without a temperature, then `group_by(.region)` and compute
+      one row per group. `add / length` is the mean; `* 10 | round / 10`
+      rounds it to one decimal.
+
+      `group_by` sorts the groups by region name, which makes the output
+      order stable.
+    program: '.readings | map(.celsius |= (tonumber? // null) | select(.celsius != null)) | group_by(.region) | map({region: .[0].region, stations: length, mean_celsius: (map(.celsius) | add / length | . * 10 | round / 10)})'
+    input: {ref: static:sensor-readings}
+    manual: [https://jqlang.org/manual/v1.8/#group]
+    expected: [[{"region": "Eastern", "stations": 2, "mean_celsius": 35.3}, {"region": "North East", "stations": 1, "mean_celsius": 36.1}, {"region": "North West", "stations": 2, "mean_celsius": 32.4}, {"region": "Southern", "stations": 1, "mean_celsius": 33.8}, {"region": "Western Area", "stations": 2, "mean_celsius": 30.8}]]
+  - id: patterns-fhir-to-dhis2
+    title: FHIR QuestionnaireResponse to DHIS2 dataValues
+    level: 301
+    tags: [fhir, dhis2, recurse, dirigent]
+    explanation: |
+      **Pattern: recursive form to flat records.** The mapping dirigent-dhis2
+      uses to turn a FHIR QuestionnaireResponse into DHIS2 data values. Items
+      nest (sections contain questions), so `recurse(.item[]?)` visits every
+      level; only items with at least one answer are kept.
+
+      Each `linkId` is `dataElement.categoryOptionCombo` or just
+      `dataElement`; `split(".")` separates them and the option combo is added
+      only when present. The answer value is whichever `value*` field is set,
+      and DHIS2 expects it as a string, hence `tostring`. The unanswered item
+      and the section headers produce nothing.
+    program: '[.item[] | recurse(.item[]?) | select(.answer != null and (.answer | length) > 0)] | map((.linkId | split(".")) as $key | (.answer[0] | (.valueDecimal // .valueInteger // .valueString // .valueBoolean)) as $value | {dataElement: $key[0], value: ($value | tostring)} + (if ($key | length) > 1 then {categoryOptionCombo: $key[1]} else {} end))'
+    input: {ref: static:fhir-questionnaire-response}
+    manual: [https://jqlang.org/manual/v1.8/#recurse, https://jqlang.org/manual/v1.8/#alternative-operator]
+    expected: [[{"dataElement": "fbfJHSPpUQD", "value": "14", "categoryOptionCombo": "pq2XI5kz2BY"}, {"dataElement": "fbfJHSPpUQD", "value": "6", "categoryOptionCombo": "PT59n8BQbqM"}, {"dataElement": "cYeuwXTCPkU", "value": "11", "categoryOptionCombo": "pq2XI5kz2BY"}, {"dataElement": "hfdmMSPBgLG", "value": "Stock-out of iron tablets"}, {"dataElement": "rbkr8PL0rwM", "value": "true"}]]
+  - id: patterns-fhir-data-value-set
+    title: Wrap the values in a DHIS2 dataValueSet
+    level: 301
+    tags: [fhir, dhis2, envelope]
+    explanation: |
+      **Pattern: envelope.** DHIS2 imports `{dataSet, period, orgUnit,
+      dataValues}`. The org unit comes from the FHIR `subject` reference
+      (`Location/<id>`), the period from the `authored` date (`YYYYMM` for a
+      monthly data set). Taking the fields for the envelope from the
+      document itself keeps the mapping free of hard-coded ids.
+
+      The data set id is passed with `--arg`, as a pipeline would.
+    program: '{dataSet: $dataSet, period: (.authored[:7] | sub("-"; "")), orgUnit: (.subject.reference | ltrimstr("Location/")), dataValues: [.item[] | recurse(.item[]?) | select((.answer // []) | length > 0) | {dataElement: (.linkId | split(".")[0]), value: (.answer[0] | to_entries[0].value | tostring)}]}'
+    input: {ref: static:fhir-questionnaire-response}
+    options: {args: {dataSet: BfMAe6Itzgt}}
+    manual: [https://jqlang.org/manual/v1.8/#sub, https://jqlang.org/manual/v1.8/#ltrimstr]
+    expected: [{"dataSet": "BfMAe6Itzgt", "period": "202603", "orgUnit": "DiszpKrYNg8", "dataValues": [{"dataElement": "fbfJHSPpUQD", "value": "14"}, {"dataElement": "fbfJHSPpUQD", "value": "6"}, {"dataElement": "cYeuwXTCPkU", "value": "11"}, {"dataElement": "hfdmMSPBgLG", "value": "Stock-out of iron tablets"}, {"dataElement": "rbkr8PL0rwM", "value": "true"}]}]
+  # kubectl
+  - id: patterns-kubectl-not-running
+    title: 'kubectl: pods that are not running'
+    level: 201
+    tags: [kubernetes, kubectl, select, raw-output]
+    explanation: |
+      **Pattern: triage list.** One line per pod whose phase is not
+      `Running`, as `namespace/name phase`, the way `kubectl get pods -A -o
+      json | jq -r ...` is used in incident channels. `-r` prints the strings
+      without quotes.
+
+      The finished migration job (`Succeeded`) is listed too; add it to the
+      `select` if completed jobs are noise for you.
+    program: '.items[] | select(.status.phase != "Running") | "\(.metadata.namespace)/\(.metadata.name) \(.status.phase)"'
+    input: {ref: static:k8s-pods}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#select, https://jqlang.org/manual/v1.8/#string-interpolation]
+    expected: ["prod/worker-66f5-pqrst CrashLoopBackOff", "staging/migrate-1234-zzzzz Succeeded", "staging/web-9a8b7-aaaaa Pending"]
+  - id: patterns-kubectl-restarts
+    title: 'kubectl: pods with restarts, worst first'
+    level: 201
+    tags: [kubernetes, kubectl, sort_by]
+    explanation: |
+      **Pattern: top-N by a computed value.** Sum the restart counts of every
+      container in a pod, keep the pods that restarted at all, and sort
+      descending with `sort_by(-.restarts)` (negating a number reverses the
+      order).
+    program: '[.items[] | {pod: .metadata.name, restarts: (.status.containerStatuses | map(.restartCount) | add)} | select(.restarts > 0)] | sort_by(-.restarts)'
+    input: {ref: static:k8s-pods}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort]
+    expected: [[{"pod": "worker-66f5-pqrst", "restarts": 17}, {"pod": "api-7d9f8-fghij", "restarts": 3}, {"pod": "api-5b4c3-uvwxy", "restarts": 1}]]
+  - id: patterns-kubectl-images-per-namespace
+    title: 'kubectl: images per namespace'
+    level: 201
+    tags: [kubernetes, kubectl, group_by, from_entries]
+    explanation: |
+      **Pattern: group into an object.** Which image versions run where:
+      group the pods by namespace, collect every container image, de-duplicate
+      with `unique`, and turn the `{key, value}` pairs into an object with
+      `from_entries`. Staging runs release candidates; prod does not.
+    program: '.items | group_by(.metadata.namespace) | map({key: .[0].metadata.namespace, value: ([.[].spec.containers[].image] | unique)}) | from_entries'
+    input: {ref: static:k8s-pods}
+    manual: [https://jqlang.org/manual/v1.8/#group, https://jqlang.org/manual/v1.8/#to]
+    expected: [{"prod": ["ghcr.io/acme/api:2.4.1", "ghcr.io/acme/web:1.9.0", "ghcr.io/acme/worker:0.8.3"], "staging": ["ghcr.io/acme/api:2.5.0-rc1", "ghcr.io/acme/web:2.0.0-rc2"]}]
+  - id: patterns-kubectl-labels
+    title: 'kubectl: labels as key=value selectors'
+    level: 201
+    tags: [kubernetes, kubectl, to_entries, join]
+    explanation: |
+      **Pattern: object to selector string.** `to_entries` turns the labels
+      object into `{key, value}` pairs, which format as `key=value` and join
+      with commas: exactly the syntax `kubectl get pods -l app=api,tier=backend`
+      accepts.
+    program: '.items[] | "\(.metadata.name) \(.metadata.labels | to_entries | map("\(.key)=\(.value)") | join(","))"'
+    input: {ref: static:k8s-pods}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#to, https://jqlang.org/manual/v1.8/#join]
+    expected: ["api-7d9f8-abcde app=api,tier=backend", "api-7d9f8-fghij app=api,tier=backend", "web-5c6b7-klmno app=web,tier=frontend", "worker-66f5-pqrst app=worker,tier=backend", "api-5b4c3-uvwxy app=api,tier=backend", "migrate-1234-zzzzz app=migrate,tier=job", "web-9a8b7-aaaaa app=web,tier=frontend"]
+  - id: patterns-kubectl-resource-requests
+    title: 'kubectl: CPU and memory requests per namespace'
+    level: 301
+    tags: [kubernetes, kubectl, def, capture, reduce]
+    explanation: |
+      **Pattern: parse units, then aggregate.** Kubernetes quantities are
+      strings: `"250m"` CPU is 250 millicores, `"1Gi"` memory is 1024 MiB.
+      Two small functions convert them, and `reduce` adds each container's
+      requests to the totals of its namespace. `+=` on a missing key starts
+      from `null`, and `null + n` is `n`.
+    program: 'def millicores: if endswith("m") then .[:-1] | tonumber else tonumber * 1000 end; def mebibytes: capture("(?<n>[0-9]+)(?<unit>Mi|Gi)") | (.n | tonumber) * (if .unit == "Gi" then 1024 else 1 end); reduce (.items[] | .metadata.namespace as $ns | .spec.containers[].resources.requests | {ns: $ns, cpu: (.cpu | millicores), mem: (.memory | mebibytes)}) as $r ({}; .[$r.ns].cpu_m += $r.cpu | .[$r.ns].memory_mi += $r.mem)'
+    input: {ref: static:k8s-pods}
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions, https://jqlang.org/manual/v1.8/#capture, https://jqlang.org/manual/v1.8/#reduce]
+    expected: [{"prod": {"cpu_m": 1100, "memory_mi": 1664}, "staging": {"cpu_m": 450, "memory_mi": 448}}]
+  # AWS CLI
+  - id: patterns-aws-tags-to-object
+    title: 'aws ec2: Tags list to an object'
+    level: 201
+    tags: [aws, from_entries, tags]
+    explanation: |
+      **Pattern: Key/Value list to object.** AWS returns tags as
+      `[{"Key": "Name", "Value": "bastion"}, ...]`. `from_entries` accepts
+      `Key`/`Value` (as well as `key`/`value`, `name`/`value` and `k`/`v`), so
+      the list becomes `{"Name": "bastion", "env": "prod"}` with no mapping
+      at all. Merging it with `+` gives one flat record per instance.
+    program: '.Reservations[].Instances[] | {id: .InstanceId, type: .InstanceType} + (.Tags | from_entries)'
+    input: {ref: static:aws-ec2}
+    manual: [https://jqlang.org/manual/v1.8/#to]
+    expected: [{"id": "i-0aa11", "type": "t3.micro", "Name": "bastion", "env": "prod"}, {"id": "i-0bb22", "type": "m6i.large", "Name": "api-1", "env": "prod"}, {"id": "i-0bb23", "type": "m6i.large", "Name": "api-2", "env": "prod"}, {"id": "i-0cc33", "type": "t3.small", "Name": "scratch", "env": "dev"}, {"id": "i-0dd44", "type": "r6g.xlarge", "Name": "db-replica", "env": "prod"}, {"id": "i-0dd45", "type": "t3.medium", "Name": "ci-runner", "env": "dev"}]
+  - id: patterns-aws-per-az
+    title: 'aws ec2: instances per availability zone'
+    level: 201
+    tags: [aws, group_by, count]
+    explanation: |
+      **Pattern: count per key.** Instances are nested in reservations;
+      `[.Reservations[].Instances[]]` flattens them into one array first.
+      Then `group_by` and one `{(key): length}` object per group, merged with
+      `add`.
+    program: '[.Reservations[].Instances[]] | group_by(.Placement.AvailabilityZone) | map({(.[0].Placement.AvailabilityZone): length}) | add'
+    input: {ref: static:aws-ec2}
+    manual: [https://jqlang.org/manual/v1.8/#group, https://jqlang.org/manual/v1.8/#add]
+    expected: [{"eu-north-1a": 2, "eu-north-1b": 2, "eu-north-1c": 2}]
+  - id: patterns-aws-running-prod
+    title: 'aws ec2: running instances tagged env=prod'
+    level: 201
+    tags: [aws, select, from_entries]
+    explanation: |
+      **Pattern: filter on a tag.** Convert the tags once with `from_entries`,
+      then test them like ordinary fields. The stopped `scratch` instance and
+      the `dev` CI runner are left out.
+    program: '[.Reservations[].Instances[] | (.Tags | from_entries) as $tags | select(.State.Name == "running" and $tags.env == "prod") | {id: .InstanceId, name: $tags.Name, az: .Placement.AvailabilityZone}]'
+    input: {ref: static:aws-ec2}
+    manual: [https://jqlang.org/manual/v1.8/#select, https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator]
+    expected: [[{"id": "i-0aa11", "name": "bastion", "az": "eu-north-1a"}, {"id": "i-0bb22", "name": "api-1", "az": "eu-north-1a"}, {"id": "i-0bb23", "name": "api-2", "az": "eu-north-1b"}, {"id": "i-0dd44", "name": "db-replica", "az": "eu-north-1c"}]]
+  - id: patterns-aws-public-ips-tsv
+    title: 'aws ec2: public addresses as TSV'
+    level: 201
+    tags: [aws, tsv, raw-output]
+    explanation: |
+      **Pattern: shell-ready table.** Instances with a public IP address, one
+      tab-separated line each, ready for `while read -r id name ip; do ...;
+      done`. `select(.PublicIpAddress != null)` skips the private ones, and
+      `-r` prints the `@tsv` lines raw.
+    program: '.Reservations[].Instances[] | select(.PublicIpAddress != null) | [.InstanceId, (.Tags | from_entries | .Name), .PublicIpAddress] | @tsv'
+    input: {ref: static:aws-ec2}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    expected: ["i-0aa11\tbastion\t13.48.10.1", "i-0dd45\tci-runner\t13.48.99.7"]
+  # package.json
+  - id: patterns-package-deps-name-at-version
+    title: 'package.json: dependencies as name@version'
+    level: 101
+    tags: [package-json, to_entries, raw-output]
+    explanation: |
+      **Pattern: object entries to lines.** `to_entries` turns
+      `{"react": "^19.3.0"}` into `[{"key": "react", "value": "^19.3.0"}]`,
+      which interpolates into the `name@version` form `npm install` accepts.
+      Entries keep the order of the file.
+    program: '.dependencies | to_entries[] | "\(.key)@\(.value)"'
+    input: {ref: static:package-json}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#to]
+    expected: ["react@^19.3.0", "react-dom@^19.3.0", "maplibre-gl@^6.11.2", "date-fns@^4.1.0"]
+  - id: patterns-package-scripts
+    title: 'package.json: list the scripts'
+    level: 101
+    tags: [package-json, keys_unsorted, to_entries]
+    explanation: |
+      **Pattern: discover commands.** What can `npm run` do here? One line per
+      script with its command. `keys_unsorted` alone would give the names in
+      file order; `keys` would sort them.
+    program: '.scripts | to_entries[] | "\(.key): \(.value)"'
+    input: {ref: static:package-json}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#to, https://jqlang.org/manual/v1.8/#keys-keys]
+    expected: ["dev: vite", "build: tsc -b && vite build", "test: vitest run", "lint: oxlint"]
+  - id: patterns-package-major-versions
+    title: 'package.json: major versions of all dependencies'
+    level: 201
+    tags: [package-json, map_values, strings]
+    explanation: |
+      **Pattern: parse version strings.** Merge runtime and development
+      dependencies with `+`, strip the range prefix (`^`, `~` or `>=`) with
+      `sub`, and keep the number before the first dot. `map_values` changes
+      the values and keeps the keys.
+    program: '.dependencies + .devDependencies | map_values(sub("^[^0-9]*"; "") | split(".")[0] | tonumber)'
+    input: {ref: static:package-json}
+    manual: [https://jqlang.org/manual/v1.8/#map-map, https://jqlang.org/manual/v1.8/#sub]
+    expected: [{"react": 19, "react-dom": 19, "maplibre-gl": 6, "date-fns": 4, "typescript": 7, "vite": 8, "vitest": 5, "oxlint": 1}]
+  # GitHub issues
+  - id: patterns-github-open-bugs-by-assignee
+    title: 'GitHub: open bugs by assignee'
+    level: 301
+    tags: [github, reduce, any]
+    explanation: |
+      **Pattern: many-to-many grouping.** An issue can have several assignees,
+      so `group_by` on one field does not fit. Instead, `reduce` over the open
+      bugs and, inside, over each issue's assignees (or `"unassigned"`),
+      appending the issue number under every name.
+
+      `any(.labels[]; .name == "bug")` tests the label list without building
+      an array. Issue 107 appears under both bob and erin.
+    program: 'map(select(.state == "open" and any(.labels[]; .name == "bug"))) | reduce .[] as $issue ({}; reduce ([$issue.assignees[].login] | if . == [] then ["unassigned"] end)[] as $who (.; .[$who] += [$issue.number]))'
+    input: {ref: static:github-issues}
+    manual: [https://jqlang.org/manual/v1.8/#reduce, https://jqlang.org/manual/v1.8/#any]
+    expected: [{"bob": [101, 107], "unassigned": [105], "erin": [107, 110]}]
+  - id: patterns-github-label-frequency
+    title: 'GitHub: label frequency'
+    level: 201
+    tags: [github, group_by, sort_by]
+    explanation: |
+      **Pattern: histogram.** Collect every label name, group equal names, and
+      count. `sort_by(-.count, .label)` sorts by count descending and breaks
+      ties alphabetically.
+    program: '[.[].labels[].name] | group_by(.) | map({label: .[0], count: length}) | sort_by(-.count, .label)'
+    input: {ref: static:github-issues}
+    manual: [https://jqlang.org/manual/v1.8/#group, https://jqlang.org/manual/v1.8/#sort-sort]
+    expected: [[{"label": "bug", "count": 4}, {"label": "docs", "count": 3}, {"label": "dependencies", "count": 2}, {"label": "priority: high", "count": 2}, {"label": "enhancement", "count": 1}, {"label": "good first issue", "count": 1}, {"label": "needs repro", "count": 1}, {"label": "windows", "count": 1}]]
+  - id: patterns-github-time-to-close
+    title: 'GitHub: time to close in hours'
+    level: 201
+    tags: [github, dates, fromdate]
+    explanation: |
+      **Pattern: duration between timestamps.** `fromdate` parses an ISO 8601
+      UTC timestamp (`2026-01-05T14:02:00Z`) into seconds since the epoch, so
+      subtracting two gives a duration in seconds; divide by 3600 for hours.
+      Only closed issues have a `closed_at`.
+    program: 'map(select(.closed_at != null) | {number, title, hours: (((.closed_at | fromdate) - (.created_at | fromdate)) / 3600 | round)})'
+    input: {ref: static:github-issues}
+    manual: [https://jqlang.org/manual/v1.8/#dates]
+    expected: [[{"number": 102, "title": "Add --tab to the docs", "hours": 18}, {"number": 104, "title": "Bump actions/checkout", "hours": 7}, {"number": 106, "title": "Document limit/2 with negative numbers", "hours": 314}, {"number": 108, "title": "Add getpath examples", "hours": 24}]]
+  - id: patterns-github-issues-per-month
+    title: 'GitHub: issues opened per month'
+    level: 201
+    tags: [github, dates, group_by]
+    explanation: |
+      **Pattern: bucket by date.** An ISO timestamp starts with `YYYY-MM`, so
+      the first seven characters are a month bucket that also sorts
+      correctly as a string. No date parsing needed.
+    program: 'group_by(.created_at[:7]) | map({month: .[0].created_at[:7], opened: length, still_open: map(select(.state == "open")) | length})'
+    input: {ref: static:github-issues}
+    manual: [https://jqlang.org/manual/v1.8/#array-string-slice, https://jqlang.org/manual/v1.8/#group]
+    expected: [[{"month": "2026-01", "opened": 5, "still_open": 3}, {"month": "2026-02", "opened": 5, "still_open": 3}]]
+  # Logs
+  - id: patterns-logs-error-rate
+    title: 'Logs: error rate per service'
+    level: 201
+    tags: [logs, ndjson, slurp, group_by]
+    explanation: |
+      **Pattern: ratio per group.** With `-s` the NDJSON log becomes one
+      array. Group by service, count requests and server errors (status 500
+      and above), and compute the percentage. The rate is added with
+      `.error_pct = ...` after the object exists, so it can use the other two
+      fields.
+    program: 'group_by(.service) | map({service: .[0].service, requests: length, errors: (map(select(.status >= 500)) | length)} | .error_pct = (.errors / .requests * 100 | round))'
+    input: {ref: static:access-log}
+    options: {slurp: true}
+    manual: [https://jqlang.org/manual/v1.8/#group]
+    expected: [[{"service": "api", "requests": 11, "errors": 2, "error_pct": 18}, {"service": "auth", "requests": 3, "errors": 0, "error_pct": 0}, {"service": "worker", "requests": 2, "errors": 1, "error_pct": 50}]]
+  - id: patterns-logs-slowest-paths
+    title: 'Logs: slowest request per path'
+    level: 201
+    tags: [logs, ndjson, max, sort_by]
+    explanation: |
+      **Pattern: worst case per endpoint.** A percentile needs many samples;
+      with a handful of requests per path the maximum is the honest
+      "p95-like" number. Group by path, keep the count and the maximum
+      latency, and list the slowest first.
+    program: 'group_by(.path) | map({path: .[0].path, requests: length, max_ms: (map(.latency_ms) | max)}) | sort_by(-.max_ms)'
+    input: {ref: static:access-log}
+    options: {slurp: true}
+    manual: [https://jqlang.org/manual/v1.8/#min-max-min, https://jqlang.org/manual/v1.8/#sort-sort]
+    expected: [[{"path": "job:refresh-radar", "requests": 1, "max_ms": 30211}, {"path": "/v1/alerts", "requests": 2, "max_ms": 2001}, {"path": "/login", "requests": 2, "max_ms": 120}, {"path": "/v1/stations", "requests": 2, "max_ms": 91}, {"path": "/v1/alerts/17", "requests": 1, "max_ms": 61}, {"path": "/v1/forecast", "requests": 5, "max_ms": 45}, {"path": "/logout", "requests": 1, "max_ms": 15}, {"path": "job:cleanup", "requests": 1, "max_ms": 12}, {"path": "/v1/radar", "requests": 1, "max_ms": 3}]]
+  - id: patterns-logs-percentiles
+    title: 'Logs: latency percentiles (nearest rank)'
+    level: 301
+    tags: [logs, def, percentile]
+    explanation: |
+      **Pattern: nearest-rank percentile.** Sort the latencies and take the
+      element at rank `ceil(n * p / 100)` (1-based). With 16 samples the
+      median is the 8th value and p90 the 15th. One slow worker job makes the
+      maximum useless as a summary, which is why percentiles exist.
+    program: 'def percentile($p): sort | .[(length * $p / 100 | ceil) - 1]; map(.latency_ms) | {p50: percentile(50), p90: percentile(90), max: max}'
+    input: {ref: static:access-log}
+    options: {slurp: true}
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions, https://jqlang.org/manual/v1.8/#sort-sort]
+    expected: [{"p50": 45, "p90": 2001, "max": 30211}]
+  - id: patterns-logs-status-histogram
+    title: 'Logs: status class histogram'
+    level: 201
+    tags: [logs, histogram, reduce]
+    explanation: |
+      **Pattern: bucket and count.** `.status / 100 | floor` maps 204 to 2 and
+      503 to 5; the bucket name is built with interpolation. Streaming with
+      `-n` and `reduce inputs` counts without holding the log in memory.
+    program: 'reduce inputs as $l ({}; .["\($l.status / 100 | floor)xx"] += 1)'
+    input: {ref: static:access-log}
+    options: {null_input: true}
+    manual: [https://jqlang.org/manual/v1.8/#reduce, https://jqlang.org/manual/v1.8/#inputs]
+    expected: [{"2xx": 10, "4xx": 2, "5xx": 3, "3xx": 1}]
+  # CSV, TSV and tables
+  - id: patterns-csv-export
+    title: Export records as CSV with a header
+    level: 201
+    tags: [csv, raw-output, format]
+    explanation: |
+      **Pattern: JSON to CSV.** Emit a header array, then one array per
+      record, and pipe both through `@csv`, which quotes strings and doubles
+      any embedded quotes. `-r` keeps jq from wrapping each CSV line in JSON
+      quotes. Label lists are joined into one field.
+    program: '["number", "state", "labels", "title"], (.[] | [.number, .state, (.labels | map(.name) | join(";")), .title]) | @csv'
+    input: {ref: static:github-issues}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    expected: ["\"number\",\"state\",\"labels\",\"title\"", "101,\"open\",\"bug;priority: high\",\"Crash when input is empty\"", "102,\"closed\",\"docs\",\"Add --tab to the docs\"", "103,\"open\",\"enhancement\",\"Support @base32d\"", "104,\"closed\",\"dependencies\",\"Bump actions/checkout\"", "105,\"open\",\"bug\",\"Wrong error message for .[] on null\"", "106,\"closed\",\"docs;good first issue\",\"Document limit/2 with negative numbers\"", "107,\"open\",\"bug;priority: high;needs repro\",\"Segfault with deeply nested arrays\"", "108,\"closed\",\"docs\",\"Add getpath examples\"", "109,\"open\",\"dependencies\",\"Bump pytest\"", "110,\"open\",\"bug;windows\",\"Windows line endings in -R mode\""]
+  - id: patterns-csv-import
+    title: Import CSV into objects
+    level: 301
+    tags: [csv, raw-input, transpose]
+    explanation: |
+      **Pattern: CSV to JSON.** With `-R -s` the file is one string. Split it
+      into lines and fields, take the first row as the header, and pair
+      header and row with `transpose` into `{key, value}` entries.
+      `tonumber? // .` converts numeric fields and leaves the rest alone.
+
+      This naive split does not handle quoted fields with commas; for real
+      CSV with quoting, convert with a CSV tool first.
+    program: 'split("\n") | map(select(length > 0) | split(",")) | .[0] as $header | .[1:] | map([$header, map(tonumber? // .)] | transpose | map({key: .[0], value: .[1]}) | from_entries)'
+    input: {ref: static:people-csv}
+    options: {raw_input: true, slurp: true}
+    manual: [https://jqlang.org/manual/v1.8/#transpose, https://jqlang.org/manual/v1.8/#to]
+    expected: [[{"name": "Astrid", "age": 41, "city": "Oslo", "team": "platform"}, {"name": "Bjorn", "age": 29, "city": "Bergen", "team": "platform"}, {"name": "Chiara", "age": 35, "city": "Milan", "team": "data"}, {"name": "Dmitri", "age": 47, "city": "Riga", "team": "ops"}, {"name": "Efua", "age": 31, "city": "Accra", "team": "ops"}, {"name": "Farid", "age": 26, "city": "Lyon", "team": "sales"}]]
+  - id: patterns-analytics-rows-to-objects
+    title: 'DHIS2 analytics: rows to named objects'
+    level: 301
+    tags: [dhis2, analytics, transpose]
+    explanation: |
+      **Pattern: header plus rows.** Many APIs (DHIS2 analytics, BigQuery,
+      SQL result sets) send column names once and rows as arrays. Pair each
+      row with the header names, then replace ids with display names from
+      `metaData.items`. Only the first three rows are shown.
+
+      Values arrive as strings such as `"1204.0"`. `tonumber` alone keeps the
+      literal in jq 1.8.2, which prints `1204.0`, while other builds print
+      `1204`; `round` turns the whole counts into plain integers everywhere.
+    program: '.metaData.items as $names | [.headers[].name] as $cols | .rows[:3] | map([$cols, .] | transpose | map({key: .[0], value: .[1]}) | from_entries | {data: $names[.dx].name, orgUnit: $names[.ou].name, period: $names[.pe].name, value: (.value | tonumber | round)})'
+    input: {ref: static:analytics-response}
+    manual: [https://jqlang.org/manual/v1.8/#transpose]
+    expected: [[{"data": "ANC 1st visit", "orgUnit": "Bo", "period": "January 2026", "value": 1204}, {"data": "ANC 1st visit", "orgUnit": "Bo", "period": "February 2026", "value": 1150}, {"data": "ANC 1st visit", "orgUnit": "Bombali", "period": "January 2026", "value": 987}]]
+  - id: patterns-join-lookup
+    title: Join two lists with INDEX
+    level: 301
+    tags: [join, INDEX, lookup]
+    explanation: |
+      **Pattern: lookup table join.** `INDEX(stream; key)` builds an object
+      keyed by `key`, so each employee finds its department in one lookup
+      instead of scanning the list: the jq equivalent of a SQL join. Only
+      the first four employees are shown.
+    program: 'INDEX(.departments[]; .id) as $dept | .employees[:4][] | {name, title, department: $dept[.dept].name, floor: $dept[.dept].floor}'
+    input: {ref: static:employees}
+    manual: [https://jqlang.org/manual/v1.8/#sql-style-operators]
+    expected: [{"name": "Astrid", "title": "CTO", "department": "Engineering", "floor": 3}, {"name": "Bjorn", "title": "Engineer", "department": "Engineering", "floor": 3}, {"name": "Chiara", "title": "Engineer", "department": "Engineering", "floor": 3}, {"name": "Dmitri", "title": "Head of Operations", "department": "Operations", "floor": 1}]
+  # Config
+  - id: patterns-config-redact-walk
+    title: Redact secrets anywhere with walk
+    level: 301
+    tags: [config, walk, redaction, test]
+    explanation: |
+      **Pattern: rule-based redaction.** Before logging or sharing a config,
+      mask every string whose key looks secret. `walk` visits every object at
+      every depth; `with_entries` rewrites its matching entries. The regular
+      expression matches `password`, `secret`, `token`, and keys ending in
+      `key`, case-insensitively, so `server.tls.key` is masked too.
+
+      The result shows the two places that changed.
+    program: 'walk(if type == "object" then with_entries(if (.key | test("password|secret|token|key$"; "i")) and (.value | type) == "string" then .value = "REDACTED" end) end) | {database, tls: .server.tls}'
+    input: {ref: static:config}
+    manual: [https://jqlang.org/manual/v1.8/#walk, https://jqlang.org/manual/v1.8/#test]
+    expected: [{"database": {"driver": "postgres", "host": "db.internal", "port": 5432, "name": "weather", "pool": {"min": 2, "max": 20}, "password": "REDACTED"}, "tls": {"enabled": true, "cert": "/etc/ssl/app.pem", "key": "REDACTED"}}]
+  - id: patterns-config-env-override
+    title: Apply environment overrides with a deep merge
+    level: 201
+    tags: [config, merge, multiplication]
+    explanation: |
+      **Pattern: layered config.** `*` merges objects recursively, so the
+      prod overrides replace only the keys they name: the pool keeps its
+      `min` while `max` becomes 100. `--arg env prod` chooses the layer.
+    program: '. * .environments[$env] | del(.environments) | {server: {host: .server.host, port: .server.port}, database}'
+    input: {ref: static:config}
+    options: {args: {env: prod}}
+    manual: [https://jqlang.org/manual/v1.8/#multiplication-division-modulo]
+    expected: [{"server": {"host": "0.0.0.0", "port": 443}, "database": {"driver": "postgres", "host": "db.prod.internal", "port": 5432, "name": "weather", "pool": {"min": 2, "max": 100}, "password": "changeme"}}]
+  - id: patterns-config-flatten
+    title: Flatten a nested config into dotted keys
+    level: 301
+    tags: [config, paths, getpath]
+    explanation: |
+      **Pattern: flatten.** `paths(scalars)` lists the path of every leaf;
+      joining it with dots gives keys like `outputs.1.rotate.max_mb`
+      (`map(tostring)` makes the array indices joinable). The flat form is
+      what `.properties` files, environment variables and diff tools want.
+
+      Beware: `paths(scalars)` skips leaves whose value is `false` or `null`,
+      because `paths(f)` tests the truthiness of `f`. `.logging` has none; for
+      documents that do, use `paths(type | IN("object", "array") | not)`.
+    program: '.logging | [paths(scalars) as $p | {key: ($p | map(tostring) | join(".")), value: getpath($p)}] | from_entries'
+    input: {ref: static:config}
+    manual: [https://jqlang.org/manual/v1.8/#paths, https://jqlang.org/manual/v1.8/#getpath]
+    expected: [{"level": "info", "format": "json", "outputs.0.type": "stdout", "outputs.1.type": "file", "outputs.1.path": "/var/log/app.log", "outputs.1.rotate.max_mb": 100, "outputs.1.rotate.keep": 5}]
+  - id: patterns-config-diff-keys
+    title: Which settings does an environment override?
+    level: 301
+    tags: [config, paths, diff]
+    explanation: |
+      **Pattern: path diff.** List the leaf paths an override touches, with
+      the base value and the new one side by side. `getpath` on a path that
+      does not exist in the base would give `null`, which shows a newly added
+      setting.
+    program: '. as $base | .environments.prod | [paths(scalars) as $p | {setting: ($p | join(".")), base: ($base | getpath($p)), prod: getpath($p)}]'
+    input: {ref: static:config}
+    manual: [https://jqlang.org/manual/v1.8/#paths, https://jqlang.org/manual/v1.8/#getpath]
+    expected: [[{"setting": "server.port", "base": 8080, "prod": 443}, {"setting": "database.host", "base": "db.internal", "prod": "db.prod.internal"}, {"setting": "database.pool.max", "base": 20, "prod": 100}]]

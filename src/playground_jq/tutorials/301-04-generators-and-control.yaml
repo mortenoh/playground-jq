@@ -1,0 +1,168 @@
+id: 301-04-generators-and-control
+level: 301
+order: 4
+title: 'Generators and control: range, limit, first, until, label and break'
+summary: Produce streams of values on demand, cut them short, page through them and stop a loop exactly when you want.
+input: {text: '{"numbers": [3, 8, 1, 9, 4, 12, 7], "words": ["jq", "is", "a", "filter", "language", "for", "json"], "start": 6, "page": 2, "size": 3}'}
+steps:
+  - title: range with a step
+    body: |
+      A *generator* is an expression with zero, one or many outputs. `range`
+      is the simplest: `range(from; upto; by)` emits numbers from `from` up to
+      (not including) `upto`, `by` apart. Its arguments are ordinary
+      expressions evaluated against the input.
+
+      The input is a small object with a list of numbers, a list of words and
+      a few settings.
+    task: 'Collect the elements of `.numbers` at the even positions 0, 2, 4, ... into an array.'
+    hints:
+      - '`range(0; .numbers | length; 2)` emits 0, 2, 4 and 6.'
+      - 'Bind each index to a variable and index with it: `range(...) as $i | .numbers[$i]`.'
+      - '`[range(0; .numbers | length; 2) as $i | .numbers[$i]]`'
+    solution: '[range(0; .numbers | length; 2) as $i | .numbers[$i]]'
+    starter: '[range(0; .numbers | length; 2)]'
+    why: |
+      `range(...) as $i | body` runs the body once per index, with `.` still
+      the whole input, so `.numbers[$i]` works inside. Positions 0, 2, 4 and 6
+      hold 3, 1, 4 and 7.
+    expected: [[3, 1, 4, 7]]
+  - title: limit takes the first n outputs
+    body: |
+      `limit(n; f)` emits at most `n` outputs of `f` and then stops evaluating
+      `f`. Combined with `select` it answers "the first few that match".
+    task: 'Collect the first three numbers greater than 5, in input order.'
+    hints:
+      - 'The matching numbers are `.numbers[] | select(. > 5)`.'
+      - 'Wrap that generator in `limit(3; ...)`.'
+      - '`[limit(3; .numbers[] | select(. > 5))]`'
+    solution: '[limit(3; .numbers[] | select(. > 5))]'
+    starter: '[.numbers[] | select(. > 5)]'
+    why: |
+      8, 9 and 12 pass; 7 would be the fourth and is never looked at. Compare
+      `[.numbers[] | select(. > 5)][:3]`, which finds every match first and
+      slices afterwards.
+    expected: [[8, 9, 12]]
+  - title: first(f) and the empty case
+    body: |
+      `first(f)` is `limit(1; f)`: the first output of `f`, or no output at
+      all when `f` has none. That is different from `.[0]` on an array, which
+      gives `null` for an empty array.
+    task: Output the first number greater than 8.
+    hints:
+      - 'The candidates: `.numbers[] | select(. > 8)`.'
+      - 'Take only the first of them with `first(...)`.'
+      - '`first(.numbers[] | select(. > 8))`'
+    solution: 'first(.numbers[] | select(. > 8))'
+    starter: '.numbers[] | select(. > 8)'
+    why: |
+      9 comes before 12 in the list. Try `first(.numbers[] | select(. > 100))`:
+      it produces nothing, not `null`, so `// "none"` after it supplies a
+      default.
+    expected: [9]
+  - title: Paging with skip and limit
+    body: |
+      `skip(n; f)` drops the first `n` outputs of `f` and emits the rest. With
+      `limit` it pages through any generator: skip `(page - 1) * size`
+      outputs, then take `size`.
+    task: 'Collect page `.page` of `.words`, with `.size` words per page (pages count from 1).'
+    hints:
+      - 'The number to skip is `(.page - 1) * .size`.'
+      - '`skip(N; .words[])` emits the words after the first N.'
+      - '`[limit(.size; skip((.page - 1) * .size; .words[]))]`'
+    solution: '[limit(.size; skip((.page - 1) * .size; .words[]))]'
+    starter: '[skip(0; .words[])]'
+    why: |
+      Page 2 with 3 words per page is words 4 to 6: filter, language, for. For
+      an array, `.words[3:6]` does the same; `skip` and `limit` also work on
+      streams that are not arrays, such as `inputs` or `range`.
+    expected: [["filter", "language", "for"]]
+  - title: Infinite generators
+    body: |
+      `recurse(f)` emits its input, then `f` of it, then `f` of that, and so
+      on for as long as `f` produces output. With `f` = `. * 2` that is
+      forever. An infinite generator is safe as long as something stops
+      asking for more, and `limit` is that something.
+    task: 'Collect the first six powers of two, starting with 1.'
+    hints:
+      - '`1 | recurse(. * 2)` emits 1, 2, 4, 8, ... without end.'
+      - 'Take six of them with `limit`.'
+      - '`[limit(6; 1 | recurse(. * 2))]`'
+    solution: '[limit(6; 1 | recurse(. * 2))]'
+    starter: '[limit(6; 1)]'
+    why: |
+      jq evaluates generators lazily: `recurse` computes the next value only
+      when `limit` asks for it, so the seventh power is never computed. Do not
+      reach for `repeat(f)` here: in jq 1.8 it applies `f` to the *same* input
+      again and again, so `1 | repeat(. * 2)` emits 2, 2, 2, ...
+    expected: [[1, 2, 4, 8, 16, 32]]
+  - title: recurse(f) stops itself
+    body: |
+      `recurse(f)` ends a branch when `f` produces no output. Returning `empty`
+      at the right moment turns it into a loop that stops by itself.
+
+      The Collatz sequence halves an even number and maps an odd number `n`
+      to `3n + 1`, until it reaches 1.
+    task: 'Collect the Collatz sequence that starts at `.start`, ending with 1.'
+    hints:
+      - 'The step: `if . % 2 == 0 then . / 2 else 3 * . + 1 end`.'
+      - 'Stop at 1 by producing nothing: `if . == 1 then empty elif ...`.'
+      - '`[.start | recurse(if . == 1 then empty elif . % 2 == 0 then . / 2 else 3 * . + 1 end)]`'
+    solution: '[.start | recurse(if . == 1 then empty elif . % 2 == 0 then . / 2 else 3 * . + 1 end)]'
+    starter: '[.start | recurse(...)]'
+    why: |
+      `recurse` emits every value it reaches, including the 1 where `f` gives
+      up. `while(cond; f)` is the variant that stops *before* emitting a value
+      that fails `cond`.
+    expected: [[6, 3, 10, 5, 16, 8, 4, 2, 1]]
+  - title: until returns only the end
+    body: |
+      `until(cond; f)` applies `f` until `cond` is true and emits only the
+      final value, not the steps in between. To count steps, carry a counter
+      in the state: loop over `[value, steps]` pairs.
+    task: 'Count how many steps the Collatz sequence from `.start` takes to reach 1.'
+    hints:
+      - 'Start with the pair `[.start, 0]`.'
+      - 'Stop when `.[0] == 1`; each step computes the next value from `.[0]` and adds 1 to `.[1]`.'
+      - '`[.start, 0] | until(.[0] == 1; [(.[0] | if . % 2 == 0 then . / 2 else 3 * . + 1 end), .[1] + 1]) | .[1]`'
+    solution: '[.start, 0] | until(.[0] == 1; [(.[0] | if . % 2 == 0 then . / 2 else 3 * . + 1 end), .[1] + 1]) | .[1]'
+    starter: '[.start, 0] | until(.[0] == 1; ...)'
+    why: |
+      The sequence from the previous step has nine values, so eight steps. The
+      pair is the same trick as the state of `foreach`: a loop in jq carries
+      everything it needs in its single value.
+    expected: [8]
+  - title: label and break
+    body: |
+      `label $name | expr` marks a place; `break $name` inside `expr` stops the
+      whole generator at once, as if it had run out. It is the only way to end
+      a stream early based on the values themselves, not on a count.
+    task: 'Collect the words from the start of `.words` up to, but not including, the first word longer than five characters.'
+    hints:
+      - 'Emit each word unless it is too long: `if length > 5 then break $stop else . end`.'
+      - 'The label goes before the generator: `label $stop | .words[] | ...`.'
+      - '`[label $stop | .words[] | if length > 5 then break $stop else . end]`'
+    solution: '[label $stop | .words[] | if length > 5 then break $stop else . end]'
+    starter: '[.words[] | select(length <= 5)]'
+    why: |
+      `select(length <= 5)` would skip `filter` and `language` but continue
+      with `for` and `json`. `break` ends the stream at `filter`, so later short
+      words never appear. The builtin `first(f)` is itself defined with `label` and
+      `break`.
+    expected: [["jq", "is", "a"]]
+  - title: Questions that stop early
+    body: |
+      `any(gen; cond)` and `all(gen; cond)` stop at the first output that
+      decides the answer, and `isempty(gen)` stops at the first output of
+      `gen`. They are generators that answer yes or no.
+    task: 'Output an array of three booleans: is any number greater than 10, are all numbers positive, and is there no number greater than 100.'
+    hints:
+      - '`any(.numbers[]; . > 10)` and `all(.numbers[]; . > 0)`.'
+      - '"No number greater than 100" is `isempty(.numbers[] | select(. > 100))`.'
+      - '`[any(.numbers[]; . > 10), all(.numbers[]; . > 0), isempty(.numbers[] | select(. > 100))]`'
+    solution: '[any(.numbers[]; . > 10), all(.numbers[]; . > 0), isempty(.numbers[] | select(. > 100))]'
+    starter: '[any(.numbers[]; . > 10)]'
+    why: |
+      All three are true. `any` stops at 12, the first number over 10, and
+      `isempty` looks at every number because none passes. Prefer these over
+      `map(...) | any`, which builds an array first.
+    expected: [[true, true, true]]

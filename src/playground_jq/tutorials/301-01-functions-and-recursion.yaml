@@ -1,0 +1,204 @@
+id: 301-01-functions-and-recursion
+level: 301
+order: 1
+title: User-defined functions and recursion
+summary: Name your own filters with def, give them filter and value parameters, and let them call themselves to walk a tree.
+input: {ref: static:category-tree}
+steps:
+  - title: Name a filter with def
+    body: |
+      `def name: body;` gives a filter a name. The definition comes before the
+      expression that uses it, and the function runs with whatever input it is
+      given, exactly like a builtin: `def caption: "\(.id): \(.name)";` turns any
+      node into a short label. (The name `label` itself is not available: it
+      is a keyword, used by `label $name | ... break $name`.)
+
+      The input is a category tree: every node has a `name`, an `id` and a
+      `children` array of nodes of the same shape.
+    task: 'Define a function `caption` that formats a node as `"<id>: <name>"`, then apply it to each direct child of the root.'
+    hints:
+      - 'Start with `def caption: "\(.id): \(.name)";`'
+      - The direct children of the root are `.children[]`.
+      - 'Put the definition first: `def caption: ...; .children[] | caption`'
+    solution: 'def caption: "\(.id): \(.name)"; .children[] | caption'
+    starter: 'def caption: ...; .children[]'
+    why: |
+      A definition is only a name for a filter. `.children[] | caption` produces
+      three nodes and `caption` runs once for each, so you get three strings. A
+      function has no special input: `.` inside it is whatever flows into it.
+    expected:
+    - '1: Books'
+    - '6: Music'
+    - '10: Games'
+  - title: Filter parameters
+    body: |
+      A parameter written without `$` is a *filter* parameter: the caller passes
+      an expression, and the function decides when (and how often) to run it.
+      That is how builtins like `map(f)` and `select(f)` are written.
+
+      `def count(stream): reduce stream as $item (0; . + 1);` counts the outputs
+      of any expression you hand it.
+    task: Define `count(stream)` with `reduce`, and use it to count every node in the tree (every object reachable with `..`).
+    hints:
+      - '`..` produces every value in the input; `.. | objects` keeps the objects, and here every object is a node.'
+      - 'The counter: `reduce stream as $item (0; . + 1)`'
+      - 'Call it as `count(.. | objects)`'
+    solution: 'def count(stream): reduce stream as $item (0; . + 1); count(.. | objects)'
+    starter: 'def count(stream): ...; count(.. | objects)'
+    why: |
+      `stream` is not evaluated when `count` is called; `reduce` evaluates it and
+      folds over each output. The tree holds 11 nodes, ids 0 to 10. The builtin
+      way to write the same thing is `[.. | objects] | length`, which builds an
+      array first; the `reduce` version never holds more than a number.
+    expected:
+    - 11
+  - title: A function that calls itself
+    body: |
+      A function may call itself. Recursion needs a base case that stops it:
+      here, a node without children. For every other node the function calls
+      itself on each child and combines the answers.
+    task: Write a recursive `depth` function that answers how many levels the tree has (a node without children has depth 1), and apply it to the root.
+    hints:
+      - 'The base case: `if .children == [] then 1 else ... end`'
+      - 'For the other case, collect the depths of the children: `[.children[] | depth]`'
+      - 'Then take the deepest one and add one level: `1 + ([.children[] | depth] | max)`'
+    solution: 'def depth: if .children == [] then 1 else 1 + ([.children[] | depth] | max) end; depth'
+    starter: 'def depth: if .children == [] then 1 else ... end; depth'
+    why: |
+      root, Books, Programming, jq is the longest chain: four levels. Each call
+      works on a smaller subtree, and leaves return without recursing, so the
+      recursion always ends. `[.children[] | depth] | max` is the usual way to
+      combine the answers of a generator.
+    expected:
+    - 4
+  - title: Value parameters carry state down
+    body: |
+      A `$name` parameter is a *value* parameter: it is evaluated once, before
+      the call, and bound as a variable. Value parameters are how a recursive
+      function carries information downwards, such as the path from the root.
+
+      A comma inside a function makes it a generator: `(A), (B)` emits
+      everything A emits and then everything B emits.
+    task: 'Write `crumbs($prefix)` that emits a breadcrumb such as `"Books > Programming > jq"` for a node and for all nodes below it. Call it on every child of the root, starting with an empty prefix, so the root itself is not part of any breadcrumb.'
+    hints:
+      - 'Inside the function, extend the prefix first: `($prefix + [.name]) as $path`'
+      - 'Emit this node''s breadcrumb with `$path | join(" > ")`, then recurse with `.children[] | crumbs($path)`.'
+      - 'Start it with `.children[] | crumbs([])`'
+    solution: 'def crumbs($prefix): ($prefix + [.name]) as $path | ($path | join(" > ")), (.children[] | crumbs($path)); .children[] | crumbs([])'
+    starter: 'def crumbs($prefix): ($prefix + [.name]) as $path | ...; .children[] | crumbs([])'
+    why: |
+      Each call receives the names above it, adds its own and passes the longer
+      list on. The output is in pre-order (a node, then everything below it),
+      because the node's own breadcrumb comes before the comma and the
+      recursive call after it.
+    expected:
+    - Books
+    - Books > Programming
+    - Books > Programming > jq
+    - Books > Programming > Python
+    - Books > Fiction
+    - Music
+    - Music > Jazz
+    - Music > Jazz > Bebop
+    - Music > Folk
+    - Games
+  - title: Collect the leaves
+    body: |
+      A recursive generator can also *skip* nodes: emit something only in the
+      base case, and only recurse in the other. The output is then the leaves
+      of the tree.
+    task: Write a recursive `leaves` function that emits the name of every node without children, and collect the names into one array (in tree order).
+    hints:
+      - 'The base case emits: `if .children == [] then .name else ... end`'
+      - 'The recursive case emits nothing of its own: `.children[] | leaves`'
+      - 'Wrap the call in `[...]` to collect the stream.'
+    solution: 'def leaves: if .children == [] then .name else .children[] | leaves end; [leaves]'
+    starter: 'def leaves: ...; [leaves]'
+    why: |
+      Every call either emits one name or delegates to its children, never both.
+      Six nodes have an empty `children` array, from `jq` to `Games`.
+    expected:
+    - - jq
+      - Python
+      - Fiction
+      - Bebop
+      - Folk
+      - Games
+  - title: The builtin recurse
+    body: |
+      Many recursive functions are a walk down one field. `recurse(f)` does that
+      walk for you: it emits the input, then recursively everything `f` leads
+      to. `recurse(.children[])` visits every node of this tree in the same
+      pre-order your functions used.
+    task: Produce the same array of leaf names as in the previous step without `def`, using `recurse` and `select`.
+    hints:
+      - '`recurse(.children[])` emits every node, the root first.'
+      - 'Keep the leaves with `select(.children == [])`.'
+      - '`[recurse(.children[]) | select(.children == []) | .name]`'
+    solution: '[recurse(.children[]) | select(.children == []) | .name]'
+    starter: '[recurse(.children[])]'
+    why: |
+      `recurse(f)` is itself defined in jq as `def recurse(f): def r: ., (f | r); r;`,
+      a recursive function with an inner helper. Reach for `def` when the walk
+      needs state (like the breadcrumbs) or a result built from the children
+      (like the depth); `recurse` is enough when you only visit.
+    expected:
+    - - jq
+      - Python
+      - Fiction
+      - Bebop
+      - Folk
+      - Games
+  - title: Build a new tree
+    body: |
+      A recursive function can return a new structure built from its children's
+      results. An object whose key is computed is written `{(expression): value}`,
+      and `add` merges an array of objects into one.
+    task: 'Turn the tree into nested objects keyed by name, with `null` for a leaf: the result starts `{"root": {"Books": {"Programming": {"jq": null, ...`.'
+    hints:
+      - 'A node becomes `{(.name): something}`.'
+      - 'For a leaf the value is `null`; otherwise it is the children turned into objects and merged: `.children | map(tree) | add`.'
+      - 'def tree: {(.name): (if .children == [] then null else (.children | map(tree) | add) end)}; tree'
+    solution: 'def tree: {(.name): (if .children == [] then null else (.children | map(tree) | add) end)}; tree'
+    starter: 'def tree: {(.name): ...}; tree'
+    why: |
+      Each call returns a one-key object; the parent merges its children's
+      objects with `add`. This is the shape many configuration formats use,
+      and it drops the `id`s you did not ask for.
+    expected:
+    - root:
+        Books:
+          Programming:
+            jq: null
+            Python: null
+          Fiction: null
+        Music:
+          Jazz:
+            Bebop: null
+          Folk: null
+        Games: null
+  - title: Search and return the path
+    body: |
+      The last pattern combines everything: a recursive search that returns
+      the path of names to the node it finds. A branch that does not contain
+      the node produces no output at all, so only the matching branch reaches
+      the top.
+
+      Careful with `.`: after `.children[] | find($id)`, `.` is the child's
+      answer, not the current node. Save what you need first with `.name as $n`.
+    task: Write `find($id)` returning the array of names from the current node down to the node with that id, and call it as `find(8)`.
+    hints:
+      - 'The base case: `if .id == $id then [.name] else ... end`'
+      - 'Otherwise save the name and search the children: `.name as $n | .children[] | find($id)`'
+      - 'Prepend the saved name to the child''s answer: `... | [$n] + .`'
+    solution: 'def find($id): if .id == $id then [.name] else .name as $n | .children[] | find($id) | [$n] + . end; find(8)'
+    starter: 'def find($id): if .id == $id then [.name] else ... end; find(8)'
+    why: |
+      Leaves that do not match have no children, so `.children[]` produces
+      nothing and the branch dies out quietly. Only the chain that ends at
+      Bebop (id 8) emits, and each level adds its own name on the way back up.
+    expected:
+    - - root
+      - Music
+      - Jazz
+      - Bebop

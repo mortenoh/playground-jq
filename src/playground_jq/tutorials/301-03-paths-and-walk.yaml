@@ -1,0 +1,177 @@
+id: 301-03-paths-and-walk
+level: 301
+order: 3
+title: 'Paths, getpath, setpath, delpaths and walk'
+summary: Treat locations in a document as data, then use them to redact secrets, strip keys, apply environment overrides and flatten a config.
+input: {ref: static:config}
+steps:
+  - title: Paths as arrays
+    body: |
+      Every location in a JSON document can be written as an array of keys and
+      indices: `["server", "tls", "cert"]` is the location of `.server.tls.cert`.
+      `paths` emits the path of every value in the input; `paths(f)` keeps the
+      paths whose value passes `f`, so `paths(scalars)` lists only the leaves.
+
+      The input is an application config with a secret (`database.password`)
+      and per-environment overrides.
+    task: 'List every leaf under `.server` as a dotted string such as `"tls.cert"`, collected into one array.'
+    hints:
+      - 'Start from `.server` and use `paths(scalars)`.'
+      - 'Each path is an array of strings; `join(".")` turns it into a dotted string.'
+      - '`.server | [paths(scalars) | join(".")]`'
+    solution: '.server | [paths(scalars) | join(".")]'
+    starter: '.server | [paths(scalars)]'
+    why: |
+      Paths are relative to the input of `paths`, which is why they do not
+      start with `server`. The order is document order: `host` and `port` come
+      before everything inside `tls`.
+
+      One catch: `paths(f)` keeps a path when `f` of its value is *truthy*,
+      and `scalars` returns the value itself. A leaf that is `false` or
+      `null` is therefore skipped (try `paths(scalars)` on `.app`, where
+      `debug` is `false`). When such leaves matter, use
+      `paths(type | IN("object", "array") | not)` or `tostream`.
+    expected: [["host", "port", "tls.enabled", "tls.cert", "tls.key", "timeouts.read", "timeouts.write", "timeouts.idle"]]
+  - title: getpath reads a path you computed
+    body: |
+      `getpath(p)` reads the value at a path given as data. That lets a
+      location come from a string, a variable or another part of the input,
+      where `.a.b.c` must be written into the program.
+    task: 'Read the value at the dotted location `"database.pool.max"` with `getpath`, splitting the string into a path.'
+    hints:
+      - '`"database.pool.max" | split(".")` is `["database", "pool", "max"]`.'
+      - 'The argument of `getpath` is evaluated against the same input as `getpath` itself.'
+      - '`getpath("database.pool.max" | split("."))`'
+    solution: 'getpath("database.pool.max" | split("."))'
+    starter: 'getpath(...)'
+    why: |
+      This is how tools accept `--key database.pool.max` on the command line:
+      pass the string with `--arg` and split it into a path.
+    expected: [20]
+  - title: Find where a key lives
+    body: |
+      Because paths are arrays, you can filter them like any other value.
+      `.[-1]` is the last element of a path: the key or index of the value it
+      points at.
+    task: Output the path (as an array) of every key named `password`, wherever it is in the document.
+    hints:
+      - '`paths` emits every path, leaves and containers alike.'
+      - 'Keep those whose last element is `"password"`.'
+      - '`paths | select(.[-1] == "password")`'
+    solution: 'paths | select(.[-1] == "password")'
+    starter: 'paths'
+    why: |
+      There is one password, at `["database", "password"]`. Searching by key
+      name rather than by a fixed location still works when a secret moves or
+      a new one is added somewhere else.
+    expected: [["database", "password"]]
+  - title: setpath writes through a path
+    body: |
+      `setpath(p; v)` returns the input with the value at `p` replaced by `v`.
+      To apply it for every path a generator finds, fold with `reduce`: the
+      state is the document, and each step sets one more path.
+    task: 'Replace every `password` value with `"***"` using `reduce` and `setpath`, then output only `.database`.'
+    hints:
+      - 'Reuse the generator from the previous step: `paths | select(.[-1] == "password")`.'
+      - '`reduce (GENERATOR) as $p (.; setpath($p; "***"))` starts from the whole document.'
+      - '`reduce (paths | select(.[-1] == "password")) as $p (.; setpath($p; "***")) | .database`'
+    solution: 'reduce (paths | select(.[-1] == "password")) as $p (.; setpath($p; "***")) | .database'
+    starter: 'reduce (paths | select(.[-1] == "password")) as $p (.; ...) | .database'
+    why: |
+      The generator runs over the *original* document, so the paths are
+      collected before anything is changed. The rest of `database` is left as
+      it was.
+    expected: [{"driver": "postgres", "host": "db.internal", "port": 5432, "name": "weather", "pool": {"min": 2, "max": 20}, "password": "***"}]
+  - title: delpaths removes many locations at once
+    body: |
+      `delpaths(ps)` takes an array of paths and deletes all of them. It sorts
+      the paths and deletes from the last one backwards, so removing an array
+      element does not shift the indices of the other paths in the list.
+
+      `IN(a, b)` is true when the input equals one of the values given.
+    task: 'Delete every key named `password` or `key` from the document, then output `.server.tls` to see the result.'
+    hints:
+      - 'Collect the paths into an array: `[paths | select(.[-1] | IN("password", "key"))]`.'
+      - 'Hand that array to `delpaths`.'
+      - '`delpaths([paths | select(.[-1] | IN("password", "key"))]) | .server.tls`'
+    solution: 'delpaths([paths | select(.[-1] | IN("password", "key"))]) | .server.tls'
+    starter: 'delpaths([...]) | .server.tls'
+    why: |
+      The private key path `server.tls.key` is gone, and so is the database
+      password. `del(.. | .password?)` is shorter for one key name; `delpaths`
+      is the general form when the paths come from a computation.
+    expected: [{"enabled": true, "cert": "/etc/ssl/app.pem"}]
+  - title: walk rewrites the whole tree
+    body: |
+      `walk(f)` applies `f` to every value, children before parents, and
+      rebuilds the document from the results. It is the tool for a rule that
+      applies at every level: "wherever an object has a password, mask it".
+    task: 'Redact the password with `walk`: every object that has a `password` key gets `"***"` instead. Output `.database`.'
+    hints:
+      - '`f` sees every value; only change objects: `if type == "object" and has("password") then ... else . end`.'
+      - 'The change itself is `.password = "***"`.'
+      - '`walk(if type == "object" and has("password") then .password = "***" else . end) | .database`'
+    solution: 'walk(if type == "object" and has("password") then .password = "***" else . end) | .database'
+    starter: 'walk(if type == "object" then . else . end) | .database'
+    why: |
+      The same result as the `reduce`/`setpath` version, written as a rule
+      rather than a search. `walk` must return every value it does not change
+      (`else .`); leaving out the `else` branch is a common way to lose data.
+    expected: [{"driver": "postgres", "host": "db.internal", "port": 5432, "name": "weather", "pool": {"min": 2, "max": 20}, "password": "***"}]
+  - title: Deep merge with *
+    body: |
+      `a * b` merges two objects *recursively*: keys from `b` win, and where
+      both sides hold an object the two are merged in turn. `+` would replace
+      a nested object as a whole.
+
+      `.environments.prod` holds the settings that differ in production.
+    task: 'Apply the prod overrides to the config with `*`, drop `.environments`, and output `{port, db_host, pool}`: the server port, the database host and the whole database pool object.'
+    hints:
+      - '`. * .environments.prod` merges the overrides into the whole document.'
+      - 'Then `del(.environments)`.'
+      - '`. * .environments.prod | del(.environments) | {port: .server.port, db_host: .database.host, pool: .database.pool}`'
+    solution: '. * .environments.prod | del(.environments) | {port: .server.port, db_host: .database.host, pool: .database.pool}'
+    starter: '. * .environments.prod | del(.environments)'
+    why: |
+      The override only names `pool.max`, yet `pool.min` survives: that is the
+      deep part of the merge. With `+` the prod `database` object would replace
+      the base one and lose the driver, the name and the pool minimum.
+    expected: [{"port": 443, "db_host": "db.prod.internal", "pool": {"min": 2, "max": 100}}]
+  - title: Choose the environment with an argument
+    body: |
+      This step runs with `--arg env dev`, so `$env` is the string `"dev"`.
+      An object index takes any expression, so `.environments[$env]` picks the
+      overrides named by the argument.
+    task: 'Apply the overrides of the environment named by `$env` and output `{port, debug}`: the server port and `.app.debug`.'
+    hints:
+      - 'Replace `.prod` from the previous step with `[$env]`.'
+      - '`. * .environments[$env]`'
+      - '`. * .environments[$env] | {port: .server.port, debug: .app.debug}`'
+    solution: '. * .environments[$env] | {port: .server.port, debug: .app.debug}'
+    starter: '. * .environments[$env]'
+    options: {args: {env: dev}}
+    why: |
+      One program serves every environment; the shell decides which, with
+      `jq --arg env dev -f merge.jq config.json`. An unknown name gives
+      `. * null`, which is an error, so a typo does not silently fall back to
+      the defaults.
+    expected: [{"port": 3000, "debug": true}]
+  - title: Flatten into environment variables
+    body: |
+      Paths also work in the other direction: turn a nested object into flat
+      `KEY=value` pairs. `paths(scalars) as $p` binds each leaf path, and
+      `getpath($p)` reads its value.
+    task: 'Flatten `.database` into one object whose keys are the leaf paths joined with `_` and upper-cased (`POOL_MAX`), with the leaf values unchanged.'
+    hints:
+      - 'Start with `.database | [paths(scalars) as $p | {key: ..., value: getpath($p)}]`.'
+      - 'The key: `$p | join("_") | ascii_upcase`.'
+      - 'An array of `{key, value}` objects becomes an object with `from_entries`.'
+    solution: '.database | [paths(scalars) as $p | {key: ($p | join("_") | ascii_upcase), value: getpath($p)}] | from_entries'
+    starter: '.database | [paths(scalars) as $p | {key: $p, value: getpath($p)}]'
+    why: |
+      This is how a nested config is exported as `DB_HOST`-style variables for
+      a container. `join` would also accept array indices in a path, since it
+      converts numbers to strings. `.database` has no `false` or `null`
+      leaves, so `paths(scalars)` sees them all (see step 1). Note that `PASSWORD` is exported too: in a
+      real pipeline, redact before you flatten.
+    expected: [{"DRIVER": "postgres", "HOST": "db.internal", "PORT": 5432, "NAME": "weather", "POOL_MIN": 2, "POOL_MAX": 20, "PASSWORD": "changeme"}]
