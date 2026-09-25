@@ -68,7 +68,7 @@ equal keys keep their original relative order.
 ```jq-try
 program: '.store.books | sort_by(.price) | map("\(.price) \(.title)")'
 ref: static:bookstore
-caption: Books from cheapest to most expensive. jq 1.8 prints 22.0 as it was written in the input.
+caption: Books from cheapest to most expensive. jq 1.8 keeps 22.0 and 24.0 as the input wrote them.
 expected: [["6.25 Pipes and Paths", "8.5 Learning jq", "14.5 Data Wrangling Recipes", "19.99 Functional Filters", "22.0 Regular Expressions Unleashed", "24.0 JSON at Scale", "27.75 Streams and Generators", "31.9 The Art of the Shell"]]
 ```
 

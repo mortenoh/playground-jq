@@ -308,7 +308,7 @@ expected: [[[1], [2], ["three"]]]
 
 ## Selecting parts of a structure: pick and getpath
 
-[`pick(pathexps)`](https://jqlang.org/manual/v1.8/#pick), new in jq 1.8, builds an object (or
+[`pick(pathexps)`](https://jqlang.org/manual/v1.8/#pick), added in jq 1.7, builds an object (or
 array) that keeps only the given paths, at their original nesting. It is like `{title, price}`
 for deep paths. [`getpath(path)`](https://jqlang.org/manual/v1.8/#getpath) reads a value by a
 path given as an array of keys and indices; a missing path gives `null` instead of an error.
