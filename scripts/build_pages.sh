@@ -16,5 +16,5 @@ cd "$root"
 uv run python scripts/export_static.py "$site"
 # GitHub Pages answers unknown paths with 404.html; the app routes them itself.
 cp "$site/index.html" "$site/404.html"
-touch "$out/.nojekyll"
+touch "$site/.nojekyll"
 echo "built $site"
