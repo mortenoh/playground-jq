@@ -6,6 +6,7 @@ import { CodePane } from '@/components/editor/CodePane'
 import { Markdown } from '@/components/Markdown'
 import { OptionsBar } from '@/components/playground/OptionsBar'
 import { OutputPanel } from '@/components/playground/OutputPanel'
+import { Split } from '@/components/Split'
 import { SourcePicker } from '@/components/playground/SourcePicker'
 import { Button } from '@/components/ui/button'
 import {
@@ -22,7 +23,7 @@ import { formatJson } from '@/lib/format'
 import { playground, STARTER, type PlaygroundState } from '@/lib/playground'
 import { history, remember } from '@/lib/progress'
 import { decodeState, encodeState } from '@/lib/share'
-import type { RunResult, SourceInfo } from '@/lib/types'
+import { DEFAULT_OPTIONS, type RunResult, type SourceInfo } from '@/lib/types'
 
 /** Inputs above this size are not re-run on every keystroke; Run or Cmd/Ctrl+Enter runs them. */
 const AUTO_RUN_LIMIT = 400_000
@@ -164,14 +165,24 @@ export default function PlaygroundPage() {
                     <SourcePicker
                         sources={sources}
                         origin={state.origin}
-                        onLoaded={(text, origin, format) =>
+                        onLoaded={(text, origin, format, preset) => {
+                            const held = playground.get()
+                            // The suggested program replaces one that was itself a suggestion (or
+                            // the starter), never a program the learner wrote.
+                            const suggestion = preset?.program ?? null
+                            const replace =
+                                suggestion !== null &&
+                                (held.program === held.suggested || held.program === STARTER.program)
                             update({
                                 input: text,
                                 origin,
-                                // CSV and other text is read line by line as strings.
-                                options: { ...playground.get().options, raw_input: format === 'text' },
+                                program: replace && suggestion !== null ? suggestion : held.program,
+                                suggested: replace ? suggestion : held.suggested,
+                                options: replace
+                                    ? { ...DEFAULT_OPTIONS, ...preset?.options, raw_input: format === 'text' }
+                                    : { ...held.options, raw_input: format === 'text' },
                             })
-                        }
+                        }}
                     />
                     <div className="ml-auto flex items-center gap-1">
                         <DropdownMenu>
@@ -216,82 +227,94 @@ export default function PlaygroundPage() {
                 </div>
                 <OptionsBar options={state.options} onChange={(options) => update({ options })} />
             </div>
-            <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-2">
-                <section
-                    className="flex min-h-64 flex-col border-b lg:border-r lg:border-b-0"
-                    aria-label="Input"
-                >
-                    <div className="flex h-9 shrink-0 items-center gap-2 border-b px-2">
-                        <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                            Input
-                        </span>
-                        {state.origin !== null && (
-                            <span
-                                className="truncate text-xs text-muted-foreground"
-                                data-testid="input-origin"
-                            >
-                                {state.origin.title}
-                                {state.origin.live ? ' (live)' : ''}
-                            </span>
-                        )}
-                        <span className="ml-auto text-xs text-faint">
-                            {(state.input.length / 1024).toFixed(1)} KB
-                        </span>
-                        <Button
-                            variant="ghost"
-                            size="xs"
-                            disabled={state.options.raw_input}
-                            title="Indent the input; arrays of numbers stay on one line"
-                            onClick={() => {
-                                const formatted = formatJson(state.input)
-                                if (formatted === null) toast.error('The input is not a single JSON value')
-                                else update({ input: formatted })
-                            }}
-                        >
-                            <Braces /> Format
-                        </Button>
-                    </div>
-                    <div className="min-h-0 flex-1">
-                        <CodePane
-                            value={state.input}
-                            language={state.options.raw_input ? 'plaintext' : 'json'}
-                            path="input"
-                            label="Input"
-                            onChange={(input) => update({ input, origin: null })}
-                            onRun={runNow}
-                        />
-                    </div>
-                </section>
-                <div className="flex min-h-0 flex-col">
-                    <LessonCard state={state} />
-                    <section
-                        className="flex h-[38%] min-h-32 shrink-0 flex-col border-b"
-                        aria-label="Program"
-                    >
+            <Split
+                id="playground-io"
+                direction="horizontal"
+                className="flex-1"
+                first={
+                    <section className="flex h-full min-h-0 flex-col" aria-label="Input">
                         <div className="flex h-9 shrink-0 items-center gap-2 border-b px-2">
                             <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                                Program
+                                Input
                             </span>
-                            <span className="text-xs text-faint">
-                                Cmd/Ctrl+Enter runs; edits run automatically
+                            {state.origin !== null && (
+                                <span
+                                    className="truncate text-xs text-muted-foreground"
+                                    data-testid="input-origin"
+                                >
+                                    {state.origin.title}
+                                    {state.origin.live ? ' (live)' : ''}
+                                </span>
+                            )}
+                            <span className="ml-auto text-xs text-faint">
+                                {(state.input.length / 1024).toFixed(1)} KB
                             </span>
+                            <Button
+                                variant="ghost"
+                                size="xs"
+                                disabled={state.options.raw_input}
+                                title="Indent the input; arrays of numbers stay on one line"
+                                onClick={() => {
+                                    const formatted = formatJson(state.input)
+                                    if (formatted === null)
+                                        toast.error('The input is not a single JSON value')
+                                    else update({ input: formatted })
+                                }}
+                            >
+                                <Braces /> Format
+                            </Button>
                         </div>
                         <div className="min-h-0 flex-1">
                             <CodePane
-                                value={state.program}
-                                language="jq"
-                                path="program"
-                                label="jq program"
-                                errors={result?.errors}
-                                onChange={(program) => update({ program })}
+                                value={state.input}
+                                language={state.options.raw_input ? 'plaintext' : 'json'}
+                                path="input"
+                                label="Input"
+                                onChange={(input) => update({ input, origin: null })}
                                 onRun={runNow}
-                                fontSize={14}
                             />
                         </div>
                     </section>
-                    <OutputPanel result={result} running={running} raw={raw} className="min-h-48 flex-1" />
-                </div>
-            </div>
+                }
+                second={
+                    <div className="flex h-full min-h-0 flex-col">
+                        <LessonCard state={state} />
+                        <Split
+                            id="playground-program"
+                            direction="vertical"
+                            initial={35}
+                            className="flex-1"
+                            first={
+                                <section className="flex h-full min-h-0 flex-col" aria-label="Program">
+                                    <div className="flex h-9 shrink-0 items-center gap-2 border-b px-2">
+                                        <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                                            Program
+                                        </span>
+                                        <span className="text-xs text-faint">
+                                            Cmd/Ctrl+Enter runs; edits run automatically
+                                        </span>
+                                    </div>
+                                    <div className="min-h-0 flex-1">
+                                        <CodePane
+                                            value={state.program}
+                                            language="jq"
+                                            path="program"
+                                            label="jq program"
+                                            errors={result?.errors}
+                                            onChange={(program) => update({ program })}
+                                            onRun={runNow}
+                                            fontSize={14}
+                                        />
+                                    </div>
+                                </section>
+                            }
+                            second={
+                                <OutputPanel result={result} running={running} raw={raw} className="h-full" />
+                            }
+                        />
+                    </div>
+                }
+            />
         </div>
     )
 }

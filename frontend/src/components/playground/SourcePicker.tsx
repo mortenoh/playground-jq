@@ -18,7 +18,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { ApiError } from '@/lib/api'
 import { fetchSource } from '@/lib/client'
 import type { InputOrigin } from '@/lib/playground'
-import type { Fetched, InputFormat, JsonValue, SourceInfo, SourceKind } from '@/lib/types'
+import type { Fetched, InputFormat, JsonValue, Preset, SourceInfo, SourceKind } from '@/lib/types'
 
 /** Parse `a=1&b=2&b=3` into a query object, repeated keys becoming arrays. */
 export function parseQuery(text: string): Record<string, string | string[]> {
@@ -151,7 +151,7 @@ export function SourcePicker({
 }: {
     sources: SourceInfo[]
     origin: InputOrigin | null
-    onLoaded: (text: string, origin: InputOrigin, format: InputFormat) => void
+    onLoaded: (text: string, origin: InputOrigin, format: InputFormat, preset: Preset | null) => void
 }) {
     const [chosen, setChosen] = useState(origin?.ref ?? '')
     const [live, setLive] = useState(false)
@@ -173,7 +173,12 @@ export function SourcePicker({
                 preset: pid,
                 mode: useLive && info?.live === true ? 'live' : 'snapshot',
             })
-            onLoaded(fetched.text, { ref, title, live: !fetched.snapshot }, fetched.format)
+            onLoaded(
+                fetched.text,
+                { ref, title, live: !fetched.snapshot },
+                fetched.format,
+                info?.presets.find((candidate) => candidate.id === pid) ?? null,
+            )
             toast.success(`Loaded ${title}`, {
                 description: `${(fetched.bytes / 1024).toFixed(1)} KB ${fetched.snapshot ? 'from the recorded snapshot' : fetched.cached ? 'live (cached)' : 'live'}`,
             })
@@ -262,6 +267,7 @@ export function SourcePicker({
                             fetched.text,
                             { ref: `${fetched.source}:custom`, title, live: true },
                             fetched.format,
+                            null,
                         )
                         setChosen('')
                     }}

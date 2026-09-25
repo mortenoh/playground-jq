@@ -78,6 +78,9 @@ export interface Preset {
     format: InputFormat
     tags: string[]
     request: Record<string, JsonValue>
+    /** The program the playground suggests for this input (verified like every example). */
+    program: string | null
+    options: Partial<RunOptions>
 }
 
 /** Mirrors `playground_jq.sources.base.SourceInfo`. */

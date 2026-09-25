@@ -4,6 +4,7 @@ import { Suspense, lazy, useState } from 'react'
 import { CodePane } from '@/components/editor/CodePane'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { hintFor } from '@/lib/hints'
 import type { RunResult } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
@@ -121,6 +122,11 @@ export function OutputPanel({
                                         </span>
                                     )}
                                     : <span className="font-mono text-xs">{error.message}</span>
+                                    {hintFor(error) !== null && (
+                                        <span className="mt-0.5 block text-xs text-muted-foreground">
+                                            {hintFor(error)}
+                                        </span>
+                                    )}
                                 </span>
                             </p>
                         ))}

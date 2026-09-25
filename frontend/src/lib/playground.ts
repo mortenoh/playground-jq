@@ -31,6 +31,8 @@ export interface PlaygroundState {
     options: RunOptions
     origin: InputOrigin | null
     lesson: Lesson | null
+    /** The program last suggested for an input; a program still equal to it may be replaced. */
+    suggested?: string | null
 }
 
 export const STARTER: PlaygroundState = {
