@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { parseLines } from '@/lib/local/engine'
 import { equivalentCommand, inputFlags, outputFlags, shellQuote } from '@/lib/local/command'
 import { compileErrors, readStreams } from '@/lib/local/diagnostics'
 import { isGeoJson } from '@/lib/local/geojson'
@@ -91,5 +92,12 @@ describe('isGeoJson', () => {
         expect(isGeoJson({ type: 'Feature', geometry: { type: 'Point', coordinates: [1, 2] } })).toBe(false)
         expect(isGeoJson({ type: 'Circle' })).toBe(false)
         expect(isGeoJson([1])).toBe(false)
+    })
+})
+
+describe('parseLines', () => {
+    it('reads compact output with and without record separators', () => {
+        expect(parseLines('1\n[2,3]')).toEqual({ outputs: [1, [2, 3]], truncated: false })
+        expect(parseLines('\u001e1\n\u001e[2,3]')).toEqual({ outputs: [1, [2, 3]], truncated: false })
     })
 })

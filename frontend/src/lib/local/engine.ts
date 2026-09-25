@@ -61,9 +61,11 @@ function exchange(input: string, program: string, flags: string[]): Promise<Work
     })
 }
 
-function parseLines(stdout: string): { outputs: JsonValue[]; truncated: boolean } {
+/** Every output value from compact stdout; `--seq` puts a record separator before each one. */
+export function parseLines(stdout: string): { outputs: JsonValue[]; truncated: boolean } {
     const outputs: JsonValue[] = []
-    for (const line of stdout.split('\n')) {
+    for (const raw of stdout.split('\n')) {
+        const line = raw.replace(/^\u001e/, '')
         if (line === '') continue
         if (outputs.length >= MAX_OUTPUTS) return { outputs, truncated: true }
         outputs.push(JSON.parse(line) as JsonValue)
