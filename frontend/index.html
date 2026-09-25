@@ -9,6 +9,19 @@
             content="A playground, language guide, tutorials and example library for learning jq."
         />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <!-- The palette before the first paint. The names and key are duplicated from src/lib/theme.ts
+             on purpose (this runs before any module); src/lib/theme.test.ts checks they agree. -->
+        <script>
+            ;(function () {
+                var known = ['default', 'paper', 'ocean', 'contrast']
+                var chosen = 'default'
+                try {
+                    var stored = localStorage.getItem('pjq.palette')
+                    if (known.indexOf(stored) !== -1) chosen = stored
+                } catch (denied) {}
+                document.documentElement.setAttribute('data-theme', chosen)
+            })()
+        </script>
     </head>
     <body>
         <div id="root"></div>

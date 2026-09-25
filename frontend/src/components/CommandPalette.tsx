@@ -1,4 +1,5 @@
-import { BookOpen, FunctionSquare, GraduationCap, Library } from 'lucide-react'
+import { BookOpen, FunctionSquare, GraduationCap, Library, Palette } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
 
@@ -15,6 +16,7 @@ import { useStore } from '@/hooks/use-store'
 import { builtins } from '@/lib/builtins'
 import { guideToc, listExamples, listTutorials } from '@/lib/client'
 import { createStore } from '@/lib/store'
+import { palette, PALETTES, setPalette } from '@/lib/theme'
 import type { Builtin, ChapterSummary, ExampleGroup, TutorialSummary } from '@/lib/types'
 
 export const paletteOpen = createStore(false)
@@ -23,7 +25,10 @@ interface Entry {
     id: string
     title: string
     detail: string
-    to: string
+    /** Where choosing it navigates. */
+    to?: string
+    /** What choosing it does, instead of navigating. */
+    run?: () => void
 }
 
 interface Catalogue {
@@ -45,6 +50,8 @@ export function CommandPalette() {
     const [query, setQuery] = useState('')
     const [catalogue, setCatalogue] = useState<Catalogue | null>(null)
     const navigate = useNavigate()
+    const { theme, setTheme } = useTheme()
+    const current = useStore(palette)
 
     useEffect(() => {
         if (!open || catalogue !== null) return
@@ -56,9 +63,27 @@ export function CommandPalette() {
     }, [open, catalogue])
 
     const sections = useMemo(() => {
-        if (catalogue === null) return []
         const words = query.toLowerCase().split(/\s+/).filter(Boolean)
         const pick = (entries: Entry[]) => entries.filter((entry) => matches(entry, words)).slice(0, LIMIT)
+        const appearance = {
+            label: 'Appearance',
+            icon: Palette,
+            entries: pick([
+                ...(['light', 'dark', 'system'] as const).map((mode) => ({
+                    id: `mode:${mode}`,
+                    title: `Theme: ${mode === 'system' ? 'follow the system' : mode}${theme === mode ? ' (current)' : ''}`,
+                    detail: `appearance mode ${mode} dark light`,
+                    run: () => setTheme(mode),
+                })),
+                ...PALETTES.map((entry) => ({
+                    id: `palette:${entry.id}`,
+                    title: `Palette: ${entry.label}${current === entry.id ? ' (current)' : ''}`,
+                    detail: `theme colours ${entry.blurb}`,
+                    run: () => setPalette(entry.id),
+                })),
+            ]),
+        }
+        if (catalogue === null) return appearance.entries.length > 0 ? [appearance] : []
         return [
             {
                 label: 'Tutorials',
@@ -110,8 +135,9 @@ export function CommandPalette() {
                     ),
                 ),
             },
+            appearance,
         ].filter((section) => section.entries.length > 0)
-    }, [catalogue, query])
+    }, [catalogue, query, theme, setTheme, current])
 
     function close(): void {
         paletteOpen.set(false)
@@ -146,7 +172,8 @@ export function CommandPalette() {
                                     value={entry.id}
                                     onSelect={() => {
                                         close()
-                                        void navigate(entry.to)
+                                        if (entry.run !== undefined) entry.run()
+                                        else if (entry.to !== undefined) void navigate(entry.to)
                                     }}
                                     className="gap-3"
                                 >
