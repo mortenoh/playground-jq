@@ -44,8 +44,8 @@ starters:
     program: '.dependencies | to_entries | map("\(.key)@\(.value)")'
     expected: [["react@^19.3.0", "react-dom@^19.3.0", "maplibre-gl@^6.11.2", "date-fns@^4.1.0"]]
   - ref: static:k8s-pods
-    program: '.items[] | select(.status.phase != "Running") | {name: .metadata.name, ns: .metadata.namespace, phase: .status.phase}'
-    expected: [{"name": "worker-66f5-pqrst", "ns": "prod", "phase": "CrashLoopBackOff"}, {"name": "migrate-1234-zzzzz", "ns": "staging", "phase": "Succeeded"}, {"name": "web-9a8b7-aaaaa", "ns": "staging", "phase": "Pending"}]
+    program: '.items[] | select(.status.phase != "Running" or any(.status.containerStatuses[]?; .state.waiting)) | {name: .metadata.name, ns: .metadata.namespace, phase: .status.phase, waiting: [.status.containerStatuses[]?.state.waiting.reason | values]}'
+    expected: [{"name": "worker-66f5-pqrst", "ns": "prod", "phase": "Running", "waiting": ["CrashLoopBackOff"]}, {"name": "migrate-1234-zzzzz", "ns": "staging", "phase": "Succeeded", "waiting": []}, {"name": "web-9a8b7-aaaaa", "ns": "staging", "phase": "Pending", "waiting": []}]
   - ref: static:aws-ec2
     program: '[.Reservations[].Instances[] | {id: .InstanceId, state: .State.Name} + (.Tags | from_entries)]'
     expected: [[{"id": "i-0aa11", "state": "running", "Name": "bastion", "env": "prod"}, {"id": "i-0bb22", "state": "running", "Name": "api-1", "env": "prod"}, {"id": "i-0bb23", "state": "running", "Name": "api-2", "env": "prod"}, {"id": "i-0cc33", "state": "stopped", "Name": "scratch", "env": "dev"}, {"id": "i-0dd44", "state": "running", "Name": "db-replica", "env": "prod"}, {"id": "i-0dd45", "state": "running", "Name": "ci-runner", "env": "dev"}]]

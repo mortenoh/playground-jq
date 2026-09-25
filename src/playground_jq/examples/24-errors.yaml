@@ -57,8 +57,9 @@ examples:
       `error(value)` raises an error carrying any JSON value, not just a string. A `catch`
       receives that value unchanged, so validation code can report a structured problem.
       Each pod is validated, and failures become `{pod, problem}` records instead of stopping
-      the run.
-    program: 'def check: if .status.phase == "CrashLoopBackOff" then error({pod: .metadata.name, problem: "crash loop"}) elif .status.containerStatuses[0].restartCount > 2 then error({pod: .metadata.name, problem: "restarts"}) else empty end; .items[] | try check catch .'
+      the run. A crash loop shows as a container's waiting reason, not as the pod's phase, and
+      `[]?` skips the pending pod, which has no container statuses yet.
+    program: 'def check: if any(.status.containerStatuses[]?; .state.waiting.reason == "CrashLoopBackOff") then error({pod: .metadata.name, problem: "crash loop"}) elif .status.containerStatuses[0].restartCount > 2 then error({pod: .metadata.name, problem: "restarts"}) else empty end; .items[] | try check catch .'
     input: {ref: static:k8s-pods}
     options: {compact: true}
     manual: [https://jqlang.org/manual/v1.8/#error, https://jqlang.org/manual/v1.8/#try-catch]

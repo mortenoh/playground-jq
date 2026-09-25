@@ -55,8 +55,9 @@ examples:
     tags: [any, all]
     explanation: |
       `all(cond)` is true when every element meets the condition, `any(cond)` when at least
-      one does. All pods request some CPU, not all containers are ready (the worker, the
-      migration and the pending web pod are not), and at least one container has restarted.
+      one does. All pods request some CPU, not all pods are ready (the crash-looping worker
+      and the finished migration are not, and the pending web pod has no container status at
+      all, so its `.ready` is `null`), and at least one container has restarted.
     program: '.items | {all_request_cpu: all(.spec.containers[0].resources.requests.cpu != null), all_ready: all(.status.containerStatuses[0].ready), any_restarts: any(.status.containerStatuses[0].restartCount > 0)}'
     input: {ref: static:k8s-pods}
     options: {compact: true}
