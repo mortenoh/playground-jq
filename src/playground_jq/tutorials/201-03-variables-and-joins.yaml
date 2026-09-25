@@ -1,0 +1,220 @@
+id: 201-03-variables-and-joins
+level: 201
+order: 3
+title: Variables and joins
+summary: Name values with as, join employees to their departments and managers, and destructure objects and arrays.
+input: {ref: static:employees}
+steps:
+  - title: Naming a value with as
+    body: |
+      The dataset holds two related lists: `departments` and `employees`, linked by the
+      department id in each employee's `dept`. To connect them you need to remember a value
+      while looking at something else. That is what variables are for.
+
+      `EXPR as $name | BODY` evaluates `EXPR`, binds its result to `$name`, and runs `BODY` with
+      the **same input** as before:
+
+      ```jq
+      .employees | length as $n | map(.name) | "\($n): \(first) to \(last)"
+      ```
+
+      outputs `"10: Astrid to Jonas"`.
+    task: 'Output the average salary of all employees: bind the sum of the salaries to `$total`, then divide it by the number of employees.'
+    starter: '.employees | (map(.salary) | add) as $total | .'
+    hints:
+      - After `as $total |`, the input is still the employees array.
+      - So `length` after the pipe still counts employees.
+      - '`.employees | (map(.salary) | add) as $total | $total / length`'
+    solution: '.employees | (map(.salary) | add) as $total | $total / length'
+    why: |
+      `as` does not change `.`, so after the binding `length` still sees the array. The payroll
+      is 926000 over 10 people: `92600`.
+
+      Variation: `.employees | map(.salary) | add / length` gives the same number without a
+      variable, because both sides of `/` see the salaries.
+    expected: [92600]
+  - title: Using a variable inside select
+    body: |
+      Variables are visible everywhere to the right of the binding, including inside `select`
+      and `map`, where `.` has moved on to something else:
+
+      ```jq
+      (.employees | map(.salary) | max) as $top | .employees[] | select(.salary == $top) | .name
+      ```
+
+      outputs `"Astrid"`.
+    task: Output one array with the names of the employees who earn more than the average salary, in file order.
+    hints:
+      - 'Bind the average: `(.employees | map(.salary) | add / length) as $avg`.'
+      - Then iterate the employees and compare `.salary > $avg`; collect the names in brackets.
+      - '`(.employees | map(.salary) | add / length) as $avg | [.employees[] | select(.salary > $avg) | .name]`'
+    solution: '(.employees | map(.salary) | add / length) as $avg | [.employees[] | select(.salary > $avg) | .name]'
+    why: |
+      Inside `select`, `.` is one employee, so without a variable there would be no way to see
+      the whole list's average. Six of the ten earn more than 92600.
+
+      Variation: `.employees | (map(.salary) | add / length) as $avg | map(select(.salary > $avg) | .name)`
+      binds the variable after moving into the array.
+    expected: [["Astrid", "Bjorn", "Chiara", "Dmitri", "Efua", "Hiro"]]
+  - title: A lookup table
+    body: |
+      Joining is easiest with a lookup object keyed by id. Build one object per element with a
+      computed key, then merge them with `add`:
+
+      ```jq
+      .departments | map({(.id): .floor}) | add
+      ```
+
+      outputs `{"eng": 3, "ops": 1, "sal": 2, "hr": 2}`.
+    task: 'Output one object mapping each department `id` to its `name`, keys in file order.'
+    hints:
+      - Start from `.departments`.
+      - 'Map each to `{(.id): .name}` and merge with `add`.'
+      - '`.departments | map({(.id): .name}) | add`'
+    solution: '.departments | map({(.id): .name}) | add'
+    why: |
+      `(.id)` in key position means "use the value of `.id` as the key". The result maps
+      `eng` to `Engineering` and so on.
+
+      Variation: `.departments | INDEX(.id)` builds a lookup of whole department objects keyed by
+      id.
+    expected: [{"eng": "Engineering", "ops": "Operations", "sal": "Sales", "hr": "People"}]
+  - title: Joining through the lookup
+    body: |
+      Bind the lookup table to a variable, then read from it with `$table[key]` while walking
+      the other list:
+
+      ```jq
+      {"a": "Apple"} as $t | ["a", "b"] | map($t[.])
+      ```
+
+      outputs `["Apple", null]`.
+    task: 'Output one array with an object per employee, in file order: `{name, department}` (in that key order), where `department` is the name of the employee''s department.'
+    hints:
+      - Bind the lookup from the previous step as `$names`.
+      - 'Then `.employees | map({name, department: $names[.dept]})`.'
+      - '`(.departments | map({(.id): .name}) | add) as $names | .employees | map({name, department: $names[.dept]})`'
+    solution: '(.departments | map({(.id): .name}) | add) as $names | .employees | map({name, department: $names[.dept]})'
+    why: |
+      The lookup is built once, and each employee reads its department name by key. Note that
+      the `hr` department is called "People", so Ines gets `"People"`.
+
+      Variation: `.departments as $d | .employees | map({name, department: ($d[] | select(.id == .dept))})`
+      does **not** work: inside `select`, `.` is a department, so `.dept` is `null`. The next
+      step shows how to fix that with a variable.
+    expected: [[{"name": "Astrid", "department": "Engineering"}, {"name": "Bjorn", "department": "Engineering"}, {"name": "Chiara", "department": "Engineering"}, {"name": "Dmitri", "department": "Operations"}, {"name": "Efua", "department": "Operations"}, {"name": "Farid", "department": "Sales"}, {"name": "Greta", "department": "Sales"}, {"name": "Hiro", "department": "Sales"}, {"name": "Ines", "department": "People"}, {"name": "Jonas", "department": "Engineering"}]]
+  - title: Remembering the current element
+    body: |
+      `. as $x` saves the current value so that you can still reach it after `.` moves on. It
+      is the key to joins written with `select`:
+
+      ```jq
+      .employees[0] | . as $e | .skills | map("\($e.name) knows \(.)")
+      ```
+
+      outputs Astrid's three skills as sentences.
+    task: 'Output one array with an object `{name, floor}` (in that key order) per employee, in file order, where `floor` is the floor of their department. Find the department with `select` over `.departments`.'
+    hints:
+      - Bind the departments first, `.departments as $depts`.
+      - 'For each employee, `. as $e`, then `($depts[] | select(.id == $e.dept) | .floor)`.'
+      - '`.departments as $depts | [.employees[] | . as $e | {name, floor: ($depts[] | select(.id == $e.dept) | .floor)}]`'
+    solution: '.departments as $depts | [.employees[] | . as $e | {name, floor: ($depts[] | select(.id == $e.dept) | .floor)}]'
+    why: |
+      Inside the `select`, `.` is a department, so the employee's `dept` must come from `$e`.
+      This nested scan is fine for small lists; for large ones, the lookup table of the
+      previous step is faster.
+
+      Variation: `.employees[] | .dept as $d | ...` binds just the id instead of the whole
+      employee.
+    expected: [[{"name": "Astrid", "floor": 3}, {"name": "Bjorn", "floor": 3}, {"name": "Chiara", "floor": 3}, {"name": "Dmitri", "floor": 1}, {"name": "Efua", "floor": 1}, {"name": "Farid", "floor": 2}, {"name": "Greta", "floor": 2}, {"name": "Hiro", "floor": 2}, {"name": "Ines", "floor": 2}, {"name": "Jonas", "floor": 3}]]
+  - title: Joining the other way
+    body: |
+      A join can also start from the "one" side and collect the "many" side into an array:
+
+      ```jq
+      .employees as $emps | .departments[0] | {name, size: ([$emps[] | select(.dept == "eng")] | length)}
+      ```
+
+      outputs `{"name": "Engineering", "size": 4}`.
+    task: 'Output one array with an object per department, in file order: `{department, people}` (in that key order), where `department` is the department''s name and `people` is an array of the names of its employees, in file order.'
+    hints:
+      - 'Bind `.employees as $emps`, then map over `.departments`, binding each as `. as $d`.'
+      - '`people` is `[$emps[] | select(.dept == $d.id) | .name]`.'
+      - '`.employees as $emps | .departments | map(. as $d | {department: .name, people: [$emps[] | select(.dept == $d.id) | .name]})`'
+    solution: '.employees as $emps | .departments | map(. as $d | {department: .name, people: [$emps[] | select(.dept == $d.id) | .name]})'
+    why: |
+      For each department, the brackets collect the matching employees' names. Engineering has
+      four people, People only one.
+
+      Variation: `.id as $id` instead of `. as $d` binds just the id, and the select becomes
+      `select(.dept == $id)`.
+    expected: [[{"department": "Engineering", "people": ["Astrid", "Bjorn", "Chiara", "Jonas"]}, {"department": "Operations", "people": ["Dmitri", "Efua"]}, {"department": "Sales", "people": ["Farid", "Greta", "Hiro"]}, {"department": "People", "people": ["Ines"]}]]
+  - title: Destructuring an object
+    body: |
+      `as` can take a value apart. `. as {a: $x, b: $y}` binds `$x` to `.a` and `$y` to `.b` in
+      one go:
+
+      ```jq
+      .departments[] as {id: $id, floor: $f} | "\($id) is on floor \($f)"
+      ```
+
+      outputs one sentence per department.
+    task: 'Using object destructuring on each employee (binding `name` and `manager`), output one array with the names of the employees who have no manager (`manager` is `null`), in file order.'
+    hints:
+      - "`.employees[] as {name: $n, manager: $m}` binds two variables per employee."
+      - 'Then `select($m == null) | $n`, all inside `[...]`.'
+      - '`[.employees[] as {name: $n, manager: $m} | select($m == null) | $n]`'
+    solution: '[.employees[] as {name: $n, manager: $m} | select($m == null) | $n]'
+    why: |
+      The binding runs once per employee, and the four without a manager, the heads of their
+      departments, are kept.
+
+      Variation: `{$name, $manager}` is shorthand for `{name: $name, manager: $manager}`:
+      `[.employees[] as {$name, $manager} | select($manager == null) | $name]`.
+    expected: [["Astrid", "Dmitri", "Hiro", "Ines"]]
+  - title: A self-join
+    body: |
+      The `manager` field holds another employee's `id`. Object keys are strings, so a lookup
+      keyed by id needs the numbers converted with `tostring`:
+
+      ```jq
+      .employees | map({(.id | tostring): .name}) | add | .["4"]
+      ```
+
+      outputs `"Dmitri"`.
+    task: 'Output one array with an object `{name, manager}` (in that key order) for every employee who has a manager, in file order, where `manager` is the manager''s name.'
+    hints:
+      - 'Build the lookup `(.employees | map({(.id | tostring): .name}) | add) as $byId`.'
+      - 'Keep `select(.manager != null)` and read `$byId[.manager | tostring]`.'
+      - '`(.employees | map({(.id | tostring): .name}) | add) as $byId | .employees | map(select(.manager != null) | {name, manager: $byId[.manager | tostring]})`'
+    solution: '(.employees | map({(.id | tostring): .name}) | add) as $byId | .employees | map(select(.manager != null) | {name, manager: $byId[.manager | tostring]})'
+    why: |
+      The same list plays both roles: employee and manager. Jonas, the intern, reports to
+      Bjorn, who in turn reports to Astrid.
+
+      Variation: `.employees as $all | .employees | map(select(.manager != null) | . as $e | {name, manager: ($all[] | select(.id == $e.manager) | .name)})`
+      does the same with a nested select.
+    expected: [[{"name": "Bjorn", "manager": "Astrid"}, {"name": "Chiara", "manager": "Astrid"}, {"name": "Efua", "manager": "Dmitri"}, {"name": "Farid", "manager": "Hiro"}, {"name": "Greta", "manager": "Hiro"}, {"name": "Jonas", "manager": "Bjorn"}]]
+  - title: Destructuring an array
+    body: |
+      Arrays destructure by position: `. as [$a, $b]` binds the first two elements:
+
+      ```jq
+      [3, 5, 8] as [$first, $second] | $first + $second
+      ```
+
+      outputs `8`.
+    task: 'Among the employees in the "eng" department, sort by salary, highest first, then destructure the first two and output `{top, second}` (in that key order) with their names.'
+    hints:
+      - 'Filter and sort: `.employees | map(select(.dept == "eng")) | sort_by(-.salary)`.'
+      - 'Then `. as [$top, $second] | {top: $top.name, second: $second.name}`.'
+      - '`.employees | map(select(.dept == "eng")) | sort_by(-.salary) | . as [$top, $second] | {top: $top.name, second: $second.name}`'
+    solution: '.employees | map(select(.dept == "eng")) | sort_by(-.salary) | . as [$top, $second] | {top: $top.name, second: $second.name}'
+    why: |
+      Astrid (150000) and Chiara (105000) are the best paid in Engineering. Elements beyond the
+      pattern are ignored; missing ones would bind to `null`.
+
+      Variation: `. as [$top, $second] | {top: $top.name, second: $second.name}` could also be
+      written `{top: .[0].name, second: .[1].name}`; destructuring pays off when the values are
+      used several times.
+    expected: [{"top": "Astrid", "second": "Chiara"}]

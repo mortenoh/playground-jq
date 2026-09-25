@@ -1,0 +1,185 @@
+id: 201-04-strings-and-regex
+level: 201
+order: 4
+title: Strings and regular expressions
+summary: Search, split, slice, capture and rewrite the text in GitHub issue titles and timestamps.
+input: {ref: static:github-issues}
+steps:
+  - title: Testing with a regular expression
+    body: |
+      Issue titles are free text, so finding things in them needs string functions.
+      `test(regex)` is `true` when the regular expression matches somewhere in the string.
+      An optional second argument holds flags; `"i"` ignores case:
+
+      ```jq
+      "Crash on EMPTY input" | test("empty"; "i")
+      ```
+
+      outputs `true`.
+    task: 'Output one array with the `number` of every issue whose title contains the word "bump" in any letter case, in file order.'
+    hints:
+      - 'Select with `.title | test("bump"; "i")`.'
+      - Collect the numbers with `map(select(...) | .number)` or `[.[] | select(...) | .number]`.
+      - '`map(select(.title | test("bump"; "i")) | .number)`'
+    solution: 'map(select(.title | test("bump"; "i")) | .number)'
+    why: |
+      Both dependency bumps (104 and 109) start with a capital "Bump"; without `"i"`, the pattern
+      `"bump"` would match neither.
+
+      Variation: `test("^bump"; "i")` anchors the match to the start of the title.
+    expected: [[104, 109]]
+  - title: startswith and endswith
+    body: |
+      For fixed text at the start or end, `startswith` and `endswith` are simpler than a regex
+      and involve no special characters:
+
+      ```jq
+      "Add getpath examples" | startswith("Add")
+      ```
+
+      outputs `true`.
+    task: Output one array with the titles of the issues whose title starts with "Add", in file order.
+    hints:
+      - '`startswith` is case-sensitive, which is fine here.'
+      - Select on `.title | startswith("Add")`, then take `.title`.
+      - '`map(select(.title | startswith("Add")) | .title)`'
+    solution: 'map(select(.title | startswith("Add")) | .title)'
+    why: |
+      Two titles start with "Add". A title with "Add" further along, or starting with
+      lower-case "add", would not count.
+
+      Variation: `ltrimstr("Add ")` removes the prefix when present:
+      `map(.title | select(startswith("Add")) | ltrimstr("Add "))`.
+    expected: [["Add --tab to the docs", "Add getpath examples"]]
+  - title: split
+    body: |
+      `split(s)` cuts a string at every occurrence of `s` and returns the pieces as an array:
+
+      ```jq
+      "a,b,c" | split(",")
+      ```
+
+      outputs `["a", "b", "c"]`.
+    task: Output one array with the first word of every issue title (split on a single space), in file order.
+    hints:
+      - '`.title | split(" ")` gives the words of one title.'
+      - 'Take element `[0]` of that array.'
+      - '`map(.title | split(" ")[0])`'
+    solution: 'map(.title | split(" ")[0])'
+    why: |
+      The first word is often a verb that says what kind of change it is: "Add", "Bump",
+      "Document". `split(" ")[0]` indexes straight into the result of `split`.
+
+      Variation: `map(.title | split(" ") | length)` counts the words of each title.
+    expected: [["Crash", "Add", "Support", "Bump", "Wrong", "Document", "Segfault", "Add", "Bump", "Windows"]]
+  - title: Slicing strings
+    body: |
+      Slices work on strings as they do on arrays, counting characters:
+
+      ```jq
+      "2026-01-03T09:15:00Z" | .[:7]
+      ```
+
+      outputs `"2026-01"`.
+    task: Output one array with the date part (the first 10 characters, YYYY-MM-DD) of every issue's `created_at`, in file order.
+    hints:
+      - Each timestamp starts with the date.
+      - 'Slice with `[:10]`.'
+      - '`map(.created_at[:10])`'
+    solution: 'map(.created_at[:10])'
+    why: |
+      ISO 8601 timestamps have fixed positions, so a slice is the simplest way to cut them.
+
+      Variation: `map(.created_at | split("T")[0])` gives the same dates by splitting at the
+      `T`.
+    expected: [["2026-01-03", "2026-01-05", "2026-01-11", "2026-01-12", "2026-01-20", "2026-02-01", "2026-02-03", "2026-02-10", "2026-02-15", "2026-02-21"]]
+  - title: Capturing parts
+    body: |
+      `capture(regex)` returns an object of the named groups `(?<name>...)` of the first
+      match. Captured values are always strings:
+
+      ```jq
+      "v1.8.2" | capture("v(?<major>\\d+)\\.(?<minor>\\d+)")
+      ```
+
+      outputs `{"major": "1", "minor": "8"}`. In a jq string, a regex backslash is written twice.
+    task: 'From the first issue''s `created_at`, output an object with the named captures `year`, `month` and `day` (in that order) of its date.'
+    hints:
+      - 'Use `\\d{4}` for four digits and `\\d{2}` for two.'
+      - 'The pattern is `(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})`.'
+      - '`.[0].created_at | capture("(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})")`'
+    solution: '.[0].created_at | capture("(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})")'
+    why: |
+      The keys follow the order of the groups, and the values are strings: `"03"`, not `3`. Use
+      `tonumber` when you need numbers.
+
+      Variation: `map(.created_at | capture("-(?<month>\\d{2})-").month) | group_by(.) | map({month: .[0], issues: length})`
+      counts issues per month.
+    expected: [{"year": "2026", "month": "01", "day": "03"}]
+  - title: Finding every match with scan
+    body: |
+      `test` answers yes or no, and `capture` looks at the first match only. `scan(regex)`
+      outputs **every** match in the string, one output each:
+
+      ```jq
+      "a1 b22 c333" | [scan("\\d+")]
+      ```
+
+      outputs `["1", "22", "333"]`.
+    task: 'Output one array with every command-line flag mentioned in any title, in order of appearance, where a flag is one or two dashes followed by word characters (regex `--?\\w+`).'
+    hints:
+      - 'Iterate the titles with `.[].title` and pipe into `scan(...)`.'
+      - Collect all matches in square brackets.
+      - '`[.[].title | scan("--?\\w+")]`'
+    solution: '[.[].title | scan("--?\\w+")]'
+    why: |
+      Two titles mention a flag: `--tab` and `-R`. `scan` yields nothing for titles without a
+      match, so they simply do not contribute.
+
+      Variation: `[.[].title | scan("[@\\w]+/\\d")]` finds function names with an arity such as
+      `limit/2`.
+    expected: [["--tab", "-R"]]
+  - title: Rewriting with gsub
+    body: |
+      `sub(regex; replacement)` replaces the first match, `gsub` every match:
+
+      ```jq
+      "a  b   c" | gsub(" +"; "_")
+      ```
+
+      outputs `"a_b_c"`.
+    task: 'For every open issue, in file order, build a branch name `NUMBER-slug`, where slug is the title in lower case with every run of characters other than a-z and 0-9 replaced by a single dash. Output one array of these strings, for example `"101-crash-when-input-is-empty"`.'
+    hints:
+      - '`ascii_downcase` lowers the title; `gsub("[^a-z0-9]+"; "-")` does the replacing.'
+      - 'Join the parts with `"\(.number)-" + (...)`.'
+      - '`map(select(.state == "open") | "\(.number)-" + (.title | ascii_downcase | gsub("[^a-z0-9]+"; "-")))`'
+    solution: 'map(select(.state == "open") | "\(.number)-" + (.title | ascii_downcase | gsub("[^a-z0-9]+"; "-")))'
+    why: |
+      Because the pattern matches a whole run, `" .[] "` in issue 105's title collapses into a
+      single dash, and `"@"` in issue 103 disappears into one too.
+
+      Variation: with `gsub("[^a-z0-9]"; "-")` (no `+`), each character would get its own dash,
+      giving `for-----on` in issue 105.
+    expected: [["101-crash-when-input-is-empty", "103-support-base32d", "105-wrong-error-message-for-on-null", "107-segfault-with-deeply-nested-arrays", "109-bump-pytest", "110-windows-line-endings-in-r-mode"]]
+  - title: Joining for a report
+    body: |
+      `join(sep)` is the reverse of `split`: it glues an array of strings together:
+
+      ```jq
+      ["bug", "windows"] | join(", ")
+      ```
+
+      outputs `"bug, windows"`. Raw output is on for this step.
+    task: 'With raw output on, output one line per issue that has more than one label, in file order, of the form `NUMBER: label1, label2`, for example `101: bug, priority: high`.'
+    options: {raw_output: true}
+    hints:
+      - 'Select with `.labels | length > 1`.'
+      - 'The labels part is `(.labels | map(.name) | join(", "))`, interpolated into a string.'
+      - '`.[] | select(.labels | length > 1) | "\(.number): \(.labels | map(.name) | join(", "))"`'
+    solution: '.[] | select(.labels | length > 1) | "\(.number): \(.labels | map(.name) | join(", "))"'
+    why: |
+      Four issues have several labels. Interpolation can hold a whole pipeline, so
+      `\(.labels | map(.name) | join(", "))` works inside the string.
+
+      Variation: `[.labels[].name] | join(", ")` builds the same list of names.
+    expected: ["101: bug, priority: high", "106: docs, good first issue", "107: bug, priority: high, needs repro", "110: bug, windows"]

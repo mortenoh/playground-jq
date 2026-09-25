@@ -1,0 +1,210 @@
+id: 201-05-entries
+level: 201
+order: 5
+title: Reshaping objects with entries
+summary: Treat a package.json's objects as lists of key/value pairs with to_entries, from_entries and with_entries.
+input: {ref: static:package-json}
+steps:
+  - title: to_entries
+    body: |
+      Many jq tools work on arrays, not objects. `to_entries` turns an object into an array of
+      `{key, value}` pairs, in the object's key order:
+
+      ```jq
+      {"a": 1, "b": 2} | to_entries
+      ```
+
+      outputs `[{"key": "a", "value": 1}, {"key": "b", "value": 2}]`.
+    task: Output the `scripts` object as an array of key/value entries.
+    hints:
+      - The scripts are at `.scripts`.
+      - Pipe them into `to_entries`.
+      - '`.scripts | to_entries`'
+    solution: .scripts | to_entries
+    why: |
+      Each script becomes one entry, with its name under `key` and its command under `value`.
+      Now everything you know about arrays (`map`, `select`, `sort_by`) applies.
+
+      Variation: `.scripts | keys_unsorted` gives only the names.
+    expected: [[{"key": "dev", "value": "vite"}, {"key": "build", "value": "tsc -b && vite build"}, {"key": "test", "value": "vitest run"}, {"key": "lint", "value": "oxlint"}]]
+  - title: Selecting keys by their values
+    body: |
+      With entries, a condition can look at the key and the value together:
+
+      ```jq
+      {"a": 1, "b": "x"} | to_entries | map(select(.value | type == "number") | .key)
+      ```
+
+      outputs `["a"]`.
+    task: Output one array with the names of the top-level keys whose value is an object, in file order.
+    hints:
+      - Start with `to_entries` on the whole document.
+      - 'Keep the entries where `.value | type == "object"`, then take `.key`.'
+      - '`to_entries | map(select(.value | type == "object") | .key)`'
+    solution: 'to_entries | map(select(.value | type == "object") | .key)'
+    why: |
+      Four top-level values are objects: scripts, dependencies, devDependencies and engines.
+      `name`, `version`, `private` and `type` are plain values.
+
+      Variation: `to_entries | map(select(.value | type == "string") | .key)` lists the string
+      fields.
+    expected: [["scripts", "dependencies", "devDependencies", "engines"]]
+  - title: Entries as text
+    body: |
+      An entry has both parts at hand, which suits string interpolation:
+
+      ```jq
+      .engines | to_entries[] | "\(.key) \(.value)"
+      ```
+
+      outputs `"node >=22"`. Raw output is on for this step.
+    task: 'With raw output on, output one line per script, in file order, of the form `NAME: COMMAND`, for example `dev: vite`.'
+    options: {raw_output: true}
+    hints:
+      - '`.scripts | to_entries[]` gives the entries one by one.'
+      - 'Interpolate `.key` and `.value` into a string.'
+      - '`.scripts | to_entries[] | "\(.key): \(.value)"`'
+    solution: '.scripts | to_entries[] | "\(.key): \(.value)"'
+    why: |
+      `to_entries[]` iterates straight away, so each entry becomes one line. This is a quick way
+      to show any object as a readable list.
+
+      Variation: `.scripts | keys_unsorted[] as $k | "\($k): \(.[$k])"` does the same with a
+      variable.
+    expected: ["dev: vite", "build: tsc -b && vite build", "test: vitest run", "lint: oxlint"]
+  - title: Back again with from_entries
+    body: |
+      `from_entries` turns an array of entries back into an object. It is the other half of the
+      round trip, so you can filter in between:
+
+      ```jq
+      [{"key": "a", "value": 1}] | from_entries
+      ```
+
+      outputs `{"a": 1}`. It also accepts `name` or `Key` instead of `key`, and `Value` instead of
+      `value`, as AWS tags use.
+    task: 'Output an object with only the entries of `dependencies` whose name starts with "react", in their original order.'
+    hints:
+      - '`.dependencies | to_entries` gives the entries.'
+      - 'Keep those whose `.key | startswith("react")`, then `from_entries`.'
+      - '`.dependencies | to_entries | map(select(.key | startswith("react"))) | from_entries`'
+    solution: '.dependencies | to_entries | map(select(.key | startswith("react"))) | from_entries'
+    why: |
+      `react` and `react-dom` pass the test; the other two dependencies are dropped before the
+      object is rebuilt.
+
+      Variation: `.dependencies | del(.["maplibre-gl"], .["date-fns"])` gives the same result by
+      naming what to remove instead.
+    expected: [{"react": "^19.3.0", "react-dom": "^19.3.0"}]
+  - title: with_entries
+    body: |
+      `to_entries | map(f) | from_entries` is so common that it has its own name:
+      `with_entries(f)`. Inside `f`, `.` is one `{key, value}` entry:
+
+      ```jq
+      {"a": 1, "b": 2} | with_entries(select(.value > 1))
+      ```
+
+      outputs `{"b": 2}`.
+    task: 'Using `with_entries`, output an object with only the `devDependencies` whose name starts with "vite".'
+    hints:
+      - 'Start from `.devDependencies`.'
+      - 'Inside `with_entries`, select on `.key | startswith("vite")`.'
+      - '`.devDependencies | with_entries(select(.key | startswith("vite")))`'
+    solution: '.devDependencies | with_entries(select(.key | startswith("vite")))'
+    why: |
+      `vite` and `vitest` both start with "vite". `with_entries` saves you the explicit round
+      trip, and reads as "for every key/value pair, do this".
+
+      Variation: `with_entries(select(.key | test("^vite")))` uses a regex for the same test.
+    expected: [{"vite": "^8.3.1", "vitest": "^5.0.2"}]
+  - title: Changing every value
+    body: |
+      In `with_entries`, update the value with `.value |= f`. The key is untouched:
+
+      ```jq
+      {"a": "x", "b": "y"} | with_entries(.value |= ascii_upcase)
+      ```
+
+      outputs `{"a": "X", "b": "Y"}`.
+    task: 'Output the `dependencies` object with the leading `^` removed from every version string.'
+    hints:
+      - 'Update each value with `.value |= ...`.'
+      - '`ltrimstr("^")` removes the caret when it is there.'
+      - '`.dependencies | with_entries(.value |= ltrimstr("^"))`'
+    solution: '.dependencies | with_entries(.value |= ltrimstr("^"))'
+    why: |
+      `|=` applies the filter to the value in place. `ltrimstr` leaves strings without the
+      prefix unchanged, so it is safe to run on versions like `"1.2.3"` too.
+
+      Variation: `.dependencies | map_values(ltrimstr("^"))` is a shortcut for changing only
+      values.
+    expected: [{"react": "19.3.0", "react-dom": "19.3.0", "maplibre-gl": "6.11.2", "date-fns": "4.1.0"}]
+  - title: Changing the keys
+    body: |
+      `with_entries` can rebuild the entry completely, including its key:
+
+      ```jq
+      {"a": "x"} | with_entries({key: .value, value: .key})
+      ```
+
+      outputs `{"x": "a"}`.
+    task: 'Output the `scripts` object inverted: each command becomes a key whose value is the script''s name, in the original order.'
+    hints:
+      - Build a new entry for each old one.
+      - 'The new entry is `{key: .value, value: .key}`.'
+      - '`.scripts | with_entries({key: .value, value: .key})`'
+    solution: '.scripts | with_entries({key: .value, value: .key})'
+    why: |
+      Each entry is replaced by one with key and value swapped, so you can look up which script
+      runs a given command: `"vitest run"` maps to `"test"`.
+
+      Variation: `.scripts | with_entries(.key |= "npm run " + .)` rewrites only the keys.
+    expected: [{"vite": "dev", "tsc -b && vite build": "build", "vitest run": "test", "oxlint": "lint"}]
+  - title: Merging and converting
+    body: |
+      `+` on two objects merges them (the right side wins when a key exists in both). Combine
+      that with `with_entries` to process everything at once:
+
+      ```jq
+      {"a": 1} + {"b": 2}
+      ```
+
+      outputs `{"a": 1, "b": 2}`.
+    task: 'Merge `dependencies` and `devDependencies` (in that order) into one object and replace every version by its major version as a number, for example `"^19.3.0"` becomes `19`.'
+    hints:
+      - '`.dependencies + .devDependencies` merges the two.'
+      - 'For each value: `ltrimstr("^") | split(".")[0] | tonumber`.'
+      - '`.dependencies + .devDependencies | with_entries(.value |= (ltrimstr("^") | split(".")[0] | tonumber))`'
+    solution: '.dependencies + .devDependencies | with_entries(.value |= (ltrimstr("^") | split(".")[0] | tonumber))'
+    why: |
+      `+` binds tighter than `|`, so the merged object is what flows into `with_entries`. The
+      major version is the part before the first dot, converted with `tonumber`.
+
+      Variation: `select(.value >= 8)` after the conversion, inside the same `with_entries`,
+      would keep only the packages on a major version of 8 or higher.
+    expected: [{"react": 19, "react-dom": 19, "maplibre-gl": 6, "date-fns": 4, "typescript": 7, "vite": 8, "vitest": 5, "oxlint": 1}]
+  - title: Sorting by value
+    body: |
+      Objects have no order you can sort by, but entries do. `to_entries | sort_by(...)` sorts
+      the pairs by anything you can compute from a key or a value:
+
+      ```jq
+      {"b": 1, "a": 2} | to_entries | sort_by(.value) | map(.key)
+      ```
+
+      outputs `["b", "a"]`.
+    task: 'Output one array with the names of the `devDependencies`, sorted by major version as a number, highest first.'
+    hints:
+      - 'Start with `.devDependencies | to_entries`.'
+      - 'Sort by `.value | ltrimstr("^") | split(".")[0] | tonumber`, then `reverse` and take the keys.'
+      - '`.devDependencies | to_entries | sort_by(.value | ltrimstr("^") | split(".")[0] | tonumber) | reverse | map(.key)`'
+    solution: '.devDependencies | to_entries | sort_by(.value | ltrimstr("^") | split(".")[0] | tonumber) | reverse | map(.key)'
+    why: |
+      vite (8) comes first and oxlint (1) last. Converting with `tonumber` matters: as strings,
+      `"10"` would sort before `"9"`.
+
+      Variation: `sort_by(-(.value | ltrimstr("^") | split(".")[0] | tonumber))` sorts highest
+      first without `reverse`. To sort an object's keys, use `to_entries | sort_by(.key) |
+      from_entries`, or the `-S` option.
+    expected: [["vite", "typescript", "vitest", "oxlint"]]

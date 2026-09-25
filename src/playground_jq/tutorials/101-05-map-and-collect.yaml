@@ -1,0 +1,183 @@
+id: 101-05-map-and-collect
+level: 101
+order: 5
+title: Collecting results with [ ] and map
+summary: Turn streams back into arrays, transform every element with map, and add things up.
+input: {ref: static:bookstore}
+steps:
+  - title: Collecting a stream
+    body: |
+      Square brackets around a filter collect all of its outputs into one array:
+
+      ```jq
+      [.store.staff[].name]
+      ```
+
+      outputs a single array, `["Ingrid", "Omar", "Lena"]`, instead of three separate strings.
+    task: Output one array holding the titles of all books, in shelf order.
+    hints:
+      - '`.store.books[].title` produces the titles one by one.'
+      - Wrap that whole filter in square brackets.
+      - '`[.store.books[].title]`'
+    solution: '[.store.books[].title]'
+    why: |
+      `[...]` runs the filter inside and gathers every output into an array, so eight outputs
+      become one.
+
+      Variation: `[.store.books[].title] | length` counts them, `8`.
+    expected: [["Learning jq", "JSON at Scale", "Pipes and Paths", "The Art of the Shell", "Functional Filters", "Data Wrangling Recipes", "Regular Expressions Unleashed", "Streams and Generators"]]
+  - title: map
+    body: |
+      `map(f)` runs `f` on every element of an array and collects the results into a new array.
+      It is a shorter way of writing `[.[] | f]`:
+
+      ```jq
+      .store.staff | map(.role)
+      ```
+
+      outputs `["owner", "clerk", "clerk"]`.
+    task: Using `map`, output one array holding the price of every book, in shelf order.
+    hints:
+      - Start from the array `.store.books`.
+      - Pipe it into `map(...)` with the field you want inside.
+      - '`.store.books | map(.price)`'
+    solution: .store.books | map(.price)
+    why: |
+      `map(.price)` applies `.price` to each book and keeps the results in order. Prices such as
+      `24.0` print as `24`, because jq stores numbers without a notion of trailing zeros.
+
+      Variation: `[.store.books[].price]` gives exactly the same array.
+    expected: [[8.5, 24, 6.25, 31.9, 19.99, 14.5, 22, 27.75]]
+  - title: Adding up
+    body: |
+      `add` combines all elements of an array with `+`. For numbers that is the sum:
+
+      ```jq
+      .store.staff | map(.since) | add
+      ```
+
+      adds the three years together (not very meaningful, but it shows the idea).
+    task: Output the total number of books in stock across the whole shop (the sum of every `inStock`).
+    hints:
+      - First make an array of the `inStock` values with `map`.
+      - Then pipe that array into `add`.
+      - '`.store.books | map(.inStock) | add`'
+    solution: .store.books | map(.inStock) | add
+    why: |
+      `map(.inStock)` gives `[12, 0, 3, 7, 5, 0, 9, 1]` and `add` sums it to `37`.
+
+      Variation: `add` on strings concatenates them and on arrays joins them: `[.store.books[].tags] | add`
+      is one long list of tags.
+    expected: [37]
+  - title: Filtering an array with map and select
+    body: |
+      `select` works inside `map`: elements that do not match produce nothing, so they are left
+      out of the new array.
+
+      ```jq
+      .store.staff | map(select(.role == "clerk"))
+      ```
+
+      outputs an array with Omar's and Lena's records.
+    task: Output one array holding the titles of the books that are out of stock (`inStock` is 0), in shelf order.
+    hints:
+      - Keep the matching books with `map(select(...))`, then take their titles.
+      - '`map(select(.inStock == 0))` keeps whole books; a second `map(.title)` picks the titles.'
+      - '`.store.books | map(select(.inStock == 0)) | map(.title)`'
+    solution: .store.books | map(select(.inStock == 0)) | map(.title)
+    why: |
+      The first `map` keeps two books, the second turns them into titles:
+      `["JSON at Scale", "Data Wrangling Recipes"]`.
+
+      Variation: `[.store.books[] | select(.inStock == 0) | .title]` builds the same array with
+      collect brackets.
+    expected: [["JSON at Scale", "Data Wrangling Recipes"]]
+  - title: Counting matches
+    body: |
+      Filter an array, then take its `length`, and you have a count:
+
+      ```jq
+      .store.staff | map(select(.since >= 2020)) | length
+      ```
+
+      outputs `2`.
+    task: Output how many books were written by Cleo Reduce.
+    hints:
+      - Keep the books whose `author` is `"Cleo Reduce"`.
+      - Then count the array with `length`.
+      - '`.store.books | map(select(.author == "Cleo Reduce")) | length`'
+    solution: .store.books | map(select(.author == "Cleo Reduce")) | length
+    why: |
+      The filtered array holds two books, so the answer is `2`. Note that `length` must run on
+      the array: `.store.books[] | select(...) | length` would give the length of each book
+      object instead.
+
+      Variation: `[.store.books[] | select(.author == "Cleo Reduce")] | length` counts the same
+      way.
+    expected: [2]
+  - title: An average
+    body: |
+      `add / length` divides the sum by the count. Both sides of `/` see the same input array:
+
+      ```jq
+      [2, 4, 9] | add / length
+      ```
+
+      outputs `5`.
+    task: Output the average rating of the first book.
+    hints:
+      - The ratings of the first book are `.store.books[0].ratings`.
+      - Pipe the array into `add / length`.
+      - '`.store.books[0].ratings | add / length`'
+    solution: .store.books[0].ratings | add / length
+    why: |
+      The ratings `[5, 4, 5, 5]` add up to 19, and 19 divided by 4 is `4.75`.
+
+      Variation: be careful with empty arrays. "Functional Filters" has no ratings, and `[] | add`
+      is `null`, so dividing it fails.
+    expected: [4.75]
+  - title: One array per book
+    body: |
+      `map` can build objects too, which is the usual way to reshape a list of records:
+
+      ```jq
+      .store.staff | map({name, years: (2026 - .since)})
+      ```
+
+      outputs one object per person, all in one array.
+    task: 'Output one array with an object per book, holding its `title` and the key `ratings` set to the number of ratings it has, in that order.'
+    hints:
+      - Use `map` with an object constructor.
+      - The count is `(.ratings | length)`.
+      - '`.store.books | map({title, ratings: (.ratings | length)})`'
+    solution: '.store.books | map({title, ratings: (.ratings | length)})'
+    why: |
+      Inside `map`, `.` is one book, so `.ratings | length` counts that book's ratings. The new
+      `ratings` key replaces the list with its length in the output only; the input is not
+      changed.
+
+      Variation: `map({title, best: (.ratings | max)})` gives each book's best rating (`null`
+      for the unrated one).
+    expected: [[{"title": "Learning jq", "ratings": 4}, {"title": "JSON at Scale", "ratings": 3}, {"title": "Pipes and Paths", "ratings": 2}, {"title": "The Art of the Shell", "ratings": 5}, {"title": "Functional Filters", "ratings": 0}, {"title": "Data Wrangling Recipes", "ratings": 3}, {"title": "Regular Expressions Unleashed", "ratings": 2}, {"title": "Streams and Generators", "ratings": 2}]]
+  - title: Every tag, once
+    body: |
+      Collecting nested arrays gives every value, duplicates included. `unique` sorts an array
+      and removes duplicates:
+
+      ```jq
+      [.store.staff[].role] | unique
+      ```
+
+      outputs `["clerk", "owner"]`.
+    task: Output one sorted array holding every tag used on any book, each tag once.
+    hints:
+      - '`.store.books[].tags[]` produces every tag of every book.'
+      - Collect them with `[...]` and pipe into `unique`.
+      - '`[.store.books[].tags[]] | unique`'
+    solution: '[.store.books[].tags[]] | unique'
+    why: |
+      The inner filter iterates twice: over books, then over each book's tags. `unique` sorts
+      the collected tags alphabetically and keeps one of each, giving ten tags.
+
+      Variation: `[.store.books[].tags[]] | length` counts all tag uses, duplicates included (17).
+    expected: [["advanced", "beginner", "cli", "data", "functional", "jq", "json", "recipes", "regex", "unix"]]

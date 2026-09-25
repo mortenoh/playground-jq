@@ -1,0 +1,170 @@
+id: 101-01-first-steps
+level: 101
+order: 1
+title: First steps in the bookstore
+summary: Look around a small bookshop's JSON with the identity filter, field access and nested fields.
+input: {ref: static:bookstore}
+steps:
+  - title: The identity filter
+    body: |
+      You have just been handed the data file of **The jq Bookshop** in Oslo. Before asking it
+      anything, look at it.
+
+      Every jq program is a *filter*: it takes an input and produces outputs. The simplest
+      filter is `.`, the identity. It outputs its input unchanged, which makes it the quickest
+      way to see what you are working with.
+
+      ```jq
+      .
+      ```
+
+      Given `{"a": 1}`, the program `.` outputs `{"a": 1}`.
+    task: Output the whole input unchanged.
+    hints:
+      - The identity filter is a single character.
+      - It is the dot.
+      - 'Type `.` and run it.'
+    solution: .
+    starter: ''
+    why: |
+      `.` stands for "the current input". At the top level, that is the whole document, so jq
+      prints it back, nicely indented.
+
+      Variation: most jq programs start from `.` and go deeper, as in `.store` in the next step.
+    expected: ["store": {"name": "The jq Bookshop", "location": {"city": "Oslo", "country": "NO"}, "open": true, "books": [{"isbn": "978-0-00-000001-1", "title": "Learning jq", "author": "Ada Filter", "year": 2021, "price": 8.5, "currency": "EUR", "tags": ["jq", "cli", "beginner"], "inStock": 12, "ratings": [5, 4, 5, 5]}, {"isbn": "978-0-00-000002-8", "title": "JSON at Scale", "author": "Ben Stream", "year": 2019, "price": 24, "currency": "EUR", "tags": ["json", "data"], "inStock": 0, "ratings": [4, 3, 4]}, {"isbn": "978-0-00-000003-5", "title": "Pipes and Paths", "author": "Cleo Reduce", "year": 2023, "price": 6.25, "currency": "EUR", "tags": ["jq", "unix"], "inStock": 3, "ratings": [5, 5]}, {"isbn": "978-0-00-000004-2", "title": "The Art of the Shell", "author": "Dev Null", "year": 2015, "price": 31.9, "currency": "EUR", "tags": ["unix", "cli"], "inStock": 7, "ratings": [3, 4, 2, 4, 3]}, {"isbn": "978-0-00-000005-9", "title": "Functional Filters", "author": "Ada Filter", "year": 2024, "price": 19.99, "currency": "EUR", "tags": ["jq", "functional", "advanced"], "inStock": 5, "ratings": []}, {"isbn": "978-0-00-000006-6", "title": "Data Wrangling Recipes", "author": "Eve Map", "year": 2020, "price": 14.5, "currency": "EUR", "tags": ["data", "recipes"], "inStock": 0, "ratings": [4, 4, 5]}, {"isbn": "978-0-00-000007-3", "title": "Regular Expressions Unleashed", "author": "Gus Match", "year": 2018, "price": 22, "currency": "EUR", "tags": ["regex"], "inStock": 9, "ratings": [2, 3]}, {"isbn": "978-0-00-000008-0", "title": "Streams and Generators", "author": "Cleo Reduce", "year": 2022, "price": 27.75, "currency": "EUR", "tags": ["jq", "advanced"], "inStock": 1, "ratings": [5, 4]}], "staff": [{"name": "Ingrid", "role": "owner", "since": 2012}, {"name": "Omar", "role": "clerk", "since": 2020}, {"name": "Lena", "role": "clerk", "since": 2023}]}]
+  - title: A field
+    body: |
+      The document is an object with a single key, `store`. To take the value of a key, write a
+      dot followed by the key name:
+
+      ```jq
+      .store
+      ```
+
+      Given `{"store": {"name": "Shop"}}`, `.store` outputs `{"name": "Shop"}`.
+    task: Output the value of the `store` key.
+    hints:
+      - Field access is a dot followed by the key name.
+      - The key is called `store`.
+      - '`.store`'
+    solution: .store
+    why: |
+      `.store` looks up the key `store` in the input object and outputs its value, here the
+      object that holds everything about the shop.
+
+      Variation: `.["store"]` is the same lookup written with brackets. You need that form for
+      keys with spaces or dashes, such as `.["opening hours"]`.
+    expected: [{"name": "The jq Bookshop", "location": {"city": "Oslo", "country": "NO"}, "open": true, "books": [{"isbn": "978-0-00-000001-1", "title": "Learning jq", "author": "Ada Filter", "year": 2021, "price": 8.5, "currency": "EUR", "tags": ["jq", "cli", "beginner"], "inStock": 12, "ratings": [5, 4, 5, 5]}, {"isbn": "978-0-00-000002-8", "title": "JSON at Scale", "author": "Ben Stream", "year": 2019, "price": 24, "currency": "EUR", "tags": ["json", "data"], "inStock": 0, "ratings": [4, 3, 4]}, {"isbn": "978-0-00-000003-5", "title": "Pipes and Paths", "author": "Cleo Reduce", "year": 2023, "price": 6.25, "currency": "EUR", "tags": ["jq", "unix"], "inStock": 3, "ratings": [5, 5]}, {"isbn": "978-0-00-000004-2", "title": "The Art of the Shell", "author": "Dev Null", "year": 2015, "price": 31.9, "currency": "EUR", "tags": ["unix", "cli"], "inStock": 7, "ratings": [3, 4, 2, 4, 3]}, {"isbn": "978-0-00-000005-9", "title": "Functional Filters", "author": "Ada Filter", "year": 2024, "price": 19.99, "currency": "EUR", "tags": ["jq", "functional", "advanced"], "inStock": 5, "ratings": []}, {"isbn": "978-0-00-000006-6", "title": "Data Wrangling Recipes", "author": "Eve Map", "year": 2020, "price": 14.5, "currency": "EUR", "tags": ["data", "recipes"], "inStock": 0, "ratings": [4, 4, 5]}, {"isbn": "978-0-00-000007-3", "title": "Regular Expressions Unleashed", "author": "Gus Match", "year": 2018, "price": 22, "currency": "EUR", "tags": ["regex"], "inStock": 9, "ratings": [2, 3]}, {"isbn": "978-0-00-000008-0", "title": "Streams and Generators", "author": "Cleo Reduce", "year": 2022, "price": 27.75, "currency": "EUR", "tags": ["jq", "advanced"], "inStock": 1, "ratings": [5, 4]}], "staff": [{"name": "Ingrid", "role": "owner", "since": 2012}, {"name": "Omar", "role": "clerk", "since": 2020}, {"name": "Lena", "role": "clerk", "since": 2023}]}]
+  - title: A nested field
+    body: |
+      Fields chain. `.a.b` means "take `a`, then take `b` from that":
+
+      ```jq
+      .store.open
+      ```
+
+      That outputs `true` for this shop.
+    task: Output the name of the store.
+    hints:
+      - The name lives inside the `store` object.
+      - The key is called `name`.
+      - '`.store.name`'
+    solution: .store.name
+    why: |
+      `.store.name` first takes `store`, then takes `name` from it, giving the string
+      `"The jq Bookshop"`. jq prints strings with their quotes because the output is JSON.
+
+      Variation: `.store | .name` does the same with a pipe, which later steps use a lot.
+    expected: ["The jq Bookshop"]
+  - title: Going deeper
+    body: |
+      Chains can be as long as the data is deep. The shop's address is an object inside `store`:
+
+      ```jq
+      .store.location
+      ```
+
+      outputs `{"city": "Oslo", "country": "NO"}`.
+    task: Output the city the store is in.
+    hints:
+      - The city is inside `location`, which is inside `store`.
+      - Chain three field names.
+      - '`.store.location.city`'
+    solution: .store.location.city
+    why: |
+      Each `.name` step moves one level down: document, then `store`, then `location`, then
+      `city`, which is `"Oslo"`.
+
+      Variation: `.store.location.country` gives `"NO"`.
+    expected: ["Oslo"]
+  - title: A field that is not there
+    body: |
+      Asking an object for a key it does not have is not an error in jq. The answer is simply
+      `null`:
+
+      ```jq
+      .store.website
+      ```
+
+      outputs `null`, because the store has no `website` key.
+    task: Output the store's `phone` field (the store has no phone number on record).
+    hints:
+      - Access it exactly as if it existed.
+      - The key is `phone`, inside `store`.
+      - '`.store.phone`'
+    solution: .store.phone
+    why: |
+      Missing keys read as `null`. That makes exploring safe, but it also means a typo such as
+      `.store.nmae` quietly gives `null` instead of an error, so check your spelling when you
+      see an unexpected `null`.
+
+      Variation: `.store.location.street` is also `null`.
+    expected: [null]
+  - title: Several outputs with the comma
+    body: |
+      The comma runs two filters on the same input and outputs the results of both, one after
+      the other:
+
+      ```jq
+      .store.name, .store.open
+      ```
+
+      outputs `"The jq Bookshop"` and then `true`: two separate outputs.
+    task: Output the store's city and then its country, as two separate outputs.
+    hints:
+      - Use the comma between two paths.
+      - Both paths start with `.store.location`.
+      - '`.store.location.city, .store.location.country`'
+    solution: .store.location.city, .store.location.country
+    why: |
+      The comma does not build a list; it produces a *stream* of outputs. Each side is
+      evaluated against the same input (the whole document), so both paths start from the top.
+
+      Variation: `.store.location | .city, .country` does the same with a pipe: the comma then
+      applies to the `location` object.
+    expected: ["Oslo", "NO"]
+  - title: Raw output
+    body: |
+      jq prints strings as JSON, with quotes. When you want plain text, for a shell script or a
+      report, use raw output: the `-r` flag on the command line, or the **raw output** option
+      here. It only changes how strings are printed.
+
+      ```shell
+      jq -r '.store.location.city' bookstore.json
+      ```
+
+      prints `Oslo` without quotes. Raw output is switched on for this step.
+    task: With raw output on, output the store's name.
+    options: {raw_output: true}
+    hints:
+      - The program is the same as in the nested field step.
+      - Raw output is already switched on; you only need the path.
+      - '`.store.name`'
+    solution: .store.name
+    why: |
+      The program is unchanged; only the printing differs. `-r` writes the string's characters
+      instead of a JSON string, so the output is `The jq Bookshop`.
+
+      Variation: raw output does nothing to numbers, booleans or objects; `.store.open` still
+      prints `true`.
+    expected: ["The jq Bookshop"]

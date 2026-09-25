@@ -1,0 +1,195 @@
+id: 201-06-raw-input-csv
+level: 201
+order: 6
+title: Reading CSV with raw input
+summary: Read a CSV file as text with -R and -s, turn it into JSON objects, and write CSV back out.
+input: {ref: static:people-csv}
+steps:
+  - title: Lines as strings
+    body: |
+      This input is not JSON at all: it is a small CSV file with a header line and six people.
+      Raw input (`-R`, switched on for this step) makes jq read each line as a string, without
+      its newline, and run the program once per line:
+
+      ```jq
+      length
+      ```
+
+      would output the number of characters of each line.
+    task: With raw input on, output every line split at the commas into an array of fields, one array per line.
+    options: {raw_input: true}
+    hints:
+      - Each input is one line, as a string.
+      - '`split(",")` cuts a string at every comma.'
+      - '`split(",")`'
+    solution: split(",")
+    why: |
+      Seven lines give seven arrays, the header included. This simple split is enough for CSV
+      without quoted fields; a value containing a comma would need a real CSV parser.
+
+      Variation: `split(",") | length` checks that every line has four fields.
+    expected: [["name", "age", "city", "team"], ["Astrid", "41", "Oslo", "platform"], ["Bjorn", "29", "Bergen", "platform"], ["Chiara", "35", "Milan", "data"], ["Dmitri", "47", "Riga", "ops"], ["Efua", "31", "Accra", "ops"], ["Farid", "26", "Lyon", "sales"]]
+  - title: Skipping the header
+    body: |
+      With `-R`, every line runs through the program separately, so the header must be
+      recognised by its content:
+
+      ```jq
+      select(startswith("name,") | not)
+      ```
+
+      drops the header line and keeps the others.
+    task: With raw input on, output the city (the third field) of every person, skipping the header line.
+    options: {raw_input: true}
+    hints:
+      - Split the line, then drop the header with `select(.[0] != "name")`.
+      - Fields are counted from 0, so the city is `.[2]`.
+      - '`split(",") | select(.[0] != "name") | .[2]`'
+    solution: 'split(",") | select(.[0] != "name") | .[2]'
+    why: |
+      Six cities come out, one per person. Recognising the header by its content works here,
+      but the next steps read the whole file at once, where "the first line" is easy to name.
+
+      Variation: `select(startswith("name,") | not) | split(",")[2]` drops the header before
+      splitting.
+    expected: ["Oslo", "Bergen", "Milan", "Riga", "Accra", "Lyon"]
+  - title: The whole file as one string
+    body: |
+      With `-R` and `-s` together (both are on from this step), jq reads the entire file into
+      **one** string and runs the program once. Splitting at newlines gives the lines, but the
+      file ends with a newline, which leaves an empty string at the end:
+
+      ```jq
+      split("\n")
+      ```
+
+      outputs eight strings, the last one `""`.
+    task: 'With raw input and slurp on, output one array with the seven lines of the file, without an empty string at the end.'
+    options: {raw_input: true, slurp: true}
+    hints:
+      - Remove the final newline before splitting, or drop empty lines after.
+      - '`rtrimstr("\n")` removes one trailing newline.'
+      - '`rtrimstr("\n") | split("\n")`'
+    solution: 'rtrimstr("\n") | split("\n")'
+    why: |
+      Removing the last newline first means `split` has nothing after it to turn into an empty
+      string.
+
+      Variation: `split("\n") | map(select(length > 0))` drops every empty line, which also
+      copes with blank lines in the middle of a file.
+    expected: [["name,age,city,team", "Astrid,41,Oslo,platform", "Bjorn,29,Bergen,platform", "Chiara,35,Milan,data", "Dmitri,47,Riga,ops", "Efua,31,Accra,ops", "Farid,26,Lyon,sales"]]
+  - title: A table of fields
+    body: |
+      Now split every line into fields, giving an array of rows, each an array of strings:
+
+      ```jq
+      "a,b\nc,d" | split("\n") | map(split(","))
+      ```
+
+      outputs `[["a", "b"], ["c", "d"]]`.
+    task: With raw input and slurp on, output one array of rows, one per line including the header, where each row is an array of its fields.
+    options: {raw_input: true, slurp: true}
+    hints:
+      - Start from the previous step's program.
+      - 'Add `map(split(","))`.'
+      - '`rtrimstr("\n") | split("\n") | map(split(","))`'
+    solution: 'rtrimstr("\n") | split("\n") | map(split(","))'
+    why: |
+      This is the CSV as a table: row 0 is the header, rows 1 to 6 are people. From here on,
+      everything is ordinary array work.
+
+      Variation: `... | .[1:]` drops the header row, and `... | .[0]` keeps only it.
+    expected: [[["name", "age", "city", "team"], ["Astrid", "41", "Oslo", "platform"], ["Bjorn", "29", "Bergen", "platform"], ["Chiara", "35", "Milan", "data"], ["Dmitri", "47", "Riga", "ops"], ["Efua", "31", "Accra", "ops"], ["Farid", "26", "Lyon", "sales"]]]
+  - title: Rows into objects
+    body: |
+      Use the header row for the keys. `transpose` pairs up two arrays element by element:
+
+      ```jq
+      [["name", "age"], ["Astrid", "41"]] | transpose
+      ```
+
+      outputs `[["name", "Astrid"], ["age", "41"]]`, and `map({(.[0]): .[1]}) | add` turns those
+      pairs into `{"name": "Astrid", "age": "41"}`.
+    task: 'With raw input and slurp on, output one array of objects, one per person, whose keys come from the header line and whose values are the fields as strings.'
+    options: {raw_input: true, slurp: true}
+    hints:
+      - 'Bind the header: `... | map(split(",")) | .[0] as $h | .[1:]`.'
+      - 'For each row: `[$h, .] | transpose | map({(.[0]): .[1]}) | add`.'
+      - '`rtrimstr("\n") | split("\n") | map(split(",")) | .[0] as $h | .[1:] | map([$h, .] | transpose | map({(.[0]): .[1]}) | add)`'
+    solution: 'rtrimstr("\n") | split("\n") | map(split(",")) | .[0] as $h | .[1:] | map([$h, .] | transpose | map({(.[0]): .[1]}) | add)'
+    why: |
+      Taking the keys from the header means the program works for any CSV of this simple kind,
+      whatever its columns. Every value is still a string, including the ages.
+
+      Variation: for a known layout, `map({name: .[0], age: .[1], city: .[2], team: .[3]})` on
+      the rows gives the same objects.
+    expected: [[{"name": "Astrid", "age": "41", "city": "Oslo", "team": "platform"}, {"name": "Bjorn", "age": "29", "city": "Bergen", "team": "platform"}, {"name": "Chiara", "age": "35", "city": "Milan", "team": "data"}, {"name": "Dmitri", "age": "47", "city": "Riga", "team": "ops"}, {"name": "Efua", "age": "31", "city": "Accra", "team": "ops"}, {"name": "Farid", "age": "26", "city": "Lyon", "team": "sales"}]]
+  - title: Numbers from text
+    body: |
+      CSV has no types, so numbers arrive as strings. `tonumber` converts them:
+
+      ```jq
+      "41" | tonumber
+      ```
+
+      outputs `41`.
+    task: 'With raw input and slurp on, output the same array of person objects as before, but with `age` as a number.'
+    options: {raw_input: true, slurp: true}
+    hints:
+      - Build the objects as in the previous step.
+      - 'Then `map(.age |= tonumber)`.'
+      - '`rtrimstr("\n") | split("\n") | map(split(",")) | .[0] as $h | .[1:] | map([$h, .] | transpose | map({(.[0]): .[1]}) | add) | map(.age |= tonumber)`'
+    solution: 'rtrimstr("\n") | split("\n") | map(split(",")) | .[0] as $h | .[1:] | map([$h, .] | transpose | map({(.[0]): .[1]}) | add) | map(.age |= tonumber)'
+    why: |
+      `.age |= tonumber` updates one field in place and leaves the others as they are. Now the
+      ages compare and add as numbers.
+
+      Variation: `map({name: .[0], age: (.[1] | tonumber), city: .[2], team: .[3]})` on the rows
+      converts while building.
+    expected: [[{"name": "Astrid", "age": 41, "city": "Oslo", "team": "platform"}, {"name": "Bjorn", "age": 29, "city": "Bergen", "team": "platform"}, {"name": "Chiara", "age": 35, "city": "Milan", "team": "data"}, {"name": "Dmitri", "age": 47, "city": "Riga", "team": "ops"}, {"name": "Efua", "age": 31, "city": "Accra", "team": "ops"}, {"name": "Farid", "age": 26, "city": "Lyon", "team": "sales"}]]
+  - title: Counting per team
+    body: |
+      Once the CSV is JSON, the usual tools apply. Grouping rows by a column counts them:
+
+      ```jq
+      [["a", "x"], ["b", "x"]] | group_by(.[1]) | map(length)
+      ```
+
+      outputs `[2]`.
+    task: 'With raw input and slurp on, output one object mapping each team to its number of people.'
+    options: {raw_input: true, slurp: true}
+    hints:
+      - Work on the rows without the header, `split("\n")[1:]` after trimming.
+      - 'Group by the team column, `group_by(.[3])`, then `map({(.[0][3]): length}) | add`.'
+      - '`rtrimstr("\n") | split("\n")[1:] | map(split(",")) | group_by(.[3]) | map({(.[0][3]): length}) | add`'
+    solution: 'rtrimstr("\n") | split("\n")[1:] | map(split(",")) | group_by(.[3]) | map({(.[0][3]): length}) | add'
+    why: |
+      platform and ops have two people each, data and sales one. Grouping on the raw rows skips
+      building objects, which is fine for a one-off question.
+
+      Variation: `reduce (rtrimstr("\n") | split("\n")[1:][] | split(",")) as $r ({}; .[$r[3]] += 1)`
+      counts in one pass.
+    expected: [{"data": 1, "ops": 2, "platform": 2, "sales": 1}]
+  - title: Writing CSV
+    body: |
+      `@csv` formats an array as one CSV line: strings are quoted, numbers are not. It needs raw
+      output (on for this step) to print the line as text:
+
+      ```jq
+      ["Astrid", 41] | @csv
+      ```
+
+      prints `"Astrid",41`.
+    task: 'With raw input, slurp and raw output on, output one CSV line per person older than 30, in file order, holding their name and their age as a number.'
+    options: {raw_input: true, slurp: true, raw_output: true}
+    hints:
+      - Parse the rows without the header and keep those with `(.[1] | tonumber) > 30`.
+      - 'Build `[.[0], (.[1] | tonumber)]` and pipe it into `@csv`.'
+      - '`rtrimstr("\n") | split("\n")[1:] | map(split(",")) | .[] | select((.[1] | tonumber) > 30) | [.[0], (.[1] | tonumber)] | @csv`'
+    solution: 'rtrimstr("\n") | split("\n")[1:] | map(split(",")) | .[] | select((.[1] | tonumber) > 30) | [.[0], (.[1] | tonumber)] | @csv'
+    why: |
+      Four people are over 30. Because the age is converted to a number, `@csv` leaves it
+      unquoted; left as a string, it would print `"41"`.
+
+      Variation: `@tsv` writes tab-separated values instead, without quoting strings.
+    expected: ["\"Astrid\",41", "\"Chiara\",35", "\"Dmitri\",47", "\"Efua\",31"]

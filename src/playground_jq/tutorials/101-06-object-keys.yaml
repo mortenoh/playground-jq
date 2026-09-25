@@ -1,0 +1,182 @@
+id: 101-06-object-keys
+level: 101
+order: 6
+title: What is in a user record?
+summary: Inspect objects with keys, has and length, and tell a missing key from a null value.
+input: {ref: static:users}
+steps:
+  - title: The keys of an object
+    body: |
+      This dataset is an array of user accounts, and not every account has the same fields.
+      `keys` lists an object's keys as an array, sorted alphabetically:
+
+      ```jq
+      .[0].address | keys
+      ```
+
+      outputs `["city", "country"]`.
+    task: Output the keys of the first user, as the sorted array that `keys` gives.
+    hints:
+      - The first user is `.[0]`.
+      - Pipe it into `keys`.
+      - '`.[0] | keys`'
+    solution: .[0] | keys
+    why: |
+      `keys` always sorts, so `active` comes first and `username` last, whatever order the
+      fields have in the file.
+
+      Variation: on an array, `keys` gives the indexes: `.[0].roles | keys` is `[0, 1]`.
+    expected: [["active", "address", "email", "id", "last_login", "name", "preferences", "roles", "signup", "username"]]
+  - title: Keys in their original order
+    body: |
+      `keys_unsorted` lists the keys in the order they appear in the object:
+
+      ```jq
+      .[0].name | keys_unsorted
+      ```
+
+      outputs `["first", "last"]`.
+    task: Output the keys of the first user in the order they appear in the data.
+    hints:
+      - Same input as before, a different function.
+      - The function is `keys_unsorted`.
+      - '`.[0] | keys_unsorted`'
+    solution: .[0] | keys_unsorted
+    why: |
+      This is the order in which the fields were written: `id`, `username`, `name`, and so on.
+      Use it when the original layout matters, `keys` when you want a stable sorted list.
+
+      Variation: `.[0] | keys == (keys_unsorted | sort)` is `true`: the two differ only in
+      order.
+    expected: [["id", "username", "name", "email", "roles", "active", "address", "signup", "last_login", "preferences"]]
+  - title: The length of an object
+    body: |
+      `length` of an object is its number of keys:
+
+      ```jq
+      .[0].address | length
+      ```
+
+      outputs `2`.
+    task: Output how many keys the first user has.
+    hints:
+      - Pipe the first user into `length`.
+      - '`.[0]` is the first user.'
+      - '`.[0] | length`'
+    solution: .[0] | length
+    why: |
+      The first user has ten fields, so `length` is `10`. Only the top-level keys count; the
+      keys inside `name` or `preferences` do not.
+
+      Variation: `.[0] | keys | length` also gives `10`.
+    expected: [10]
+  - title: has
+    body: |
+      `has(key)` answers whether an object has a key:
+
+      ```jq
+      .[0] | has("email")
+      ```
+
+      outputs `true`.
+    task: For every user, in order, output whether it has a `preferences` key (one boolean per user).
+    hints:
+      - Iterate the users with `.[]`.
+      - Pipe each into `has(...)` with the key as a string.
+      - '`.[] | has("preferences")`'
+    solution: .[] | has("preferences")
+    why: |
+      Five users have preferences; the fourth, margaret, has none, so her answer is `false`.
+
+      Variation: `map(has("preferences"))` gives the same six booleans as one array.
+    expected: [true, true, true, false, true, true]
+  - title: Who is missing a key?
+    body: |
+      Combine `has` with `select` and `not` to find records without a field:
+
+      ```jq
+      .[] | select(has("last_login") | not) | .username
+      ```
+
+      outputs nothing: every user has a `last_login` key.
+    task: Output the username of every user that has no `preferences` key.
+    hints:
+      - Use `select` with `has("preferences") | not`.
+      - Then take `.username`.
+      - '`.[] | select(has("preferences") | not) | .username`'
+    solution: .[] | select(has("preferences") | not) | .username
+    why: |
+      Only `"margaret"` lacks the key. This is how to audit a dataset for incomplete records
+      before you rely on a field.
+
+      Variation: `map(select(has("preferences"))) | length` counts the users that do have it,
+      `5`.
+    expected: ["margaret"]
+  - title: Length of null
+    body: |
+      Reading a missing key gives `null`, and `length` of `null` is `0`. That makes `length` a
+      forgiving way to count things that may not exist:
+
+      ```jq
+      .[3].preferences | length
+      ```
+
+      outputs `0` for margaret.
+    task: For every user, in order, output the number of keys in their `preferences` (0 when there are none).
+    hints:
+      - Iterate the users and take `.preferences`.
+      - Pipe that into `length`.
+      - '`.[] | .preferences | length`'
+    solution: .[] | .preferences | length
+    why: |
+      Most users have three preference keys, linus has two (no notifications), and margaret's
+      missing preferences count as `0`.
+
+      Variation: `.[] | .preferences | keys` would fail on margaret, because `keys` of `null` is
+      an error. `length` is one of the few functions that accepts `null`.
+    expected: [3, 3, 2, 0, 3, 3]
+  - title: A null value is not a missing key
+    body: |
+      A key can exist and hold `null`. `has` then says `true`, while the value is still `null`:
+
+      ```jq
+      .[2] | has("last_login"), .last_login
+      ```
+
+      outputs `true` and then `null`: linus has never logged in, but the field is there.
+    task: Output the username of every user whose `email` is `null`.
+    hints:
+      - Every user has the `email` key, so `has` will not help here.
+      - Compare the value with `null` inside `select`.
+      - '`.[] | select(.email == null) | .username`'
+    solution: .[] | select(.email == null) | .username
+    why: |
+      Only ken's email is `null`. `has("email")` is `true` for all six users, so it cannot tell
+      a real address from an empty one; comparing the value can.
+
+      Variation: `.email == null` is also true when the key is missing entirely, so use `has`
+      when you need to know which case you have.
+    expected: ["ken"]
+  - title: Every key in the dataset
+    body: |
+      To see every field used anywhere, gather each user's keys and merge them. `add` on arrays
+      concatenates them, and `unique` removes the repeats:
+
+      ```jq
+      [[1, 2], [2, 3]] | add | unique
+      ```
+
+      outputs `[1, 2, 3]`.
+    task: Output one sorted array of every top-level key used by any user, each key once.
+    hints:
+      - '`map(keys)` gives one array of keys per user.'
+      - '`add` joins those arrays into one; `unique` removes duplicates.'
+      - '`map(keys) | add | unique`'
+    solution: map(keys) | add | unique
+    why: |
+      Every key appears here once, including `preferences`, which one user lacks. Comparing
+      this with a single user's `keys` is a quick way to spot optional fields.
+
+      Variation: `[.[] | keys[]] | unique` collects the keys one by one instead of array by
+      array.
+    expected: [["active", "address", "email", "id", "last_login", "name", "preferences", "roles", "signup", "username"]]

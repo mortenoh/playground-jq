@@ -1,0 +1,181 @@
+id: 101-04-select
+level: 101
+order: 4
+title: Picking books with select
+summary: Compare values and keep only the books, and people, that match a condition.
+input: {ref: static:bookstore}
+steps:
+  - title: Comparisons
+    body: |
+      jq compares with `==`, `!=`, `<`, `<=`, `>` and `>=`. A comparison outputs `true` or
+      `false`:
+
+      ```jq
+      .store.staff[] | .since < 2021
+      ```
+
+      outputs `true`, `true`, `false`.
+    task: For every book, in shelf order, output whether its price is below 10 (one boolean per book).
+    hints:
+      - Iterate the books and pipe each one into a comparison.
+      - Compare `.price` with `10`.
+      - '`.store.books[] | .price < 10`'
+    solution: .store.books[] | .price < 10
+    why: |
+      The comparison runs once per book, giving eight booleans. Only the first and third books
+      cost less than 10.
+
+      Variation: `.price <= 8.5` would also be true for the first book, which costs exactly 8.5.
+    expected: [true, false, true, false, false, false, false, false]
+  - title: select keeps what matches
+    body: |
+      `select(condition)` outputs its input unchanged when the condition is true, and outputs
+      nothing when it is false. It is a filter for the stream:
+
+      ```jq
+      .store.staff[] | select(.since < 2021) | .name
+      ```
+
+      outputs `"Ingrid"` and `"Omar"`.
+    task: Output the titles of the books that cost less than 10.
+    hints:
+      - Put the comparison from the previous step inside `select(...)`.
+      - After `select`, take the title.
+      - '`.store.books[] | select(.price < 10) | .title`'
+    solution: .store.books[] | select(.price < 10) | .title
+    why: |
+      Books for which `.price < 10` is false are dropped, so `.title` only runs on the two
+      cheap ones: "Learning jq" and "Pipes and Paths".
+
+      Variation: `select(.price >= 10)` keeps the other six.
+    expected: ["Learning jq", "Pipes and Paths"]
+  - title: Matching a string
+    body: |
+      `==` compares strings exactly, including case:
+
+      ```jq
+      .store.staff[] | select(.role == "clerk") | .name
+      ```
+
+      outputs `"Omar"` and `"Lena"`.
+    task: Output the titles of the books written by Ada Filter.
+    hints:
+      - Compare `.author` with a string.
+      - The string is `"Ada Filter"`.
+      - '`.store.books[] | select(.author == "Ada Filter") | .title`'
+    solution: .store.books[] | select(.author == "Ada Filter") | .title
+    why: |
+      Two books have exactly that author: "Learning jq" and "Functional Filters". `"ada filter"`
+      would match nothing, because comparison is case-sensitive.
+
+      Variation: `select(.author != "Ada Filter")` gives the other six titles.
+    expected: ["Learning jq", "Functional Filters"]
+  - title: Out of stock
+    body: |
+      Numbers compare as numbers, so `== 0` finds zeros:
+
+      ```jq
+      .store.books[] | select(.year == 2015) | .title
+      ```
+
+      outputs `"The Art of the Shell"`.
+    task: Output the titles of the books that are out of stock (`inStock` is 0).
+    hints:
+      - The stock count is `.inStock`.
+      - Keep the books where it equals `0`.
+      - '`.store.books[] | select(.inStock == 0) | .title`'
+    solution: .store.books[] | select(.inStock == 0) | .title
+    why: |
+      Two books are sold out: "JSON at Scale" and "Data Wrangling Recipes".
+
+      Variation: `select(.inStock < 3)` also catches "Streams and Generators", which has one copy
+      left.
+    expected: ["JSON at Scale", "Data Wrangling Recipes"]
+  - title: Both conditions with and
+    body: |
+      `and` is true when both sides are true. Parentheses are not needed around comparisons:
+
+      ```jq
+      .store.staff[] | select(.role == "clerk" and .since > 2021) | .name
+      ```
+
+      outputs `"Lena"`.
+    task: Output the titles of the books published in 2020 or later that cost less than 20.
+    hints:
+      - Two conditions joined by `and`.
+      - '`.year >= 2020` and `.price < 20`.'
+      - '`.store.books[] | select(.year >= 2020 and .price < 20) | .title`'
+    solution: .store.books[] | select(.year >= 2020 and .price < 20) | .title
+    why: |
+      Four books pass both tests. "Streams and Generators" is recent but costs 27.75, so `and`
+      rejects it.
+
+      Variation: two selects in a row, `select(.year >= 2020) | select(.price < 20)`, mean the
+      same thing.
+    expected: ["Learning jq", "Pipes and Paths", "Functional Filters", "Data Wrangling Recipes"]
+  - title: Either condition with or
+    body: |
+      `or` is true when at least one side is true:
+
+      ```jq
+      .store.staff[] | select(.role == "owner" or .since == 2023) | .name
+      ```
+
+      outputs `"Ingrid"` and `"Lena"`.
+    task: Output the titles of the books published before 2016 or priced above 25.
+    hints:
+      - Two conditions joined by `or`.
+      - '`.year < 2016` and `.price > 25`.'
+      - '`.store.books[] | select(.year < 2016 or .price > 25) | .title`'
+    solution: .store.books[] | select(.year < 2016 or .price > 25) | .title
+    why: |
+      "The Art of the Shell" passes both tests, "Streams and Generators" only the price test.
+      Each book is output once, however many conditions it meets.
+
+      Variation: replacing `or` with `and` leaves only "The Art of the Shell".
+    expected: ["The Art of the Shell", "Streams and Generators"]
+  - title: Negating with not
+    body: |
+      `not` is a filter: it turns `true` into `false` and the other way round. Pipe a
+      condition into it:
+
+      ```jq
+      .store.books[] | select(.inStock > 0 | not) | .title
+      ```
+
+      outputs the two sold-out titles.
+    task: Output the names of the staff members whose role is not "owner".
+    hints:
+      - Iterate `.store.staff`.
+      - Either use `!=`, or pipe `.role == "owner"` into `not`.
+      - '`.store.staff[] | select(.role == "owner" | not) | .name`'
+    solution: .store.staff[] | select(.role == "owner" | not) | .name
+    why: |
+      `.role == "owner" | not` is true for everyone except Ingrid, so Omar and Lena remain.
+      `not` is a filter rather than an operator, which is why it goes after a pipe.
+
+      Variation: `select(.role != "owner")` gives the same result.
+    expected: ["Omar", "Lena"]
+  - title: Conditions on arrays
+    body: |
+      A condition can look inside an array. `any(condition)` on an array is true when the
+      condition holds for at least one element:
+
+      ```jq
+      .store.books[] | select(.ratings | any(. == 2)) | .title
+      ```
+
+      outputs the titles of the books that someone rated 2.
+    task: Output the titles of the books tagged "jq".
+    hints:
+      - Pipe `.tags` into `any(...)`.
+      - Inside `any`, `.` is one tag; compare it with `"jq"`.
+      - '`.store.books[] | select(.tags | any(. == "jq")) | .title`'
+    solution: .store.books[] | select(.tags | any(. == "jq")) | .title
+    why: |
+      For each book, `any` checks the tags one by one and answers `true` as soon as one equals
+      `"jq"`. Four books carry the tag.
+
+      Variation: `select(.tags | index("jq"))` works too: `index` returns the position (0 is
+      still true in jq; only `false` and `null` are false) or `null` when the tag is missing.
+    expected: ["Learning jq", "Pipes and Paths", "Functional Filters", "Streams and Generators"]

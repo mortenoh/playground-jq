@@ -1,0 +1,187 @@
+id: 201-01-group-and-count
+level: 201
+order: 1
+title: Grouping and counting issues
+summary: Use group_by, unique_by and max_by to answer "how many of each?" about GitHub issues.
+input: {ref: static:github-issues}
+steps:
+  - title: group_by
+    body: |
+      The maintainers want numbers: how many issues per state, per author, per label.
+      `group_by(f)` sorts an array by `f` and splits it into an array of groups, one group per
+      distinct value:
+
+      ```jq
+      [{"k": "b"}, {"k": "a"}, {"k": "b"}] | group_by(.k)
+      ```
+
+      outputs `[[{"k": "a"}], [{"k": "b"}, {"k": "b"}]]`.
+    task: Group the issues by `state` and output one array with the size of each group (groups in the order `group_by` gives them).
+    hints:
+      - '`group_by(.state)` gives an array of arrays.'
+      - Map each group to its `length`.
+      - '`group_by(.state) | map(length)`'
+    solution: group_by(.state) | map(length)
+    why: |
+      The groups come out sorted by the grouping value, so `"closed"` (4 issues) comes before
+      `"open"` (6).
+
+      Variation: `group_by(.state) | map(.[0].state)` shows which value each group has.
+    expected: [[4, 6]]
+  - title: Labelling the groups
+    body: |
+      A bare count is hard to read. Every element of a group has the same grouping value, so
+      read it from the first one, `.[0]`:
+
+      ```jq
+      group_by(.user.type) | map({type: .[0].user.type, n: length})
+      ```
+
+      outputs one object per user type.
+    task: 'Output one array of objects `{state, count}` (in that key order), one per state, where `count` is the number of issues in that state.'
+    hints:
+      - 'Inside `map`, `.` is one group: an array of issues.'
+      - 'The state is `.[0].state` and the count is `length`.'
+      - '`group_by(.state) | map({state: .[0].state, count: length})`'
+    solution: 'group_by(.state) | map({state: .[0].state, count: length})'
+    why: |
+      Each group becomes one summary object, which is the jq version of SQL's
+      `SELECT state, COUNT(*) ... GROUP BY state`.
+
+      Variation: `group_by(.state) | map({(.[0].state): length}) | add` turns the same numbers into one object,
+      `{"closed": 4, "open": 6}`.
+    expected: [[{"state": "closed", "count": 4}, {"state": "open", "count": 6}]]
+  - title: Grouping by a nested field
+    body: |
+      The grouping key can be any path. Grouping by author uses `.user.login`:
+
+      ```jq
+      group_by(.user.type) | map(length)
+      ```
+
+      counts bot and human issues.
+    task: 'Output one array of objects `{login, issues}` (in that key order), one per author login, where `issues` is how many issues that author opened.'
+    hints:
+      - Group by `.user.login`.
+      - 'Build `{login: .[0].user.login, issues: length}` for each group.'
+      - '`group_by(.user.login) | map({login: .[0].user.login, issues: length})`'
+    solution: 'group_by(.user.login) | map({login: .[0].user.login, issues: length})'
+    why: |
+      Six people and one bot opened the ten issues; alice, carol and dependabot opened two
+      each. The groups are sorted by login.
+
+      Variation: `group_by(.user.login) | map(select(length > 1) | .[0].user.login)` lists only
+      the repeat authors.
+    expected: [[{"login": "alice", "issues": 2}, {"login": "carol", "issues": 2}, {"login": "dave", "issues": 1}, {"login": "dependabot[bot]", "issues": 2}, {"login": "frank", "issues": 1}, {"login": "gina", "issues": 1}, {"login": "hank", "issues": 1}]]
+  - title: Counting values from nested arrays
+    body: |
+      Labels live in an array inside each issue. Collect them all into one flat array first,
+      then group the plain strings with `group_by(.)`:
+
+      ```jq
+      ["b", "a", "b"] | group_by(.) | map({value: .[0], n: length})
+      ```
+
+      outputs `[{"value": "a", "n": 1}, {"value": "b", "n": 2}]`.
+    task: 'Count how often each label name is used across all issues. Output one array of objects `{label, count}` (in that key order), sorted by label name.'
+    hints:
+      - '`[.[].labels[].name]` collects every label name.'
+      - 'Group the strings with `group_by(.)`, then build `{label: .[0], count: length}`.'
+      - '`[.[].labels[].name] | group_by(.) | map({label: .[0], count: length})`'
+    solution: '[.[].labels[].name] | group_by(.) | map({label: .[0], count: length})'
+    why: |
+      Flattening first means an issue with three labels contributes to three groups. `bug` is
+      the most used label, on four issues.
+
+      Variation: `[.[].labels[].name] | unique | length` counts the distinct labels, `8`.
+    expected: [[{"label": "bug", "count": 4}, {"label": "dependencies", "count": 2}, {"label": "docs", "count": 3}, {"label": "enhancement", "count": 1}, {"label": "good first issue", "count": 1}, {"label": "needs repro", "count": 1}, {"label": "priority: high", "count": 2}, {"label": "windows", "count": 1}]]
+  - title: The most common value
+    body: |
+      `max_by(f)` returns the element for which `f` is largest.
+      Combined with a count, it answers "which is the most common?":
+
+      ```jq
+      group_by(.state) | max_by(length) | .[0].state
+      ```
+
+      outputs `"open"`.
+    task: 'Output the `{label, count}` object (as in the previous step) of the most used label.'
+    hints:
+      - Start from the previous step's program.
+      - Pipe the array into `max_by(.count)`.
+      - '`[.[].labels[].name] | group_by(.) | map({label: .[0], count: length}) | max_by(.count)`'
+    solution: '[.[].labels[].name] | group_by(.) | map({label: .[0], count: length}) | max_by(.count)'
+    why: |
+      `bug`, with 4 uses, is the only label at the top, so `max_by` has one clear answer:
+      `{"label": "bug", "count": 4}`.
+
+      Variation: `sort_by(-.count) | first` gives the same object. When several elements tie
+      for the top, check which one each approach picks before relying on it.
+    expected: [{"label": "bug", "count": 4}]
+  - title: Summing inside groups
+    body: |
+      Counting is one aggregate; sums work the same way. Inside each group, `map(.field) | add`
+      totals a field:
+
+      ```jq
+      group_by(.user.type) | map({type: .[0].user.type, comments: (map(.comments) | add)})
+      ```
+
+      totals comments for bots and for humans.
+    task: 'Output one array of objects `{state, comments}` (in that key order), one per state, where `comments` is the total number of comments on the issues in that state.'
+    hints:
+      - Group by `.state`.
+      - 'The total of a group is `(map(.comments) | add)`.'
+      - '`group_by(.state) | map({state: .[0].state, comments: (map(.comments) | add)})`'
+    solution: 'group_by(.state) | map({state: .[0].state, comments: (map(.comments) | add)})'
+    why: |
+      Closed issues gathered 10 comments and open ones 29. The pattern `group_by` then
+      `map({key: .[0].key, ...aggregates...})` covers most reports you will write.
+
+      Variation: add `max: (map(.comments) | max)` to each object for the busiest issue per state.
+    expected: [[{"state": "closed", "comments": 10}, {"state": "open", "comments": 29}]]
+  - title: One per group with unique_by
+    body: |
+      `unique_by(f)` keeps one element per distinct value of `f`: the first of each group, in
+      the sorted order `group_by` would give.
+
+      ```jq
+      unique_by(.state) | map(.number)
+      ```
+
+      outputs `[102, 101]`: the first closed issue and the first open one.
+    task: 'Output one array with the `number` of each author''s first issue in the file, as `unique_by(.user.login)` orders them (sorted by login).'
+    hints:
+      - '`unique_by(.user.login)` keeps one issue per author.'
+      - Then take the numbers.
+      - '`unique_by(.user.login) | map(.number)`'
+    solution: unique_by(.user.login) | map(.number)
+    why: |
+      Seven authors give seven issues. `unique_by(f)` is the same as `group_by(f) | map(.[0])`,
+      which also explains the order: by login, not by issue number.
+
+      Variation: `unique_by(.user.login) | length` counts the authors, `7`.
+    expected: [[101, 102, 103, 104, 106, 107, 110]]
+  - title: Counting per group into an object
+    body: |
+      For lookups, an object is handier than an array of pairs. Build one small object per
+      group with a computed key in parentheses, then merge them all with `add`:
+
+      ```jq
+      group_by(.state) | map({(.[0].state): length}) | add
+      ```
+
+      outputs `{"closed": 4, "open": 6}`.
+    task: 'Output one object whose keys are the assignee logins and whose values are how many issues each person is assigned to, keys in sorted order.'
+    hints:
+      - '`[.[].assignees[].login]` collects every assignment.'
+      - 'Group the logins, then `map({(.[0]): length}) | add`.'
+      - '`[.[].assignees[].login] | group_by(.) | map({(.[0]): length}) | add`'
+    solution: '[.[].assignees[].login] | group_by(.) | map({(.[0]): length}) | add'
+    why: |
+      `{(expr): value}` uses the result of `expr` as the key. Merging the one-key objects with
+      `add` gives a single lookup table; erin is the busiest with three assignments.
+
+      Variation: `reduce .[].assignees[].login as $l ({}; .[$l] += 1)` builds a similar table in
+      one pass, with keys in first-seen order (reduce is the next tutorial).
+    expected: [{"alice": 1, "bob": 2, "carol": 2, "erin": 3}]
