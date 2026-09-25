@@ -1,0 +1,411 @@
+id: dhis2-data
+title: 'DHIS2: data values, analytics and tracker'
+description: Aggregate data value sets, an analytics response, tracker events and tracked entities, from the DHIS2 Sierra Leone demo database.
+order: 41
+track: dhis2
+examples:
+  - id: dhis2-data-value-set-envelope
+    title: The envelope of a data value set
+    level: 101
+    tags: [data-values, del]
+    explanation: |
+      A data value set has an envelope (data set, period, org unit, attribute option combo) and a
+      `dataValues` array. Replacing the array by its length shows the envelope at a glance:
+      one facility (Ngelehun CHC, `DiszpKrYNg8`), January 2025, 52 values. The attribute option
+      combo `HllvX50cXC0` is the default one, used when a data set has no attribute combo.
+    program: 'del(.dataValues) + {dataValues: (.dataValues | length)}'
+    input: {ref: dhis2:data-value-set}
+    manual: [https://jqlang.org/manual/v1.8/#del]
+    guide: [collections]
+    expected: [{"dataSet": "BfMAe6Itzgt", "period": "202501", "orgUnit": "DiszpKrYNg8", "attributeOptionCombo": "HllvX50cXC0", "dataValues": 52}]
+
+  - id: dhis2-data-values-are-strings
+    title: Values are strings; compare them as numbers
+    level: 101
+    tags: [data-values, tonumber, max]
+    explanation: |
+      DHIS2 returns every data value as a string, whatever its value type. `max` over strings
+      compares them character by character, so `"9"` beats `"154"`. Converting with `tonumber`
+      first gives the real maximum.
+    program: '.dataValues | map(.value) | {asStrings: max, asNumbers: (map(tonumber) | max)}'
+    input: {ref: dhis2:data-value-set}
+    manual: [https://jqlang.org/manual/v1.8/#tonumber, https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
+    guide: [collections]
+    expected: [{"asStrings": "9", "asNumbers": 154}]
+
+  - id: dhis2-data-totals-per-element
+    title: Totals per data element
+    level: 201
+    tags: [data-values, group_by, tonumber, add]
+    explanation: |
+      A data element with a disaggregating category combo has one row per category option combo.
+      Grouping by `dataElement` and adding the numeric values gives the element's total, which is
+      what analytics shows for "the data element" without disaggregation.
+    program: '.dataValues | group_by(.dataElement) | map({dataElement: .[0].dataElement, rows: length, total: (map(.value | tonumber) | add)}) | sort_by(-.total) | .[:5]'
+    input: {ref: dhis2:data-value-set}
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#add]
+    guide: [sorting-and-grouping]
+    expected: [[{"dataElement": "s46m5MS0hxu", "rows": 4, "total": 532}, {"dataElement": "UOlfIjgN8X6", "rows": 4, "total": 463}, {"dataElement": "z7duEFcpApd", "rows": 4, "total": 452}, {"dataElement": "qPVDd87kS9Z", "rows": 4, "total": 84}, {"dataElement": "NLnXLV5YpZF", "rows": 4, "total": 62}]]
+
+  - id: dhis2-data-rows-per-element
+    title: How many option combos each element uses
+    level: 201
+    tags: [data-values, group_by]
+    explanation: |
+      Counting rows per data element and then grouping those counts shows the shape of the
+      form: 2 elements have a single value, 11 have two, and 7 have four. Together that is
+      2 + 22 + 28 = 52 rows. All of them use the category combo "Location and age group"
+      (fixed or outreach, under or over one year); a facility simply leaves some combos empty.
+    program: '.dataValues | group_by(.dataElement) | map(length) | group_by(.) | map({combos: .[0], elements: length})'
+    input: {ref: dhis2:data-value-set}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"combos": 1, "elements": 2}, {"combos": 2, "elements": 11}, {"combos": 4, "elements": 7}]]
+
+  - id: dhis2-data-pivot-element-combo
+    title: Pivot data element by option combo
+    level: 201
+    tags: [data-values, reduce, pivot]
+    explanation: |
+      `reduce` builds a nested object in one pass: `.[$v.dataElement][$v.categoryOptionCombo]`
+      creates both levels as needed. The result is a pivot table keyed by data element, then by
+      category option combo, with numeric values. Only the first three elements are kept.
+    program: 'reduce .dataValues[] as $v ({}; .[$v.dataElement][$v.categoryOptionCombo] = ($v.value | tonumber)) | to_entries | .[:3] | from_entries'
+    input: {ref: dhis2:data-value-set}
+    manual: [https://jqlang.org/manual/v1.8/#reduce]
+    guide: [reduce-and-foreach]
+    expected: [{"bTcRDVjC66S": {"Prlt0C1RF0s": 1}, "dU0GquGkGQr": {"V6L425pT3A0": 5, "Prlt0C1RF0s": 10}, "DUSpd8Jq3M7": {"V6L425pT3A0": 5, "Prlt0C1RF0s": 10}}]
+
+  - id: dhis2-data-stored-by
+    title: Who stored the values
+    level: 101
+    tags: [data-values, group_by]
+    explanation: |
+      `storedBy` records the username that last saved the value. Most of this facility's values
+      were entered by `bo2`; 12 came from `system` (an import) and 4 from `admin`.
+    program: '.dataValues | group_by(.storedBy) | map({storedBy: .[0].storedBy, values: length}) | sort_by(-.values)'
+    input: {ref: dhis2:data-value-set}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"storedBy": "bo2", "values": 36}, {"storedBy": "system", "values": 12}, {"storedBy": "admin", "values": 4}]]
+
+  - id: dhis2-data-updated-before-created
+    title: Updated before it was created
+    level: 201
+    tags: [data-values, dates, select]
+    explanation: |
+      ISO 8601 timestamps in the same format and time zone compare correctly as strings. Every
+      value here was `created` on 2022-09-05 but `lastUpdated` years earlier: `created` is when
+      the demo database was loaded, while `lastUpdated` came with the imported data. Do not
+      assume `created <= lastUpdated` when auditing DHIS2 data.
+    program: '.dataValues | {values: length, updatedBeforeCreated: (map(select(.lastUpdated < .created)) | length), created: (map(.created[:10]) | unique)}'
+    input: {ref: dhis2:data-value-set}
+    manual: [https://jqlang.org/manual/v1.8/#select]
+    guide: [strings]
+    expected: [{"values": 52, "updatedBeforeCreated": 52, "created": ["2022-09-05"]}]
+
+  - id: dhis2-data-csv
+    title: One facility's values as CSV
+    level: 101
+    tags: [data-values, csv, raw-output]
+    explanation: |
+      `@csv` formats an array as one CSV line, quoting strings; with raw output the lines print
+      without JSON quotes. A header line first, then one line per value. Values are kept as
+      the strings DHIS2 sent, so they are quoted too.
+    program: '["dataElement", "categoryOptionCombo", "value"], (.dataValues[:5][] | [.dataElement, .categoryOptionCombo, .value]) | @csv'
+    input: {ref: dhis2:data-value-set}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    guide: [strings]
+    expected: ["\"dataElement\",\"categoryOptionCombo\",\"value\"", "\"bTcRDVjC66S\",\"Prlt0C1RF0s\",\"1\"", "\"dU0GquGkGQr\",\"V6L425pT3A0\",\"5\"", "\"dU0GquGkGQr\",\"Prlt0C1RF0s\",\"10\"", "\"DUSpd8Jq3M7\",\"V6L425pT3A0\",\"5\"", "\"DUSpd8Jq3M7\",\"Prlt0C1RF0s\",\"10\""]
+
+  - id: dhis2-data-bo-totals-per-facility
+    title: Top facilities in Bo by total
+    level: 201
+    tags: [data-values, group_by, tonumber, add]
+    explanation: |
+      With `children=true` the data value set covers every facility under the Bo district, and
+      each row carries its `orgUnit`. Grouping by org unit and adding the numeric values ranks
+      the facilities. `DiszpKrYNg8` totals 1817, the same as the sum of `dhis2:data-value-set`,
+      which is that facility on its own: the two requests agree.
+    program: '.dataValues | group_by(.orgUnit) | map({orgUnit: .[0].orgUnit, values: length, total: (map(.value | tonumber) | add)}) | sort_by(-.total) | .[:5]'
+    input: {ref: dhis2:data-value-set-bo-children}
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#add]
+    guide: [sorting-and-grouping]
+    expected: [[{"orgUnit": "jhtj3eQa1pM", "values": 61, "total": 2940}, {"orgUnit": "DiszpKrYNg8", "values": 52, "total": 1817}, {"orgUnit": "FLjwMPWLrL2", "values": 41, "total": 1044}, {"orgUnit": "TSyzvBiovKh", "values": 42, "total": 661}, {"orgUnit": "PuZOFApTSeo", "values": 59, "total": 589}]]
+
+  - id: dhis2-data-bo-elements-coverage
+    title: How many facilities report each element
+    level: 201
+    tags: [data-values, group_by, unique]
+    explanation: |
+      Per data element, the number of distinct facilities with a value and the district total.
+      `map(.orgUnit) | unique | length` counts distinct facilities, which differs from the row
+      count when the element has several option combos.
+    program: '.dataValues | group_by(.dataElement) | map({dataElement: .[0].dataElement, rows: length, facilities: (map(.orgUnit) | unique | length), total: (map(.value | tonumber) | add)}) | sort_by(-.total) | .[:5]'
+    input: {ref: dhis2:data-value-set-bo-children}
+    manual: [https://jqlang.org/manual/v1.8/#unique-unique_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"dataElement": "NLnXLV5YpZF", "rows": 64, "facilities": 23, "total": 2668}, {"dataElement": "qPVDd87kS9Z", "rows": 56, "facilities": 21, "total": 1618}, {"dataElement": "s46m5MS0hxu", "rows": 31, "facilities": 23, "total": 1149}, {"dataElement": "UOlfIjgN8X6", "rows": 34, "facilities": 21, "total": 719}, {"dataElement": "ldGXl6SEdqf", "rows": 54, "facilities": 23, "total": 591}]]
+
+  - id: dhis2-data-bo-missing-elements
+    title: Which facilities left elements empty
+    level: 301
+    tags: [data-values, array-subtraction, completeness]
+    explanation: |
+      DHIS2 does not store empty values, so a missing value is a missing row. The 28 data
+      elements reported anywhere in the district serve as the expected list; subtracting each
+      facility's reported elements from it gives the gaps. Of the 24 x 28 = 672 possible
+      facility and element pairs, 532 have at least one value. `vELbGdEphPd` left 13 elements
+      empty.
+    program: '(.dataValues | map(.dataElement) | unique) as $all | .dataValues | group_by(.orgUnit) | map({orgUnit: .[0].orgUnit, missing: ($all - map(.dataElement) | length)}) | sort_by(-.missing, .orgUnit) | .[:5]'
+    input: {ref: dhis2:data-value-set-bo-children}
+    manual: [https://jqlang.org/manual/v1.8/#unique-unique_by]
+    guide: [collections]
+    expected: [[{"orgUnit": "vELbGdEphPd", "missing": 13}, {"orgUnit": "Umh4HKqqFp6", "missing": 12}, {"orgUnit": "PC3Ag91n82e", "missing": 10}, {"orgUnit": "mzsOsz0NwNY", "missing": 9}, {"orgUnit": "DiszpKrYNg8", "missing": 8}]]
+
+  - id: dhis2-data-bo-max-by-trap
+    title: max_by on a string value picks the wrong row
+    level: 101
+    tags: [data-values, max_by, tonumber]
+    explanation: |
+      `max_by(.value)` compares the strings, and `"92"` sorts after `"1247"`. Converting inside
+      the key, `max_by(.value | tonumber)`, finds the row with the largest number. The same
+      trap applies to `sort_by`, `min_by` and `group_by`.
+    program: '.dataValues | {byString: (max_by(.value) | {orgUnit, dataElement, value}), byNumber: (max_by(.value | tonumber) | {orgUnit, dataElement, value})}'
+    input: {ref: dhis2:data-value-set-bo-children}
+    manual: [https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
+    guide: [sorting-and-grouping]
+    expected: [{"byString": {"orgUnit": "FLjwMPWLrL2", "dataElement": "NLnXLV5YpZF", "value": "92"}, "byNumber": {"orgUnit": "jhtj3eQa1pM", "dataElement": "NLnXLV5YpZF", "value": "1247"}}]
+
+  - id: dhis2-data-bo-followup
+    title: Values flagged for follow-up
+    level: 101
+    tags: [data-values, any, select]
+    explanation: |
+      `followup` marks a value that a data manager flagged for review, for instance as an
+      outlier. `any` answers whether there is at least one; none of the 934 values in the
+      district is flagged this month.
+    program: '.dataValues | {values: length, anyFlagged: any(.[]; .followup), flagged: map(select(.followup)) | length}'
+    input: {ref: dhis2:data-value-set-bo-children}
+    manual: [https://jqlang.org/manual/v1.8/#any]
+    guide: [collections]
+    expected: [{"values": 934, "anyFlagged": false, "flagged": 0}]
+
+  - id: dhis2-data-bo-not-typed-in
+    title: Values not entered by the district user
+    level: 101
+    tags: [data-values, select, group_by]
+    explanation: |
+      Across the district, 918 values were stored by `bo2`. The other 16 all belong to one
+      facility, `DiszpKrYNg8`, and four data elements: values entered by `admin` or loaded by
+      `system`, a pattern worth knowing when a facility's numbers look different.
+    program: '.dataValues | map(select(.storedBy != "bo2")) | group_by([.storedBy, .orgUnit, .dataElement]) | map({storedBy: .[0].storedBy, orgUnit: .[0].orgUnit, dataElement: .[0].dataElement, values: length})'
+    input: {ref: dhis2:data-value-set-bo-children}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"storedBy": "admin", "orgUnit": "DiszpKrYNg8", "dataElement": "YtbsuPPo010", "values": 4}, {"storedBy": "system", "orgUnit": "DiszpKrYNg8", "dataElement": "UOlfIjgN8X6", "values": 4}, {"storedBy": "system", "orgUnit": "DiszpKrYNg8", "dataElement": "s46m5MS0hxu", "values": 4}, {"storedBy": "system", "orgUnit": "DiszpKrYNg8", "dataElement": "z7duEFcpApd", "values": 4}]]
+
+  - id: dhis2-data-bo-option-combo-totals
+    title: One element split by option combo
+    level: 201
+    tags: [data-values, group_by, add]
+    explanation: |
+      `s46m5MS0hxu` is the data element the BCG coverage indicator counts. Its values in Bo are
+      split over the four category option combos of "Location and age group"; totals per combo
+      show how the district total of 1149 is made up. `Prlt0C1RF0s` is "Fixed, <1y", the
+      largest part, and `V6L425pT3A0` is "Outreach, <1y" (the names are in
+      `dhis2:category-combos`).
+    program: '[.dataValues[] | select(.dataElement == "s46m5MS0hxu")] | group_by(.categoryOptionCombo) | map({categoryOptionCombo: .[0].categoryOptionCombo, total: (map(.value | tonumber) | add)}) | {combos: ., total: (map(.total) | add)}'
+    input: {ref: dhis2:data-value-set-bo-children}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [{"combos": [{"categoryOptionCombo": "Prlt0C1RF0s", "total": 673}, {"categoryOptionCombo": "V6L425pT3A0", "total": 210}, {"categoryOptionCombo": "hEFKSsPV5et", "total": 112}, {"categoryOptionCombo": "psbwp3CQEhs", "total": 154}], "total": 1149}]
+
+  - id: dhis2-data-analytics-rows-to-objects
+    title: Analytics rows to objects
+    level: 201
+    tags: [analytics, transpose, from_entries]
+    explanation: |
+      An analytics response is a table: `headers` names the columns and every row is an array
+      in the same order. Pairing the header names with a row using `transpose` and turning the
+      pairs into an object gives self-describing records. The value stays a string here,
+      exactly as analytics returns it.
+    program: '(.headers | map(.name)) as $h | .rows[:3][] | [$h, .] | transpose | map({key: .[0], value: .[1]}) | from_entries'
+    input: {ref: static:analytics-response}
+    manual: [https://jqlang.org/manual/v1.8/#transpose, https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [collections]
+    expected: [{"dx": "fbfJHSPpUQD", "ou": "O6uvpzGd5pu", "pe": "202601", "value": "1204.0"}, {"dx": "fbfJHSPpUQD", "ou": "O6uvpzGd5pu", "pe": "202602", "value": "1150.0"}, {"dx": "fbfJHSPpUQD", "ou": "fdc6uOvgoji", "pe": "202601", "value": "987.0"}]
+
+  - id: dhis2-data-analytics-names
+    title: Replace ids with names from metaData.items
+    level: 201
+    tags: [analytics, join, metadata]
+    explanation: |
+      Rows contain ids; `metaData.items` maps every id (data, org units, periods) to a display
+      name. Looking each id up turns a row into a readable record. Analytics sends values such
+      as `"1204.0"`; they are whole counts, so `tonumber | round` makes them integers.
+    program: '.metaData.items as $i | .rows[:4] | map({data: $i[.[0]].name, orgUnit: $i[.[1]].name, period: $i[.[2]].name, value: (.[3] | tonumber | round)})'
+    input: {ref: static:analytics-response}
+    manual: [https://jqlang.org/manual/v1.8/#tonumber, https://jqlang.org/manual/v1.8/#math]
+    guide: [sql-style-and-joins]
+    expected: [[{"data": "ANC 1st visit", "orgUnit": "Bo", "period": "January 2026", "value": 1204}, {"data": "ANC 1st visit", "orgUnit": "Bo", "period": "February 2026", "value": 1150}, {"data": "ANC 1st visit", "orgUnit": "Bombali", "period": "January 2026", "value": 987}, {"data": "ANC 1st visit", "orgUnit": "Bombali", "period": "February 2026", "value": 1012}]]
+
+  - id: dhis2-data-analytics-value-column
+    title: Find the value column by name
+    level: 201
+    tags: [analytics, index, add]
+    explanation: |
+      The column order of an analytics response depends on the request's dimensions, so code
+      should not hard-code `.[3]`. `index("value")` finds the position of the value column in
+      the header names, and that position is then used on every row. The total over all 15 rows
+      is 12284.
+    program: '(.headers | map(.name) | index("value")) as $v | {column: $v, total: (.rows | map(.[$v] | tonumber) | add)}'
+    input: {ref: static:analytics-response}
+    manual: [https://jqlang.org/manual/v1.8/#index-rindex]
+    guide: [collections]
+    expected: [{"column": 3, "total": 12284}]
+
+  - id: dhis2-data-analytics-pivot
+    title: Pivot org unit by period
+    level: 201
+    tags: [analytics, reduce, pivot]
+    explanation: |
+      For one data element (ANC 1st visit), `reduce` sets `.[orgUnit][period]` for every row,
+      building the table a pivot view would show: org units as rows, periods as columns, both
+      labelled with names from `metaData.items`.
+    program: '.metaData.items as $i | reduce (.rows[] | select(.[0] == "fbfJHSPpUQD")) as $r ({}; .[$i[$r[1]].name][$i[$r[2]].name] = ($r[3] | tonumber | round))'
+    input: {ref: static:analytics-response}
+    manual: [https://jqlang.org/manual/v1.8/#reduce]
+    guide: [reduce-and-foreach]
+    expected: [{"Bo": {"January 2026": 1204, "February 2026": 1150}, "Bombali": {"January 2026": 987, "February 2026": 1012}, "Bonthe": {"January 2026": 402, "February 2026": 388}, "Kailahun": {"January 2026": 860, "February 2026": 901}}]
+
+  - id: dhis2-data-analytics-missing-cells
+    title: Detect missing cells
+    level: 301
+    tags: [analytics, combinations, completeness]
+    explanation: |
+      Analytics omits rows without data. `metaData.dimensions` lists every item requested per
+      dimension, so the full grid is 2 data elements x 4 org units x 2 periods = 16 cells, and
+      `rows` has 15. Generating the grid with `combinations` and subtracting the id triples of
+      the rows reveals the gap: ANC 2nd visit in Bonthe for February 2026. A missing row means
+      no data, not zero.
+    program: '.metaData as $m | ([$m.dimensions.dx, $m.dimensions.ou, $m.dimensions.pe] | [combinations]) - (.rows | map(.[0:3])) | map([$m.items[.[]].name])'
+    input: {ref: static:analytics-response}
+    manual: [https://jqlang.org/manual/v1.8/#combinations]
+    guide: [collections]
+    expected: [[["ANC 2nd visit", "Bonthe", "February 2026"]]]
+
+  - id: dhis2-data-analytics-totals-per-org-unit
+    title: Totals per org unit
+    level: 201
+    tags: [analytics, group_by, add]
+    explanation: |
+      Grouping rows by the org unit column and adding their numeric values sums both data
+      elements over both periods. Bonthe has only three rows because of the missing cell, which
+      is one reason its total is low.
+    program: '.metaData.items as $i | .rows | group_by(.[1]) | map({orgUnit: $i[.[0][1]].name, rows: length, total: (map(.[3] | tonumber) | add | round)}) | sort_by(-.total)'
+    input: {ref: static:analytics-response}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"orgUnit": "Bo", "rows": 4, "total": 4355}, {"orgUnit": "Bombali", "rows": 4, "total": 3646}, {"orgUnit": "Kailahun", "rows": 4, "total": 3183}, {"orgUnit": "Bonthe", "rows": 3, "total": 1100}]]
+
+  - id: dhis2-data-events-summary
+    title: A page of events at a glance
+    level: 101
+    tags: [tracker, events, group_by]
+    explanation: |
+      The tracker API returns events with their status and org unit. This page of 25 Inpatient
+      morbidity events is all `COMPLETED`, and every event is at a different facility.
+    program: '.events | {events: length, statuses: (group_by(.status) | map({status: .[0].status, events: length})), orgUnits: (map(.orgUnit) | unique | length)}'
+    input: {ref: dhis2:tracker-events}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [{"events": 25, "statuses": [{"status": "COMPLETED", "events": 25}], "orgUnits": 25}]
+
+  - id: dhis2-data-event-values-object
+    title: Event data values to an object
+    level: 201
+    tags: [tracker, events, from_entries]
+    explanation: |
+      An event stores its values as an array of `{dataElement, value}` pairs. `from_entries`
+      only understands keys named `key`, `k`, `name`, `Name`, `K` or `Key`, so the pairs are
+      renamed first; the result is one object per event keyed by data element id.
+      `qrur9Dvnyt5` is "Age in years" and `eMyVanycQSC` is "Admission Date".
+    program: '.events[0] | {event, orgUnit, values: (.dataValues | map({key: .dataElement, value}) | from_entries)}'
+    input: {ref: dhis2:tracker-events}
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [collections]
+    expected: [{"event": "lfjiNgsMNCR", "orgUnit": "cHqboEGRUiY", "values": {"fWIAEtYVEGk": "MODABSC", "eMyVanycQSC": "2021-12-15", "oZg33kd9taw": "Female", "vV9UWAZohSf": "79", "K6uUAvq500H": "W242", "qrur9Dvnyt5": "2", "GieVkTxp4HH": "63", "msodh3rEMJa": "2021-12-29"}}]
+
+  - id: dhis2-data-event-age-bands
+    title: Age bands from a data value
+    level: 201
+    tags: [tracker, events, if-then-else, group_by]
+    explanation: |
+      Age in years (`qrur9Dvnyt5`) is a string like every data value. After `tonumber`, an
+      `if ... elif` chain assigns a band. Each band carries its lower bound so the groups sort
+      numerically; sorting by the label would put "15-49" before "5-14".
+    program: '[.events[].dataValues[] | select(.dataElement == "qrur9Dvnyt5") | .value | tonumber | if . < 5 then [0, "0-4"] elif . < 15 then [5, "5-14"] elif . < 50 then [15, "15-49"] else [50, "50+"] end] | group_by(.[0]) | map({band: .[0][1], events: length})'
+    input: {ref: dhis2:tracker-events}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"band": "0-4", "events": 4}, {"band": "5-14", "events": 1}, {"band": "15-49", "events": 10}, {"band": "50+", "events": 10}]]
+
+  - id: dhis2-data-event-outcome-by-gender
+    title: Outcome by gender
+    level: 201
+    tags: [tracker, events, group_by]
+    explanation: |
+      Turning each event's values into an object first makes several fields available at once.
+      Grouping by the gender value (`oZg33kd9taw`) and counting the outcome code `MODDIED` in
+      `fWIAEtYVEGk` gives a small cross-tabulation: 4 deaths among 15 women, 4 among 10 men.
+    program: '[.events[] | (.dataValues | map({key: .dataElement, value}) | from_entries) | {gender: .oZg33kd9taw, outcome: .fWIAEtYVEGk}] | group_by(.gender) | map({gender: .[0].gender, events: length, died: (map(select(.outcome == "MODDIED")) | length)})'
+    input: {ref: dhis2:tracker-events}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"gender": "Female", "events": 15, "died": 4}, {"gender": "Male", "events": 10, "died": 4}]]
+
+  - id: dhis2-data-event-mean-age
+    title: Mean age per outcome
+    level: 201
+    tags: [tracker, events, group_by, round]
+    explanation: |
+      Averages are `add / length`; multiplying by 10, rounding and dividing again keeps one
+      decimal. Outcome codes are option codes: `MODDIED`, `MODDISCH` (discharged), `MODTRANS`
+      (transferred) and `MODABSC` (absconded).
+    program: '[.events[] | (.dataValues | map({key: .dataElement, value}) | from_entries) | {outcome: .fWIAEtYVEGk, age: (.qrur9Dvnyt5 | tonumber)}] | group_by(.outcome) | map({outcome: .[0].outcome, events: length, meanAge: (map(.age) | add / length * 10 | round / 10)})'
+    input: {ref: dhis2:tracker-events}
+    manual: [https://jqlang.org/manual/v1.8/#math]
+    guide: [sorting-and-grouping]
+    expected: [[{"outcome": "MODABSC", "events": 7, "meanAge": 42.1}, {"outcome": "MODDIED", "events": 8, "meanAge": 45.5}, {"outcome": "MODDISCH", "events": 5, "meanAge": 49.4}, {"outcome": "MODTRANS", "events": 5, "meanAge": 26.8}]]
+
+  - id: dhis2-data-tracked-entity-records
+    title: Tracked entity attributes to flat records
+    level: 201
+    tags: [tracker, tracked-entities, from_entries]
+    explanation: |
+      Tracked entity attributes arrive as `{attribute, displayName, value}` triples. Using the
+      display name as the key and adding the resulting object to the entity's own fields gives
+      one flat record per person, ready for a table or CSV. The enrollment status comes from the
+      first (and here only) enrollment.
+    program: '.trackedEntities[:5] | map({trackedEntity, orgUnit} + (.attributes | map({key: .displayName, value}) | from_entries) + {enrollment: .enrollments[0].status})'
+    input: {ref: dhis2:tracked-entities}
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [collections]
+    expected: [[{"trackedEntity": "PQfMcpmXeFE", "orgUnit": "DiszpKrYNg8", "First name": "John", "Last name": "Kelly", "Gender": "Male", "enrollment": "ACTIVE"}, {"trackedEntity": "gGDBG5aGlIk", "orgUnit": "uNEhNuBUr0i", "First name": "Mark", "Last name": "Coleman", "Gender": "Male", "enrollment": "ACTIVE"}, {"trackedEntity": "IjhtI0sk0O6", "orgUnit": "rxc497GUdDt", "First name": "Deborah", "Last name": "James", "Gender": "Female", "enrollment": "ACTIVE"}, {"trackedEntity": "o4r5GRGSIzL", "orgUnit": "x5ZxMDvEQUb", "First name": "Jennifer", "Last name": "Flores", "Gender": "Female", "enrollment": "ACTIVE"}, {"trackedEntity": "W1Cpo6BzBqw", "orgUnit": "uROAmk9ymNE", "First name": "Roger", "Last name": "Gardner", "Gender": "Male", "enrollment": "ACTIVE"}]]
+
+  - id: dhis2-data-tracked-entity-enrollments
+    title: Enrollments by month
+    level: 101
+    tags: [tracker, tracked-entities, group_by]
+    explanation: |
+      `enrolledAt[:7]` keeps the year and month of the timestamp. 14 of the 15 enrollments on
+      this page are dated in 2027, after the server date of 2026-09-25 in `dhis2:system-info`.
+      The demo database shifts its dates so the data looks recent, and some land in the future;
+      real data can have future dates too, so a date filter is worth adding to reports.
+    program: '[.trackedEntities[].enrollments[] | .enrolledAt[:7]] | group_by(.) | map({month: .[0], enrollments: length})'
+    input: {ref: dhis2:tracked-entities}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"month": "2026-03", "enrollments": 1}, {"month": "2027-03", "enrollments": 2}, {"month": "2027-04", "enrollments": 2}, {"month": "2027-06", "enrollments": 1}, {"month": "2027-07", "enrollments": 2}, {"month": "2027-08", "enrollments": 3}, {"month": "2027-10", "enrollments": 1}, {"month": "2027-11", "enrollments": 3}]]

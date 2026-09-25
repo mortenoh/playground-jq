@@ -1,0 +1,551 @@
+id: dhis2-metadata
+title: 'DHIS2: metadata'
+description: The org unit hierarchy, data elements and their groups, indicators, category combos, data sets, the schema API and users, from the DHIS2 Sierra Leone demo database.
+order: 40
+track: dhis2
+examples:
+  - id: dhis2-metadata-version-parts
+    title: Parse the server version
+    level: 101
+    tags: [system-info, split, tonumber]
+    explanation: |
+      `/api/system/info` reports the version as one string, `2.43.3-SNAPSHOT`. Cutting off the
+      suffix after `-` and splitting on `.` gives the numeric parts, which compare correctly as
+      numbers: as strings, `"2.9"` would sort after `"2.43"`. Client tools use exactly this to
+      decide which API features they can rely on.
+    program: '.version | split("-")[0] | split(".") | map(tonumber)'
+    input: {ref: dhis2:system-info}
+    manual: [https://jqlang.org/manual/v1.8/#split-1, https://jqlang.org/manual/v1.8/#tonumber]
+    guide: [strings]
+    expected: [[2, 43, 3]]
+
+  - id: dhis2-metadata-never-happened
+    title: Timestamps that mean "never"
+    level: 201
+    tags: [system-info, to_entries, select]
+    explanation: |
+      DHIS2 fills a timestamp that has never been set with the Unix epoch,
+      `1970-01-01T00:00:00.000`, rather than leaving it out or using `null`. `to_entries` turns
+      the object into key/value pairs, so the keys whose value is the epoch can be listed. Here
+      no analytics table partition update has ever succeeded and no metadata version sync has
+      ever been attempted, even though `lastAnalyticsTableSuccess` has a real date.
+    program: 'to_entries | map(select(.value == "1970-01-01T00:00:00.000") | .key)'
+    input: {ref: dhis2:system-info}
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [collections]
+    expected: [["lastAnalyticsTablePartitionSuccess", "lastMetadataVersionSyncAttempt"]]
+
+  - id: dhis2-metadata-path-depth
+    title: The path encodes the level
+    level: 101
+    tags: [org-units, path, all]
+    explanation: |
+      Every org unit carries a `path`: the ids of its ancestors and itself, separated by `/`,
+      such as `/ImspTQPwCqd/O6uvpzGd5pu` for the district Bo. The number of ids in the path is the
+      unit's depth in the tree, and it equals the `level` field for all 166 units (1 country,
+      13 districts, 152 chiefdoms). `ltrimstr("/")` removes the leading slash so `split` does
+      not produce an empty first element.
+    program: '.organisationUnits | all(.[]; (.path | ltrimstr("/") | split("/") | length) == .level)'
+    input: {ref: dhis2:org-unit-tree}
+    manual: [https://jqlang.org/manual/v1.8/#all, https://jqlang.org/manual/v1.8/#ltrimstr]
+    guide: [paths, strings]
+    expected: [true]
+
+  - id: dhis2-metadata-parent-matches-path
+    title: The parent is the second-to-last path element
+    level: 201
+    tags: [org-units, path, parent]
+    explanation: |
+      The `parent` reference and the `path` are two views of the same hierarchy. For every unit
+      that has a parent (all but the country), the second-to-last id of the path must be the
+      parent's id. `.[-2]` indexes from the end of the array. A check like this is a quick way
+      to catch an import that moved units without rebuilding their paths.
+    program: '[.organisationUnits[] | select(.parent) | (.path | split("/") | .[-2]) == .parent.id] | all'
+    input: {ref: dhis2:org-unit-tree}
+    manual: [https://jqlang.org/manual/v1.8/#all, https://jqlang.org/manual/v1.8/#select]
+    guide: [paths]
+    expected: [true]
+
+  - id: dhis2-metadata-chiefdoms-per-district
+    title: Chiefdoms per district from the children arrays
+    level: 101
+    tags: [org-units, children, sort_by]
+    explanation: |
+      The tree request asked for `children[id]`, so each unit lists its direct children. For the
+      districts (level 2) the children are chiefdoms; their counts add up to the 152 chiefdoms of
+      level 3. Kenema has the most, Western Area only two (Freetown and Rural Western Area).
+    program: '.organisationUnits | map(select(.level == 2) | {name, chiefdoms: (.children | length)}) | sort_by(-.chiefdoms, .name)'
+    input: {ref: dhis2:org-unit-tree}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by, https://jqlang.org/manual/v1.8/#length]
+    guide: [sorting-and-grouping]
+    expected: [[{"name": "Kenema", "chiefdoms": 16}, {"name": "Bo", "chiefdoms": 15}, {"name": "Kailahun", "chiefdoms": 14}, {"name": "Kono", "chiefdoms": 14}, {"name": "Moyamba", "chiefdoms": 14}, {"name": "Bombali", "chiefdoms": 13}, {"name": "Bonthe", "chiefdoms": 12}, {"name": "Pujehun", "chiefdoms": 12}, {"name": "Koinadugu", "chiefdoms": 11}, {"name": "Port Loko", "chiefdoms": 11}, {"name": "Tonkolili", "chiefdoms": 11}, {"name": "Kambia", "chiefdoms": 7}, {"name": "Western Area", "chiefdoms": 2}]]
+
+  - id: dhis2-metadata-facilities-per-chiefdom
+    title: Facilities per chiefdom without fetching the facilities
+    level: 201
+    tags: [org-units, children, sort_by]
+    explanation: |
+      The tree stops at level 3, but each chiefdom's `children` array already holds the ids of
+      its facilities (level 4). Counting them gives facility totals without downloading the 1166
+      facilities themselves. Freetown in Western Area has the most. The largest are shown
+      with their district taken from the `parent` reference.
+    program: '.organisationUnits | map(select(.level == 3) | {name, district: .parent.name, facilities: (.children | length)}) | sort_by(-.facilities) | .[:5]'
+    input: {ref: dhis2:org-unit-tree}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"name": "Freetown", "district": "Western Area", "facilities": 60}, {"name": "Rural Western Area", "district": "Western Area", "facilities": 44}, {"name": "Kakua", "district": "Bo", "facilities": 40}, {"name": "Nongowa", "district": "Kenema", "facilities": 34}, {"name": "Yoni", "district": "Tonkolili", "facilities": 25}]]
+
+  - id: dhis2-metadata-facility-total
+    title: Total facilities under the chiefdoms
+    level: 101
+    tags: [org-units, add]
+    explanation: |
+      Summing the children counts of all chiefdoms gives the number of facilities in the
+      hierarchy: 1166. Compare this with `dhis2:org-units-geojson-level-4`, which has only 601
+      features: the GeoJSON endpoint leaves out facilities without coordinates.
+    program: '[.organisationUnits[] | select(.level == 3) | .children | length] | add'
+    input: {ref: dhis2:org-unit-tree}
+    manual: [https://jqlang.org/manual/v1.8/#add]
+    guide: [collections]
+    expected: [1166]
+
+  - id: dhis2-metadata-children-names
+    title: Resolve child ids to names with INDEX
+    level: 201
+    tags: [org-units, INDEX, join]
+    explanation: |
+      `children` holds only ids. `INDEX(.organisationUnits[]; .id)` builds an object keyed by
+      id, a lookup table, and `$by[$id].name` resolves each child. This is the usual way to
+      join DHIS2 references inside one response: the API returns ids, and the names are
+      elsewhere in the same payload. Bo has 15 chiefdoms.
+    program: 'INDEX(.organisationUnits[]; .id) as $by | $by["O6uvpzGd5pu"].children | map($by[.id].name) | sort'
+    input: {ref: dhis2:org-unit-tree}
+    manual: [https://jqlang.org/manual/v1.8/]
+    guide: [sql-style-and-joins]
+    expected: [["Badjia", "Baoma", "Bargbe", "Bargbo", "Bumpe Ngao", "Gbo", "Jaiama Bongor", "Kakua", "Komboya", "Lugbu", "Niawa Lenga", "Selenga", "Tikonko", "Valunia", "Wonde"]]
+
+  - id: dhis2-metadata-breadcrumb
+    title: A breadcrumb from the path
+    level: 201
+    tags: [org-units, INDEX, path, join]
+    explanation: |
+      A path such as `/ImspTQPwCqd/O6uvpzGd5pu/dGheVylzol6` becomes a readable breadcrumb by
+      looking up each id in an `INDEX` of the units and joining the names. Because the tree
+      holds every ancestor of every chiefdom, each lookup succeeds.
+    program: 'INDEX(.organisationUnits[]; .id) as $by | .organisationUnits[] | select(.level == 3 and (.name | startswith("Ba"))) | .path | ltrimstr("/") | split("/") | map($by[.].name) | join(" / ")'
+    input: {ref: dhis2:org-unit-tree}
+    manual: [https://jqlang.org/manual/v1.8/#join, https://jqlang.org/manual/v1.8/#startswith]
+    guide: [sql-style-and-joins, strings]
+    expected: ["Sierra Leone / Bo / Badjia", "Sierra Leone / Moyamba / Bagruwa", "Sierra Leone / Bo / Baoma", "Sierra Leone / Bo / Bargbe", "Sierra Leone / Bo / Bargbo", "Sierra Leone / Pujehun / Barri"]
+
+  - id: dhis2-metadata-opening-years
+    title: Opening dates are mostly placeholders
+    level: 101
+    tags: [org-units, group_by, dates]
+    explanation: |
+      `openingDate` is required for an org unit, so imports often fill it with a placeholder.
+      Grouping by the year (the first four characters of the timestamp) shows that 160 of the
+      166 units claim to have opened in 1970, the epoch again.
+    program: '[.organisationUnits[].openingDate[:4]] | group_by(.) | map({year: .[0], units: length})'
+    input: {ref: dhis2:org-unit-tree}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"year": "1970", "units": 160}, {"year": "1990", "units": 1}, {"year": "1994", "units": 4}, {"year": "2011", "units": 1}]]
+
+  - id: dhis2-metadata-level-names
+    title: Level numbers to level names
+    level: 101
+    tags: [org-unit-levels, from_entries]
+    explanation: |
+      Org unit levels are separate metadata objects that name each depth of the tree. A lookup
+      object from level number to name is handy for labelling: object keys must be strings, so
+      the number goes through `tostring`. Sierra Leone has four levels: National, District,
+      Chiefdom and Facility.
+    program: '.organisationUnitLevels | map({key: (.level | tostring), value: .name}) | from_entries'
+    input: {ref: dhis2:org-unit-levels}
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries, https://jqlang.org/manual/v1.8/#tostring]
+    guide: [collections]
+    expected: [{"1": "National", "2": "District", "3": "Chiefdom", "4": "Facility"}]
+
+  - id: dhis2-metadata-groups-by-set
+    title: Org unit groups by group set
+    level: 201
+    tags: [org-unit-groups, group_by]
+    explanation: |
+      Org unit groups classify units (facility type, ownership, rural or urban); group sets
+      bundle groups into one dimension. Each group here belongs to at most one set, so
+      `.groupSets[0].name` is enough, with `//` supplying a label for the three groups
+      (Chiefdom, Country, District) that belong to no set.
+    program: '[.organisationUnitGroups[] | {set: (.groupSets[0].name // "(no group set)"), name}] | group_by(.set) | map({set: .[0].set, groups: map(.name)})'
+    input: {ref: dhis2:org-unit-groups}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"set": "(no group set)", "groups": ["Chiefdom", "Country", "District"]}, {"set": "Area", "groups": ["Eastern Area", "Northern Area", "Southern Area", "Western Area"]}, {"set": "Facility Ownership", "groups": ["Mission", "NGO", "Private Clinic", "Public facilities"]}, {"set": "Facility Type", "groups": ["CHC", "CHP", "Clinic", "Hospital", "MCHP"]}, {"set": "Location Rural/Urban", "groups": ["Rural", "Urban"]}]]
+
+  - id: dhis2-metadata-group-set-totals
+    title: Members per group set
+    level: 201
+    tags: [org-unit-groups, group_by, add]
+    explanation: |
+      The `members` field is a count (the request used `organisationUnits~size~rename(members)`).
+      Summing it per group set shows that the sets do not partition the same population: 1096
+      units have a facility type, 1117 have an ownership, and 1300 are rural or urban. A unit
+      can be missing from a set, and, as the GeoJSON examples show, can even be in two groups of
+      the same set.
+    program: '[.organisationUnitGroups[] | select(.groupSets != []) | {set: .groupSets[0].name, members}] | group_by(.set) | map({set: .[0].set, groups: length, members: (map(.members) | add)})'
+    input: {ref: dhis2:org-unit-groups}
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#add]
+    guide: [sorting-and-grouping]
+    expected: [[{"set": "Area", "groups": 4, "members": 13}, {"set": "Facility Ownership", "groups": 4, "members": 1117}, {"set": "Facility Type", "groups": 5, "members": 1096}, {"set": "Location Rural/Urban", "groups": 2, "members": 1300}]]
+
+  - id: dhis2-metadata-paging
+    title: How much the pager has not fetched yet
+    level: 101
+    tags: [data-elements, pager]
+    explanation: |
+      List endpoints are paged by default. The `pager` object says which page this is and how
+      many objects exist in total; this response holds the first 100 of 1038 data elements, so
+      938 are on the remaining pages. Aggregating over one page and treating it as the whole
+      is a common mistake.
+    program: '.pager | {page, pageCount, onThisPage: .pageSize, total, notYetFetched: (.total - .page * .pageSize)}'
+    input: {ref: dhis2:data-elements}
+    manual: [https://jqlang.org/manual/v1.8/#length]
+    guide: [collections]
+    expected: [{"page": 1, "pageCount": 11, "onThisPage": 100, "total": 1038, "notYetFetched": 938}]
+
+  - id: dhis2-metadata-missing-code
+    title: Data elements without a code
+    level: 101
+    tags: [data-elements, has, select]
+    explanation: |
+      DHIS2 leaves a field out of the response when it has no value, so a missing code is a
+      missing key rather than `null`. `has("code") | not` finds the 7 data elements on this page
+      that have none; codes matter for integrations that map by code instead of by id.
+    program: '.dataElements | map(select(has("code") | not) | .name)'
+    input: {ref: dhis2:data-elements}
+    manual: [https://jqlang.org/manual/v1.8/#has, https://jqlang.org/manual/v1.8/#select]
+    guide: [collections]
+    expected: [["Additional medication", "Age of LLINs", "Allergies (multi-select)", "Blood transfusion within 3 months before onset of symptoms", "Case detection", "Case Investigation Conducted By", "Case species classification"]]
+
+  - id: dhis2-metadata-domain-and-type
+    title: Data elements by domain and value type
+    level: 201
+    tags: [data-elements, group_by]
+    explanation: |
+      `domainType` separates aggregate data elements (entered in data sets) from tracker data
+      elements (captured in program events). Grouping on an object of two fields gives a
+      cross-tabulation in one `group_by`; objects sort by their keys and then their values.
+    program: '.dataElements | map({domainType, valueType}) | group_by(.) | map(.[0] + {count: length})'
+    input: {ref: dhis2:data-elements}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"domainType": "AGGREGATE", "valueType": "BOOLEAN", "count": 9}, {"domainType": "AGGREGATE", "valueType": "DATE", "count": 1}, {"domainType": "AGGREGATE", "valueType": "INTEGER", "count": 1}, {"domainType": "AGGREGATE", "valueType": "LONG_TEXT", "count": 2}, {"domainType": "AGGREGATE", "valueType": "MULTI_TEXT", "count": 1}, {"domainType": "AGGREGATE", "valueType": "NUMBER", "count": 69}, {"domainType": "AGGREGATE", "valueType": "TRUE_ONLY", "count": 7}, {"domainType": "TRACKER", "valueType": "BOOLEAN", "count": 1}, {"domainType": "TRACKER", "valueType": "DATE", "count": 1}, {"domainType": "TRACKER", "valueType": "FILE_RESOURCE", "count": 1}, {"domainType": "TRACKER", "valueType": "INTEGER", "count": 1}, {"domainType": "TRACKER", "valueType": "INTEGER_ZERO_OR_POSITIVE", "count": 1}, {"domainType": "TRACKER", "valueType": "TEXT", "count": 5}]]
+
+  - id: dhis2-metadata-aggregation-mismatch
+    title: Non-numeric data elements with numeric aggregation
+    level: 201
+    tags: [data-elements, IN, select]
+    explanation: |
+      `aggregationType` tells analytics how to combine values over time and the hierarchy. For
+      text, dates and files a `SUM` is meaningless, but DHIS2 does not forbid it. Listing the
+      non-numeric value types with their aggregation types shows where the metadata is sloppy:
+      `LONG_TEXT`, `DATE` and `FILE_RESOURCE` elements set to `SUM`. For `BOOLEAN` and
+      `TRUE_ONLY`, `SUM` is legitimate: it counts the true values.
+    program: '.dataElements | map(select(.valueType | IN("NUMBER", "INTEGER", "INTEGER_ZERO_OR_POSITIVE") | not) | {valueType, aggregationType}) | group_by(.) | map(.[0] + {count: length})'
+    input: {ref: dhis2:data-elements}
+    manual: [https://jqlang.org/manual/v1.8/]
+    guide: [collections]
+    expected: [[{"valueType": "DATE", "aggregationType": "AVERAGE", "count": 1}, {"valueType": "BOOLEAN", "aggregationType": "COUNT", "count": 1}, {"valueType": "TEXT", "aggregationType": "COUNT", "count": 1}, {"valueType": "MULTI_TEXT", "aggregationType": "NONE", "count": 1}, {"valueType": "TEXT", "aggregationType": "NONE", "count": 4}, {"valueType": "BOOLEAN", "aggregationType": "SUM", "count": 9}, {"valueType": "DATE", "aggregationType": "SUM", "count": 1}, {"valueType": "FILE_RESOURCE", "aggregationType": "SUM", "count": 1}, {"valueType": "LONG_TEXT", "aggregationType": "SUM", "count": 2}, {"valueType": "TRUE_ONLY", "aggregationType": "SUM", "count": 7}]]
+
+  - id: dhis2-metadata-category-combo-usage
+    title: The most used category combos
+    level: 101
+    tags: [data-elements, group_by, category-combos]
+    explanation: |
+      Every data element has a category combo that defines its disaggregation. `default` means
+      no disaggregation; on this page 36 of the 100 elements use it. The others are split by age,
+      gender or case type.
+    program: '.dataElements | group_by(.categoryCombo.name) | map({categoryCombo: .[0].categoryCombo.name, elements: length}) | sort_by(-.elements) | .[:5]'
+    input: {ref: dhis2:data-elements}
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#sort-sort_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"categoryCombo": "default", "elements": 36}, {"categoryCombo": "HIV age+gender", "elements": 22}, {"categoryCombo": "Morbidity Cases", "elements": 14}, {"categoryCombo": "HIV Paed age+gender", "elements": 12}, {"categoryCombo": "Morbidity Referrals", "elements": 7}]]
+
+  - id: dhis2-metadata-empty-groups
+    title: Data element groups with no members
+    level: 101
+    tags: [data-element-groups, select]
+    explanation: |
+      Comparing with `[]` is the simplest emptiness test. Two of the 84 groups have no data
+      elements at all, which is worth knowing before building a dashboard filter on them.
+    program: '.dataElementGroups | map(select(.dataElements == []) | .name)'
+    input: {ref: dhis2:data-element-groups}
+    manual: [https://jqlang.org/manual/v1.8/#select]
+    guide: [collections]
+    expected: [["ART pediatric 1st line", "HIV/AIDS"]]
+
+  - id: dhis2-metadata-group-membership-histogram
+    title: How many groups a data element is in
+    level: 201
+    tags: [data-element-groups, group_by]
+    explanation: |
+      Groups are not exclusive: 923 memberships cover 485 distinct data elements. Collecting all
+      member ids, grouping equal ids and counting each group's length gives the number of groups
+      per element; grouping those numbers again gives the distribution. Most elements are in
+      one to three groups; one is in four and one in five.
+    program: '[.dataElementGroups[].dataElements[].id] | group_by(.) | map(length) | group_by(.) | map({groups: .[0], elements: length})'
+    input: {ref: dhis2:data-element-groups}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"groups": 1, "elements": 168}, {"groups": 2, "elements": 199}, {"groups": 3, "elements": 116}, {"groups": 4, "elements": 1}, {"groups": 5, "elements": 1}]]
+
+  - id: dhis2-metadata-most-grouped-elements
+    title: Invert group membership
+    level: 201
+    tags: [data-element-groups, group_by, join]
+    explanation: |
+      The response lists members per group; to ask which elements are in the most groups, the
+      relation must be inverted. Binding the group name with `.name as $g` before iterating the
+      members produces one `{id, name, group}` row per membership, which `group_by(.id)` then
+      collects per element. Anaemia follow-up is in five groups.
+    program: '[.dataElementGroups[] | .name as $g | .dataElements[] | {id, name, group: $g}] | group_by(.id) | map({name: .[0].name, groups: map(.group)}) | map(select(.groups | length >= 4))'
+    input: {ref: dhis2:data-element-groups}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sql-style-and-joins]
+    expected: [[{"name": "Anaemia new", "groups": ["Acute Flaccid Paralysis (AFP) ", "Anaemia", "Morbidity", "New cases"]}, {"name": "Anaemia follow-up", "groups": ["Acute Flaccid Paralysis (AFP) ", "Anaemia", "Commodities Maternal Health", "Follow-up", "Morbidity"]}]]
+
+  - id: dhis2-metadata-indicator-operands
+    title: Data elements referenced by an indicator
+    level: 201
+    tags: [indicators, scan, regex]
+    explanation: |
+      Indicator expressions reference data as `#{dataElement}` or `#{dataElement.categoryOptionCombo}`.
+      `scan` with a capture group returns, for each match, an array of the captured strings;
+      `[^}.]+` stops at the dot or the closing brace, so only the data element id is kept. The
+      ANC 1-3 dropout rate uses two data elements (ANC 1st and 3rd visit), each twice with
+      different option combos, so `unique` reduces four matches to two ids.
+    program: '.indicators[] | select(.name == "ANC 1-3 Dropout Rate") | {numerator, dataElements: ([.numerator | scan("#\\{([^}.]+)") | .[0]] | unique)}'
+    input: {ref: dhis2:indicators}
+    manual: [https://jqlang.org/manual/v1.8/#scan, https://jqlang.org/manual/v1.8/#unique-unique_by]
+    guide: [regular-expressions]
+    expected: [{"numerator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}-#{Jtf34kNZhzP.pq2XI5kz2BY}-#{Jtf34kNZhzP.PT59n8BQbqM}", "dataElements": ["Jtf34kNZhzP", "fbfJHSPpUQD"]}]
+
+  - id: dhis2-metadata-operand-kinds
+    title: Kinds of operands in indicator expressions
+    level: 201
+    tags: [indicators, scan, regex, group_by]
+    explanation: |
+      Besides `#{...}` for data elements, expressions can use `I{...}` for program indicators,
+      `D{...}` for program data elements and `R{...}` for reporting rates. The alternation
+      `(#|[A-Z]+)\{` captures the prefix of every operand in numerators and denominators;
+      on this page of 50 indicators almost all are aggregate data elements.
+    program: '[.indicators[] | (.numerator, .denominator) | scan("(#|[A-Z]+)\\{") | .[0]] | group_by(.) | map({kind: .[0], uses: length})'
+    input: {ref: dhis2:indicators}
+    manual: [https://jqlang.org/manual/v1.8/#scan]
+    guide: [regular-expressions]
+    expected: [[{"kind": "#", "uses": 201}, {"kind": "D", "uses": 1}, {"kind": "I", "uses": 3}, {"kind": "R", "uses": 1}]]
+
+  - id: dhis2-metadata-indicator-reporting-rate-trap
+    title: A regex that trusts the syntax too much
+    level: 301
+    tags: [indicators, scan, regex]
+    explanation: |
+      Extracting every `#{id}` across all numerators and denominators gives 52 distinct ids, but
+      one of them is not a data element. "FIC <1y - Adjusted for reporting" writes
+      `#{BfMAe6Itzgt.REPORTING_RATE}`, where BfMAe6Itzgt is the Child Health data set and the
+      correct syntax would be `R{BfMAe6Itzgt.REPORTING_RATE}`, as the BCG indicator uses.
+      Capturing the optional second part and rejecting `REPORTING_RATE` removes it, leaving 51.
+      Metadata written by hand does not always follow the grammar.
+    program: '[.indicators[] | (.numerator, .denominator) | scan("#\\{([^}.]+)(?:\\.([^}.]+))?")] | {naive: (map(.[0]) | unique | length), dataElements: (map(select(.[1] != "REPORTING_RATE") | .[0]) | unique | length), suspicious: map(select(.[1] == "REPORTING_RATE") | .[0])}'
+    input: {ref: dhis2:indicators}
+    manual: [https://jqlang.org/manual/v1.8/#scan]
+    guide: [regular-expressions]
+    expected: [{"naive": 52, "dataElements": 51, "suspicious": ["BfMAe6Itzgt"]}]
+
+  - id: dhis2-metadata-indicator-types
+    title: Indicators by indicator type
+    level: 101
+    tags: [indicators, group_by]
+    explanation: |
+      The indicator type sets the factor the ratio is multiplied by: 100 for a percentage,
+      10000 for a rate per ten thousand. Two types, "Number (Factor 1)" and "Number11", both
+      have factor 1: duplicated metadata of the kind every long-lived instance accumulates.
+    program: '.indicators | group_by(.indicatorType.name) | map({type: .[0].indicatorType.name, factor: .[0].indicatorType.factor, indicators: length})'
+    input: {ref: dhis2:indicators}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"type": "Number (Factor 1)", "factor": 1, "indicators": 12}, {"type": "Number11", "factor": 1, "indicators": 4}, {"type": "Per cent", "factor": 100, "indicators": 30}, {"type": "Per hundred thousand", "factor": 100000, "indicators": 1}, {"type": "Per ten thousand", "factor": 10000, "indicators": 3}]]
+
+  - id: dhis2-metadata-option-combo-product
+    title: Option combos should be the product of the options
+    level: 301
+    tags: [category-combos, reduce]
+    explanation: |
+      A category combo generates one category option combo for every combination of the options
+      of its categories, so their number should be the product of the option counts. `reduce`
+      multiplies the counts. Only Births disagrees: 6 attendants times 2 genders is 12, but 24
+      option combos exist. The next example shows where the extra 12 come from.
+    program: '.categoryCombos | map({name, expected: (reduce .categories[] as $c (1; . * ($c.categoryOptions | length))), actual: (.categoryOptionCombos | length)}) | map(select(.expected != .actual))'
+    input: {ref: dhis2:category-combos}
+    manual: [https://jqlang.org/manual/v1.8/#reduce]
+    guide: [reduce-and-foreach]
+    expected: [[{"name": "Births", "expected": 12, "actual": 24}]]
+
+  - id: dhis2-metadata-stale-option-combos
+    title: Find the stale option combos
+    level: 301
+    tags: [category-combos, split, array-subtraction]
+    explanation: |
+      An option combo is named after its options joined by `, `. Splitting the name and
+      subtracting the combo's current option names leaves the parts that no longer belong.
+      The 12 leftovers mention `At PHU` and `In Community`, options of the category
+      "Location PHU/Community": Births was once disaggregated by location, and the option combos
+      generated then were never removed when the category was replaced by Gender.
+    program: '.categoryCombos[] | select(.name == "Births") | [.categories[].categoryOptions[].name] as $options | .categoryOptionCombos | map(.name | select(split(", ") - $options != [])) | sort'
+    input: {ref: dhis2:category-combos}
+    manual: [https://jqlang.org/manual/v1.8/#split-1]
+    guide: [collections]
+    expected: [["CHO, At PHU", "CHO, In Community", "MCH Aides, At PHU", "MCH Aides, In Community", "Midwives, At PHU", "Midwives, In Community", "SECHN, At PHU", "SECHN, In Community", "Trained TBA, At PHU", "Trained TBA, In Community", "Untrained TBA, At PHU", "Untrained TBA, In Community"]]
+
+  - id: dhis2-metadata-shared-categories
+    title: Categories shared between combos
+    level: 201
+    tags: [category-combos, group_by]
+    explanation: |
+      Categories are reusable: Gender appears in six category combos. Flattening to one row per
+      (category, combo) pair and grouping by category shows the reuse; `select(length > 1)`
+      keeps only the shared ones.
+    program: '[.categoryCombos[] | .name as $cc | .categories[] | {category: .name, combo: $cc}] | group_by(.category) | map(select(length > 1) | {category: .[0].category, combos: map(.combo)})'
+    input: {ref: dhis2:category-combos}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"category": "Gender", "combos": ["Births", "Gender", "HIV age+gender", "HIV Paed age+gender", "Morbidity Age and Gender", "Under 5/5+ and Gender"]}, {"category": "HIV age", "combos": ["HIV age", "HIV age+gender"]}, {"category": "Implementing Partner", "combos": ["Implementing Partner", "Implementing Partner and Projects"]}, {"category": "Labour complications", "combos": ["Maternal deaths", "Pregnancy complications"]}, {"category": "Location Fixed/Outreach", "combos": ["Fixed/Outreach", "Location and age group"]}, {"category": "Morbidity Age", "combos": ["Morbidity Age", "Morbidity Age and Gender", "Morbidity Cases"]}, {"category": "Project", "combos": ["Implementing Partner and Projects", "Project"]}, {"category": "Under 5/5 and above of age", "combos": ["Under 5/5 and above", "Under 5/5+ and Gender"]}]]
+
+  - id: dhis2-metadata-attribute-combos
+    title: Attribute versus disaggregation combos
+    level: 101
+    tags: [category-combos, group_by]
+    explanation: |
+      `dataDimensionType` tells how a category combo is used. `DISAGGREGATION` combos split a
+      data element's values (by age, gender); `ATTRIBUTE` combos describe the whole data set
+      entry, such as the implementing partner or project that funded it.
+    program: '.categoryCombos | group_by(.dataDimensionType) | map({type: .[0].dataDimensionType, count: length, names: (map(.name) | .[:4])})'
+    input: {ref: dhis2:category-combos}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"type": "ATTRIBUTE", "count": 4, "names": ["Implementing Partner", "Implementing Partner and Projects", "Project", "Target vs Result"]}, {"type": "DISAGGREGATION", "count": 22, "names": ["Births", "Commodities", "default", "Fixed/Outreach"]}]]
+
+  - id: dhis2-metadata-period-types
+    title: Data sets by period type
+    level: 101
+    tags: [data-sets, group_by, sort_by]
+    explanation: |
+      The period type decides how often a data set is reported. Most of the 27 data sets are
+      monthly; the rest are weekly (including a week starting on Wednesday), quarterly,
+      six-monthly, yearly or financial years starting in April. `sort_by(-.dataSets, .periodType)`
+      sorts by count descending and breaks ties by name.
+    program: '.dataSets | group_by(.periodType) | map({periodType: .[0].periodType, dataSets: length}) | sort_by(-.dataSets, .periodType)'
+    input: {ref: dhis2:data-sets}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"periodType": "Monthly", "dataSets": 17}, {"periodType": "Quarterly", "dataSets": 2}, {"periodType": "SixMonthly", "dataSets": 2}, {"periodType": "Weekly", "dataSets": 2}, {"periodType": "Yearly", "dataSets": 2}, {"periodType": "FinancialApril", "dataSets": 1}, {"periodType": "WeeklyWednesday", "dataSets": 1}]]
+
+  - id: dhis2-metadata-future-periods
+    title: Data sets open for future periods
+    level: 101
+    tags: [data-sets, select]
+    explanation: |
+      `openFuturePeriods` lets users enter data ahead of time, which makes sense for targets
+      and population estimates. Five data sets allow it; Population and Mortality < 5 years
+      are open twelve periods ahead.
+    program: '.dataSets | map(select(.openFuturePeriods > 0) | {name, periodType, openFuturePeriods}) | sort_by(-.openFuturePeriods, .name)'
+    input: {ref: dhis2:data-sets}
+    manual: [https://jqlang.org/manual/v1.8/#select]
+    guide: [collections]
+    expected: [[{"name": "Mortality < 5 years", "periodType": "Monthly", "openFuturePeriods": 12}, {"name": "Population", "periodType": "Yearly", "openFuturePeriods": 12}, {"name": "Child Health", "periodType": "Monthly", "openFuturePeriods": 10}, {"name": "Expenditures", "periodType": "FinancialApril", "openFuturePeriods": 2}, {"name": "NUT- Outpatient Therapeutic Programme (OTP)", "periodType": "Weekly", "openFuturePeriods": 1}]]
+
+  - id: dhis2-metadata-schema-required
+    title: Required properties from the schema API
+    level: 101
+    tags: [schema, select]
+    explanation: |
+      `/api/schemas/dataElement` describes every property of a data element. The required ones
+      are what a metadata import must provide: name, short name, value type, domain type,
+      aggregation type, category combo and whether zero is significant.
+    program: '.properties | map(select(.required) | .name)'
+    input: {ref: dhis2:schema-data-element}
+    manual: [https://jqlang.org/manual/v1.8/#select]
+    guide: [collections]
+    expected: [["aggregationType", "domainType", "categoryCombo", "valueType", "zeroIsSignificant", "name", "shortName"]]
+
+  - id: dhis2-metadata-schema-duplicates
+    title: A property name that appears twice
+    level: 201
+    tags: [schema, group_by]
+    explanation: |
+      Property names are not unique in the schema: `favorite` is listed once as a boolean
+      (whether the current user marked it) and once as a collection (the users who did).
+      Grouping by name and keeping groups longer than one finds it. Code that turns the schema
+      into an object keyed by name would silently lose one of them.
+    program: '.properties | group_by(.name) | map(select(length > 1)) | .[][] | {name, propertyType, collection}'
+    input: {ref: dhis2:schema-data-element}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [{"name": "favorite", "propertyType": "COLLECTION", "collection": true}, {"name": "favorite", "propertyType": "BOOLEAN", "collection": false}]
+
+  - id: dhis2-metadata-schema-text-lengths
+    title: Persisted text columns and their limits
+    level: 201
+    tags: [schema, has, sort_by]
+    explanation: |
+      Text properties that are stored in the database carry a `length`; the computed ones
+      (`displayName` and friends, translated on the fly) have none. Keeping those with a length
+      shows the limits an import must respect, such as 50 characters for `shortName`. The
+      2147483647 of `description` is the largest 32-bit integer: effectively unlimited.
+    program: '.properties | map(select(.propertyType == "TEXT" and has("length")) | {name, length}) | sort_by(.length)'
+    input: {ref: dhis2:schema-data-element}
+    manual: [https://jqlang.org/manual/v1.8/#has]
+    guide: [collections]
+    expected: [[{"name": "shortName", "length": 50}, {"name": "formName", "length": 230}, {"name": "name", "length": 230}, {"name": "fieldMask", "length": 255}, {"name": "description", "length": 2147483647}]]
+
+  - id: dhis2-metadata-users-by-role
+    title: Users per role
+    level: 101
+    tags: [users, group_by]
+    explanation: |
+      A user can have several roles, so the roles of all users are flattened into one stream
+      before counting. On this page of 30 users the M and E Officer role is the most common.
+      The counts add up to more than 30 because of the multiple roles.
+    program: '[.users[].userRoles[].name] | group_by(.) | map({role: .[0], users: length}) | sort_by(-.users, .role) | .[:5]'
+    input: {ref: dhis2:users}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sorting-and-grouping]
+    expected: [[{"role": "M and E Officer", "users": 19}, {"role": "Antenatal care program", "users": 18}, {"role": "System administrator (ALL)", "users": 18}, {"role": "Guest", "users": 10}, {"role": "Superuser", "users": 10}]]
+
+  - id: dhis2-metadata-users-never-logged-in
+    title: Users who never logged in
+    level: 101
+    tags: [users, has, alternative-operator]
+    explanation: |
+      `lastLogin` is omitted, not null, for a user who never logged in. `.lastLogin // "never"`
+      substitutes a label, and `disabled` is included to show that none of these accounts is
+      disabled either. A report of dormant accounts is a common security task.
+    program: '.users | map({username, lastLogin: (.lastLogin // "never"), disabled}) | group_by(.lastLogin == "never") | map({neverLoggedIn: .[0].lastLogin == "never", users: length, disabled: (map(select(.disabled)) | length)})'
+    input: {ref: dhis2:users}
+    manual: [https://jqlang.org/manual/v1.8/#has]
+    guide: [collections]
+    expected: [[{"neverLoggedIn": false, "users": 2, "disabled": 0}, {"neverLoggedIn": true, "users": 28, "disabled": 0}]]
+
+  - id: dhis2-metadata-superusers
+    title: Superusers and their username pattern
+    level: 201
+    tags: [users, any, test]
+    explanation: |
+      `any(.userRoles[]; .name == "Superuser")` tests whether a user has the role. On this page
+      the superusers are `traore` and nine demo accounts whose usernames end in a capital `S`;
+      the regex `S$` confirms the pattern holds for every superuser except `traore`.
+    program: '.users | map(select(any(.userRoles[]; .name == "Superuser")) | {username, endsWithS: (.username | test("S$"))})'
+    input: {ref: dhis2:users}
+    manual: [https://jqlang.org/manual/v1.8/#any, https://jqlang.org/manual/v1.8/#test]
+    guide: [regular-expressions]
+    expected: [[{"username": "traore", "endsWithS": false}, {"username": "arabiceS", "endsWithS": true}, {"username": "arabiciS", "endsWithS": true}, {"username": "arabicsS", "endsWithS": true}, {"username": "arabicS", "endsWithS": true}, {"username": "bengaliS", "endsWithS": true}, {"username": "bislamaS", "endsWithS": true}, {"username": "burmeseS", "endsWithS": true}, {"username": "chinesecS", "endsWithS": true}, {"username": "chineseS", "endsWithS": true}]]
