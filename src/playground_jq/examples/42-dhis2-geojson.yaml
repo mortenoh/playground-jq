@@ -1,0 +1,647 @@
+id: dhis2-geojson
+title: 'DHIS2: GeoJSON and geoFeatures'
+description: Districts, chiefdoms and facilities of Sierra Leone as GeoJSON, as geometry fields and as DHIS2's own geoFeatures format; filtering, measuring and reshaping them with jq.
+order: 42
+track: dhis2
+examples:
+  - id: dhis2-geojson-collection-summary
+    title: What a FeatureCollection holds
+    level: 101
+    tags: [geojson, length]
+    explanation: |
+      `/api/organisationUnits.geojson?level=2` returns a standard GeoJSON FeatureCollection:
+      a `type` and a `features` array. The 13 features are the districts of Sierra Leone. Each
+      feature carries the org unit id as its `id`, a `geometry` and a `properties` object.
+    program: '{type, features: (.features | length), featureKeys: (.features[0] | keys)}'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#keys-keys_unsorted, https://jqlang.org/manual/v1.8/#length]
+    guide: [geojson-with-jq]
+    expected: [{"type": "FeatureCollection", "features": 13, "featureKeys": ["geometry", "id", "properties", "type"]}]
+
+  - id: dhis2-geojson-property-names
+    title: Which properties the features carry
+    level: 101
+    tags: [geojson, keys, unique]
+    explanation: |
+      Collecting the keys of every `properties` object and taking the union shows the full
+      property set, even when some features lack some keys. For facilities it is `code`,
+      `groups`, `level`, `name`, `parent` and `parentGraph`; all 601 features have all six.
+    program: '[.features[].properties | keys] | add | unique'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    manual: [https://jqlang.org/manual/v1.8/#keys-keys_unsorted, https://jqlang.org/manual/v1.8/#unique-unique_by]
+    guide: [geojson-with-jq]
+    expected: [["code", "groups", "level", "name", "parent", "parentGraph"]]
+
+  - id: dhis2-geojson-level-is-a-string
+    title: The level property is a string
+    level: 101
+    tags: [geojson, type]
+    explanation: |
+      In the GeoJSON output the `level` property is the string `"4"`, while the regular
+      metadata API returns `level` as a number. A filter like `select(.properties.level == 4)`
+      therefore matches nothing; compare with `"4"` or convert with `tonumber`.
+    program: '.features[0].properties.level | {value: ., type: type, equalsNumber: (. == 4), equalsString: (. == "4")}'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    manual: [https://jqlang.org/manual/v1.8/#type]
+    guide: [geojson-with-jq]
+    expected: [{"value": "4", "type": "string", "equalsNumber": false, "equalsString": true}]
+
+  - id: dhis2-geojson-geometry-types
+    title: Polygon and MultiPolygon districts
+    level: 101
+    tags: [geojson, group_by, geometry]
+    explanation: |
+      A district made of one piece of land is a `Polygon`; one with islands or detached parts
+      is a `MultiPolygon`. Six of the 13 districts are MultiPolygons, mostly the coastal ones.
+      Code that assumes one geometry type breaks on the other.
+    program: '.features | map({type: .geometry.type, name: .properties.name}) | group_by(.type) | map({type: .[0].type, count: length, districts: map(.name)})'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [geojson-with-jq]
+    expected: [[{"type": "MultiPolygon", "count": 6, "districts": ["Bonthe", "Kambia", "Moyamba", "Port Loko", "Pujehun", "Western Area"]}, {"type": "Polygon", "count": 7, "districts": ["Bo", "Bombali", "Kailahun", "Kenema", "Koinadugu", "Kono", "Tonkolili"]}]]
+
+  - id: dhis2-geojson-coordinate-depth
+    title: How deep the coordinates go
+    level: 201
+    tags: [geojson, paths, geometry]
+    explanation: |
+      `paths(type == "number")` yields the path to every number. The first path shows the
+      nesting: in a MultiPolygon like Bonthe it is polygon, ring, position and axis, four
+      indexes below `coordinates`; in a Polygon like Bo it is three. The length of such a path
+      identifies the geometry type, which the geoFeatures examples rely on.
+    program: '.features[] | select(.properties.name == "Bonthe" or .properties.name == "Bo") | {name: .properties.name, type: .geometry.type, firstPath: first(.geometry.coordinates | paths(type == "number"))}'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#paths, https://jqlang.org/manual/v1.8/#first-last-nth-2]
+    guide: [paths, geojson-with-jq]
+    expected: [{"name": "Bo", "type": "Polygon", "firstPath": [0, 0, 0]}, {"name": "Bonthe", "type": "MultiPolygon", "firstPath": [0, 0, 0, 0]}]
+
+  - id: dhis2-geojson-find-by-name
+    title: One district's feature without its geometry
+    level: 101
+    tags: [geojson, select, del]
+    explanation: |
+      Selecting on `.properties.name` finds a feature; deleting the geometry keeps the output
+      readable. The `groups` property lists the ids of the org unit groups the district
+      belongs to: for Bo, "District" and "Southern Area".
+    program: '.features[] | select(.properties.name == "Bo") | del(.geometry)'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#select, https://jqlang.org/manual/v1.8/#del]
+    guide: [geojson-with-jq]
+    expected: [{"type": "Feature", "id": "O6uvpzGd5pu", "properties": {"code": "OU_264", "name": "Bo", "level": "2", "parent": "ImspTQPwCqd", "parentGraph": "ImspTQPwCqd", "groups": ["w1Atoz18PCL", "jqBqIXoXpfy"]}}]
+
+  - id: dhis2-geojson-district-feature
+    title: A single district as a Feature
+    level: 101
+    tags: [geojson, select, map]
+    explanation: |
+      A single Feature is valid GeoJSON on its own and draws on a map. Port Loko is a
+      MultiPolygon of 17 parts along the coast.
+    program: '.features[] | select(.properties.name == "Port Loko")'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#select]
+    guide: [geojson-with-jq]
+    digest: 877e183225c3a7b5d1f4ada1b1b7bc27f7a562429f0ebc72ae957ad0179a9b42
+
+  - id: dhis2-geojson-chiefdoms-of-bo
+    title: The chiefdoms of one district
+    level: 101
+    tags: [geojson, select, map]
+    explanation: |
+      Each chiefdom's `parent` property is its district's id. `.features |= map(select(...))`
+      filters the features while keeping the FeatureCollection around them, so the result is
+      still valid GeoJSON: the 15 chiefdoms of Bo.
+    program: '.features |= map(select(.properties.parent == "O6uvpzGd5pu"))'
+    input: {ref: dhis2:org-units-geojson-level-3}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values, https://jqlang.org/manual/v1.8/#select]
+    guide: [geojson-with-jq]
+    digest: 76c253ac1f2d4c40a85db28f3d18f546541f35beabd6bebad96c2c360aa72a62
+
+  - id: dhis2-geojson-chiefdoms-per-district
+    title: Chiefdoms per district from the GeoJSON
+    level: 101
+    tags: [geojson, group_by]
+    explanation: |
+      Grouping the level 3 features by `parent` counts chiefdoms per district. The counts match
+      the `children` arrays in `dhis2:org-unit-tree` (16 for Kenema, 15 for Bo, down to 2 for
+      Western Area), so every chiefdom has a boundary. Only district ids are available here.
+    program: '.features | group_by(.properties.parent) | map({district: .[0].properties.parent, chiefdoms: length}) | sort_by(-.chiefdoms, .district)'
+    input: {ref: dhis2:org-units-geojson-level-3}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [geojson-with-jq, sorting-and-grouping]
+    expected: [[{"district": "kJq2mPyFEHo", "chiefdoms": 16}, {"district": "O6uvpzGd5pu", "chiefdoms": 15}, {"district": "Vth0fbpFcsO", "chiefdoms": 14}, {"district": "jUb8gELQApl", "chiefdoms": 14}, {"district": "jmIPBj66vD6", "chiefdoms": 14}, {"district": "fdc6uOvgoji", "chiefdoms": 13}, {"district": "bL4ooGhyHRQ", "chiefdoms": 12}, {"district": "lc3eMKXaEfw", "chiefdoms": 12}, {"district": "TEQlaapDQoK", "chiefdoms": 11}, {"district": "eIQbndfxQMb", "chiefdoms": 11}, {"district": "qhqAxPSTUXp", "chiefdoms": 11}, {"district": "PMa2VCrupOd", "chiefdoms": 7}, {"district": "at6UHUQatSo", "chiefdoms": 2}]]
+
+  - id: dhis2-geojson-multipolygon-parts
+    title: Chiefdoms with the most separate parts
+    level: 201
+    tags: [geojson, geometry, sort_by]
+    explanation: |
+      A MultiPolygon's `coordinates` is an array of polygons, so its length is the number of
+      parts. 16 of the 152 chiefdoms are MultiPolygons; Dema has the most, 24 parts.
+    program: '.features | map(select(.geometry.type == "MultiPolygon") | {name: .properties.name, parts: (.geometry.coordinates | length)}) | sort_by(-.parts) | .[:5]'
+    input: {ref: dhis2:org-units-geojson-level-3}
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
+    guide: [geojson-with-jq]
+    expected: [[{"name": "Dema", "parts": 24}, {"name": "Sittia", "parts": 15}, {"name": "Mambolo", "parts": 10}, {"name": "Imperi", "parts": 9}, {"name": "Lokomasama", "parts": 8}]]
+
+  - id: dhis2-geojson-rings-closed
+    title: Rings are closed and have no holes
+    level: 201
+    tags: [geojson, geometry, all]
+    explanation: |
+      Wrapping a Polygon's coordinates in an array makes it look like a one-part MultiPolygon,
+      so both types can be handled by the same code. In GeoJSON every ring must end where it
+      starts; all 248 rings of the chiefdoms do. No polygon has more than one ring, so there
+      are no holes (interior rings) in these boundaries.
+    program: '[.features[].geometry | if .type == "Polygon" then [.coordinates] else .coordinates end | .[]] | {polygons: length, withHoles: map(select(length > 1)) | length, rings: (map(.[]) | length), allClosed: all(.[][]; .[0] == .[-1])}'
+    input: {ref: dhis2:org-units-geojson-level-3}
+    manual: [https://jqlang.org/manual/v1.8/#all]
+    guide: [geojson-with-jq]
+    expected: [{"polygons": 248, "withHoles": 0, "rings": 248, "allClosed": true}]
+
+  - id: dhis2-geojson-bbox-per-district
+    title: Bounding box of each district
+    level: 201
+    tags: [geojson, recurse, min-max]
+    explanation: |
+      `..` walks every value inside the coordinates; a position is an array whose first element
+      is a number. That test works for Polygon and MultiPolygon alike, whatever the nesting.
+      The minimum and maximum longitude and latitude form the bounding box
+      `[west, south, east, north]`, the order GeoJSON's `bbox` member uses.
+    program: '.features | map({name: .properties.name, bbox: ([.geometry.coordinates | .. | select(type == "array" and (.[0] | type) == "number")] | [(map(.[0]) | min), (map(.[1]) | min), (map(.[0]) | max), (map(.[1]) | max)])})'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#recurse, https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
+    guide: [geojson-with-jq]
+    expected: [[{"name": "Bo", "bbox": [-12.1483, 7.4835, -11.3418, 8.4875]}, {"name": "Bombali", "bbox": [-12.5917, 8.638, -11.754, 9.9417]}, {"name": "Bonthe", "bbox": [-13.0715, 7.1807, -11.8479, 7.807]}, {"name": "Kailahun", "bbox": [-11.0526, 7.5866, -10.2658, 8.5029]}, {"name": "Kambia", "bbox": [-13.3035, 8.8057, -12.3637, 9.6062]}, {"name": "Kenema", "bbox": [-11.5914, 7.3164, -10.7972, 8.5349]}, {"name": "Koinadugu", "bbox": [-12.1324, 8.6455, -10.585, 10.0004]}, {"name": "Kono", "bbox": [-11.3596, 8.323, -10.4694, 9.06]}, {"name": "Moyamba", "bbox": [-13.0021, 7.6535, -11.7893, 8.3885]}, {"name": "Port Loko", "bbox": [-13.2488, 8.2961, -12.2696, 9.2753]}, {"name": "Pujehun", "bbox": [-11.9469, 6.9176, -11.1382, 7.6598]}, {"name": "Tonkolili", "bbox": [-12.6719, 8.2474, -11.3401, 9.2798]}, {"name": "Western Area", "bbox": [-13.2985, 8.0926, -12.8959, 8.4996]}]]
+
+  - id: dhis2-geojson-bbox-overall
+    title: Bounding box of the country with reduce
+    level: 301
+    tags: [geojson, reduce, recurse]
+    explanation: |
+      `reduce` keeps a running `[west, south, east, north]` and widens it with every position,
+      without first collecting all 17798 positions into an array. Destructuring `as [$x, $y]`
+      names the two numbers of a position. The result agrees with the extremes of the
+      per-district boxes: west from Kambia, south from Pujehun, east from Kailahun and north
+      from Koinadugu.
+    program: 'reduce (.features[].geometry.coordinates | .. | select(type == "array" and (.[0] | type) == "number")) as [$x, $y] ([180, 90, -180, -90]; [([.[0], $x] | min), ([.[1], $y] | min), ([.[2], $x] | max), ([.[3], $y] | max)])'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#reduce]
+    guide: [reduce-and-foreach, geojson-with-jq]
+    expected: [[-13.3035, 6.9176, -10.2658, 10.0004]]
+
+  - id: dhis2-geojson-vertices-per-district
+    title: Vertices per district
+    level: 201
+    tags: [geojson, paths, sort_by]
+    explanation: |
+      Counting positions measures how detailed a boundary is. Two independent counts agree:
+      positions found with `..`, and number paths divided by two. The count includes the
+      closing position that repeats the first one in each ring. Bonthe, with its many islands,
+      has 4506 vertices; Kono only 416.
+    program: '.features | map({name: .properties.name, vertices: ([.geometry.coordinates | .. | select(type == "array" and (.[0] | type) == "number")] | length), check: ([.geometry.coordinates | paths(type == "number")] | length / 2)}) | sort_by(-.vertices)'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#paths]
+    guide: [geojson-with-jq, paths]
+    expected: [[{"name": "Bonthe", "vertices": 4506, "check": 4506}, {"name": "Port Loko", "vertices": 3675, "check": 3675}, {"name": "Moyamba", "vertices": 1540, "check": 1540}, {"name": "Western Area", "vertices": 1474, "check": 1474}, {"name": "Kambia", "vertices": 1196, "check": 1196}, {"name": "Pujehun", "vertices": 1170, "check": 1170}, {"name": "Tonkolili", "vertices": 787, "check": 787}, {"name": "Bombali", "vertices": 721, "check": 721}, {"name": "Kenema", "vertices": 659, "check": 659}, {"name": "Koinadugu", "vertices": 636, "check": 636}, {"name": "Bo", "vertices": 549, "check": 549}, {"name": "Kailahun", "vertices": 469, "check": 469}, {"name": "Kono", "vertices": 416, "check": 416}]]
+
+  - id: dhis2-geojson-most-detailed
+    title: The most detailed boundary with max_by
+    level: 101
+    tags: [geojson, max_by]
+    explanation: |
+      `max_by` returns the whole element with the largest key, so the name and the geometry
+      type come along. Counting all numbers with `.. | numbers` and halving gives the vertices.
+    program: '.features | max_by([.geometry.coordinates | .. | numbers] | length) | {name: .properties.name, type: .geometry.type, vertices: ([.geometry.coordinates | .. | numbers] | length / 2)}'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
+    guide: [geojson-with-jq]
+    expected: [{"name": "Bonthe", "type": "MultiPolygon", "vertices": 4506}]
+
+  - id: dhis2-geojson-bbox-rectangles
+    title: Bounding boxes as polygons
+    level: 301
+    tags: [geojson, recurse, geometry]
+    explanation: |
+      A bounding box becomes a closed rectangular ring of five positions. Replacing every
+      district's geometry with its box gives a FeatureCollection that shows on a map how much
+      the rectangles overlap even though the districts do not.
+    program: '.features |= map(([.geometry.coordinates | .. | select(type == "array" and (.[0] | type) == "number")] | [(map(.[0]) | min), (map(.[1]) | min), (map(.[0]) | max), (map(.[1]) | max)]) as [$w, $s, $e, $n] | {type, id, properties: {name: .properties.name}, geometry: {type: "Polygon", coordinates: [[[$w, $s], [$e, $s], [$e, $n], [$w, $n], [$w, $s]]]}})'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#recurse]
+    guide: [geojson-with-jq]
+    digest: 546a1c346112e07916b4cdc98ba6558c76aefd4a3acc41637b6843102f1a5473
+
+  - id: dhis2-geojson-district-labels
+    title: A label point per district
+    level: 201
+    tags: [geojson, geometry, math]
+    explanation: |
+      The centre of the bounding box is a cheap label position (not the true centroid, and for
+      oddly shaped districts not even inside the boundary). Rounding to four decimals keeps the
+      coordinates at the precision DHIS2 stores. The result is a FeatureCollection of 13 Points.
+    program: '{type: "FeatureCollection", features: [.features[] | ([.geometry.coordinates | .. | select(type == "array" and (.[0] | type) == "number")]) as $p | {type: "Feature", id, properties: {name: .properties.name}, geometry: {type: "Point", coordinates: [((($p | map(.[0]) | min) + ($p | map(.[0]) | max)) / 2 * 10000 | round / 10000), ((($p | map(.[1]) | min) + ($p | map(.[1]) | max)) / 2 * 10000 | round / 10000)]}}]}'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#math]
+    guide: [geojson-with-jq]
+    expected: [{"type": "FeatureCollection", "features": [{"type": "Feature", "id": "O6uvpzGd5pu", "properties": {"name": "Bo"}, "geometry": {"type": "Point", "coordinates": [-11.745, 7.9855]}}, {"type": "Feature", "id": "fdc6uOvgoji", "properties": {"name": "Bombali"}, "geometry": {"type": "Point", "coordinates": [-12.1729, 9.2899]}}, {"type": "Feature", "id": "lc3eMKXaEfw", "properties": {"name": "Bonthe"}, "geometry": {"type": "Point", "coordinates": [-12.4597, 7.4939]}}, {"type": "Feature", "id": "jUb8gELQApl", "properties": {"name": "Kailahun"}, "geometry": {"type": "Point", "coordinates": [-10.6592, 8.0448]}}, {"type": "Feature", "id": "PMa2VCrupOd", "properties": {"name": "Kambia"}, "geometry": {"type": "Point", "coordinates": [-12.8336, 9.206]}}, {"type": "Feature", "id": "kJq2mPyFEHo", "properties": {"name": "Kenema"}, "geometry": {"type": "Point", "coordinates": [-11.1943, 7.9257]}}, {"type": "Feature", "id": "qhqAxPSTUXp", "properties": {"name": "Koinadugu"}, "geometry": {"type": "Point", "coordinates": [-11.3587, 9.323]}}, {"type": "Feature", "id": "Vth0fbpFcsO", "properties": {"name": "Kono"}, "geometry": {"type": "Point", "coordinates": [-10.9145, 8.6915]}}, {"type": "Feature", "id": "jmIPBj66vD6", "properties": {"name": "Moyamba"}, "geometry": {"type": "Point", "coordinates": [-12.3957, 8.021]}}, {"type": "Feature", "id": "TEQlaapDQoK", "properties": {"name": "Port Loko"}, "geometry": {"type": "Point", "coordinates": [-12.7592, 8.7857]}}, {"type": "Feature", "id": "bL4ooGhyHRQ", "properties": {"name": "Pujehun"}, "geometry": {"type": "Point", "coordinates": [-11.5425, 7.2887]}}, {"type": "Feature", "id": "eIQbndfxQMb", "properties": {"name": "Tonkolili"}, "geometry": {"type": "Point", "coordinates": [-12.006, 8.7636]}}, {"type": "Feature", "id": "at6UHUQatSo", "properties": {"name": "Western Area"}, "geometry": {"type": "Point", "coordinates": [-13.0972, 8.2961]}}]}]
+
+  - id: dhis2-geojson-explode-multipolygon
+    title: Split a MultiPolygon into Polygons
+    level: 301
+    tags: [geojson, to_entries, geometry]
+    explanation: |
+      `to_entries` on an array pairs each element with its index, so every part of Bonthe's
+      MultiPolygon becomes its own Polygon feature numbered by `part`, with its vertex count as
+      a property. Bonthe has 39 parts: its mainland and many islands along the coast.
+    program: '.features[] | select(.properties.name == "Bonthe") | {type: "FeatureCollection", features: [.geometry.coordinates | to_entries[] | {type: "Feature", properties: {part: .key, vertices: (.value[0] | length)}, geometry: {type: "Polygon", coordinates: .value}}]}'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [geojson-with-jq]
+    digest: 51ce4c5053e52035c4bcfd3e9afddd1f97258ba99d01d8f5c2cf635515cab4ed
+
+  - id: dhis2-geojson-largest-parts
+    title: The largest parts of a MultiPolygon
+    level: 201
+    tags: [geojson, to_entries, sort_by]
+    explanation: |
+      The same split, summarised: the vertex count of each part's outer ring, largest first.
+      Two parts hold 2967 of the 4506 vertices; 29 of the 39 parts have fewer than 50 vertices,
+      small islands drawn with a few points.
+    program: '.features[] | select(.properties.name == "Bonthe") | .geometry.coordinates | {parts: length, largest: (to_entries | map({part: .key, vertices: (.value[0] | length)}) | sort_by(-.vertices) | .[:3])}'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
+    guide: [geojson-with-jq]
+    expected: [{"parts": 39, "largest": [{"part": 32, "vertices": 1668}, {"part": 38, "vertices": 1299}, {"part": 24, "vertices": 300}]}]
+
+  - id: dhis2-geojson-round-coordinates
+    title: Round every coordinate
+    level: 201
+    tags: [geojson, walk, math]
+    explanation: |
+      `walk` applies a function bottom-up to every value, so one expression rounds every number
+      in the geometry to two decimals (about a kilometre), whatever the nesting. The rings stay
+      closed because the first and last positions round identically. Only the geometry is
+      walked, so no property is touched.
+    program: '.features[] | select(.properties.name == "Bo") | .geometry |= walk(if type == "number" then . * 100 | round / 100 else . end)'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#walk]
+    guide: [geojson-with-jq]
+    digest: 054a47efd63c8146b20cb7ba73f5cd6d0639efb42b195b868d3f460c2fb4958b
+
+  - id: dhis2-geojson-strip-properties
+    title: Keep only the name property
+    level: 101
+    tags: [geojson, map, properties]
+    explanation: |
+      Replacing each feature's `properties` with an object holding only the name makes the file
+      smaller and the map popups simpler. `.features[].properties |= {name}` updates every
+      feature in place; `{name}` is shorthand for `{name: .name}`.
+    program: '.features[].properties |= {name}'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values]
+    guide: [geojson-with-jq]
+    digest: db23e774c8d16a9d1e880654ca6950c0b4673fe972188f64700046730ec29240
+
+  - id: dhis2-geojson-rename-properties
+    title: Rename and derive properties
+    level: 201
+    tags: [geojson, properties, split]
+    explanation: |
+      Properties can be reshaped for another tool: `name` becomes `facility`, and the district
+      id is taken from the second element of `parentGraph` (country/district/chiefdom). The
+      filter keeps the 54 facilities in Bo, so the result is a FeatureCollection of Points.
+    program: '.features |= map(select(.properties.parentGraph | split("/")[1] == "O6uvpzGd5pu") | .properties |= {facility: .name, code, district: (.parentGraph | split("/")[1]), chiefdom: .parent})'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#split-1]
+    guide: [geojson-with-jq]
+    digest: cfedbd254b44418d6896b82ff662dcd4f673d02f7de1ca12bfd1325f55040377
+
+  - id: dhis2-geojson-computed-property
+    title: Add a computed property
+    level: 201
+    tags: [geojson, properties]
+    explanation: |
+      `+=` merges an object into the existing properties. Adding the vertex count and the number
+      of parts to each district lets a map style or label features by them; the geometry is
+      left as it is.
+    program: '.features |= map(.properties += {vertices: ([.geometry.coordinates | .. | select(type == "array" and (.[0] | type) == "number")] | length), parts: (if .geometry.type == "MultiPolygon" then .geometry.coordinates | length else 1 end)})'
+    input: {ref: dhis2:org-units-geojson-level-2}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#recurse]
+    guide: [geojson-with-jq]
+    digest: 9cfa1677f3c248fddad49a29d45cfa6120fc4cc9e2ebdb227e64f40ff9a03baf
+
+  - id: dhis2-geojson-facilities-per-district
+    title: Facilities per district via parentGraph
+    level: 201
+    tags: [geojson, split, group_by]
+    explanation: |
+      `parentGraph` is the path of the facility's ancestors without a leading slash:
+      `country/district/chiefdom`. Its second element is the district, so grouping on it counts
+      facilities per district. These are only the 601 facilities that have coordinates; the org
+      unit tree lists 1166 facilities in total.
+    program: '.features | group_by(.properties.parentGraph | split("/")[1]) | map({district: (.[0].properties.parentGraph | split("/")[1]), facilities: length}) | sort_by(-.facilities)'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    manual: [https://jqlang.org/manual/v1.8/#split-1, https://jqlang.org/manual/v1.8/#group_by]
+    guide: [geojson-with-jq, sorting-and-grouping]
+    expected: [[{"district": "fdc6uOvgoji", "facilities": 73}, {"district": "TEQlaapDQoK", "facilities": 61}, {"district": "kJq2mPyFEHo", "facilities": 59}, {"district": "jmIPBj66vD6", "facilities": 57}, {"district": "O6uvpzGd5pu", "facilities": 54}, {"district": "Vth0fbpFcsO", "facilities": 53}, {"district": "eIQbndfxQMb", "facilities": 51}, {"district": "at6UHUQatSo", "facilities": 48}, {"district": "bL4ooGhyHRQ", "facilities": 37}, {"district": "jUb8gELQApl", "facilities": 30}, {"district": "lc3eMKXaEfw", "facilities": 29}, {"district": "qhqAxPSTUXp", "facilities": 26}, {"district": "PMa2VCrupOd", "facilities": 23}]]
+
+  - id: dhis2-geojson-hospitals
+    title: Keep features in one org unit group
+    level: 101
+    tags: [geojson, index, groups]
+    explanation: |
+      The `groups` property lists group ids; `tDZVQ1WtwpA` is the Hospital group. `index`
+      returns the position of the id or `null`, which `select` treats as false. 24 of the 34
+      hospitals have coordinates and appear on the map.
+    program: '.features |= map(select(.properties.groups | index("tDZVQ1WtwpA")))'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#index-rindex]
+    guide: [geojson-with-jq]
+    digest: 5dbf7c9894d033ff5834fd5f398d2b11212d5c936ec2256bc93132c9b8839665
+
+  - id: dhis2-geojson-conflicting-ownership
+    title: Facilities in two ownership groups
+    level: 201
+    tags: [geojson, groups, IN]
+    explanation: |
+      The Facility Ownership group set has four groups: Public facilities, Private Clinic,
+      Mission and NGO. A facility should be in at most one, but four are in two: two private
+      clinics that are also public, and two mission facilities that are also public. Keeping
+      only the group ids that are `IN` the set and counting them finds them.
+    program: '["oRVt7g429ZO", "MAs88nJc9nL", "w0gFTTmsUcF", "PVLOW4bCshG"] as $ownership | .features | map(select([.properties.groups[] | select(IN($ownership[]))] | length > 1) | {name: .properties.name, groups: .properties.groups})'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    manual: [https://jqlang.org/manual/v1.8/]
+    guide: [geojson-with-jq, collections]
+    expected: [[{"name": "Bucksal Clinic", "groups": ["MAs88nJc9nL", "RXL3lPSK8oG", "oRVt7g429ZO", "GGghZsfu7qV"]}, {"name": "Kpolies Clinic", "groups": ["MAs88nJc9nL", "RXL3lPSK8oG", "oRVt7g429ZO", "GGghZsfu7qV"]}, {"name": "Manjama UMC CHC", "groups": ["oRVt7g429ZO", "GGghZsfu7qV", "CXw2yu5fodb", "w0gFTTmsUcF"]}, {"name": "St Monica's Clinic", "groups": ["RXL3lPSK8oG", "oRVt7g429ZO", "GGghZsfu7qV", "w0gFTTmsUcF"]}]]
+
+  - id: dhis2-geojson-facility-type-gaps
+    title: Facilities with no type or two types
+    level: 201
+    tags: [geojson, groups, IN]
+    explanation: |
+      The same check for the Facility Type set (CHC, CHP, Clinic, Hospital, MCHP): eight
+      facilities have no type at all, and Golu MCHP is both a CHC and an MCHP. Map legends
+      built from a group set silently drop the first kind and double count the second.
+    program: '["CXw2yu5fodb", "uYxK4wmcPqA", "RXL3lPSK8oG", "tDZVQ1WtwpA", "EYbopBOJWsW"] as $types | .features | map({name: .properties.name, types: [.properties.groups[] | select(IN($types[]))] | length}) | map(select(.types != 1)) | group_by(.types) | map({types: .[0].types, facilities: map(.name)})'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    manual: [https://jqlang.org/manual/v1.8/]
+    guide: [geojson-with-jq, collections]
+    expected: [[{"types": 0, "facilities": ["Ahamadyya Mission Cl", "Air Port Centre, Lungi", "Allen Town Health Post", "Baptist Centre Kassirie", "Bo Govt. Hosp.", "Kambia GH", "MCH Static/U5", "UBC Under 5"]}, {"types": 2, "facilities": ["Golu MCHP"]}]]
+
+  - id: dhis2-geojson-duplicate-points
+    title: Facilities sharing the same point
+    level: 201
+    tags: [geojson, group_by]
+    explanation: |
+      Grouping by the coordinates array finds facilities placed on exactly the same spot. Five
+      of the six groups sit on a grid of points around -10.5735, 8.2754 in Kailahun, 0.0001
+      degrees apart: placeholder positions rather than surveyed ones. One of them, Bumpeh River
+      CHP, belongs to Moyamba according to its `parentGraph`, and the first pair spans Kambia
+      and Port Loko, so the coordinates cannot be right for both. Duplicates like these stack on
+      a map and hide each other.
+    program: '.features | group_by(.geometry.coordinates) | map(select(length > 1) | {coordinates: .[0].geometry.coordinates, facilities: map(.properties.name)})'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [geojson-with-jq]
+    expected: [[{"coordinates": [-12.6562, 9], "facilities": ["Gbalamuya MCHP", "Kalangba CHC"]}, {"coordinates": [-10.5736, 8.2753], "facilities": ["Koindu CHC", "Konjo CHP"]}, {"coordinates": [-10.5736, 8.2754], "facilities": ["Dia CHP", "Dodo Kortuma CHP", "Gbeika MCHP", "Niahun Gboyama MCHP"]}, {"coordinates": [-10.5735, 8.2753], "facilities": ["Bandajuma Kpolihun CHP", "Madopolahun MCHP"]}, {"coordinates": [-10.5735, 8.2754], "facilities": ["Mano Menima CHP", "Njama MCHP"]}, {"coordinates": [-10.5735, 8.2755], "facilities": ["Bandajuma Yawei CHC", "Bumpeh River CHP", "Nyeama CHP"]}]]
+
+  - id: dhis2-geojson-centroid-of-points
+    title: The centre of Bo's facilities
+    level: 201
+    tags: [geojson, add, math]
+    explanation: |
+      For Points, the centroid is the mean longitude and mean latitude. `add / length` computes
+      each mean; rounding to four decimals matches the precision of the input. The result lies
+      near Bo town, where Kakua chiefdom has the most facilities.
+    program: '[.features[] | select(.properties.parentGraph | split("/")[1] == "O6uvpzGd5pu") | .geometry.coordinates] | {facilities: length, centroid: [(map(.[0]) | add / length * 10000 | round / 10000), (map(.[1]) | add / length * 10000 | round / 10000)]}'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    manual: [https://jqlang.org/manual/v1.8/#add, https://jqlang.org/manual/v1.8/#math]
+    guide: [geojson-with-jq]
+    expected: [{"facilities": 54, "centroid": [-11.7064, 7.9097]}]
+
+  - id: dhis2-geojson-facilities-csv
+    title: Facility points as CSV
+    level: 101
+    tags: [geojson, csv, raw-output]
+    explanation: |
+      A header row and one `@csv` line per facility, with the coordinates spread into two
+      columns by `[]`. With raw output this is a file any spreadsheet or GIS tool imports.
+      Only the first five facilities are shown.
+    program: '["id", "name", "longitude", "latitude"], (.features[:5][] | [.id, .properties.name, .geometry.coordinates[]]) | @csv'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    guide: [geojson-with-jq, strings]
+    expected: ["\"id\",\"name\",\"longitude\",\"latitude\"", "\"plnHVbJR6p4\",\"Ahamadyya Mission Cl\",-12.9487,9.0131", "\"BV4IomHvri4\",\"Ahmadiyya Muslim Hospital\",-12.2231,8.466", "\"qjboFI0irVu\",\"Air Port Centre, Lungi\",-13.2027,8.6154", "\"kbGqmM6ZWWV\",\"Allen Town Health Post\",-13.155,8.4176", "\"eoYV2p74eVz\",\"Approved School CHP\",-13.178,8.4613"]
+
+  - id: dhis2-geojson-within-box
+    title: Facilities inside a rectangle
+    level: 201
+    tags: [geojson, argjson, select]
+    explanation: |
+      `--argjson box` passes `[west, south, east, north]` into the program. Destructuring the
+      Point's coordinates into `$x` and `$y` makes the containment test readable. This box
+      covers the centre of Bo town.
+    program: '.features | map(select(.geometry.coordinates as [$x, $y] | $x >= $box[0] and $x <= $box[2] and $y >= $box[1] and $y <= $box[3]) | .properties.name) | sort'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    options: {argjson: {box: [-11.76, 7.94, -11.72, 7.98]}}
+    manual: [https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
+    guide: [geojson-with-jq]
+    expected: [["Bo Govt. Hosp.", "Bucksal Clinic", "Gbotima MCHP", "Kpolies Clinic", "Paramedical CHC", "St Monica's Clinic"]]
+
+  - id: dhis2-geojson-nearest-facility
+    title: The nearest facility to a point
+    level: 201
+    tags: [geojson, min_by, argjson]
+    explanation: |
+      `min_by` with the squared distance in degrees finds the closest facility to `$here`. Near
+      the equator a degree of longitude and of latitude are almost the same length, so this
+      shortcut ranks correctly for short distances; the square root is unnecessary for ranking.
+    program: '.features | min_by(.geometry.coordinates as [$x, $y] | ($x - $here[0]) * ($x - $here[0]) + ($y - $here[1]) * ($y - $here[1])) | {name: .properties.name, coordinates: .geometry.coordinates}'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    options: {argjson: {here: [-11.5, 8.0]}}
+    manual: [https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
+    guide: [geojson-with-jq]
+    expected: [{"name": "Benduma MCHP", "coordinates": [-11.5217, 8.0261]}]
+
+  - id: dhis2-geojson-haversine
+    title: Great-circle distance between two facilities
+    level: 301
+    tags: [geojson, def, math]
+    explanation: |
+      The haversine formula gives the distance along the earth's surface. `def` defines helper
+      functions: `rad` converts degrees to radians, `hav` takes two `[lon, lat]` positions.
+      Bo Government Hospital and Ngelehun CHC are about 38.8 km apart.
+    program: 'def rad: . * 3.141592653589793 / 180; def hav($a; $b): (($b[1] - $a[1]) | rad) as $dlat | (($b[0] - $a[0]) | rad) as $dlon | ((($dlat / 2) | sin | . * .) + ($a[1] | rad | cos) * ($b[1] | rad | cos) * (($dlon / 2) | sin | . * .)) as $h | 2 * 6371 * ($h | sqrt | asin); [.features[] | select(.properties.name == "Bo Govt. Hosp." or .properties.name == "Ngelehun CHC") | .geometry.coordinates] | {km: (hav(.[0]; .[1]) * 10 | round / 10)}'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    manual: [https://jqlang.org/manual/v1.8/#math]
+    guide: [geojson-with-jq]
+    expected: ["km": 38.8]
+
+  - id: dhis2-geojson-join-value-counts
+    title: Which data value org units have a location
+    level: 301
+    tags: [geojson, join, argjson, in]
+    explanation: |
+      `$counts` holds the number of data values per facility from
+      `dhis2:data-value-set-bo-children`, computed with
+      `.dataValues | group_by(.orgUnit) | map({key: .[0].orgUnit, value: length}) | from_entries`.
+      Before joining, check which ids match: only 15 of the 24 facilities with data appear
+      among the GeoJSON features; the other 9 have no coordinates, so they cannot be mapped.
+    program: '(.features | map(.id)) as $ids | $counts | keys | {withData: length, onTheMap: map(select(IN($ids[]))) | length, missing: map(select(IN($ids[]) | not))}'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    options:
+      argjson:
+        counts: {"CvBAqD6RzLZ": 58, "DiszpKrYNg8": 52, "E497Rk80ivZ": 40, "FLjwMPWLrL2": 41, "KYXbIQBQgP1": 37, "PC3Ag91n82e": 40, "PuZOFApTSeo": 59, "QsAwd531Cpd": 49, "RhJbg8UD75Q": 26, "TSyzvBiovKh": 42, "UOJlcpPnBat": 25, "Umh4HKqqFp6": 34, "W2KnxOMvmgE": 50, "jGYT5U5qJP6": 58, "jhtj3eQa1pM": 61, "k1Y0oNqPlmy": 52, "lOv6IFgr6Fs": 29, "mwN7QuEfT8m": 32, "mzsOsz0NwNY": 19, "nX05QLraDhO": 31, "tSBcgrTDdB8": 34, "vELbGdEphPd": 16, "wByqtWCCuDJ": 22, "wtdBuXDwZYQ": 27}
+    manual: [https://jqlang.org/manual/v1.8/#keys-keys_unsorted]
+    guide: [sql-style-and-joins, geojson-with-jq]
+    expected: [{"withData": 24, "onTheMap": 15, "missing": ["RhJbg8UD75Q", "TSyzvBiovKh", "UOJlcpPnBat", "jhtj3eQa1pM", "k1Y0oNqPlmy", "lOv6IFgr6Fs", "mzsOsz0NwNY", "vELbGdEphPd", "wtdBuXDwZYQ"]}]
+
+  - id: dhis2-geojson-join-value-counts-map
+    title: Join data value counts onto facility points
+    level: 301
+    tags: [geojson, join, argjson, in]
+    explanation: |
+      With the matching ids known, the join keeps the features whose `id` is a key of `$counts`
+      (`in` tests that) and adds the count as a property. The result is a FeatureCollection of
+      the 15 mappable facilities, ready to style by `values`.
+    program: '.features |= map(select(.id | in($counts)) | .properties += {values: $counts[.id]})'
+    input: {ref: dhis2:org-units-geojson-level-4}
+    options:
+      argjson:
+        counts: {"CvBAqD6RzLZ": 58, "DiszpKrYNg8": 52, "E497Rk80ivZ": 40, "FLjwMPWLrL2": 41, "KYXbIQBQgP1": 37, "PC3Ag91n82e": 40, "PuZOFApTSeo": 59, "QsAwd531Cpd": 49, "RhJbg8UD75Q": 26, "TSyzvBiovKh": 42, "UOJlcpPnBat": 25, "Umh4HKqqFp6": 34, "W2KnxOMvmgE": 50, "jGYT5U5qJP6": 58, "jhtj3eQa1pM": 61, "k1Y0oNqPlmy": 52, "lOv6IFgr6Fs": 29, "mwN7QuEfT8m": 32, "mzsOsz0NwNY": 19, "nX05QLraDhO": 31, "tSBcgrTDdB8": 34, "vELbGdEphPd": 16, "wByqtWCCuDJ": 22, "wtdBuXDwZYQ": 27}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/#in]
+    guide: [sql-style-and-joins, geojson-with-jq]
+    digest: 6b8b5f83c506ddb3a3362f700cf39447298fc7de934569e7ccdd3745be9ee9da
+
+  - id: dhis2-geojson-geometry-field
+    title: Geometry as a field of the metadata API
+    level: 101
+    tags: [geojson, metadata, geometry]
+    explanation: |
+      `/api/organisationUnits?fields=id,name,code,level,geometry` returns the same boundaries
+      as a `geometry` field of ordinary org unit objects, not as a FeatureCollection. The
+      geometry itself is a GeoJSON geometry object, identical to the one the `.geojson`
+      endpoint returns, and `level` is a number here.
+    program: '.organisationUnits[0] | {keys: keys, level, geometryType: .geometry.type, geometryKeys: (.geometry | keys)}'
+    input: {ref: dhis2:org-units-geometry}
+    manual: [https://jqlang.org/manual/v1.8/#keys-keys_unsorted]
+    guide: [geojson-with-jq]
+    expected: [{"keys": ["code", "geometry", "id", "level", "name"], "level": 2, "geometryType": "Polygon", "geometryKeys": ["coordinates", "type"]}]
+
+  - id: dhis2-geojson-geometry-field-to-collection
+    title: Wrap geometry fields into a FeatureCollection
+    level: 201
+    tags: [geojson, metadata, geometry]
+    explanation: |
+      Moving the `geometry` field into a Feature and the other fields into `properties` turns
+      the metadata response into GeoJSON. This is the reshaping to use when the regular API is
+      more convenient than the `.geojson` endpoint, for example to request other fields. The
+      program builds the FeatureCollection and then summarises it, showing the first feature
+      without its coordinates; drop the last step to get the full GeoJSON.
+    program: '{type: "FeatureCollection", features: [.organisationUnits[] | {type: "Feature", id, geometry, properties: {name, code, level}}]} | {type, features: (.features | length), first: (.features[0] | {type, id, properties, geometryType: .geometry.type})}'
+    input: {ref: dhis2:org-units-geometry}
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values]
+    guide: [geojson-with-jq]
+    expected: [{"type": "FeatureCollection", "features": 13, "first": {"type": "Feature", "id": "O6uvpzGd5pu", "properties": {"name": "Bo", "code": "OU_264", "level": 2}, "geometryType": "Polygon"}}]
+
+  - id: dhis2-geojson-geofeature-co-string
+    title: geoFeatures coordinates are a JSON string
+    level: 101
+    tags: [geofeatures, fromjson]
+    explanation: |
+      `/api/geoFeatures` is DHIS2's own map format: short keys (`na` name, `le` level, `pi`
+      parent id, `pn` parent name, `pg` parent graph, `ty` type) and the coordinates in `co` as
+      a JSON-encoded string. `fromjson` parses the string into the real nested array.
+    program: '.data[0] | {na, le, pn, coType: (.co | type), co: (.co | .[:40]), parsedType: (.co | fromjson | type), positions: (.co | fromjson | length)}'
+    input: {ref: dhis2:geo-features-facilities-bo}
+    manual: [https://jqlang.org/manual/v1.8/]
+    guide: [geojson-with-jq]
+    expected: [{"na": "Baoma Station CHP", "le": 4, "pn": "Baoma", "coType": "string", "co": "[-11.4382,7.9294]", "parsedType": "array", "positions": 2}]
+
+  - id: dhis2-geojson-geofeature-ty-trap
+    title: The ty code does not tell Polygon from MultiPolygon
+    level: 201
+    tags: [geofeatures, fromjson, paths]
+    explanation: |
+      `ty` is 1 for points and 2 for polygons, and it is 2 for both Polygon and MultiPolygon.
+      The nesting depth of the parsed coordinates tells them apart: the longest path is 1 for a
+      Point, 3 for a Polygon and 4 for a MultiPolygon. Seven districts are Polygons and six are
+      MultiPolygons, all with `ty` 2.
+    program: '.data | map({na, ty, depth: ((.co | fromjson) | [paths | length] | max)}) | group_by([.ty, .depth]) | map({ty: .[0].ty, depth: .[0].depth, districts: map(.na)})'
+    input: {ref: dhis2:geo-features-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#paths]
+    guide: [geojson-with-jq, paths]
+    expected: [[{"ty": 2, "depth": 3, "districts": ["Bo", "Bombali", "Kailahun", "Kenema", "Koinadugu", "Kono", "Tonkolili"]}, {"ty": 2, "depth": 4, "districts": ["Bonthe", "Kambia", "Moyamba", "Port Loko", "Pujehun", "Western Area"]}]]
+
+  - id: dhis2-geojson-geofeatures-to-geojson
+    title: Turn district geoFeatures into GeoJSON
+    level: 301
+    tags: [geofeatures, fromjson, geojson]
+    explanation: |
+      Each geoFeature becomes a Feature: parse `co`, derive the geometry type from the nesting
+      depth (not from `ty`), and map the short keys to readable properties. The geometries are
+      identical to those of `dhis2:org-units-geojson-level-2`, so the two endpoints draw the
+      same map.
+    program: '{type: "FeatureCollection", features: [.data[] | (.co | fromjson) as $c | ($c | [paths | length] | max) as $depth | {type: "Feature", id, properties: {name: .na, code, level: .le, parent: .pn}, geometry: {type: (if $depth == 1 then "Point" elif $depth == 3 then "Polygon" else "MultiPolygon" end), coordinates: $c}}]}'
+    input: {ref: dhis2:geo-features-level-2}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/]
+    guide: [geojson-with-jq]
+    digest: 0f1184b1a8c86a82f723cc34dcb165b1ed1719ebf49542c51d731996c1ab24c8
+
+  - id: dhis2-geojson-facility-geofeatures-to-geojson
+    title: Turn facility geoFeatures into GeoJSON points
+    level: 201
+    tags: [geofeatures, fromjson, geojson]
+    explanation: |
+      For facilities every `co` parses to a `[lon, lat]` pair, so the geometry is always a
+      Point. The chiefdom name `pn` comes along as a property, which the GeoJSON endpoint does
+      not provide (it only has the parent id).
+    program: '{type: "FeatureCollection", features: [.data[] | {type: "Feature", id, properties: {name: .na, chiefdom: .pn}, geometry: {type: "Point", coordinates: (.co | fromjson)}}]}'
+    input: {ref: dhis2:geo-features-facilities-bo}
+    geojson: true
+    manual: [https://jqlang.org/manual/v1.8/]
+    guide: [geojson-with-jq]
+    digest: fd8720ac1b786e5c4067cbe97ec04fd7375d01ab1bec17c0680cae50083c941b
+
+  - id: dhis2-geojson-geofeatures-per-chiefdom
+    title: Facilities per chiefdom by parent name
+    level: 101
+    tags: [geofeatures, group_by]
+    explanation: |
+      Because geoFeatures carry the parent's name in `pn`, counting facilities per chiefdom
+      needs no lookup. Kakua has 10 facilities with coordinates, although the org unit tree
+      lists 40 children for it: most of its facilities have no location.
+    program: '.data | group_by(.pn) | map({chiefdom: .[0].pn, facilities: length}) | sort_by(-.facilities, .chiefdom) | .[:5]'
+    input: {ref: dhis2:geo-features-facilities-bo}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [geojson-with-jq, sorting-and-grouping]
+    expected: [[{"chiefdom": "Kakua", "facilities": 10}, {"chiefdom": "Baoma", "facilities": 8}, {"chiefdom": "Lugbu", "facilities": 6}, {"chiefdom": "Jaiama Bongor", "facilities": 5}, {"chiefdom": "Bargbe", "facilities": 4}]]
+
+  - id: dhis2-geojson-geofeature-flags
+    title: The hcd and hcu flags
+    level: 101
+    tags: [geofeatures, group_by]
+    explanation: |
+      `hcd` (has coordinates down) says whether children of the unit have coordinates, and
+      `hcu` (has coordinates up) whether its parent has. A map uses them to offer drilling down
+      or up. All 13 districts can drill down but not up, because the country itself has no
+      boundary. In `dhis2:geo-features-facilities-bo` it is the reverse: the facilities can go
+      up to their chiefdom but have no children.
+    program: '{level: .data[0].le, flags: (.data | map({hcd, hcu}) | group_by(.) | map(.[0] + {count: length}))}'
+    input: {ref: dhis2:geo-features-level-2}
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
+    guide: [geojson-with-jq]
+    expected: [{"level": 2, "flags": [{"hcd": true, "hcu": false, "count": 13}]}]
