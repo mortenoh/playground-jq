@@ -1,0 +1,73 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "completed",
+  "authored": "2026-03-14T10:30:00Z",
+  "subject": {
+    "reference": "Location/DiszpKrYNg8",
+    "display": "Ngelehun CHC"
+  },
+  "item": [
+    {
+      "linkId": "section-anc",
+      "text": "Antenatal care",
+      "item": [
+        {
+          "linkId": "fbfJHSPpUQD.pq2XI5kz2BY",
+          "text": "ANC 1st visit, fixed",
+          "answer": [
+            {
+              "valueInteger": 14
+            }
+          ]
+        },
+        {
+          "linkId": "fbfJHSPpUQD.PT59n8BQbqM",
+          "text": "ANC 1st visit, outreach",
+          "answer": [
+            {
+              "valueInteger": 6
+            }
+          ]
+        },
+        {
+          "linkId": "cYeuwXTCPkU.pq2XI5kz2BY",
+          "text": "ANC 2nd visit, fixed",
+          "answer": [
+            {
+              "valueInteger": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "section-other",
+      "text": "Other",
+      "item": [
+        {
+          "linkId": "hfdmMSPBgLG",
+          "text": "Comment",
+          "answer": [
+            {
+              "valueString": "Stock-out of iron tablets"
+            }
+          ]
+        },
+        {
+          "linkId": "rbkr8PL0rwM",
+          "text": "Referred",
+          "answer": [
+            {
+              "valueBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "empty-question",
+          "text": "Unanswered",
+          "answer": []
+        }
+      ]
+    }
+  ]
+}

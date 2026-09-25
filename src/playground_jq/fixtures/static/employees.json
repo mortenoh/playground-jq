@@ -1,0 +1,152 @@
+{
+  "departments": [
+    {
+      "id": "eng",
+      "name": "Engineering",
+      "floor": 3
+    },
+    {
+      "id": "ops",
+      "name": "Operations",
+      "floor": 1
+    },
+    {
+      "id": "sal",
+      "name": "Sales",
+      "floor": 2
+    },
+    {
+      "id": "hr",
+      "name": "People",
+      "floor": 2
+    }
+  ],
+  "employees": [
+    {
+      "id": 1,
+      "name": "Astrid",
+      "dept": "eng",
+      "title": "CTO",
+      "salary": 150000,
+      "manager": null,
+      "hired": "2014-03-01",
+      "skills": [
+        "go",
+        "jq",
+        "leadership"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Bjorn",
+      "dept": "eng",
+      "title": "Engineer",
+      "salary": 98000,
+      "manager": 1,
+      "hired": "2019-06-15",
+      "skills": [
+        "python",
+        "jq"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Chiara",
+      "dept": "eng",
+      "title": "Engineer",
+      "salary": 105000,
+      "manager": 1,
+      "hired": "2018-01-20",
+      "skills": [
+        "rust",
+        "go"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Dmitri",
+      "dept": "ops",
+      "title": "Head of Operations",
+      "salary": 110000,
+      "manager": null,
+      "hired": "2016-09-05",
+      "skills": [
+        "kubernetes",
+        "jq",
+        "bash"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Efua",
+      "dept": "ops",
+      "title": "SRE",
+      "salary": 95000,
+      "manager": 4,
+      "hired": "2021-02-01",
+      "skills": [
+        "bash",
+        "terraform"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Farid",
+      "dept": "sal",
+      "title": "Account Executive",
+      "salary": 72000,
+      "manager": 8,
+      "hired": "2022-04-11",
+      "skills": [
+        "negotiation"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Greta",
+      "dept": "sal",
+      "title": "Account Executive",
+      "salary": 76000,
+      "manager": 8,
+      "hired": "2020-11-30",
+      "skills": [
+        "negotiation",
+        "spanish"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Hiro",
+      "dept": "sal",
+      "title": "Head of Sales",
+      "salary": 120000,
+      "manager": null,
+      "hired": "2015-05-18",
+      "skills": [
+        "leadership"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Ines",
+      "dept": "hr",
+      "title": "People Partner",
+      "salary": 70000,
+      "manager": null,
+      "hired": "2023-08-21",
+      "skills": [
+        "recruiting"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Jonas",
+      "dept": "eng",
+      "title": "Intern",
+      "salary": 30000,
+      "manager": 2,
+      "hired": "2026-06-01",
+      "skills": []
+    }
+  ]
+}

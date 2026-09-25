@@ -1,0 +1,229 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.7522, 59.9139]
+      },
+      "properties": {
+        "name": "Oslo",
+        "country": "NO",
+        "population": 709037,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.3221, 60.3913]
+      },
+      "properties": {
+        "name": "Bergen",
+        "country": "NO",
+        "population": 291940,
+        "capital": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-13.2317, 8.4657]
+      },
+      "properties": {
+        "name": "Freetown",
+        "country": "SL",
+        "population": 1055964,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-11.7383, 7.9644]
+      },
+      "properties": {
+        "name": "Bo",
+        "country": "SL",
+        "population": 174354,
+        "capital": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-11.1903, 7.8767]
+      },
+      "properties": {
+        "name": "Kenema",
+        "country": "SL",
+        "population": 200354,
+        "capital": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.187, 5.6037]
+      },
+      "properties": {
+        "name": "Accra",
+        "country": "GH",
+        "population": 2514005,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [36.8219, -1.2921]
+      },
+      "properties": {
+        "name": "Nairobi",
+        "country": "KE",
+        "population": 4397073,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.5825, 0.3476]
+      },
+      "properties": {
+        "name": "Kampala",
+        "country": "UG",
+        "population": 1680600,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105.8342, 21.0278]
+      },
+      "properties": {
+        "name": "Hanoi",
+        "country": "VN",
+        "population": 8053663,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [90.4125, 23.8103]
+      },
+      "properties": {
+        "name": "Dhaka",
+        "country": "BD",
+        "population": 10278882,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-77.0428, -12.0464]
+      },
+      "properties": {
+        "name": "Lima",
+        "country": "PE",
+        "population": 9751000,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [85.324, 27.7172]
+      },
+      "properties": {
+        "name": "Kathmandu",
+        "country": "NP",
+        "population": 1442271,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [79.8612, 6.9271]
+      },
+      "properties": {
+        "name": "Colombo",
+        "country": "LK",
+        "population": 752993,
+        "capital": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [28.3228, -15.3875]
+      },
+      "properties": {
+        "name": "Lusaka",
+        "country": "ZM",
+        "population": 3041789,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [102.6331, 17.9757]
+      },
+      "properties": {
+        "name": "Vientiane",
+        "country": "LA",
+        "population": 948477,
+        "capital": true
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.1432, 46.2044]
+      },
+      "properties": {
+        "name": "Geneva",
+        "country": "CH",
+        "population": 203856,
+        "capital": false
+      }
+    }
+  ]
+}

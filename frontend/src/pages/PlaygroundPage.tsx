@@ -1,4 +1,4 @@
-import { ExternalLink, History, Link2, Play, RotateCcw, X } from 'lucide-react'
+import { Braces, ExternalLink, History, Link2, Play, RotateCcw, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -18,6 +18,7 @@ import {
 import { useStore } from '@/hooks/use-store'
 import { ApiError } from '@/lib/api'
 import { listSources, resolveInput, runProgram } from '@/lib/client'
+import { formatJson } from '@/lib/format'
 import { playground, STARTER, type PlaygroundState } from '@/lib/playground'
 import { history, remember } from '@/lib/progress'
 import { decodeState, encodeState } from '@/lib/share'
@@ -163,7 +164,14 @@ export default function PlaygroundPage() {
                     <SourcePicker
                         sources={sources}
                         origin={state.origin}
-                        onLoaded={(text, origin) => update({ input: text, origin })}
+                        onLoaded={(text, origin, format) =>
+                            update({
+                                input: text,
+                                origin,
+                                // CSV and other text is read line by line as strings.
+                                options: { ...playground.get().options, raw_input: format === 'text' },
+                            })
+                        }
                     />
                     <div className="ml-auto flex items-center gap-1">
                         <DropdownMenu>
@@ -229,6 +237,19 @@ export default function PlaygroundPage() {
                         <span className="ml-auto text-xs text-faint">
                             {(state.input.length / 1024).toFixed(1)} KB
                         </span>
+                        <Button
+                            variant="ghost"
+                            size="xs"
+                            disabled={state.options.raw_input}
+                            title="Indent the input; arrays of numbers stay on one line"
+                            onClick={() => {
+                                const formatted = formatJson(state.input)
+                                if (formatted === null) toast.error('The input is not a single JSON value')
+                                else update({ input: formatted })
+                            }}
+                        >
+                            <Braces /> Format
+                        </Button>
                     </div>
                     <div className="min-h-0 flex-1">
                         <CodePane

@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "username": "ada",
+    "name": {
+      "first": "Ada",
+      "last": "Lovelace"
+    },
+    "email": "ada@example.org",
+    "roles": [
+      "admin",
+      "editor"
+    ],
+    "active": true,
+    "address": {
+      "city": "London",
+      "country": "GB"
+    },
+    "signup": "2021-04-12",
+    "last_login": "2026-03-15T08:00:00Z",
+    "preferences": {
+      "theme": "dark",
+      "language": "en",
+      "notifications": {
+        "email": true,
+        "sms": false
+      }
+    }
+  },
+  {
+    "id": 2,
+    "username": "grace",
+    "name": {
+      "first": "Grace",
+      "last": "Hopper"
+    },
+    "email": "grace@example.org",
+    "roles": [
+      "editor"
+    ],
+    "active": true,
+    "address": {
+      "city": "New York",
+      "country": "US"
+    },
+    "signup": "2022-01-30",
+    "last_login": "2026-03-14T17:45:00Z",
+    "preferences": {
+      "theme": "light",
+      "language": "en",
+      "notifications": {
+        "email": false,
+        "sms": false
+      }
+    }
+  },
+  {
+    "id": 3,
+    "username": "linus",
+    "name": {
+      "first": "Linus",
+      "last": "T"
+    },
+    "email": "linus@example.org",
+    "roles": [
+      "viewer"
+    ],
+    "active": false,
+    "address": {
+      "city": "Helsinki",
+      "country": "FI"
+    },
+    "signup": "2020-09-01",
+    "last_login": null,
+    "preferences": {
+      "theme": "dark",
+      "language": "fi"
+    }
+  },
+  {
+    "id": 4,
+    "username": "margaret",
+    "name": {
+      "first": "Margaret",
+      "last": "Hamilton"
+    },
+    "email": "margaret@example.org",
+    "roles": [
+      "admin"
+    ],
+    "active": true,
+    "address": {
+      "city": "Boston",
+      "country": "US"
+    },
+    "signup": "2019-07-20",
+    "last_login": "2026-03-16T06:30:00Z"
+  },
+  {
+    "id": 5,
+    "username": "ken",
+    "name": {
+      "first": "Ken",
+      "last": "Thompson"
+    },
+    "email": null,
+    "roles": [],
+    "active": true,
+    "address": {
+      "city": "Berkeley",
+      "country": "US"
+    },
+    "signup": "2023-11-11",
+    "last_login": "2026-02-01T12:00:00Z",
+    "preferences": {
+      "theme": "dark",
+      "language": "en",
+      "notifications": {
+        "email": true,
+        "sms": true
+      }
+    }
+  },
+  {
+    "id": 6,
+    "username": "barbara",
+    "name": {
+      "first": "Barbara",
+      "last": "Liskov"
+    },
+    "email": "barbara@example.org",
+    "roles": [
+      "editor",
+      "viewer"
+    ],
+    "active": true,
+    "address": {
+      "city": "Boston",
+      "country": "US"
+    },
+    "signup": "2024-02-29",
+    "last_login": "2026-03-10T10:10:00Z",
+    "preferences": {
+      "theme": "light",
+      "language": "en",
+      "notifications": {
+        "email": true,
+        "sms": false
+      }
+    }
+  }
+]

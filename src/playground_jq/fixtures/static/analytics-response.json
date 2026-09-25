@@ -1,0 +1,184 @@
+{
+  "headers": [
+    {
+      "name": "dx",
+      "column": "Data",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "ou",
+      "column": "Organisation unit",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "pe",
+      "column": "Period",
+      "valueType": "TEXT",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "value",
+      "column": "Value",
+      "valueType": "NUMBER",
+      "type": "java.lang.Double",
+      "hidden": false,
+      "meta": false
+    }
+  ],
+  "metaData": {
+    "items": {
+      "fbfJHSPpUQD": {
+        "name": "ANC 1st visit"
+      },
+      "cYeuwXTCPkU": {
+        "name": "ANC 2nd visit"
+      },
+      "O6uvpzGd5pu": {
+        "name": "Bo"
+      },
+      "fdc6uOvgoji": {
+        "name": "Bombali"
+      },
+      "lc3eMKXaEfw": {
+        "name": "Bonthe"
+      },
+      "jUb8gELQApl": {
+        "name": "Kailahun"
+      },
+      "202601": {
+        "name": "January 2026"
+      },
+      "202602": {
+        "name": "February 2026"
+      },
+      "dx": {
+        "name": "Data"
+      },
+      "ou": {
+        "name": "Organisation unit"
+      },
+      "pe": {
+        "name": "Period"
+      }
+    },
+    "dimensions": {
+      "dx": [
+        "fbfJHSPpUQD",
+        "cYeuwXTCPkU"
+      ],
+      "ou": [
+        "O6uvpzGd5pu",
+        "fdc6uOvgoji",
+        "lc3eMKXaEfw",
+        "jUb8gELQApl"
+      ],
+      "pe": [
+        "202601",
+        "202602"
+      ]
+    }
+  },
+  "rows": [
+    [
+      "fbfJHSPpUQD",
+      "O6uvpzGd5pu",
+      "202601",
+      "1204.0"
+    ],
+    [
+      "fbfJHSPpUQD",
+      "O6uvpzGd5pu",
+      "202602",
+      "1150.0"
+    ],
+    [
+      "fbfJHSPpUQD",
+      "fdc6uOvgoji",
+      "202601",
+      "987.0"
+    ],
+    [
+      "fbfJHSPpUQD",
+      "fdc6uOvgoji",
+      "202602",
+      "1012.0"
+    ],
+    [
+      "fbfJHSPpUQD",
+      "lc3eMKXaEfw",
+      "202601",
+      "402.0"
+    ],
+    [
+      "fbfJHSPpUQD",
+      "lc3eMKXaEfw",
+      "202602",
+      "388.0"
+    ],
+    [
+      "fbfJHSPpUQD",
+      "jUb8gELQApl",
+      "202601",
+      "860.0"
+    ],
+    [
+      "fbfJHSPpUQD",
+      "jUb8gELQApl",
+      "202602",
+      "901.0"
+    ],
+    [
+      "cYeuwXTCPkU",
+      "O6uvpzGd5pu",
+      "202601",
+      "1011.0"
+    ],
+    [
+      "cYeuwXTCPkU",
+      "O6uvpzGd5pu",
+      "202602",
+      "990.0"
+    ],
+    [
+      "cYeuwXTCPkU",
+      "fdc6uOvgoji",
+      "202601",
+      "802.0"
+    ],
+    [
+      "cYeuwXTCPkU",
+      "fdc6uOvgoji",
+      "202602",
+      "845.0"
+    ],
+    [
+      "cYeuwXTCPkU",
+      "lc3eMKXaEfw",
+      "202601",
+      "310.0"
+    ],
+    [
+      "cYeuwXTCPkU",
+      "jUb8gELQApl",
+      "202601",
+      "700.0"
+    ],
+    [
+      "cYeuwXTCPkU",
+      "jUb8gELQApl",
+      "202602",
+      "722.0"
+    ]
+  ],
+  "width": 4,
+  "height": 15,
+  "headerWidth": 4
+}

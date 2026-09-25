@@ -1,0 +1,16 @@
+{"ts": "2026-03-16T10:00:01Z", "level": "info", "service": "api", "method": "GET", "path": "/v1/forecast", "status": 200, "latency_ms": 42}
+{"ts": "2026-03-16T10:00:02Z", "level": "info", "service": "api", "method": "GET", "path": "/v1/forecast", "status": 200, "latency_ms": 38}
+{"ts": "2026-03-16T10:00:04Z", "level": "warn", "service": "api", "method": "GET", "path": "/v1/radar", "status": 429, "latency_ms": 3}
+{"ts": "2026-03-16T10:00:05Z", "level": "info", "service": "auth", "method": "POST", "path": "/login", "status": 200, "latency_ms": 120}
+{"ts": "2026-03-16T10:00:07Z", "level": "error", "service": "api", "method": "GET", "path": "/v1/alerts", "status": 500, "latency_ms": 1503}
+{"ts": "2026-03-16T10:00:09Z", "level": "info", "service": "api", "method": "GET", "path": "/v1/forecast", "status": 200, "latency_ms": 45}
+{"ts": "2026-03-16T10:00:12Z", "level": "info", "service": "api", "method": "GET", "path": "/v1/stations", "status": 200, "latency_ms": 88}
+{"ts": "2026-03-16T10:00:13Z", "level": "warn", "service": "auth", "method": "POST", "path": "/login", "status": 401, "latency_ms": 95}
+{"ts": "2026-03-16T10:00:15Z", "level": "info", "service": "api", "method": "GET", "path": "/v1/forecast", "status": 304, "latency_ms": 5}
+{"ts": "2026-03-16T10:00:18Z", "level": "error", "service": "worker", "method": "RUN", "path": "job:refresh-radar", "status": 500, "latency_ms": 30211}
+{"ts": "2026-03-16T10:00:21Z", "level": "info", "service": "api", "method": "GET", "path": "/v1/stations", "status": 200, "latency_ms": 91}
+{"ts": "2026-03-16T10:00:22Z", "level": "info", "service": "api", "method": "DELETE", "path": "/v1/alerts/17", "status": 204, "latency_ms": 61}
+{"ts": "2026-03-16T10:00:25Z", "level": "debug", "service": "worker", "method": "RUN", "path": "job:cleanup", "status": 200, "latency_ms": 12}
+{"ts": "2026-03-16T10:00:27Z", "level": "info", "service": "auth", "method": "POST", "path": "/logout", "status": 200, "latency_ms": 15}
+{"ts": "2026-03-16T10:00:30Z", "level": "error", "service": "api", "method": "GET", "path": "/v1/alerts", "status": 503, "latency_ms": 2001}
+{"ts": "2026-03-16T10:00:33Z", "level": "info", "service": "api", "method": "GET", "path": "/v1/forecast", "status": 200, "latency_ms": 40}

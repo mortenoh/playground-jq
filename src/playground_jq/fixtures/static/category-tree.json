@@ -1,0 +1,60 @@
+{
+  "name": "root",
+  "id": 0,
+  "children": [
+    {
+      "name": "Books",
+      "id": 1,
+      "children": [
+        {
+          "name": "Programming",
+          "id": 2,
+          "children": [
+            {
+              "name": "jq",
+              "id": 3,
+              "children": []
+            },
+            {
+              "name": "Python",
+              "id": 4,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Fiction",
+          "id": 5,
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "id": 6,
+      "children": [
+        {
+          "name": "Jazz",
+          "id": 7,
+          "children": [
+            {
+              "name": "Bebop",
+              "id": 8,
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Folk",
+          "id": 9,
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Games",
+      "id": 10,
+      "children": []
+    }
+  ]
+}

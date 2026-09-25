@@ -1,0 +1,87 @@
+{
+  "app": {
+    "name": "weather-api",
+    "version": "2.4.1",
+    "debug": false
+  },
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "tls": {
+      "enabled": true,
+      "cert": "/etc/ssl/app.pem",
+      "key": "/etc/ssl/app.key"
+    },
+    "timeouts": {
+      "read": 30,
+      "write": 30,
+      "idle": 120
+    }
+  },
+  "database": {
+    "driver": "postgres",
+    "host": "db.internal",
+    "port": 5432,
+    "name": "weather",
+    "pool": {
+      "min": 2,
+      "max": 20
+    },
+    "password": "changeme"
+  },
+  "features": {
+    "forecasts": true,
+    "alerts": true,
+    "radar": false,
+    "beta": {
+      "ai_summaries": false,
+      "dark_mode": true
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "ttl_seconds": 300,
+    "backends": [
+      "memory",
+      "redis"
+    ]
+  },
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "outputs": [
+      {
+        "type": "stdout"
+      },
+      {
+        "type": "file",
+        "path": "/var/log/app.log",
+        "rotate": {
+          "max_mb": 100,
+          "keep": 5
+        }
+      }
+    ]
+  },
+  "environments": {
+    "dev": {
+      "server": {
+        "port": 3000
+      },
+      "app": {
+        "debug": true
+      }
+    },
+    "prod": {
+      "server": {
+        "port": 443
+      },
+      "database": {
+        "host": "db.prod.internal",
+        "pool": {
+          "max": 100
+        }
+      }
+    }
+  }
+}

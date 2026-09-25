@@ -1,0 +1,27 @@
+{
+  "name": "weather-dashboard",
+  "version": "3.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "maplibre-gl": "^6.11.2",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2",
+    "oxlint": "^1.85.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

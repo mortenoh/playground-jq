@@ -1,3 +1,84 @@
-- id: numbers
-  title: Numbers
-  file: numbers.json
+# Static datasets: hand-written, always available offline. One entry per file under static/.
+- id: bookstore
+  title: Bookstore
+  description: A shop with books (title, author, year, price, tags, stock, ratings) and staff. The classic starting point.
+  file: bookstore.json
+  tags: [beginner, objects, arrays]
+- id: github-issues
+  title: GitHub issues
+  description: Ten issues in the shape the GitHub API returns them, with labels, assignees, reactions and timestamps.
+  file: github-issues.json
+  tags: [api, dates, grouping]
+- id: employees
+  title: Employees and departments
+  description: Two related lists (employees with a dept id and manager id, and departments) for joins and grouping.
+  file: employees.json
+  tags: [joins, grouping, sql]
+- id: orders
+  title: Web shop orders
+  description: Orders with customers, line items, coupons (sometimes null) and shipping, for totals and reshaping.
+  file: orders.json
+  tags: [aggregation, reduce, nulls]
+- id: users
+  title: User accounts
+  description: Users with nested names, roles, optional preferences and nullable fields, for defaults and missing data.
+  file: users.json
+  tags: [nulls, defaults, objects]
+- id: config
+  title: Application config
+  description: A nested configuration with environment overrides and a secret, for paths, merging and redaction.
+  file: config.json
+  tags: [paths, merge, walk]
+- id: sensor-readings
+  title: Weather station readings
+  description: A week of station readings in the style of dirigent's demo pipelines, with an offline station and a string temperature.
+  file: sensor-readings.json
+  tags: [dirigent, types, select]
+- id: access-log
+  title: Access log (NDJSON)
+  description: One JSON object per line, as services log. Read line by line, or slurp with -s.
+  file: access-log.ndjson
+  format: ndjson
+  tags: [ndjson, slurp, logs]
+- id: people-csv
+  title: People (CSV text)
+  description: A small CSV file, to parse with -R (raw input) and string functions.
+  file: people.csv
+  format: text
+  tags: [raw-input, csv, strings]
+- id: world-cities
+  title: World cities (GeoJSON points)
+  description: A FeatureCollection of 16 cities with population and capital flags.
+  file: world-cities.geojson
+  format: geojson
+  tags: [geojson]
+- id: analytics-response
+  title: DHIS2 analytics response
+  description: The shape /api/analytics answers with (headers, rows, metaData), for turning rows into objects.
+  file: analytics-response.json
+  tags: [dhis2, analytics, tables]
+- id: category-tree
+  title: Category tree
+  description: A recursive tree of categories, for recurse, paths and flattening.
+  file: category-tree.json
+  tags: [recursion, paths]
+- id: package-json
+  title: package.json
+  description: A Node package manifest, for to_entries, with_entries and version strings.
+  file: package.json
+  tags: [entries, strings]
+- id: k8s-pods
+  title: Kubernetes pods
+  description: The output of `kubectl get pods -o json` for a few namespaces, including a crash-looping pod.
+  file: k8s-pods.json
+  tags: [devops, real-world]
+- id: aws-ec2
+  title: AWS EC2 instances
+  description: The output of `aws ec2 describe-instances`, with tags as Key/Value lists.
+  file: aws-ec2.json
+  tags: [devops, real-world, from_entries]
+- id: fhir-questionnaire-response
+  title: FHIR QuestionnaireResponse
+  description: A nested FHIR form response, as mapped to DHIS2 data values in dirigent-dhis2.
+  file: fhir-questionnaire-response.json
+  tags: [dhis2, fhir, recursion]

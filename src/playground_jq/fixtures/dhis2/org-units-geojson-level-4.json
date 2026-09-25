@@ -6,10 +6,7 @@
       "id": "plnHVbJR6p4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9487,
-          9.0131
-        ]
+        "coordinates": [-12.9487, 9.0131]
       },
       "properties": {
         "code": "OU_211234",
@@ -28,10 +25,7 @@
       "id": "BV4IomHvri4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2231,
-          8.466
-        ]
+        "coordinates": [-12.2231, 8.466]
       },
       "properties": {
         "code": "OU_268246",
@@ -51,10 +45,7 @@
       "id": "qjboFI0irVu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2027,
-          8.6154
-        ]
+        "coordinates": [-13.2027, 8.6154]
       },
       "properties": {
         "code": "OU_255017",
@@ -73,10 +64,7 @@
       "id": "kbGqmM6ZWWV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.155,
-          8.4176
-        ]
+        "coordinates": [-13.155, 8.4176]
       },
       "properties": {
         "code": "OU_278337",
@@ -95,10 +83,7 @@
       "id": "eoYV2p74eVz",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.178,
-          8.4613
-        ]
+        "coordinates": [-13.178, 8.4613]
       },
       "properties": {
         "code": "OU_278314",
@@ -118,10 +103,7 @@
       "id": "nq7F0t1Pz6t",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.221,
-          8.4832
-        ]
+        "coordinates": [-13.221, 8.4832]
       },
       "properties": {
         "code": "OU_233378",
@@ -141,10 +123,7 @@
       "id": "r5WWF9WDzoa",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3329,
-          8.3588
-        ]
+        "coordinates": [-11.3329, 8.3588]
       },
       "properties": {
         "code": "OU_222681",
@@ -164,10 +143,7 @@
       "id": "yMCshbaVExv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1317,
-          8.8295
-        ]
+        "coordinates": [-13.1317, 8.8295]
       },
       "properties": {
         "code": "OU_254991",
@@ -187,10 +163,7 @@
       "id": "Jiymtq0A01x",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.732,
-          9.6835
-        ]
+        "coordinates": [-11.732, 9.6835]
       },
       "properties": {
         "code": "OU_226243",
@@ -210,10 +183,7 @@
       "id": "XtuhRhmbrJM",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9677,
-          8.5167
-        ]
+        "coordinates": [-10.9677, 8.5167]
       },
       "properties": {
         "code": "OU_233331",
@@ -233,10 +203,7 @@
       "id": "c41XRVOYNJm",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7692,
-          8.034
-        ]
+        "coordinates": [-10.7692, 8.034]
       },
       "properties": {
         "code": "OU_204914",
@@ -256,10 +223,7 @@
       "id": "Rll4VmTDRiE",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8752,
-          8.2806
-        ]
+        "coordinates": [-11.8752, 8.2806]
       },
       "properties": {
         "code": "OU_246994",
@@ -279,10 +243,7 @@
       "id": "Eyj2kiEJ7M3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2392,
-          8.8219
-        ]
+        "coordinates": [-13.2392, 8.8219]
       },
       "properties": {
         "code": "OU_254996",
@@ -302,10 +263,7 @@
       "id": "MHAWZr2Caxw",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2933,
-          8.3955
-        ]
+        "coordinates": [-12.2933, 8.3955]
       },
       "properties": {
         "code": "OU_268228",
@@ -325,10 +283,7 @@
       "id": "mUuCjQWMaOc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3454,
-          8.3164
-        ]
+        "coordinates": [-11.3454, 8.3164]
       },
       "properties": {
         "code": "OU_222679",
@@ -348,10 +303,7 @@
       "id": "aSfF9kuNINJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1625,
-          7.9794
-        ]
+        "coordinates": [-12.1625, 7.9794]
       },
       "properties": {
         "code": "OU_247021",
@@ -371,10 +323,7 @@
       "id": "FNnj3jKGS7i",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6522,
-          7.5724
-        ]
+        "coordinates": [-11.6522, 7.5724]
       },
       "properties": {
         "code": "OU_260387",
@@ -394,10 +343,7 @@
       "id": "ABM75Q1UfoP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5735,
-          8.2753
-        ]
+        "coordinates": [-10.5735, 8.2753]
       },
       "properties": {
         "code": "OU_204882",
@@ -417,10 +363,7 @@
       "id": "MpcMjLmbATv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5735,
-          8.2755
-        ]
+        "coordinates": [-10.5735, 8.2755]
       },
       "properties": {
         "code": "OU_204938",
@@ -440,10 +383,7 @@
       "id": "uPshwz3B3Uu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4089,
-          7.3691
-        ]
+        "coordinates": [-11.4089, 7.3691]
       },
       "properties": {
         "code": "OU_260436",
@@ -463,10 +403,7 @@
       "id": "aF6iPGbrcRk",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7983,
-          8.6966
-        ]
+        "coordinates": [-10.7983, 8.6966]
       },
       "properties": {
         "code": "OU_233360",
@@ -486,10 +423,7 @@
       "id": "t1aAdpBbDB3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7096,
-          8.5268
-        ]
+        "coordinates": [-10.7096, 8.5268]
       },
       "properties": {
         "code": "OU_233318",
@@ -509,10 +443,7 @@
       "id": "FLjwMPWLrL2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6677,
-          8.4165
-        ]
+        "coordinates": [-11.6677, 8.4165]
       },
       "properties": {
         "code": "OU_1126",
@@ -532,10 +463,7 @@
       "id": "t52CJEyLhch",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7867,
-          8.4249
-        ]
+        "coordinates": [-10.7867, 8.4249]
       },
       "properties": {
         "code": "OU_233393",
@@ -555,10 +483,7 @@
       "id": "Y8foq27WLti",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3282,
-          8.0421
-        ]
+        "coordinates": [-11.3282, 8.0421]
       },
       "properties": {
         "code": "OU_222728",
@@ -578,10 +503,7 @@
       "id": "jNb63DIHuwU",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4382,
-          7.9294
-        ]
+        "coordinates": [-11.4382, 7.9294]
       },
       "properties": {
         "code": "OU_573",
@@ -600,10 +522,7 @@
       "id": "QIp6DHlMGfb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1137,
-          8.942
-        ]
+        "coordinates": [-13.1137, 8.942]
       },
       "properties": {
         "code": "OU_211247",
@@ -621,10 +540,7 @@
       "id": "weLTzWrLXCO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1107,
-          9.0087
-        ]
+        "coordinates": [-13.1107, 9.0087]
       },
       "properties": {
         "code": "OU_211255",
@@ -644,10 +560,7 @@
       "id": "y5hLlID8ihI",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5839,
-          8.0202
-        ]
+        "coordinates": [-11.5839, 8.0202]
       },
       "properties": {
         "code": "OU_2732",
@@ -667,10 +580,7 @@
       "id": "vyIl6s0lhKc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9062,
-          9.0382
-        ]
+        "coordinates": [-12.9062, 9.0382]
       },
       "properties": {
         "code": "OU_211229",
@@ -690,10 +600,7 @@
       "id": "vELaJEPLOPF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.75,
-          9.092
-        ]
+        "coordinates": [-12.75, 9.092]
       },
       "properties": {
         "code": "OU_211258",
@@ -713,10 +620,7 @@
       "id": "sDTodaygv5u",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4486,
-          8.3348
-        ]
+        "coordinates": [-12.4486, 8.3348]
       },
       "properties": {
         "code": "OU_268243",
@@ -736,10 +640,7 @@
       "id": "UGVLYrO63mR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6861,
-          7.39085
-        ]
+        "coordinates": [-11.6861, 7.39085]
       },
       "properties": {
         "code": "OU_1164",
@@ -759,10 +660,7 @@
       "id": "agM0BKQlTh3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.02582,
-          9.39236
-        ]
+        "coordinates": [-12.02582, 9.39236]
       },
       "properties": {
         "code": "OU_193303",
@@ -782,10 +680,7 @@
       "id": "k92yudERPlv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7258,
-          7.4082
-        ]
+        "coordinates": [-11.7258, 7.4082]
       },
       "properties": {
         "code": "OU_260418",
@@ -805,10 +700,7 @@
       "id": "PwgoRuWEDvJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0428,
-          7.6057
-        ]
+        "coordinates": [-11.0428, 7.6057]
       },
       "properties": {
         "code": "OU_222635",
@@ -828,10 +720,7 @@
       "id": "uFp0ztDOFbI",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.30127,
-          7.4966
-        ]
+        "coordinates": [-12.30127, 7.4966]
       },
       "properties": {
         "code": "OU_197430",
@@ -851,10 +740,7 @@
       "id": "o0BgK1dLhF8",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4941,
-          9.0633
-        ]
+        "coordinates": [-11.4941, 9.0633]
       },
       "properties": {
         "code": "OU_268170",
@@ -874,10 +760,7 @@
       "id": "n7wN9gMFfZ5",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12,
-          7.3
-        ]
+        "coordinates": [-12, 7.3]
       },
       "properties": {
         "code": "OU_197435",
@@ -897,10 +780,7 @@
       "id": "Wr8kmywwseZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5217,
-          8.0261
-        ]
+        "coordinates": [-11.5217, 8.0261]
       },
       "properties": {
         "code": "OU_602",
@@ -920,10 +800,7 @@
       "id": "amgb83zVxp5",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9705,
-          8.1001
-        ]
+        "coordinates": [-10.9705, 8.1001]
       },
       "properties": {
         "code": "OU_222674",
@@ -943,10 +820,7 @@
       "id": "DQHGtTGOP6b",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5741,
-          8.2762
-        ]
+        "coordinates": [-10.5741, 8.2762]
       },
       "properties": {
         "code": "OU_204936",
@@ -966,10 +840,7 @@
       "id": "wQ71REGAMet",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5365,
-          7.8303
-        ]
+        "coordinates": [-12.5365, 7.8303]
       },
       "properties": {
         "code": "OU_247054",
@@ -989,10 +860,7 @@
       "id": "OcRCVRy2M7X",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8975,
-          8.6553
-        ]
+        "coordinates": [-12.8975, 8.6553]
       },
       "properties": {
         "code": "OU_254993",
@@ -1012,10 +880,7 @@
       "id": "GHHvGp7tgtZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9822,
-          8.9503
-        ]
+        "coordinates": [-11.9822, 8.9503]
       },
       "properties": {
         "code": "OU_193275",
@@ -1035,10 +900,7 @@
       "id": "kUzpbgPCwVA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3465,
-          7.8719
-        ]
+        "coordinates": [-11.3465, 7.8719]
       },
       "properties": {
         "code": "OU_222624",
@@ -1058,10 +920,7 @@
       "id": "xXhKbgwL39t",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6356,
-          7.3492
-        ]
+        "coordinates": [-11.6356, 7.3492]
       },
       "properties": {
         "code": "OU_260424",
@@ -1081,10 +940,7 @@
       "id": "L5gENbBNNup",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3423,
-          8.187
-        ]
+        "coordinates": [-11.3423, 8.187]
       },
       "properties": {
         "code": "OU_222689",
@@ -1104,10 +960,7 @@
       "id": "rZxk3S0qN63",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.743,
-          7.9643
-        ]
+        "coordinates": [-11.743, 7.9643]
       },
       "properties": {
         "code": "OU_15",
@@ -1125,10 +978,7 @@
       "id": "PB8FMGbn19r",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.8373,
-          7.9594
-        ]
+        "coordinates": [-10.8373, 7.9594]
       },
       "properties": {
         "code": "OU_204864",
@@ -1148,10 +998,7 @@
       "id": "VXrJKs8hic4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0464,
-          8.2318
-        ]
+        "coordinates": [-11.0464, 8.2318]
       },
       "properties": {
         "code": "OU_222661",
@@ -1171,10 +1018,7 @@
       "id": "H97XE5Ea089",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6548,
-          7.8188
-        ]
+        "coordinates": [-12.6548, 7.8188]
       },
       "properties": {
         "code": "OU_247045",
@@ -1194,10 +1038,7 @@
       "id": "szbAJSWOXjT",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9456,
-          8.6668
-        ]
+        "coordinates": [-10.9456, 8.6668]
       },
       "properties": {
         "code": "OU_233382",
@@ -1217,10 +1058,7 @@
       "id": "vRC0stJ5y9Q",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7259,
-          7.9403
-        ]
+        "coordinates": [-11.7259, 7.9403]
       },
       "properties": {
         "code": "OU_1010",
@@ -1241,10 +1079,7 @@
       "id": "LZclRdyVk1t",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0048,
-          9.0892
-        ]
+        "coordinates": [-12.0048, 9.0892]
       },
       "properties": {
         "code": "OU_193238",
@@ -1264,10 +1099,7 @@
       "id": "OI0BQUurVFS",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9099,
-          9.0709
-        ]
+        "coordinates": [-11.9099, 9.0709]
       },
       "properties": {
         "code": "OU_193236",
@@ -1287,10 +1119,7 @@
       "id": "DwpbWkiqjMy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5642,
-          7.4905
-        ]
+        "coordinates": [-11.5642, 7.4905]
       },
       "properties": {
         "code": "OU_260391",
@@ -1310,10 +1139,7 @@
       "id": "Q2USZSJmcNK",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7449,
-          9.0449
-        ]
+        "coordinates": [-11.7449, 9.0449]
       },
       "properties": {
         "code": "OU_268195",
@@ -1333,10 +1159,7 @@
       "id": "EJoI3HArJ2W",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8774,
-          7.5052
-        ]
+        "coordinates": [-11.8774, 7.5052]
       },
       "properties": {
         "code": "OU_619",
@@ -1356,10 +1179,7 @@
       "id": "E497Rk80ivZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9033,
-          7.8894
-        ]
+        "coordinates": [-11.9033, 7.8894]
       },
       "properties": {
         "code": "OU_651",
@@ -1379,10 +1199,7 @@
       "id": "wbtk73Zwhj9",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.80713,
-          8.22032
-        ]
+        "coordinates": [-10.80713, 8.22032]
       },
       "properties": {
         "code": "OU_204874",
@@ -1402,10 +1219,7 @@
       "id": "d9zRBAoM8OC",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5656,
-          7.2841
-        ]
+        "coordinates": [-11.5656, 7.2841]
       },
       "properties": {
         "code": "OU_260423",
@@ -1425,10 +1239,7 @@
       "id": "mkIugjeYSjE",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5735,
-          8.2755
-        ]
+        "coordinates": [-10.5735, 8.2755]
       },
       "properties": {
         "code": "OU_247027",
@@ -1448,10 +1259,7 @@
       "id": "HVQ6gJE8R24",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9069,
-          8.7642
-        ]
+        "coordinates": [-12.9069, 8.7642]
       },
       "properties": {
         "code": "OU_254994",
@@ -1471,10 +1279,7 @@
       "id": "rpAgG9XCWhO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8555,
-          8.8958
-        ]
+        "coordinates": [-12.8555, 8.8958]
       },
       "properties": {
         "code": "OU_255052",
@@ -1494,10 +1299,7 @@
       "id": "h9q3qixffZT",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.053,
-          8.3098
-        ]
+        "coordinates": [-13.053, 8.3098]
       },
       "properties": {
         "code": "OU_278399",
@@ -1517,10 +1319,7 @@
       "id": "U4FzUXMvbI8",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2379,
-          8.6976
-        ]
+        "coordinates": [-13.2379, 8.6976]
       },
       "properties": {
         "code": "OU_255009",
@@ -1540,10 +1339,7 @@
       "id": "yTMrs5kClCv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2034,
-          8.6319
-        ]
+        "coordinates": [-11.2034, 8.6319]
       },
       "properties": {
         "code": "OU_233336",
@@ -1563,10 +1359,7 @@
       "id": "ldXIdLNUNEn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2382,
-          8.4883
-        ]
+        "coordinates": [-13.2382, 8.4883]
       },
       "properties": {
         "code": "OU_278320",
@@ -1586,10 +1379,7 @@
       "id": "U2QkKSeyL5r",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9709,
-          8.3578
-        ]
+        "coordinates": [-12.9709, 8.3578]
       },
       "properties": {
         "code": "OU_278374",
@@ -1609,10 +1399,7 @@
       "id": "wByqtWCCuDJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7036,
-          8.1207
-        ]
+        "coordinates": [-11.7036, 8.1207]
       },
       "properties": {
         "code": "OU_1095",
@@ -1632,10 +1419,7 @@
       "id": "RpRJUDOPtt7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.685,
-          7.4774
-        ]
+        "coordinates": [-11.685, 7.4774]
       },
       "properties": {
         "code": "OU_260405",
@@ -1655,10 +1439,7 @@
       "id": "m5BX6CvJ6Ex",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.8443,
-          7.9901
-        ]
+        "coordinates": [-10.8443, 7.9901]
       },
       "properties": {
         "code": "OU_204865",
@@ -1678,10 +1459,7 @@
       "id": "JemZqD90S44",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5745,
-          8.2754
-        ]
+        "coordinates": [-10.5745, 8.2754]
       },
       "properties": {
         "code": "OU_204891",
@@ -1701,10 +1479,7 @@
       "id": "C1tAqIpKB9k",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2063,
-          7.8631
-        ]
+        "coordinates": [-11.2063, 7.8631]
       },
       "properties": {
         "code": "OU_222722",
@@ -1724,10 +1499,7 @@
       "id": "oIgBLlEo6eH",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2595,
-          7.9779
-        ]
+        "coordinates": [-11.2595, 7.9779]
       },
       "properties": {
         "code": "OU_222729",
@@ -1747,10 +1519,7 @@
       "id": "sSgOnY1Xqd9",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7954,
-          7.57179
-        ]
+        "coordinates": [-12.7954, 7.57179]
       },
       "properties": {
         "code": "OU_197399",
@@ -1770,10 +1539,7 @@
       "id": "qHBTf9A89xW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5736,
-          8.2754
-        ]
+        "coordinates": [-10.5736, 8.2754]
       },
       "properties": {
         "code": "OU_204876",
@@ -1793,10 +1559,7 @@
       "id": "jKZ0U8Og5aV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1733,
-          8.1519
-        ]
+        "coordinates": [-11.1733, 8.1519]
       },
       "properties": {
         "code": "OU_222683",
@@ -1816,10 +1579,7 @@
       "id": "rwfuVQHnZJ5",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5736,
-          8.2754
-        ]
+        "coordinates": [-10.5736, 8.2754]
       },
       "properties": {
         "code": "OU_204904",
@@ -1839,10 +1599,7 @@
       "id": "hKD6hpZUh9v",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3818,
-          8.2862
-        ]
+        "coordinates": [-11.3818, 8.2862]
       },
       "properties": {
         "code": "OU_222680",
@@ -1862,10 +1619,7 @@
       "id": "K6oyIMh7Lee",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7651,
-          9.3901
-        ]
+        "coordinates": [-11.7651, 9.3901]
       },
       "properties": {
         "code": "OU_226224",
@@ -1885,10 +1639,7 @@
       "id": "Gm7YUjhVi9Q",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4045,
-          7.0881
-        ]
+        "coordinates": [-11.4045, 7.0881]
       },
       "properties": {
         "code": "OU_260415",
@@ -1908,10 +1659,7 @@
       "id": "kuqKh33SPgg",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3208,
-          9.8571
-        ]
+        "coordinates": [-11.3208, 9.8571]
       },
       "properties": {
         "code": "OU_226230",
@@ -1931,10 +1679,7 @@
       "id": "pRg7dkjqNPc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5289,
-          7.4203
-        ]
+        "coordinates": [-11.5289, 7.4203]
       },
       "properties": {
         "code": "OU_260425",
@@ -1954,10 +1699,7 @@
       "id": "YTQRSW91PxO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3796,
-          8.2111
-        ]
+        "coordinates": [-12.3796, 8.2111]
       },
       "properties": {
         "code": "OU_247091",
@@ -1977,10 +1719,7 @@
       "id": "fmLRqcL9sWF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.279,
-          8.961
-        ]
+        "coordinates": [-11.279, 8.961]
       },
       "properties": {
         "code": "OU_226270",
@@ -2000,10 +1739,7 @@
       "id": "JLKGG67z7oj",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9707,
-          8.6429
-        ]
+        "coordinates": [-10.9707, 8.6429]
       },
       "properties": {
         "code": "OU_233379",
@@ -2023,10 +1759,7 @@
       "id": "r4W2vzlmPhm",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9229,
-          7.6842
-        ]
+        "coordinates": [-11.9229, 7.6842]
       },
       "properties": {
         "code": "OU_1054",
@@ -2046,10 +1779,7 @@
       "id": "rYIkxCJFtTX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.6418,
-          8.5924
-        ]
+        "coordinates": [-10.6418, 8.5924]
       },
       "properties": {
         "code": "OU_233320",
@@ -2069,10 +1799,7 @@
       "id": "xKaB8tfbTzm",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.225,
-          9.674
-        ]
+        "coordinates": [-12.225, 9.674]
       },
       "properties": {
         "code": "OU_193247",
@@ -2092,10 +1819,7 @@
       "id": "aVycEyoSBJx",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.05933,
-          8.44316
-        ]
+        "coordinates": [-13.05933, 8.44316]
       },
       "properties": {
         "code": "OU_278369",
@@ -2115,10 +1839,7 @@
       "id": "D3oZZXtXjNk",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0712,
-          8.3175
-        ]
+        "coordinates": [-12.0712, 8.3175]
       },
       "properties": {
         "code": "OU_268236",
@@ -2138,10 +1859,7 @@
       "id": "z1ielwdLtPl",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4992,
-          8.7502
-        ]
+        "coordinates": [-12.4992, 8.7502]
       },
       "properties": {
         "code": "OU_255027",
@@ -2161,10 +1879,7 @@
       "id": "JKhjdiwoQZu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4577,
-          9.25
-        ]
+        "coordinates": [-11.4577, 9.25]
       },
       "properties": {
         "code": "OU_226267",
@@ -2184,10 +1899,7 @@
       "id": "OwhDCucf4Ue",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3831,
-          8.5906
-        ]
+        "coordinates": [-11.3831, 8.5906]
       },
       "properties": {
         "code": "OU_268183",
@@ -2207,10 +1919,7 @@
       "id": "eRg3KZyWUSJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7607,
-          7.9562
-        ]
+        "coordinates": [-11.7607, 7.9562]
       },
       "properties": {
         "code": "OU_839",
@@ -2230,10 +1939,7 @@
       "id": "uDzWmUDHKeR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.574,
-          7.5612
-        ]
+        "coordinates": [-11.574, 7.5612]
       },
       "properties": {
         "code": "OU_260389",
@@ -2253,10 +1959,7 @@
       "id": "UWhv0MQOqoB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1758,
-          7.5355
-        ]
+        "coordinates": [-12.1758, 7.5355]
       },
       "properties": {
         "code": "OU_197395",
@@ -2276,10 +1979,7 @@
       "id": "ZdPkczYqeIY",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.61438,
-          8.10341
-        ]
+        "coordinates": [-12.61438, 8.10341]
       },
       "properties": {
         "code": "OU_247092",
@@ -2299,10 +1999,7 @@
       "id": "IWb1hstfROc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4489,
-          7.6147
-        ]
+        "coordinates": [-11.4489, 7.6147]
       },
       "properties": {
         "code": "OU_222651",
@@ -2322,10 +2019,7 @@
       "id": "GAvxcmr5jB1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1884,
-          7.7155
-        ]
+        "coordinates": [-11.1884, 7.7155]
       },
       "properties": {
         "code": "OU_222738",
@@ -2345,10 +2039,7 @@
       "id": "ei21lW7hFPX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6133,
-          7.839
-        ]
+        "coordinates": [-11.6133, 7.839]
       },
       "properties": {
         "code": "OU_826",
@@ -2368,10 +2059,7 @@
       "id": "kedYKTsv95j",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2776,
-          8.0109
-        ]
+        "coordinates": [-11.2776, 8.0109]
       },
       "properties": {
         "code": "OU_222730",
@@ -2391,10 +2079,7 @@
       "id": "jGYT5U5qJP6",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8495,
-          8.1094
-        ]
+        "coordinates": [-11.8495, 8.1094]
       },
       "properties": {
         "code": "OU_653",
@@ -2414,10 +2099,7 @@
       "id": "QFcMulIoEii",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3387,
-          8.0452
-        ]
+        "coordinates": [-11.3387, 8.0452]
       },
       "properties": {
         "code": "OU_193217",
@@ -2437,10 +2119,7 @@
       "id": "nDoybVJLD74",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.4887,
-          8.2545
-        ]
+        "coordinates": [-10.4887, 8.2545]
       },
       "properties": {
         "code": "OU_204898",
@@ -2460,10 +2139,7 @@
       "id": "IPvrsWbm0EM",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6562,
-          9
-        ]
+        "coordinates": [-12.6562, 9]
       },
       "properties": {
         "code": "OU_211219",
@@ -2483,10 +2159,7 @@
       "id": "AlLmKZIIIT4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.669,
-          8.6426
-        ]
+        "coordinates": [-10.669, 8.6426]
       },
       "properties": {
         "code": "OU_233323",
@@ -2506,10 +2179,7 @@
       "id": "D2rB1GRuh8C",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3097,
-          7.7058
-        ]
+        "coordinates": [-12.3097, 7.7058]
       },
       "properties": {
         "code": "OU_197418",
@@ -2529,10 +2199,7 @@
       "id": "lQIe6vtSe1P",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.857,
-          8.7842
-        ]
+        "coordinates": [-10.857, 8.7842]
       },
       "properties": {
         "code": "OU_233381",
@@ -2552,10 +2219,7 @@
       "id": "ubsjwFFBaJM",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3805,
-          7.8077
-        ]
+        "coordinates": [-12.3805, 7.8077]
       },
       "properties": {
         "code": "OU_247016",
@@ -2575,10 +2239,7 @@
       "id": "VH7hLUaypel",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3059,
-          8.1724
-        ]
+        "coordinates": [-11.3059, 8.1724]
       },
       "properties": {
         "code": "OU_222688",
@@ -2598,10 +2259,7 @@
       "id": "E9oBVjyEaCe",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7435,
-          7.9897
-        ]
+        "coordinates": [-11.7435, 7.9897]
       },
       "properties": {
         "code": "OU_841",
@@ -2621,10 +2279,7 @@
       "id": "uedNhvYPMNu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2658,
-          9.2491
-        ]
+        "coordinates": [-12.2658, 9.2491]
       },
       "properties": {
         "code": "OU_193216",
@@ -2644,10 +2299,7 @@
       "id": "TEVtOFKcLAP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2,
-          7.4
-        ]
+        "coordinates": [-12.2, 7.4]
       },
       "properties": {
         "code": "OU_197447",
@@ -2667,10 +2319,7 @@
       "id": "U8tyWV7WmIB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5736,
-          8.2754
-        ]
+        "coordinates": [-10.5736, 8.2754]
       },
       "properties": {
         "code": "OU_204881",
@@ -2690,10 +2339,7 @@
       "id": "YAuJ3fyoEuI",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2074,
-          9.1075
-        ]
+        "coordinates": [-12.2074, 9.1075]
       },
       "properties": {
         "code": "OU_193281",
@@ -2713,10 +2359,7 @@
       "id": "y77LiPqLMoq",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4701,
-          9.6228
-        ]
+        "coordinates": [-11.4701, 9.6228]
       },
       "properties": {
         "code": "OU_226236",
@@ -2736,10 +2379,7 @@
       "id": "D7UVRRE9iUC",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6447,
-          9.9432
-        ]
+        "coordinates": [-11.6447, 9.9432]
       },
       "properties": {
         "code": "OU_226255",
@@ -2759,10 +2399,7 @@
       "id": "qELjt3LRkSD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1447,
-          9.4149
-        ]
+        "coordinates": [-11.1447, 9.4149]
       },
       "properties": {
         "code": "OU_226251",
@@ -2782,10 +2419,7 @@
       "id": "LFpl1falVZi",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4434,
-          9.9115
-        ]
+        "coordinates": [-11.4434, 9.9115]
       },
       "properties": {
         "code": "OU_226218",
@@ -2805,10 +2439,7 @@
       "id": "TYq1YW7qs7k",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1993,
-          7.8604
-        ]
+        "coordinates": [-11.1993, 7.8604]
       },
       "properties": {
         "code": "OU_222721",
@@ -2828,10 +2459,7 @@
       "id": "vwvDblM3MNX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7379,
-          9.3485
-        ]
+        "coordinates": [-12.7379, 9.3485]
       },
       "properties": {
         "code": "OU_211222",
@@ -2851,10 +2479,7 @@
       "id": "X3D19LoA2Ij",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6572,
-          8.9258
-        ]
+        "coordinates": [-12.6572, 8.9258]
       },
       "properties": {
         "code": "OU_254978",
@@ -2874,10 +2499,7 @@
       "id": "bHcw141PTsE",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8495,
-          7.3193
-        ]
+        "coordinates": [-11.8495, 7.3193]
       },
       "properties": {
         "code": "OU_260407",
@@ -2897,10 +2519,7 @@
       "id": "tGf942oWszb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7861,
-          8.0307
-        ]
+        "coordinates": [-11.7861, 8.0307]
       },
       "properties": {
         "code": "OU_843",
@@ -2920,10 +2539,7 @@
       "id": "MMrdfNDfBIi",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.066,
-          7.6719
-        ]
+        "coordinates": [-12.066, 7.6719]
       },
       "properties": {
         "code": "OU_197428",
@@ -2943,10 +2559,7 @@
       "id": "rebbn0ooFSO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3878,
-          8.0557
-        ]
+        "coordinates": [-12.3878, 8.0557]
       },
       "properties": {
         "code": "OU_247064",
@@ -2966,10 +2579,7 @@
       "id": "HOgWkpYH3KB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.6357,
-          8.8919
-        ]
+        "coordinates": [-10.6357, 8.8919]
       },
       "properties": {
         "code": "OU_233350",
@@ -2989,10 +2599,7 @@
       "id": "BXJnMD2eJAx",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3161,
-          9.2398
-        ]
+        "coordinates": [-12.3161, 9.2398]
       },
       "properties": {
         "code": "OU_193222",
@@ -3012,10 +2619,7 @@
       "id": "zm9breCeT1m",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8428,
-          8.7827
-        ]
+        "coordinates": [-12.8428, 8.7827]
       },
       "properties": {
         "code": "OU_254959",
@@ -3035,10 +2639,7 @@
       "id": "v2vi8UaIYlo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5042,
-          9.0331
-        ]
+        "coordinates": [-12.5042, 9.0331]
       },
       "properties": {
         "code": "OU_193307",
@@ -3058,10 +2659,7 @@
       "id": "i7qaYfmGVDr",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7296,
-          7.9718
-        ]
+        "coordinates": [-11.7296, 7.9718]
       },
       "properties": {
         "code": "OU_845",
@@ -3081,10 +2679,7 @@
       "id": "DA2BEQMhv9B",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1244,
-          8.2511
-        ]
+        "coordinates": [-12.1244, 8.2511]
       },
       "properties": {
         "code": "OU_246993",
@@ -3104,10 +2699,7 @@
       "id": "FZxJ0KST9jn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3916,
-          7.8975
-        ]
+        "coordinates": [-11.3916, 7.8975]
       },
       "properties": {
         "code": "OU_222626",
@@ -3127,10 +2719,7 @@
       "id": "W3t0pSZLtrC",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3478,
-          8.233
-        ]
+        "coordinates": [-11.3478, 8.233]
       },
       "properties": {
         "code": "OU_222678",
@@ -3150,10 +2739,7 @@
       "id": "FbD5Z8z22Yb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.694,
-          7.5099
-        ]
+        "coordinates": [-11.694, 7.5099]
       },
       "properties": {
         "code": "OU_260385",
@@ -3173,10 +2759,7 @@
       "id": "U514Dz4v9pv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.23527,
-          8.46819
-        ]
+        "coordinates": [-13.23527, 8.46819]
       },
       "properties": {
         "code": "OU_278330",
@@ -3196,10 +2779,7 @@
       "id": "m0XorV4WWg0",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2185,
-          8.4817
-        ]
+        "coordinates": [-13.2185, 8.4817]
       },
       "properties": {
         "code": "OU_278361",
@@ -3219,10 +2799,7 @@
       "id": "dQggcljEImF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.29096,
-          8.43552
-        ]
+        "coordinates": [-13.29096, 8.43552]
       },
       "properties": {
         "code": "OU_278392",
@@ -3242,10 +2819,7 @@
       "id": "lf7FRlrchg3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3602,
-          7.2429
-        ]
+        "coordinates": [-11.3602, 7.2429]
       },
       "properties": {
         "code": "OU_260383",
@@ -3265,10 +2839,7 @@
       "id": "azRICFoILuh",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5444,
-          7.9049
-        ]
+        "coordinates": [-11.5444, 7.9049]
       },
       "properties": {
         "code": "OU_577",
@@ -3288,10 +2859,7 @@
       "id": "fRV3Fhz1IP8",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1349,
-          7.753
-        ]
+        "coordinates": [-12.1349, 7.753]
       },
       "properties": {
         "code": "OU_247004",
@@ -3311,10 +2879,7 @@
       "id": "QpRIPul20Sb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2373,
-          7.467
-        ]
+        "coordinates": [-11.2373, 7.467]
       },
       "properties": {
         "code": "OU_222637",
@@ -3334,10 +2899,7 @@
       "id": "NnQpISrLYWZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.57888,
-          7.5918
-        ]
+        "coordinates": [-12.57888, 7.5918]
       },
       "properties": {
         "code": "OU_197444",
@@ -3357,10 +2919,7 @@
       "id": "ZvX8lXd1tYs",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.785,
-          8.7657
-        ]
+        "coordinates": [-12.785, 8.7657]
       },
       "properties": {
         "code": "OU_254955",
@@ -3380,10 +2939,7 @@
       "id": "U8uqyDAu5bH",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4343,
-          8.1597
-        ]
+        "coordinates": [-12.4343, 8.1597]
       },
       "properties": {
         "code": "OU_247056",
@@ -3403,10 +2959,7 @@
       "id": "djMCTPYvltl",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1852,
-          7.8754
-        ]
+        "coordinates": [-11.1852, 7.8754]
       },
       "properties": {
         "code": "OU_222716",
@@ -3426,10 +2979,7 @@
       "id": "STv4PP4Hiyl",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7191,
-          7.3508
-        ]
+        "coordinates": [-11.7191, 7.3508]
       },
       "properties": {
         "code": "OU_260401",
@@ -3449,10 +2999,7 @@
       "id": "xmZNDeO0qCR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5667,
-          8.2797
-        ]
+        "coordinates": [-10.5667, 8.2797]
       },
       "properties": {
         "code": "OU_204901",
@@ -3472,10 +3019,7 @@
       "id": "lL2LBkhlsmV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1842,
-          8.4746
-        ]
+        "coordinates": [-13.1842, 8.4746]
       },
       "properties": {
         "code": "OU_278336",
@@ -3495,10 +3039,7 @@
       "id": "ARAZtL7Bdpy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2368,
-          8.1251
-        ]
+        "coordinates": [-11.2368, 8.1251]
       },
       "properties": {
         "code": "OU_222684",
@@ -3518,10 +3059,7 @@
       "id": "oolcy5HBlMy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.26,
-          8.3825
-        ]
+        "coordinates": [-13.26, 8.3825]
       },
       "properties": {
         "code": "OU_278386",
@@ -3541,10 +3079,7 @@
       "id": "zQpYVEyAM2t",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1363,
-          8.3836
-        ]
+        "coordinates": [-13.1363, 8.3836]
       },
       "properties": {
         "code": "OU_278377",
@@ -3564,10 +3099,7 @@
       "id": "UCwtaCrNUls",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5979,
-          9.5007
-        ]
+        "coordinates": [-11.5979, 9.5007]
       },
       "properties": {
         "code": "OU_226260",
@@ -3587,10 +3119,7 @@
       "id": "LV2b3vaLRl1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1691,
-          8.4512
-        ]
+        "coordinates": [-13.1691, 8.4512]
       },
       "properties": {
         "code": "OU_278347",
@@ -3609,10 +3138,7 @@
       "id": "J1x66stNjk2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.061,
-          9.2366
-        ]
+        "coordinates": [-12.061, 9.2366]
       },
       "properties": {
         "code": "OU_193227",
@@ -3632,10 +3158,7 @@
       "id": "W7ekX3gi0ut",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2411,
-          8.542
-        ]
+        "coordinates": [-11.2411, 8.542]
       },
       "properties": {
         "code": "OU_233333",
@@ -3655,10 +3178,7 @@
       "id": "t7bcrWLjL1m",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1446,
-          7.6138
-        ]
+        "coordinates": [-11.1446, 7.6138]
       },
       "properties": {
         "code": "OU_222640",
@@ -3678,10 +3198,7 @@
       "id": "Umh4HKqqFp6",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4283,
-          7.9197
-        ]
+        "coordinates": [-11.4283, 7.9197]
       },
       "properties": {
         "code": "OU_578",
@@ -3700,10 +3217,7 @@
       "id": "QzPf0qKBU4n",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3911,
-          7.0244
-        ]
+        "coordinates": [-11.3911, 7.0244]
       },
       "properties": {
         "code": "OU_260411",
@@ -3723,10 +3237,7 @@
       "id": "cZtKKa9eJZ3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2116,
-          8.4827
-        ]
+        "coordinates": [-13.2116, 8.4827]
       },
       "properties": {
         "code": "OU_278353",
@@ -3746,10 +3257,7 @@
       "id": "DplgrYeRIZ1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0919,
-          8.3952
-        ]
+        "coordinates": [-13.0919, 8.3952]
       },
       "properties": {
         "code": "OU_278375",
@@ -3769,10 +3277,7 @@
       "id": "DvzKyuC0G4w",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7871,
-          7.8767
-        ]
+        "coordinates": [-10.7871, 7.8767]
       },
       "properties": {
         "code": "OU_204872",
@@ -3792,10 +3297,7 @@
       "id": "f7yRhIeFn1k",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5741,
-          8.2761
-        ]
+        "coordinates": [-10.5741, 8.2761]
       },
       "properties": {
         "code": "OU_204926",
@@ -3815,10 +3317,7 @@
       "id": "RzgSFJ9E46G",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6279,
-          7.8716
-        ]
+        "coordinates": [-11.6279, 7.8716]
       },
       "properties": {
         "code": "OU_579",
@@ -3837,10 +3336,7 @@
       "id": "V6QWyB0KqvP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.205,
-          8.2552
-        ]
+        "coordinates": [-12.205, 8.2552]
       },
       "properties": {
         "code": "OU_247001",
@@ -3860,10 +3356,7 @@
       "id": "EQUwHqZOb5L",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1866,
-          7.9578
-        ]
+        "coordinates": [-12.1866, 7.9578]
       },
       "properties": {
         "code": "OU_247020",
@@ -3883,10 +3376,7 @@
       "id": "Xk2fvz4aTBU",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2472,
-          7.6685
-        ]
+        "coordinates": [-12.2472, 7.6685]
       },
       "properties": {
         "code": "OU_197396",
@@ -3906,10 +3396,7 @@
       "id": "TWMVxJANJeU",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2184,
-          9.5834
-        ]
+        "coordinates": [-12.2184, 9.5834]
       },
       "properties": {
         "code": "OU_193289",
@@ -3929,10 +3416,7 @@
       "id": "wfGRNqXqf92",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9119,
-          9.0001
-        ]
+        "coordinates": [-11.9119, 9.0001]
       },
       "properties": {
         "code": "OU_193274",
@@ -3952,10 +3436,7 @@
       "id": "duGLGssecoD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9536,
-          9.0677
-        ]
+        "coordinates": [-11.9536, 9.0677]
       },
       "properties": {
         "code": "OU_193230",
@@ -3975,10 +3456,7 @@
       "id": "TjZwphhxCuV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1405,
-          9.2205
-        ]
+        "coordinates": [-12.1405, 9.2205]
       },
       "properties": {
         "code": "OU_193225",
@@ -3998,10 +3476,7 @@
       "id": "OTlKtnhvEm1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9913,
-          9.0256
-        ]
+        "coordinates": [-11.9913, 9.0256]
       },
       "properties": {
         "code": "OU_193268",
@@ -4021,10 +3496,7 @@
       "id": "Sglj9VCoQmc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3115,
-          9.5189
-        ]
+        "coordinates": [-12.3115, 9.5189]
       },
       "properties": {
         "code": "OU_193293",
@@ -4044,10 +3516,7 @@
       "id": "KKoPh1lDd9j",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7213,
-          8.6171
-        ]
+        "coordinates": [-10.7213, 8.6171]
       },
       "properties": {
         "code": "OU_233321",
@@ -4067,10 +3536,7 @@
       "id": "NJolnlvYgLr",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6664,
-          9.6968
-        ]
+        "coordinates": [-11.6664, 9.6968]
       },
       "properties": {
         "code": "OU_226241",
@@ -4090,10 +3556,7 @@
       "id": "OGaAWQD6SYs",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0941,
-          8.8831
-        ]
+        "coordinates": [-13.0941, 8.8831]
       },
       "properties": {
         "code": "OU_211265",
@@ -4113,10 +3576,7 @@
       "id": "aSxNNRxPuBP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6562,
-          9
-        ]
+        "coordinates": [-12.6562, 9]
       },
       "properties": {
         "code": "OU_193278",
@@ -4136,10 +3596,7 @@
       "id": "UqXSUMp19FB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1405,
-          8.808
-        ]
+        "coordinates": [-13.1405, 8.808]
       },
       "properties": {
         "code": "OU_254989",
@@ -4159,10 +3616,7 @@
       "id": "mt47bcb0Rcj",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9619,
-          9.157
-        ]
+        "coordinates": [-11.9619, 9.157]
       },
       "properties": {
         "code": "OU_193231",
@@ -4182,10 +3636,7 @@
       "id": "OwHjzJEVEUN",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2949,
-          9.4636
-        ]
+        "coordinates": [-12.2949, 9.4636]
       },
       "properties": {
         "code": "OU_193294",
@@ -4205,10 +3656,7 @@
       "id": "KnU2XHRvyiX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2377,
-          9.4981
-        ]
+        "coordinates": [-12.2377, 9.4981]
       },
       "properties": {
         "code": "OU_193292",
@@ -4228,10 +3676,7 @@
       "id": "HNv1aLPdMYb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.244,
-          9.4009
-        ]
+        "coordinates": [-12.244, 9.4009]
       },
       "properties": {
         "code": "OU_193242",
@@ -4251,10 +3696,7 @@
       "id": "bSj2UnYhTFb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2061,
-          9.2976
-        ]
+        "coordinates": [-12.2061, 9.2976]
       },
       "properties": {
         "code": "OU_193218",
@@ -4274,10 +3716,7 @@
       "id": "ZxuSbAmsLCn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9088,
-          9.3181
-        ]
+        "coordinates": [-11.9088, 9.3181]
       },
       "properties": {
         "code": "OU_193235",
@@ -4297,10 +3736,7 @@
       "id": "wO4z5Aqo0hf",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3726,
-          9.4863
-        ]
+        "coordinates": [-12.3726, 9.4863]
       },
       "properties": {
         "code": "OU_193290",
@@ -4320,10 +3756,7 @@
       "id": "mYMJHVqdBKt",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5738,
-          8.2752
-        ]
+        "coordinates": [-10.5738, 8.2752]
       },
       "properties": {
         "code": "OU_204866",
@@ -4343,10 +3776,7 @@
       "id": "UUgajyaViT7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2948,
-          9.3407
-        ]
+        "coordinates": [-12.2948, 9.3407]
       },
       "properties": {
         "code": "OU_193223",
@@ -4366,10 +3796,7 @@
       "id": "N7mHLD3ljYc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9133,
-          9.125
-        ]
+        "coordinates": [-12.9133, 9.125]
       },
       "properties": {
         "code": "OU_211238",
@@ -4388,10 +3815,7 @@
       "id": "kO9xe2HCovK",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5834,
-          8.8169
-        ]
+        "coordinates": [-12.5834, 8.8169]
       },
       "properties": {
         "code": "OU_255064",
@@ -4411,10 +3835,7 @@
       "id": "hHKKi9WNoBG",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5153,
-          8.6827
-        ]
+        "coordinates": [-10.5153, 8.6827]
       },
       "properties": {
         "code": "OU_233346",
@@ -4434,10 +3855,7 @@
       "id": "wUmVUKhnPuy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.287,
-          8.0805
-        ]
+        "coordinates": [-12.287, 8.0805]
       },
       "properties": {
         "code": "OU_247057",
@@ -4457,10 +3875,7 @@
       "id": "AGrsLyKWrVX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6091,
-          9.211
-        ]
+        "coordinates": [-11.6091, 9.211]
       },
       "properties": {
         "code": "OU_226265",
@@ -4480,10 +3895,7 @@
       "id": "nDwbwJZQUYU",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8612,
-          9.308
-        ]
+        "coordinates": [-11.8612, 9.308]
       },
       "properties": {
         "code": "OU_193233",
@@ -4503,10 +3915,7 @@
       "id": "CTOMXJg41hz",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9937,
-          7.682
-        ]
+        "coordinates": [-11.9937, 7.682]
       },
       "properties": {
         "code": "OU_642",
@@ -4526,10 +3935,7 @@
       "id": "KGN2jvZ0GJy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4809,
-          9.2225
-        ]
+        "coordinates": [-12.4809, 9.2225]
       },
       "properties": {
         "code": "OU_255000",
@@ -4549,10 +3955,7 @@
       "id": "GhDwjKv07iC",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9826,
-          8.9869
-        ]
+        "coordinates": [-11.9826, 8.9869]
       },
       "properties": {
         "code": "OU_193271",
@@ -4572,10 +3975,7 @@
       "id": "Crgx572DnXR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2865,
-          9.5165
-        ]
+        "coordinates": [-12.2865, 9.5165]
       },
       "properties": {
         "code": "OU_193287",
@@ -4595,10 +3995,7 @@
       "id": "YBZcWphXQ99",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5748,
-          8.9166
-        ]
+        "coordinates": [-12.5748, 8.9166]
       },
       "properties": {
         "code": "OU_254981",
@@ -4618,10 +4015,7 @@
       "id": "ObV5AR1NECl",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0134,
-          9.1722
-        ]
+        "coordinates": [-12.0134, 9.1722]
       },
       "properties": {
         "code": "OU_193234",
@@ -4641,10 +4035,7 @@
       "id": "K00jR5dmoFZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7632,
-          7.2412
-        ]
+        "coordinates": [-11.7632, 7.2412]
       },
       "properties": {
         "code": "OU_260399",
@@ -4664,10 +4055,7 @@
       "id": "OqBiNJjKQAu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1876,
-          8.6092
-        ]
+        "coordinates": [-13.1876, 8.6092]
       },
       "properties": {
         "code": "OU_255011",
@@ -4687,10 +4075,7 @@
       "id": "cJkZLwhL8RP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9198,
-          7.537
-        ]
+        "coordinates": [-11.9198, 7.537]
       },
       "properties": {
         "code": "OU_621",
@@ -4710,10 +4095,7 @@
       "id": "pmzk0ho80aA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9286,
-          8.8772
-        ]
+        "coordinates": [-11.9286, 8.8772]
       },
       "properties": {
         "code": "OU_193298",
@@ -4733,10 +4115,7 @@
       "id": "NjyJYiIuKIG",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1699,
-          9.546
-        ]
+        "coordinates": [-12.1699, 9.546]
       },
       "properties": {
         "code": "OU_193291",
@@ -4756,10 +4135,7 @@
       "id": "yEU926iVAJJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7623,
-          9.0678
-        ]
+        "coordinates": [-11.7623, 9.0678]
       },
       "properties": {
         "code": "OU_268193",
@@ -4779,10 +4155,7 @@
       "id": "qMbxFg9McOF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2927,
-          7.9614
-        ]
+        "coordinates": [-12.2927, 7.9614]
       },
       "properties": {
         "code": "OU_247050",
@@ -4802,10 +4175,7 @@
       "id": "k8ZPul89UDm",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1599,
-          8.8908
-        ]
+        "coordinates": [-11.1599, 8.8908]
       },
       "properties": {
         "code": "OU_233370",
@@ -4825,10 +4195,7 @@
       "id": "tEgxbwwrwUd",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9221,
-          9.2126
-        ]
+        "coordinates": [-11.9221, 9.2126]
       },
       "properties": {
         "code": "OU_193232",
@@ -4848,10 +4215,7 @@
       "id": "QMnoFLTLpkY",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6616,
-          9.0067
-        ]
+        "coordinates": [-11.6616, 9.0067]
       },
       "properties": {
         "code": "OU_268192",
@@ -4871,10 +4235,7 @@
       "id": "s7SLtx8wmRA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1217,
-          8.0863
-        ]
+        "coordinates": [-12.1217, 8.0863]
       },
       "properties": {
         "code": "OU_247024",
@@ -4894,10 +4255,7 @@
       "id": "UjusePB4jmP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9879,
-          8.6393
-        ]
+        "coordinates": [-10.9879, 8.6393]
       },
       "properties": {
         "code": "OU_233330",
@@ -4917,10 +4275,7 @@
       "id": "lELJZCBxz7H",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1623,
-          8.1742
-        ]
+        "coordinates": [-13.1623, 8.1742]
       },
       "properties": {
         "code": "OU_278394",
@@ -4940,10 +4295,7 @@
       "id": "lCEeiuv4NaB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5914,
-          9.0432
-        ]
+        "coordinates": [-11.5914, 9.0432]
       },
       "properties": {
         "code": "OU_268171",
@@ -4963,10 +4315,7 @@
       "id": "egv5Es0QlQP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5052,
-          7.8704
-        ]
+        "coordinates": [-11.5052, 7.8704]
       },
       "properties": {
         "code": "OU_580",
@@ -4985,10 +4334,7 @@
       "id": "gei3Sqw8do7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2482,
-          8.4731
-        ]
+        "coordinates": [-13.2482, 8.4731]
       },
       "properties": {
         "code": "OU_278338",
@@ -5008,10 +4354,7 @@
       "id": "lekPjgUm0o2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2549,
-          8.4556
-        ]
+        "coordinates": [-13.2549, 8.4556]
       },
       "properties": {
         "code": "OU_278324",
@@ -5031,10 +4374,7 @@
       "id": "FclfbEFMcf3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.196,
-          8.4713
-        ]
+        "coordinates": [-13.196, 8.4713]
       },
       "properties": {
         "code": "OU_278340",
@@ -5054,10 +4394,7 @@
       "id": "XLiqwElsFHO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9783,
-          8.4025
-        ]
+        "coordinates": [-12.9783, 8.4025]
       },
       "properties": {
         "code": "OU_254968",
@@ -5077,10 +4414,7 @@
       "id": "lmNWdmeOYmV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0424,
-          8.3371
-        ]
+        "coordinates": [-13.0424, 8.3371]
       },
       "properties": {
         "code": "OU_278396",
@@ -5100,10 +4434,7 @@
       "id": "EQc3n1juPFn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9919,
-          8.7955
-        ]
+        "coordinates": [-10.9919, 8.7955]
       },
       "properties": {
         "code": "OU_233377",
@@ -5123,10 +4454,7 @@
       "id": "SnCrOCRrxGX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9945,
-          8.6224
-        ]
+        "coordinates": [-10.9945, 8.6224]
       },
       "properties": {
         "code": "OU_233327",
@@ -5146,10 +4474,7 @@
       "id": "PwoQgMJNWbR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5828,
-          8.6151
-        ]
+        "coordinates": [-10.5828, 8.6151]
       },
       "properties": {
         "code": "OU_233313",
@@ -5169,10 +4494,7 @@
       "id": "VF7LfO19vxS",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9094,
-          8.9077
-        ]
+        "coordinates": [-10.9094, 8.9077]
       },
       "properties": {
         "code": "OU_233366",
@@ -5192,10 +4514,7 @@
       "id": "zsqxu7ZZRpO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9475,
-          8.6488
-        ]
+        "coordinates": [-10.9475, 8.6488]
       },
       "properties": {
         "code": "OU_233384",
@@ -5215,10 +4534,7 @@
       "id": "OzjRQLn3G24",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.965,
-          8.648
-        ]
+        "coordinates": [-10.965, 8.648]
       },
       "properties": {
         "code": "OU_233387",
@@ -5238,10 +4554,7 @@
       "id": "Ls2ESQONh9S",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9659,
-          8.6481
-        ]
+        "coordinates": [-10.9659, 8.6481]
       },
       "properties": {
         "code": "OU_233376",
@@ -5261,10 +4574,7 @@
       "id": "DMxw0SASFih",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5736,
-          8.2753
-        ]
+        "coordinates": [-10.5736, 8.2753]
       },
       "properties": {
         "code": "OU_204941",
@@ -5284,10 +4594,7 @@
       "id": "bqSIIRuZ1qj",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1676,
-          9.8765
-        ]
+        "coordinates": [-11.1676, 9.8765]
       },
       "properties": {
         "code": "OU_226229",
@@ -5307,10 +4614,7 @@
       "id": "F2TAF765q1b",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1165,
-          7.6297
-        ]
+        "coordinates": [-11.1165, 7.6297]
       },
       "properties": {
         "code": "OU_222747",
@@ -5330,10 +4634,7 @@
       "id": "m7fBMpmVpSM",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1982,
-          8.7685
-        ]
+        "coordinates": [-12.1982, 8.7685]
       },
       "properties": {
         "code": "OU_193259",
@@ -5353,10 +4654,7 @@
       "id": "T62lSjsZe9n",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7089,
-          8.7864
-        ]
+        "coordinates": [-10.7089, 8.7864]
       },
       "properties": {
         "code": "OU_233351",
@@ -5376,10 +4674,7 @@
       "id": "cUltUneFSan",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0991,
-          8.5396
-        ]
+        "coordinates": [-12.0991, 8.5396]
       },
       "properties": {
         "code": "OU_268165",
@@ -5399,10 +4694,7 @@
       "id": "mhJQYk2Jwym",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1034,
-          7.8955
-        ]
+        "coordinates": [-11.1034, 7.8955]
       },
       "properties": {
         "code": "OU_222713",
@@ -5422,10 +4714,7 @@
       "id": "jkPHBqdn9SA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1847,
-          8.1909
-        ]
+        "coordinates": [-12.1847, 8.1909]
       },
       "properties": {
         "code": "OU_246992",
@@ -5445,10 +4734,7 @@
       "id": "ZSBnWFBpPPJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5955,
-          9.017
-        ]
+        "coordinates": [-10.5955, 9.017]
       },
       "properties": {
         "code": "OU_233315",
@@ -5468,10 +4754,7 @@
       "id": "OynYyQiFu82",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5287,
-          9.562
-        ]
+        "coordinates": [-11.5287, 9.562]
       },
       "properties": {
         "code": "OU_226234",
@@ -5491,10 +4774,7 @@
       "id": "mokUyyg3olJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5736,
-          8.2753
-        ]
+        "coordinates": [-10.5736, 8.2753]
       },
       "properties": {
         "code": "OU_204899",
@@ -5514,10 +4794,7 @@
       "id": "d7hw1ababST",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0538,
-          8.2703
-        ]
+        "coordinates": [-11.0538, 8.2703]
       },
       "properties": {
         "code": "OU_222670",
@@ -5537,10 +4814,7 @@
       "id": "SVEfwJ0BGeD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5736,
-          8.2755
-        ]
+        "coordinates": [-10.5736, 8.2755]
       },
       "properties": {
         "code": "OU_204858",
@@ -5560,10 +4834,7 @@
       "id": "AQQCxQqDxLe",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.66,
-          9.38
-        ]
+        "coordinates": [-12.66, 9.38]
       },
       "properties": {
         "code": "OU_211224",
@@ -5583,10 +4854,7 @@
       "id": "nornKUJmQqn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5449,
-          8.4743
-        ]
+        "coordinates": [-12.5449, 8.4743]
       },
       "properties": {
         "code": "OU_255033",
@@ -5606,10 +4874,7 @@
       "id": "lwHs72tP6Kh",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1828,
-          7.8991
-        ]
+        "coordinates": [-11.1828, 7.8991]
       },
       "properties": {
         "code": "OU_222701",
@@ -5629,10 +4894,7 @@
       "id": "hCm2Nh7C8BW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4627,
-          8.0525
-        ]
+        "coordinates": [-12.4627, 8.0525]
       },
       "properties": {
         "code": "OU_247060",
@@ -5652,10 +4914,7 @@
       "id": "mwN7QuEfT8m",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.58991,
-          8.26653
-        ]
+        "coordinates": [-11.58991, 8.26653]
       },
       "properties": {
         "code": "OU_820",
@@ -5675,10 +4934,7 @@
       "id": "S9QckzKX6Lg",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0083,
-          7.9827
-        ]
+        "coordinates": [-11.0083, 7.9827]
       },
       "properties": {
         "code": "OU_197393",
@@ -5698,10 +4954,7 @@
       "id": "CSDGDOa7wHd",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0719,
-          7.8652
-        ]
+        "coordinates": [-11.0719, 7.8652]
       },
       "properties": {
         "code": "OU_222736",
@@ -5721,10 +4974,7 @@
       "id": "z6v73gowbuM",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1149,
-          9.1225
-        ]
+        "coordinates": [-12.1149, 9.1225]
       },
       "properties": {
         "code": "OU_193284",
@@ -5744,10 +4994,7 @@
       "id": "jr5hIZcJBXB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5706,
-          7.4362
-        ]
+        "coordinates": [-11.5706, 7.4362]
       },
       "properties": {
         "code": "OU_260426",
@@ -5767,10 +5014,7 @@
       "id": "brnL0W3Fbsj",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.035,
-          8.9658
-        ]
+        "coordinates": [-13.035, 8.9658]
       },
       "properties": {
         "code": "OU_211244",
@@ -5790,10 +5034,7 @@
       "id": "TljiT6C5D0J",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1959,
-          7.7551
-        ]
+        "coordinates": [-11.1959, 7.7551]
       },
       "properties": {
         "code": "OU_222740",
@@ -5813,10 +5054,7 @@
       "id": "PFZbQjwty2n",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0713,
-          8.2141
-        ]
+        "coordinates": [-11.0713, 8.2141]
       },
       "properties": {
         "code": "OU_222653",
@@ -5836,10 +5074,7 @@
       "id": "So2b8zJfcMa",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1774,
-          7.8679
-        ]
+        "coordinates": [-11.1774, 7.8679]
       },
       "properties": {
         "code": "OU_222703",
@@ -5859,10 +5094,7 @@
       "id": "geVF87N7qTw",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1796,
-          7.8657
-        ]
+        "coordinates": [-11.1796, 7.8657]
       },
       "properties": {
         "code": "OU_222719",
@@ -5882,10 +5114,7 @@
       "id": "RTixJpRqS4C",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9917,
-          7.82
-        ]
+        "coordinates": [-11.9917, 7.82]
       },
       "properties": {
         "code": "OU_639",
@@ -5905,10 +5134,7 @@
       "id": "GIRLSZ1tB00",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.6539,
-          8.9599
-        ]
+        "coordinates": [-10.6539, 8.9599]
       },
       "properties": {
         "code": "OU_233316",
@@ -5928,10 +5154,7 @@
       "id": "kDxbU1uSBFh",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1857,
-          7.856
-        ]
+        "coordinates": [-11.1857, 7.856]
       },
       "properties": {
         "code": "OU_222698",
@@ -5951,10 +5174,7 @@
       "id": "mGmu0GJ5neg",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8153,
-          7.7346
-        ]
+        "coordinates": [-11.8153, 7.7346]
       },
       "properties": {
         "code": "OU_1058",
@@ -5974,10 +5194,7 @@
       "id": "bM4Ky73uMao",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7344,
-          7.9579
-        ]
+        "coordinates": [-11.7344, 7.9579]
       },
       "properties": {
         "code": "OU_172172",
@@ -5998,10 +5215,7 @@
       "id": "QkczRcSeNck",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5709,
-          7.3429
-        ]
+        "coordinates": [-11.5709, 7.3429]
       },
       "properties": {
         "code": "OU_260421",
@@ -6021,10 +5235,7 @@
       "id": "S7KwVLbFlss",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7436,
-          8.1919
-        ]
+        "coordinates": [-11.7436, 8.1919]
       },
       "properties": {
         "code": "OU_1144",
@@ -6044,10 +5255,7 @@
       "id": "sM0Us0NkSez",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2407,
-          8.4868
-        ]
+        "coordinates": [-13.2407, 8.4868]
       },
       "properties": {
         "code": "OU_278359",
@@ -6067,10 +5275,7 @@
       "id": "M9JyYBZTqR7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6704,
-          9.3884
-        ]
+        "coordinates": [-12.6704, 9.3884]
       },
       "properties": {
         "code": "OU_211223",
@@ -6090,10 +5295,7 @@
       "id": "bJ0VSATHwO2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3205,
-          8.4387
-        ]
+        "coordinates": [-12.3205, 8.4387]
       },
       "properties": {
         "code": "OU_268233",
@@ -6113,10 +5315,7 @@
       "id": "jYPY8mT8gn6",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.6815,
-          8.8989
-        ]
+        "coordinates": [-10.6815, 8.8989]
       },
       "properties": {
         "code": "OU_233353",
@@ -6136,10 +5335,7 @@
       "id": "tdhB1JXYBx2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0791,
-          8.9542
-        ]
+        "coordinates": [-12.0791, 8.9542]
       },
       "properties": {
         "code": "OU_193254",
@@ -6159,10 +5355,7 @@
       "id": "WUQrS4Yqmoy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8726,
-          8.4754
-        ]
+        "coordinates": [-12.8726, 8.4754]
       },
       "properties": {
         "code": "OU_254962",
@@ -6182,10 +5375,7 @@
       "id": "PcADvhvcaI2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1436,
-          8.928
-        ]
+        "coordinates": [-13.1436, 8.928]
       },
       "properties": {
         "code": "OU_211253",
@@ -6205,10 +5395,7 @@
       "id": "yg7uxUol97F",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1062,
-          9.4544
-        ]
+        "coordinates": [-12.1062, 9.4544]
       },
       "properties": {
         "code": "OU_193243",
@@ -6228,10 +5415,7 @@
       "id": "K0d08d3sUOv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2632,
-          8.3972
-        ]
+        "coordinates": [-13.2632, 8.3972]
       },
       "properties": {
         "code": "OU_278378",
@@ -6251,10 +5435,7 @@
       "id": "iOA3z6Y3cq5",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1054,
-          8.0538
-        ]
+        "coordinates": [-11.1054, 8.0538]
       },
       "properties": {
         "code": "OU_222699",
@@ -6274,10 +5455,7 @@
       "id": "X7ZVgRPt31q",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0149,
-          7.6424
-        ]
+        "coordinates": [-12.0149, 7.6424]
       },
       "properties": {
         "code": "OU_197426",
@@ -6297,10 +5475,7 @@
       "id": "rs87nYgwbKv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6759,
-          9.4663
-        ]
+        "coordinates": [-11.6759, 9.4663]
       },
       "properties": {
         "code": "OU_226266",
@@ -6320,10 +5495,7 @@
       "id": "Bf9R1R91mw4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7263,
-          8.0369
-        ]
+        "coordinates": [-10.7263, 8.0369]
       },
       "properties": {
         "code": "OU_204911",
@@ -6343,10 +5515,7 @@
       "id": "BgOhMcH9bxq",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.372,
-          8.1168
-        ]
+        "coordinates": [-12.372, 8.1168]
       },
       "properties": {
         "code": "OU_247065",
@@ -6366,10 +5535,7 @@
       "id": "tBRDdxfKbMx",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6021,
-          6.989
-        ]
+        "coordinates": [-11.6021, 6.989]
       },
       "properties": {
         "code": "OU_260442",
@@ -6389,10 +5555,7 @@
       "id": "hIpcmjLrDDW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3401,
-          7.8679
-        ]
+        "coordinates": [-11.3401, 7.8679]
       },
       "properties": {
         "code": "OU_222620",
@@ -6412,10 +5575,7 @@
       "id": "Z7UAnjpK74g",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1963,
-          8.4619
-        ]
+        "coordinates": [-13.1963, 8.4619]
       },
       "properties": {
         "code": "OU_278344",
@@ -6435,10 +5595,7 @@
       "id": "IW3guWF3uvF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2439,
-          7.6746
-        ]
+        "coordinates": [-11.2439, 7.6746]
       },
       "properties": {
         "code": "OU_222732",
@@ -6458,10 +5615,7 @@
       "id": "cgqkFdShPzg",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0437,
-          8.8868
-        ]
+        "coordinates": [-12.0437, 8.8868]
       },
       "properties": {
         "code": "OU_193213",
@@ -6481,10 +5635,7 @@
       "id": "IlMQTFvcq9r",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9907,
-          8.2187
-        ]
+        "coordinates": [-10.9907, 8.2187]
       },
       "properties": {
         "code": "OU_222656",
@@ -6504,10 +5655,7 @@
       "id": "PqlNXedmh7u",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2589,
-          8.4514
-        ]
+        "coordinates": [-13.2589, 8.4514]
       },
       "properties": {
         "code": "OU_278358",
@@ -6527,10 +5675,7 @@
       "id": "gsypzntLahf",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2042,
-          8.628
-        ]
+        "coordinates": [-13.2042, 8.628]
       },
       "properties": {
         "code": "OU_255010",
@@ -6550,10 +5695,7 @@
       "id": "ntQSuMb7J21",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.16,
-          8.55
-        ]
+        "coordinates": [-13.16, 8.55]
       },
       "properties": {
         "code": "OU_255008",
@@ -6573,10 +5715,7 @@
       "id": "q56204kKXgZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5313,
-          8.6821
-        ]
+        "coordinates": [-12.5313, 8.6821]
       },
       "properties": {
         "code": "OU_255057",
@@ -6596,10 +5735,7 @@
       "id": "xRsoZIRmnt4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2494,
-          8.5395
-        ]
+        "coordinates": [-12.2494, 8.5395]
       },
       "properties": {
         "code": "OU_268164",
@@ -6619,10 +5755,7 @@
       "id": "MiYhwDprCCA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2265,
-          8.4905
-        ]
+        "coordinates": [-13.2265, 8.4905]
       },
       "properties": {
         "code": "OU_278329",
@@ -6642,10 +5775,7 @@
       "id": "taKiTcaf05H",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.98737,
-          9.44655
-        ]
+        "coordinates": [-11.98737, 9.44655]
       },
       "properties": {
         "code": "OU_193250",
@@ -6665,10 +5795,7 @@
       "id": "PybxeRWVSrI",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0543,
-          8.8214
-        ]
+        "coordinates": [-12.0543, 8.8214]
       },
       "properties": {
         "code": "OU_193210",
@@ -6688,10 +5815,7 @@
       "id": "fmkqsEx6MRo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7381,
-          8.5531
-        ]
+        "coordinates": [-12.7381, 8.5531]
       },
       "properties": {
         "code": "OU_254961",
@@ -6711,10 +5835,7 @@
       "id": "ApLCxUmnT6q",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0682,
-          8.6506
-        ]
+        "coordinates": [-12.0682, 8.6506]
       },
       "properties": {
         "code": "OU_268154",
@@ -6734,10 +5855,7 @@
       "id": "TmCsvdJLHoX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2384,
-          9.1345
-        ]
+        "coordinates": [-12.2384, 9.1345]
       },
       "properties": {
         "code": "OU_193195",
@@ -6757,10 +5875,7 @@
       "id": "rIgJX4N0DGZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2283,
-          8.4795
-        ]
+        "coordinates": [-13.2283, 8.4795]
       },
       "properties": {
         "code": "OU_278356",
@@ -6780,10 +5895,7 @@
       "id": "FupvWBUFXr7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0796,
-          8.2837
-        ]
+        "coordinates": [-13.0796, 8.2837]
       },
       "properties": {
         "code": "OU_278387",
@@ -6803,10 +5915,7 @@
       "id": "pJj2r2HElLE",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3182,
-          9.3577
-        ]
+        "coordinates": [-12.3182, 9.3577]
       },
       "properties": {
         "code": "OU_193244",
@@ -6826,10 +5935,7 @@
       "id": "SZrG4yHGV4x",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9492,
-          7.4637
-        ]
+        "coordinates": [-11.9492, 7.4637]
       },
       "properties": {
         "code": "OU_226223",
@@ -6849,10 +5955,7 @@
       "id": "I48Qu6R0sGm",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0513,
-          9.094
-        ]
+        "coordinates": [-12.0513, 9.094]
       },
       "properties": {
         "code": "OU_193283",
@@ -6872,10 +5975,7 @@
       "id": "kFScvrF3wPo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.63086,
-          9.15972
-        ]
+        "coordinates": [-12.63086, 9.15972]
       },
       "properties": {
         "code": "OU_255022",
@@ -6895,10 +5995,7 @@
       "id": "QBRQnWPRO3V",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5735,
-          8.2753
-        ]
+        "coordinates": [-10.5735, 8.2753]
       },
       "properties": {
         "code": "OU_204888",
@@ -6918,10 +6015,7 @@
       "id": "OjRCvy71kAL",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9192,
-          9.2171
-        ]
+        "coordinates": [-12.9192, 9.2171]
       },
       "properties": {
         "code": "OU_211215",
@@ -6941,10 +6035,7 @@
       "id": "simyC07XwnS",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8051,
-          8.7137
-        ]
+        "coordinates": [-12.8051, 8.7137]
       },
       "properties": {
         "code": "OU_254953",
@@ -6964,10 +6055,7 @@
       "id": "L3GgannGGKl",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0747,
-          9.0051
-        ]
+        "coordinates": [-13.0747, 9.0051]
       },
       "properties": {
         "code": "OU_211251",
@@ -6987,10 +6075,7 @@
       "id": "XjpmsLNjyrz",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5973,
-          8.4569
-        ]
+        "coordinates": [-12.5973, 8.4569]
       },
       "properties": {
         "code": "OU_268248",
@@ -7010,10 +6095,7 @@
       "id": "cTU2WmWcJKx",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2106,
-          8.9155
-        ]
+        "coordinates": [-12.2106, 8.9155]
       },
       "properties": {
         "code": "OU_193252",
@@ -7033,10 +6115,7 @@
       "id": "DIQl5jJ17IE",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.34627,
-          8.92733
-        ]
+        "coordinates": [-12.34627, 8.92733]
       },
       "properties": {
         "code": "OU_193306",
@@ -7056,10 +6135,7 @@
       "id": "sFgNRYS5pBo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.424,
-          8.4199
-        ]
+        "coordinates": [-12.424, 8.4199]
       },
       "properties": {
         "code": "OU_268152",
@@ -7079,10 +6155,7 @@
       "id": "UJ80rknbJtm",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8132,
-          8.5552
-        ]
+        "coordinates": [-12.8132, 8.5552]
       },
       "properties": {
         "code": "OU_254963",
@@ -7102,10 +6175,7 @@
       "id": "n9HIySyR00g",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4889,
-          8.6935
-        ]
+        "coordinates": [-12.4889, 8.6935]
       },
       "properties": {
         "code": "OU_255054",
@@ -7125,10 +6195,7 @@
       "id": "XfVYz6l2rzg",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6722,
-          9.0644
-        ]
+        "coordinates": [-12.6722, 9.0644]
       },
       "properties": {
         "code": "OU_255001",
@@ -7148,10 +6215,7 @@
       "id": "mEUUK7MHLSF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9388,
-          8.7208
-        ]
+        "coordinates": [-11.9388, 8.7208]
       },
       "properties": {
         "code": "OU_268156",
@@ -7171,10 +6235,7 @@
       "id": "CKJ9YS2AbWy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1498,
-          9.3911
-        ]
+        "coordinates": [-12.1498, 9.3911]
       },
       "properties": {
         "code": "OU_193241",
@@ -7194,10 +6255,7 @@
       "id": "qEQFWnKh4gs",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.224,
-          8.9515
-        ]
+        "coordinates": [-12.224, 8.9515]
       },
       "properties": {
         "code": "OU_193282",
@@ -7217,10 +6275,7 @@
       "id": "LnToY3ExKxL",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.199,
-          8.6037
-        ]
+        "coordinates": [-13.199, 8.6037]
       },
       "properties": {
         "code": "OU_255018",
@@ -7240,10 +6295,7 @@
       "id": "ShdRyzuLKA2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1181,
-          7.8484
-        ]
+        "coordinates": [-11.1181, 7.8484]
       },
       "properties": {
         "code": "OU_222735",
@@ -7263,10 +6315,7 @@
       "id": "kSo9KSpHUPL",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9152,
-          8.6074
-        ]
+        "coordinates": [-12.9152, 8.6074]
       },
       "properties": {
         "code": "OU_254952",
@@ -7286,10 +6335,7 @@
       "id": "en0j7qFnySQ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6622,
-          8.633
-        ]
+        "coordinates": [-12.6622, 8.633]
       },
       "properties": {
         "code": "OU_255056",
@@ -7309,10 +6355,7 @@
       "id": "ewh5SKxcCAl",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2088,
-          9.2598
-        ]
+        "coordinates": [-12.2088, 9.2598]
       },
       "properties": {
         "code": "OU_193219",
@@ -7332,10 +6375,7 @@
       "id": "scc4QyxenJd",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6608,
-          8.6302
-        ]
+        "coordinates": [-11.6608, 8.6302]
       },
       "properties": {
         "code": "OU_268215",
@@ -7355,10 +6395,7 @@
       "id": "CgunjDKbM45",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7186,
-          8.4142
-        ]
+        "coordinates": [-12.7186, 8.4142]
       },
       "properties": {
         "code": "OU_254969",
@@ -7378,10 +6415,7 @@
       "id": "Dbn6fyCgMBV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0557,
-          8.8624
-        ]
+        "coordinates": [-12.0557, 8.8624]
       },
       "properties": {
         "code": "OU_193209",
@@ -7401,10 +6435,7 @@
       "id": "XePkcmza9e8",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6539,
-          8.4068
-        ]
+        "coordinates": [-12.6539, 8.4068]
       },
       "properties": {
         "code": "OU_254966",
@@ -7424,10 +6455,7 @@
       "id": "wSHfjjFqUay",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1263,
-          8.8648
-        ]
+        "coordinates": [-12.1263, 8.8648]
       },
       "properties": {
         "code": "OU_193253",
@@ -7447,10 +6475,7 @@
       "id": "NwX8noGxLoz",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.102,
-          8.4718
-        ]
+        "coordinates": [-12.102, 8.4718]
       },
       "properties": {
         "code": "OU_268244",
@@ -7470,10 +6495,7 @@
       "id": "dmdYffw2I0F",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9981,
-          8.74
-        ]
+        "coordinates": [-11.9981, 8.74]
       },
       "properties": {
         "code": "OU_193297",
@@ -7493,10 +6515,7 @@
       "id": "jbfISeV6Wdu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5409,
-          8.4255
-        ]
+        "coordinates": [-12.5409, 8.4255]
       },
       "properties": {
         "code": "OU_268245",
@@ -7516,10 +6535,7 @@
       "id": "YldSFPxB6WH",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6678,
-          8.4556
-        ]
+        "coordinates": [-12.6678, 8.4556]
       },
       "properties": {
         "code": "OU_254974",
@@ -7539,10 +6555,7 @@
       "id": "KwSj4DlRWAm",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3177,
-          8.6081
-        ]
+        "coordinates": [-12.3177, 8.6081]
       },
       "properties": {
         "code": "OU_268188",
@@ -7562,10 +6575,7 @@
       "id": "si34vmovtgR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9556,
-          8.7597
-        ]
+        "coordinates": [-11.9556, 8.7597]
       },
       "properties": {
         "code": "OU_193296",
@@ -7585,10 +6595,7 @@
       "id": "CebtBqqp1fp",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5743,
-          8.6373
-        ]
+        "coordinates": [-11.5743, 8.6373]
       },
       "properties": {
         "code": "OU_268214",
@@ -7608,10 +6615,7 @@
       "id": "G5NCnFJ3bbV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8119,
-          8.6483
-        ]
+        "coordinates": [-11.8119, 8.6483]
       },
       "properties": {
         "code": "OU_268219",
@@ -7631,10 +6635,7 @@
       "id": "E7IDb3nNiW7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0393,
-          8.8057
-        ]
+        "coordinates": [-12.0393, 8.8057]
       },
       "properties": {
         "code": "OU_193211",
@@ -7654,10 +6655,7 @@
       "id": "LWlh25dfvEA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5722,
-          8.3622
-        ]
+        "coordinates": [-12.5722, 8.3622]
       },
       "properties": {
         "code": "OU_268230",
@@ -7677,10 +6675,7 @@
       "id": "FFU3PJ3pY7s",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7345,
-          8.8474
-        ]
+        "coordinates": [-12.7345, 8.8474]
       },
       "properties": {
         "code": "OU_254947",
@@ -7700,10 +6695,7 @@
       "id": "kBrq7i12aan",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2542,
-          8.4506
-        ]
+        "coordinates": [-13.2542, 8.4506]
       },
       "properties": {
         "code": "OU_278327",
@@ -7723,10 +6715,7 @@
       "id": "ZoHdXy2ueVn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0226,
-          8.314
-        ]
+        "coordinates": [-13.0226, 8.314]
       },
       "properties": {
         "code": "OU_278373",
@@ -7746,10 +6735,7 @@
       "id": "dCvUVvKnhMe",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4081,
-          7.0705
-        ]
+        "coordinates": [-11.4081, 7.0705]
       },
       "properties": {
         "code": "OU_260416",
@@ -7769,10 +6755,7 @@
       "id": "F0uVXCVvOPO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9229,
-          8.6687
-        ]
+        "coordinates": [-11.9229, 8.6687]
       },
       "properties": {
         "code": "OU_268157",
@@ -7792,10 +6775,7 @@
       "id": "d9uZeZ5fMUo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3347,
-          9.0217
-        ]
+        "coordinates": [-12.3347, 9.0217]
       },
       "properties": {
         "code": "OU_193279",
@@ -7815,10 +6795,7 @@
       "id": "eP4F9eB76B0",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.145,
-          8.5681
-        ]
+        "coordinates": [-13.145, 8.5681]
       },
       "properties": {
         "code": "OU_255012",
@@ -7838,10 +6815,7 @@
       "id": "T1lTKu6zkHN",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1414,
-          8.4932
-        ]
+        "coordinates": [-12.1414, 8.4932]
       },
       "properties": {
         "code": "OU_268168",
@@ -7861,10 +6835,7 @@
       "id": "YFlZA0y0Vi6",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.549,
-          8.7192
-        ]
+        "coordinates": [-11.549, 8.7192]
       },
       "properties": {
         "code": "OU_268181",
@@ -7884,10 +6855,7 @@
       "id": "RAsstekPRco",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0288,
-          8.907
-        ]
+        "coordinates": [-13.0288, 8.907]
       },
       "properties": {
         "code": "OU_211269",
@@ -7907,10 +6875,7 @@
       "id": "w3vRmEz3J7t",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6574,
-          7.8392
-        ]
+        "coordinates": [-11.6574, 7.8392]
       },
       "properties": {
         "code": "OU_828",
@@ -7930,10 +6895,7 @@
       "id": "F7u30K5OIpi",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.574,
-          8.276
-        ]
+        "coordinates": [-10.574, 8.276]
       },
       "properties": {
         "code": "OU_204931",
@@ -7953,10 +6915,7 @@
       "id": "FRX63UWciyO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6215,
-          8.7006
-        ]
+        "coordinates": [-12.6215, 8.7006]
       },
       "properties": {
         "code": "OU_255058",
@@ -7976,10 +6935,7 @@
       "id": "U9klfqqGlRa",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9693,
-          8.7077
-        ]
+        "coordinates": [-12.9693, 8.7077]
       },
       "properties": {
         "code": "OU_254984",
@@ -7999,10 +6955,7 @@
       "id": "CTnuuI55SOj",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1419,
-          8.703
-        ]
+        "coordinates": [-12.1419, 8.703]
       },
       "properties": {
         "code": "OU_268189",
@@ -8022,10 +6975,7 @@
       "id": "gaOSAjPM07w",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0882,
-          8.9213
-        ]
+        "coordinates": [-12.0882, 8.9213]
       },
       "properties": {
         "code": "OU_193265",
@@ -8045,10 +6995,7 @@
       "id": "w3mBVfrWhXl",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8567,
-          8.9244
-        ]
+        "coordinates": [-12.8567, 8.9244]
       },
       "properties": {
         "code": "OU_255043",
@@ -8068,10 +7015,7 @@
       "id": "mMvt6zhCclb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.6971,
-          8.6102
-        ]
+        "coordinates": [-10.6971, 8.6102]
       },
       "properties": {
         "code": "OU_233319",
@@ -8091,10 +7035,7 @@
       "id": "Z9ny6QeqsgX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7289,
-          8.0145
-        ]
+        "coordinates": [-11.7289, 8.0145]
       },
       "properties": {
         "code": "OU_969",
@@ -8115,10 +7056,7 @@
       "id": "J3wTSn87RP2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2155,
-          8.0889
-        ]
+        "coordinates": [-12.2155, 8.0889]
       },
       "properties": {
         "code": "OU_246998",
@@ -8138,10 +7076,7 @@
       "id": "Uwcj0mz78BV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9738,
-          9.2684
-        ]
+        "coordinates": [-11.9738, 9.2684]
       },
       "properties": {
         "code": "OU_193237",
@@ -8161,10 +7096,7 @@
       "id": "gowgzHWc8FT",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4945,
-          9.7533
-        ]
+        "coordinates": [-11.4945, 9.7533]
       },
       "properties": {
         "code": "OU_226215",
@@ -8184,10 +7116,7 @@
       "id": "va2lE4FiVVb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.089,
-          8.0408
-        ]
+        "coordinates": [-12.089, 8.0408]
       },
       "properties": {
         "code": "OU_247019",
@@ -8207,10 +7136,7 @@
       "id": "hLGkoHmvBgI",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6135,
-          7.749
-        ]
+        "coordinates": [-11.6135, 7.749]
       },
       "properties": {
         "code": "OU_822",
@@ -8230,10 +7156,7 @@
       "id": "vlNXjc2lk9y",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5735,
-          8.2754
-        ]
+        "coordinates": [-10.5735, 8.2754]
       },
       "properties": {
         "code": "OU_204884",
@@ -8253,10 +7176,7 @@
       "id": "Fbq6Vxa4MIx",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0995,
-          7.5238
-        ]
+        "coordinates": [-11.0995, 7.5238]
       },
       "properties": {
         "code": "OU_222638",
@@ -8276,10 +7196,7 @@
       "id": "PaNv9VyD06n",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5738,
-          8.2759
-        ]
+        "coordinates": [-10.5738, 8.2759]
       },
       "properties": {
         "code": "OU_204930",
@@ -8299,10 +7216,7 @@
       "id": "GyH8bjdOTsD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.33447,
-          9.40638
-        ]
+        "coordinates": [-11.33447, 9.40638]
       },
       "properties": {
         "code": "OU_226246",
@@ -8322,10 +7236,7 @@
       "id": "RVAkLOVWSWc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9882,
-          8.4737
-        ]
+        "coordinates": [-11.9882, 8.4737]
       },
       "properties": {
         "code": "OU_268210",
@@ -8345,10 +7256,7 @@
       "id": "mshIal30ffW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9078,
-          8.7882
-        ]
+        "coordinates": [-11.9078, 8.7882]
       },
       "properties": {
         "code": "OU_193301",
@@ -8368,10 +7276,7 @@
       "id": "SIxGTeya5lN",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0371,
-          8.7502
-        ]
+        "coordinates": [-13.0371, 8.7502]
       },
       "properties": {
         "code": "OU_254987",
@@ -8391,10 +7296,7 @@
       "id": "v0HMlSxlH7l",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9883,
-          8.4737
-        ]
+        "coordinates": [-11.9883, 8.4737]
       },
       "properties": {
         "code": "OU_268204",
@@ -8414,10 +7316,7 @@
       "id": "UoLtRvXxNaB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5689,
-          8.7344
-        ]
+        "coordinates": [-12.5689, 8.7344]
       },
       "properties": {
         "code": "OU_254958",
@@ -8437,10 +7336,7 @@
       "id": "wB4R3E1X6pC",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8371,
-          8.7505
-        ]
+        "coordinates": [-11.8371, 8.7505]
       },
       "properties": {
         "code": "OU_268159",
@@ -8460,10 +7356,7 @@
       "id": "eyfrdOUUkXO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2807,
-          9.4457
-        ]
+        "coordinates": [-12.2807, 9.4457]
       },
       "properties": {
         "code": "OU_193288",
@@ -8483,10 +7376,7 @@
       "id": "CY8cV5khn7e",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0432,
-          9.0166
-        ]
+        "coordinates": [-12.0432, 9.0166]
       },
       "properties": {
         "code": "OU_193269",
@@ -8506,10 +7396,7 @@
       "id": "EURoFVjowXs",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7499,
-          8.4919
-        ]
+        "coordinates": [-12.7499, 8.4919]
       },
       "properties": {
         "code": "OU_254964",
@@ -8529,10 +7416,7 @@
       "id": "eKoXODABUJe",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0375,
-          9.0803
-        ]
+        "coordinates": [-11.0375, 9.0803]
       },
       "properties": {
         "code": "OU_226278",
@@ -8552,10 +7436,7 @@
       "id": "D6B4jrCpCwu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0327,
-          8.5431
-        ]
+        "coordinates": [-12.0327, 8.5431]
       },
       "properties": {
         "code": "OU_268158",
@@ -8575,10 +7456,7 @@
       "id": "PhR1PdMTzhW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8873,
-          8.9817
-        ]
+        "coordinates": [-11.8873, 8.9817]
       },
       "properties": {
         "code": "OU_193272",
@@ -8598,10 +7476,7 @@
       "id": "xWjiTeok0Sr",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.942,
-          8.3144
-        ]
+        "coordinates": [-12.942, 8.3144]
       },
       "properties": {
         "code": "OU_278381",
@@ -8621,10 +7496,7 @@
       "id": "dqHvtpUqLwB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0972,
-          8.7112
-        ]
+        "coordinates": [-12.0972, 8.7112]
       },
       "properties": {
         "code": "OU_193201",
@@ -8644,10 +7516,7 @@
       "id": "Z0q0Y3GRugt",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2511,
-          8.6949
-        ]
+        "coordinates": [-11.2511, 8.6949]
       },
       "properties": {
         "code": "OU_233335",
@@ -8667,10 +7536,7 @@
       "id": "GA7eQkgK5mX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.968,
-          8.0509
-        ]
+        "coordinates": [-10.968, 8.0509]
       },
       "properties": {
         "code": "OU_222712",
@@ -8690,10 +7556,7 @@
       "id": "vpNGJvZ0ljF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.686,
-          7.3549
-        ]
+        "coordinates": [-11.686, 7.3549]
       },
       "properties": {
         "code": "OU_260441",
@@ -8713,10 +7576,7 @@
       "id": "cag6vQQ9SQk",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7107,
-          9.2148
-        ]
+        "coordinates": [-12.7107, 9.2148]
       },
       "properties": {
         "code": "OU_211275",
@@ -8736,10 +7596,7 @@
       "id": "OY7mYDATra3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4735,
-          8.6419
-        ]
+        "coordinates": [-11.4735, 8.6419]
       },
       "properties": {
         "code": "OU_268176",
@@ -8759,10 +7616,7 @@
       "id": "XzmWizbR343",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0366,
-          8.8914
-        ]
+        "coordinates": [-12.0366, 8.8914]
       },
       "properties": {
         "code": "OU_193202",
@@ -8782,10 +7636,7 @@
       "id": "UlgEReuUPM4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.801,
-          8.4898
-        ]
+        "coordinates": [-12.801, 8.4898]
       },
       "properties": {
         "code": "OU_254965",
@@ -8805,10 +7656,7 @@
       "id": "EXbPGmEUdnc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3627,
-          9.1038
-        ]
+        "coordinates": [-12.3627, 9.1038]
       },
       "properties": {
         "code": "OU_193197",
@@ -8828,10 +7676,7 @@
       "id": "rLaGvUnv2BF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8134,
-          8.7537
-        ]
+        "coordinates": [-11.8134, 8.7537]
       },
       "properties": {
         "code": "OU_268218",
@@ -8851,10 +7696,7 @@
       "id": "OTn9VMNEkdo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9027,
-          8.6354
-        ]
+        "coordinates": [-11.9027, 8.6354]
       },
       "properties": {
         "code": "OU_268223",
@@ -8874,10 +7716,7 @@
       "id": "KcCbIDzRcui",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8591,
-          8.6573
-        ]
+        "coordinates": [-11.8591, 8.6573]
       },
       "properties": {
         "code": "OU_268221",
@@ -8897,10 +7736,7 @@
       "id": "PnMPARoMhWW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.16964,
-          7.68708
-        ]
+        "coordinates": [-12.16964, 7.68708]
       },
       "properties": {
         "code": "OU_197389",
@@ -8920,10 +7756,7 @@
       "id": "Qu0QOykPdcD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7885,
-          7.9431
-        ]
+        "coordinates": [-11.7885, 7.9431]
       },
       "properties": {
         "code": "OU_1114",
@@ -8943,10 +7776,7 @@
       "id": "Srnpwq8jKbp",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.734,
-          8.4622
-        ]
+        "coordinates": [-12.734, 8.4622]
       },
       "properties": {
         "code": "OU_254973",
@@ -8966,10 +7796,7 @@
       "id": "XiORvSsxn6s",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0345,
-          8.3737
-        ]
+        "coordinates": [-12.0345, 8.3737]
       },
       "properties": {
         "code": "OU_268227",
@@ -8989,10 +7816,7 @@
       "id": "vQYIk5G9NxP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.983,
-          8.592
-        ]
+        "coordinates": [-11.983, 8.592]
       },
       "properties": {
         "code": "OU_268160",
@@ -9012,10 +7836,7 @@
       "id": "nImgPWDVQIa",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.56,
-          7.5
-        ]
+        "coordinates": [-12.56, 7.5]
       },
       "properties": {
         "code": "OU_197401",
@@ -9035,10 +7856,7 @@
       "id": "EuoA3Crpqts",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.511,
-          7.9235
-        ]
+        "coordinates": [-11.511, 7.9235]
       },
       "properties": {
         "code": "OU_581",
@@ -9057,10 +7875,7 @@
       "id": "kpDoH80fwdX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.30152,
-          9.5283
-        ]
+        "coordinates": [-11.30152, 9.5283]
       },
       "properties": {
         "code": "OU_226259",
@@ -9080,10 +7895,7 @@
       "id": "w9XjBMJYL9R",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4341,
-          8.1591
-        ]
+        "coordinates": [-12.4341, 8.1591]
       },
       "properties": {
         "code": "OU_247061",
@@ -9102,10 +7914,7 @@
       "id": "sYjp3h6amhA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9767,
-          7.7661
-        ]
+        "coordinates": [-10.9767, 7.7661]
       },
       "properties": {
         "code": "OU_222746",
@@ -9125,10 +7934,7 @@
       "id": "YWXXO0XMkQe",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4844,
-          8.1597
-        ]
+        "coordinates": [-11.4844, 8.1597]
       },
       "properties": {
         "code": "OU_598",
@@ -9147,10 +7953,7 @@
       "id": "VjVYaKZ9t4K",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8594,
-          9.0139
-        ]
+        "coordinates": [-12.8594, 9.0139]
       },
       "properties": {
         "code": "OU_211230",
@@ -9170,10 +7973,7 @@
       "id": "WoqN1oUBX2R",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8543,
-          8.4529
-        ]
+        "coordinates": [-12.8543, 8.4529]
       },
       "properties": {
         "code": "OU_254975",
@@ -9193,10 +7993,7 @@
       "id": "MXdbul7bBqV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.7542,
-          7.9935
-        ]
+        "coordinates": [-10.7542, 7.9935]
       },
       "properties": {
         "code": "OU_204912",
@@ -9216,10 +8013,7 @@
       "id": "ua3kNk4uraZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2239,
-          8.6414
-        ]
+        "coordinates": [-13.2239, 8.6414]
       },
       "properties": {
         "code": "OU_211233",
@@ -9239,10 +8033,7 @@
       "id": "kqyeoWyfDmQ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.897,
-          8.1361
-        ]
+        "coordinates": [-11.897, 8.1361]
       },
       "properties": {
         "code": "OU_247035",
@@ -9262,10 +8053,7 @@
       "id": "wGsBlwh6Zzt",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8951,
-          8.2071
-        ]
+        "coordinates": [-11.8951, 8.2071]
       },
       "properties": {
         "code": "OU_247009",
@@ -9285,10 +8073,7 @@
       "id": "jIkxZKctVhB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.57751,
-          7.77689
-        ]
+        "coordinates": [-12.57751, 7.77689]
       },
       "properties": {
         "code": "OU_197415",
@@ -9308,10 +8093,7 @@
       "id": "bLYNonGzr0Y",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8198,
-          7.994
-        ]
+        "coordinates": [-12.8198, 7.994]
       },
       "properties": {
         "code": "OU_247074",
@@ -9331,10 +8113,7 @@
       "id": "WxMmxNU6Gla",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7277,
-          8.0385
-        ]
+        "coordinates": [-12.7277, 8.0385]
       },
       "properties": {
         "code": "OU_247026",
@@ -9354,10 +8133,7 @@
       "id": "cNAp6CJeLxk",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1913,
-          7.9032
-        ]
+        "coordinates": [-12.1913, 7.9032]
       },
       "properties": {
         "code": "OU_247015",
@@ -9377,10 +8153,7 @@
       "id": "kd2Aqw5S07V",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4112,
-          8.0022
-        ]
+        "coordinates": [-12.4112, 8.0022]
       },
       "properties": {
         "code": "OU_247052",
@@ -9400,10 +8173,7 @@
       "id": "RxmgoSlw9YF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2935,
-          8.297
-        ]
+        "coordinates": [-12.2935, 8.297]
       },
       "properties": {
         "code": "OU_247094",
@@ -9423,10 +8193,7 @@
       "id": "SC0nM3cbGHy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6452,
-          7.9544
-        ]
+        "coordinates": [-12.6452, 7.9544]
       },
       "properties": {
         "code": "OU_247075",
@@ -9446,10 +8213,7 @@
       "id": "BedE3DKQDFf",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7681,
-          8.0006
-        ]
+        "coordinates": [-12.7681, 8.0006]
       },
       "properties": {
         "code": "OU_247078",
@@ -9469,10 +8233,7 @@
       "id": "cHqboEGRUiY",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9307,
-          8.1926
-        ]
+        "coordinates": [-12.9307, 8.1926]
       },
       "properties": {
         "code": "OU_247040",
@@ -9492,10 +8253,7 @@
       "id": "sAO5hEWo4z5",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2484,
-          8.1689
-        ]
+        "coordinates": [-12.2484, 8.1689]
       },
       "properties": {
         "code": "OU_247090",
@@ -9515,10 +8273,7 @@
       "id": "qcYG2Id7GS8",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7241,
-          7.7678
-        ]
+        "coordinates": [-12.7241, 7.7678]
       },
       "properties": {
         "code": "OU_247048",
@@ -9538,10 +8293,7 @@
       "id": "am6EFqHGKeU",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9505,
-          7.712
-        ]
+        "coordinates": [-11.9505, 7.712]
       },
       "properties": {
         "code": "OU_644",
@@ -9561,10 +8313,7 @@
       "id": "fA43H8Ds0Ja",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9379,
-          7.5753
-        ]
+        "coordinates": [-11.9379, 7.5753]
       },
       "properties": {
         "code": "OU_625",
@@ -9584,10 +8333,7 @@
       "id": "PC3Ag91n82e",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7347,
-          8.3228
-        ]
+        "coordinates": [-11.7347, 8.3228]
       },
       "properties": {
         "code": "OU_1122",
@@ -9607,10 +8353,7 @@
       "id": "xMn4Wki9doK",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2977,
-          7.7936
-        ]
+        "coordinates": [-12.2977, 7.7936]
       },
       "properties": {
         "code": "OU_197417",
@@ -9630,10 +8373,7 @@
       "id": "HHz1kAG1LKn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4188,
-          7.8704
-        ]
+        "coordinates": [-12.4188, 7.8704]
       },
       "properties": {
         "code": "OU_247051",
@@ -9653,10 +8393,7 @@
       "id": "XmfqaErvQ2T",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2689,
-          7.8374
-        ]
+        "coordinates": [-12.2689, 7.8374]
       },
       "properties": {
         "code": "OU_247014",
@@ -9676,10 +8413,7 @@
       "id": "g3O1pGAfgK1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0224,
-          8.6117
-        ]
+        "coordinates": [-11.0224, 8.6117]
       },
       "properties": {
         "code": "OU_233399",
@@ -9699,10 +8433,7 @@
       "id": "fvytjjnlQlK",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7935,
-          8.3054
-        ]
+        "coordinates": [-12.7935, 8.3054]
       },
       "properties": {
         "code": "OU_247043",
@@ -9722,10 +8453,7 @@
       "id": "BpWJ3cRsO6g",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8429,
-          8.2624
-        ]
+        "coordinates": [-12.8429, 8.2624]
       },
       "properties": {
         "code": "OU_247041",
@@ -9745,10 +8473,7 @@
       "id": "Gtnbmf4LkOz",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8337,
-          8.121
-        ]
+        "coordinates": [-12.8337, 8.121]
       },
       "properties": {
         "code": "OU_247030",
@@ -9768,10 +8493,7 @@
       "id": "rCKWdLr4B8K",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0474,
-          7.614
-        ]
+        "coordinates": [-12.0474, 7.614]
       },
       "properties": {
         "code": "OU_197427",
@@ -9791,10 +8513,7 @@
       "id": "WhCQNekdIwM",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7739,
-          8.0743
-        ]
+        "coordinates": [-12.7739, 8.0743]
       },
       "properties": {
         "code": "OU_247028",
@@ -9814,10 +8533,7 @@
       "id": "zEsMdeJOty4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2064,
-          8.473
-        ]
+        "coordinates": [-13.2064, 8.473]
       },
       "properties": {
         "code": "OU_278331",
@@ -9837,10 +8553,7 @@
       "id": "UgUcwzbEv2C",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3533,
-          8.159
-        ]
+        "coordinates": [-12.3533, 8.159]
       },
       "properties": {
         "code": "OU_247093",
@@ -9860,10 +8573,7 @@
       "id": "sY1WN6LjmAx",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1005,
-          7.6449
-        ]
+        "coordinates": [-12.1005, 7.6449]
       },
       "properties": {
         "code": "OU_197387",
@@ -9883,10 +8593,7 @@
       "id": "a04CZxe0PSe",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.264,
-          8.4952
-        ]
+        "coordinates": [-13.264, 8.4952]
       },
       "properties": {
         "code": "OU_278333",
@@ -9906,10 +8613,7 @@
       "id": "sTOXJA2KcY2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.18594,
-          8.79137
-        ]
+        "coordinates": [-13.18594, 8.79137]
       },
       "properties": {
         "code": "OU_254986",
@@ -9929,10 +8633,7 @@
       "id": "rm60vuHyQXj",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6528,
-          8.1271
-        ]
+        "coordinates": [-11.6528, 8.1271]
       },
       "properties": {
         "code": "OU_1082",
@@ -9952,10 +8653,7 @@
       "id": "lzz1UhTzO4E",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.762,
-          8.747
-        ]
+        "coordinates": [-12.762, 8.747]
       },
       "properties": {
         "code": "OU_254948",
@@ -9975,10 +8673,7 @@
       "id": "m3VnSQbE8CD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0212,
-          8.3336
-        ]
+        "coordinates": [-13.0212, 8.3336]
       },
       "properties": {
         "code": "OU_278382",
@@ -9998,10 +8693,7 @@
       "id": "YnuwSqXPx9H",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0394,
-          8.6095
-        ]
+        "coordinates": [-11.0394, 8.6095]
       },
       "properties": {
         "code": "OU_233404",
@@ -10021,10 +8713,7 @@
       "id": "CvBAqD6RzLZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5574,
-          8.1074
-        ]
+        "coordinates": [-11.5574, 8.1074]
       },
       "properties": {
         "code": "OU_595",
@@ -10043,10 +8732,7 @@
       "id": "P4upLKrpkHP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1552,
-          7.5797
-        ]
+        "coordinates": [-11.1552, 7.5797]
       },
       "properties": {
         "code": "OU_222641",
@@ -10066,10 +8752,7 @@
       "id": "DiszpKrYNg8",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4197,
-          8.1039
-        ]
+        "coordinates": [-11.4197, 8.1039]
       },
       "properties": {
         "code": "OU_559",
@@ -10088,10 +8771,7 @@
       "id": "FwKJ7gYEv8U",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.113,
-          8.0125
-        ]
+        "coordinates": [-11.113, 8.0125]
       },
       "properties": {
         "code": "OU_222700",
@@ -10111,10 +8791,7 @@
       "id": "hBPtNXkQ3mP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6751,
-          7.9867
-        ]
+        "coordinates": [-12.6751, 7.9867]
       },
       "properties": {
         "code": "OU_247070",
@@ -10134,10 +8811,7 @@
       "id": "KuGO75X47Gk",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2013,
-          7.6059
-        ]
+        "coordinates": [-11.2013, 7.6059]
       },
       "properties": {
         "code": "OU_222636",
@@ -10157,10 +8831,7 @@
       "id": "al4GkB6X2X3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8714,
-          7.6946
-        ]
+        "coordinates": [-11.8714, 7.6946]
       },
       "properties": {
         "code": "OU_1065",
@@ -10180,10 +8851,7 @@
       "id": "p9ZtyC3LQ9f",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7684,
-          7.6817
-        ]
+        "coordinates": [-11.7684, 7.6817]
       },
       "properties": {
         "code": "OU_617",
@@ -10203,10 +8871,7 @@
       "id": "BJMWTGwuGiw",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5736,
-          8.2754
-        ]
+        "coordinates": [-10.5736, 8.2754]
       },
       "properties": {
         "code": "OU_204883",
@@ -10226,10 +8891,7 @@
       "id": "YXdC9hjYPqQ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6387,
-          8.9903
-        ]
+        "coordinates": [-11.6387, 8.9903]
       },
       "properties": {
         "code": "OU_268172",
@@ -10249,10 +8911,7 @@
       "id": "QoROdPmIdY1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2836,
-          8.2615
-        ]
+        "coordinates": [-12.2836, 8.2615]
       },
       "properties": {
         "code": "OU_247088",
@@ -10272,10 +8931,7 @@
       "id": "VjygCFzqcYu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0612,
-          8.2517
-        ]
+        "coordinates": [-11.0612, 8.2517]
       },
       "properties": {
         "code": "OU_222660",
@@ -10295,10 +8951,7 @@
       "id": "MUnd4KWox8m",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1434,
-          8.6408
-        ]
+        "coordinates": [-11.1434, 8.6408]
       },
       "properties": {
         "code": "OU_233403",
@@ -10318,10 +8971,7 @@
       "id": "sLKHXoBIqSs",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.8235,
-          8.6276
-        ]
+        "coordinates": [-10.8235, 8.6276]
       },
       "properties": {
         "code": "OU_233362",
@@ -10341,10 +8991,7 @@
       "id": "aV9VVijeVB2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1371,
-          8.355
-        ]
+        "coordinates": [-11.1371, 8.355]
       },
       "properties": {
         "code": "OU_233358",
@@ -10364,10 +9011,7 @@
       "id": "QsAwd531Cpd",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4596,
-          8.2006
-        ]
+        "coordinates": [-11.4596, 8.2006]
       },
       "properties": {
         "code": "OU_1038",
@@ -10387,10 +9031,7 @@
       "id": "vPz4Irz7sxR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.054,
-          8.5732
-        ]
+        "coordinates": [-11.054, 8.5732]
       },
       "properties": {
         "code": "OU_233401",
@@ -10410,10 +9051,7 @@
       "id": "Bpvug2zxHEZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0716,
-          8.1111
-        ]
+        "coordinates": [-12.0716, 8.1111]
       },
       "properties": {
         "code": "OU_246995",
@@ -10433,10 +9071,7 @@
       "id": "kvzdkXBxHoN",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4446,
-          7.3924
-        ]
+        "coordinates": [-11.4446, 7.3924]
       },
       "properties": {
         "code": "OU_260433",
@@ -10456,10 +9091,7 @@
       "id": "hzf90qz08AW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.941,
-          8.0822
-        ]
+        "coordinates": [-11.941, 8.0822]
       },
       "properties": {
         "code": "OU_247034",
@@ -10479,10 +9111,7 @@
       "id": "WMj6mBDw76A",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5735,
-          8.2754
-        ]
+        "coordinates": [-10.5735, 8.2754]
       },
       "properties": {
         "code": "OU_204870",
@@ -10502,10 +9131,7 @@
       "id": "fdsRQbuuAuh",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5806,
-          8.5937
-        ]
+        "coordinates": [-12.5806, 8.5937]
       },
       "properties": {
         "code": "OU_255040",
@@ -10525,10 +9151,7 @@
       "id": "mVvEwzoFutG",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.76,
-          7.5891
-        ]
+        "coordinates": [-11.76, 7.5891]
       },
       "properties": {
         "code": "OU_260394",
@@ -10548,10 +9171,7 @@
       "id": "dNT8lAL4zGo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5735,
-          8.2755
-        ]
+        "coordinates": [-10.5735, 8.2755]
       },
       "properties": {
         "code": "OU_204863",
@@ -10571,10 +9191,7 @@
       "id": "PEZNsGbZaVJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1368,
-          8.1846
-        ]
+        "coordinates": [-11.1368, 8.1846]
       },
       "properties": {
         "code": "OU_222664",
@@ -10594,10 +9211,7 @@
       "id": "zLiMZ1WrxdG",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.031,
-          8.9164
-        ]
+        "coordinates": [-12.031, 8.9164]
       },
       "properties": {
         "code": "OU_193258",
@@ -10617,10 +9231,7 @@
       "id": "tSBcgrTDdB8",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7486,
-          7.9498
-        ]
+        "coordinates": [-11.7486, 7.9498]
       },
       "properties": {
         "code": "OU_834",
@@ -10640,10 +9251,7 @@
       "id": "LqH7ZGU9KAx",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2191,
-          8.49
-        ]
+        "coordinates": [-13.2191, 8.49]
       },
       "properties": {
         "code": "OU_278328",
@@ -10663,10 +9271,7 @@
       "id": "CqARw68kXbB",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6188,
-          7.5234
-        ]
+        "coordinates": [-11.6188, 7.5234]
       },
       "properties": {
         "code": "OU_260402",
@@ -10686,10 +9291,7 @@
       "id": "BTXwf2gl7av",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5063,
-          7.5872
-        ]
+        "coordinates": [-11.5063, 7.5872]
       },
       "properties": {
         "code": "OU_260390",
@@ -10709,10 +9311,7 @@
       "id": "MQHszd6K6V5",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4587,
-          7.8851
-        ]
+        "coordinates": [-11.4587, 7.8851]
       },
       "properties": {
         "code": "OU_222669",
@@ -10732,10 +9331,7 @@
       "id": "pJv8NJlJNhU",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.6953,
-          8.0961
-        ]
+        "coordinates": [-10.6953, 8.0961]
       },
       "properties": {
         "code": "OU_204916",
@@ -10755,10 +9351,7 @@
       "id": "fYmE4ymzZSe",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.574,
-          8.2761
-        ]
+        "coordinates": [-10.574, 8.2761]
       },
       "properties": {
         "code": "OU_204878",
@@ -10778,10 +9371,7 @@
       "id": "XXlzHWzhf5d",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.0547,
-          8.5893
-        ]
+        "coordinates": [-13.0547, 8.5893]
       },
       "properties": {
         "code": "OU_254985",
@@ -10801,10 +9391,7 @@
       "id": "f6xGA6BZBLO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0787,
-          7.6621
-        ]
+        "coordinates": [-11.0787, 7.6621]
       },
       "properties": {
         "code": "OU_222745",
@@ -10824,10 +9411,7 @@
       "id": "ke2gwHKHP3z",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1078,
-          8.6953
-        ]
+        "coordinates": [-13.1078, 8.6953]
       },
       "properties": {
         "code": "OU_254983",
@@ -10847,10 +9431,7 @@
       "id": "byOPfWkK6M6",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5408,
-          8.6272
-        ]
+        "coordinates": [-11.5408, 8.6272]
       },
       "properties": {
         "code": "OU_268175",
@@ -10870,10 +9451,7 @@
       "id": "zQ2pFkzGtIg",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2143,
-          8.4967
-        ]
+        "coordinates": [-11.2143, 8.4967]
       },
       "properties": {
         "code": "OU_233334",
@@ -10893,10 +9471,7 @@
       "id": "FGV6TAbL0eN",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.048,
-          8.758
-        ]
+        "coordinates": [-11.048, 8.758]
       },
       "properties": {
         "code": "OU_233342",
@@ -10916,10 +9491,7 @@
       "id": "oV9P0VvL9Jh",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9557,
-          7.9099
-        ]
+        "coordinates": [-12.9557, 7.9099]
       },
       "properties": {
         "code": "OU_247071",
@@ -10939,10 +9511,7 @@
       "id": "k6lOze3vTzP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4814,
-          7.5031
-        ]
+        "coordinates": [-11.4814, 7.5031]
       },
       "properties": {
         "code": "OU_260435",
@@ -10962,10 +9531,7 @@
       "id": "xXYv82KlBUh",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2141,
-          8.4803
-        ]
+        "coordinates": [-13.2141, 8.4803]
       },
       "properties": {
         "code": "OU_278365",
@@ -10985,10 +9551,7 @@
       "id": "u6ZGNI8yUmt",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.25,
-          8.48
-        ]
+        "coordinates": [-13.25, 8.48]
       },
       "properties": {
         "code": "OU_278313",
@@ -11007,10 +9570,7 @@
       "id": "ym42ZOlfZ1P",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5957,
-          8.8175
-        ]
+        "coordinates": [-12.5957, 8.8175]
       },
       "properties": {
         "code": "OU_255062",
@@ -11030,10 +9590,7 @@
       "id": "gP6hn503KUX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0607,
-          8.7916
-        ]
+        "coordinates": [-12.0607, 8.7916]
       },
       "properties": {
         "code": "OU_193207",
@@ -11053,10 +9610,7 @@
       "id": "fHqBRE3LTiQ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3586,
-          8.6429
-        ]
+        "coordinates": [-12.3586, 8.6429]
       },
       "properties": {
         "code": "OU_268187",
@@ -11076,10 +9630,7 @@
       "id": "PHo0IV7Vk50",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1813,
-          8.3968
-        ]
+        "coordinates": [-12.1813, 8.3968]
       },
       "properties": {
         "code": "OU_268240",
@@ -11099,10 +9650,7 @@
       "id": "X9zzzyPZViR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2855,
-          8.6612
-        ]
+        "coordinates": [-12.2855, 8.6612]
       },
       "properties": {
         "code": "OU_268190",
@@ -11122,10 +9670,7 @@
       "id": "jSPLEMDwXN4",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7852,
-          8.4431
-        ]
+        "coordinates": [-12.7852, 8.4431]
       },
       "properties": {
         "code": "OU_254970",
@@ -11145,10 +9690,7 @@
       "id": "pvTYrkG1d6f",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6227,
-          8.8463
-        ]
+        "coordinates": [-12.6227, 8.8463]
       },
       "properties": {
         "code": "OU_255066",
@@ -11168,10 +9710,7 @@
       "id": "yvDKjcRRQsR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2241,
-          9.2117
-        ]
+        "coordinates": [-12.2241, 9.2117]
       },
       "properties": {
         "code": "OU_193193",
@@ -11191,10 +9730,7 @@
       "id": "UxpUYgdb4oU",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.02,
-          9.02
-        ]
+        "coordinates": [-13.02, 9.02]
       },
       "properties": {
         "code": "OU_211250",
@@ -11214,10 +9750,7 @@
       "id": "pVuRAzSstbn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3755,
-          8.4766
-        ]
+        "coordinates": [-12.3755, 8.4766]
       },
       "properties": {
         "code": "OU_268242",
@@ -11237,10 +9770,7 @@
       "id": "mepHuAA9l51",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0482,
-          8.7452
-        ]
+        "coordinates": [-12.0482, 8.7452]
       },
       "properties": {
         "code": "OU_193205",
@@ -11260,10 +9790,7 @@
       "id": "X79FDd4EAgo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2112,
-          9.1945
-        ]
+        "coordinates": [-12.2112, 9.1945]
       },
       "properties": {
         "code": "OU_193196",
@@ -11283,10 +9810,7 @@
       "id": "NfE9gvFwLIF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1726,
-          8.4603
-        ]
+        "coordinates": [-13.1726, 8.4603]
       },
       "properties": {
         "code": "OU_278332",
@@ -11306,10 +9830,7 @@
       "id": "QZtMuEEV9Vv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9443,
-          9.0163
-        ]
+        "coordinates": [-12.9443, 9.0163]
       },
       "properties": {
         "code": "OU_211237",
@@ -11329,10 +9850,7 @@
       "id": "FQ5CCuUKNLf",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9873,
-          8.8628
-        ]
+        "coordinates": [-12.9873, 8.8628]
       },
       "properties": {
         "code": "OU_211263",
@@ -11352,10 +9870,7 @@
       "id": "GCbYmPqcOOP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.7202,
-          8.899
-        ]
+        "coordinates": [-12.7202, 8.899]
       },
       "properties": {
         "code": "OU_255047",
@@ -11375,10 +9890,7 @@
       "id": "B9RxRfRUi2R",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4601,
-          8.36326
-        ]
+        "coordinates": [-12.4601, 8.36326]
       },
       "properties": {
         "code": "OU_268241",
@@ -11398,10 +9910,7 @@
       "id": "x3ti3t9eOuX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9275,
-          8.5859
-        ]
+        "coordinates": [-11.9275, 8.5859]
       },
       "properties": {
         "code": "OU_268224",
@@ -11421,10 +9930,7 @@
       "id": "el8sgzyHuEe",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4929,
-          8.8152
-        ]
+        "coordinates": [-12.4929, 8.8152]
       },
       "properties": {
         "code": "OU_255029",
@@ -11444,10 +9950,7 @@
       "id": "bPqP6eRfkyn",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2104,
-          8.489
-        ]
+        "coordinates": [-13.2104, 8.489]
       },
       "properties": {
         "code": "OU_278318",
@@ -11467,10 +9970,7 @@
       "id": "gUPhNWkSXvD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6772,
-          8.2282
-        ]
+        "coordinates": [-12.6772, 8.2282]
       },
       "properties": {
         "code": "OU_247032",
@@ -11490,10 +9990,7 @@
       "id": "WZ8PTx8qQlE",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5565,
-          7.2076
-        ]
+        "coordinates": [-11.5565, 7.2076]
       },
       "properties": {
         "code": "OU_260427",
@@ -11513,10 +10010,7 @@
       "id": "NDqR2cWlVy3",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8432,
-          7.4362
-        ]
+        "coordinates": [-11.8432, 7.4362]
       },
       "properties": {
         "code": "OU_646",
@@ -11536,10 +10030,7 @@
       "id": "PuZOFApTSeo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.598,
-          8.1582
-        ]
+        "coordinates": [-11.598, 8.1582]
       },
       "properties": {
         "code": "OU_952",
@@ -11559,10 +10050,7 @@
       "id": "rFelzKE3SEp",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.622,
-          7.4798
-        ]
+        "coordinates": [-11.622, 7.4798]
       },
       "properties": {
         "code": "OU_260403",
@@ -11582,10 +10070,7 @@
       "id": "BnVjTzwis3o",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3937,
-          9.5118
-        ]
+        "coordinates": [-12.3937, 9.5118]
       },
       "properties": {
         "code": "OU_193248",
@@ -11605,10 +10090,7 @@
       "id": "vgOQ7fWmMyZ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.5062,
-          8.7279
-        ]
+        "coordinates": [-10.5062, 8.7279]
       },
       "properties": {
         "code": "OU_233345",
@@ -11628,10 +10110,7 @@
       "id": "yXBtSoD0IRS",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0588,
-          8.6941
-        ]
+        "coordinates": [-11.0588, 8.6941]
       },
       "properties": {
         "code": "OU_233340",
@@ -11651,10 +10130,7 @@
       "id": "oUR5HPmim7E",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0681,
-          8.2184
-        ]
+        "coordinates": [-11.0681, 8.2184]
       },
       "properties": {
         "code": "OU_222658",
@@ -11674,10 +10150,7 @@
       "id": "vcY0lzBz6fU",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2681,
-          8.6418
-        ]
+        "coordinates": [-11.2681, 8.6418]
       },
       "properties": {
         "code": "OU_233337",
@@ -11697,10 +10170,7 @@
       "id": "UqHuR4IYvTY",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3786,
-          9.8371
-        ]
+        "coordinates": [-12.3786, 9.8371]
       },
       "properties": {
         "code": "OU_193246",
@@ -11720,10 +10190,7 @@
       "id": "uoPC2z9r7Cc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.097,
-          8.728
-        ]
+        "coordinates": [-11.097, 8.728]
       },
       "properties": {
         "code": "OU_233406",
@@ -11743,10 +10210,7 @@
       "id": "DqfiI6NVnB1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7243,
-          7.7801
-        ]
+        "coordinates": [-11.7243, 7.7801]
       },
       "properties": {
         "code": "OU_1107",
@@ -11766,10 +10230,7 @@
       "id": "egjrZ1PHNtT",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5375,
-          7.9388
-        ]
+        "coordinates": [-12.5375, 7.9388]
       },
       "properties": {
         "code": "OU_247053",
@@ -11789,10 +10250,7 @@
       "id": "IWM4eKPJJSc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3277,
-          8.0208
-        ]
+        "coordinates": [-11.3277, 8.0208]
       },
       "properties": {
         "code": "OU_222727",
@@ -11812,10 +10270,7 @@
       "id": "REtQE1gstTf",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0273,
-          8.2109
-        ]
+        "coordinates": [-11.0273, 8.2109]
       },
       "properties": {
         "code": "OU_222655",
@@ -11835,10 +10290,7 @@
       "id": "NqTZjfTIsxC",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0527,
-          8.2005
-        ]
+        "coordinates": [-11.0527, 8.2005]
       },
       "properties": {
         "code": "OU_222667",
@@ -11858,10 +10310,7 @@
       "id": "Jyv7sjpl9bA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.3867,
-          7.7138
-        ]
+        "coordinates": [-11.3867, 7.7138]
       },
       "properties": {
         "code": "OU_222650",
@@ -11881,10 +10330,7 @@
       "id": "oLuhRyYPxRO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9487,
-          8.1698
-        ]
+        "coordinates": [-11.9487, 8.1698]
       },
       "properties": {
         "code": "OU_247011",
@@ -11904,10 +10350,7 @@
       "id": "Efmr3Xo36DR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1133,
-          7.4039
-        ]
+        "coordinates": [-12.1133, 7.4039]
       },
       "properties": {
         "code": "OU_197438",
@@ -11927,10 +10370,7 @@
       "id": "xX4lIVqF4yb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5543,
-          9.6233
-        ]
+        "coordinates": [-11.5543, 9.6233]
       },
       "properties": {
         "code": "OU_226262",
@@ -11950,10 +10390,7 @@
       "id": "aRXfvyonenP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7843,
-          7.4932
-        ]
+        "coordinates": [-11.7843, 7.4932]
       },
       "properties": {
         "code": "OU_260396",
@@ -11973,10 +10410,7 @@
       "id": "MnfykVk3zin",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0141,
-          7.5318
-        ]
+        "coordinates": [-12.0141, 7.5318]
       },
       "properties": {
         "code": "OU_197425",
@@ -11996,10 +10430,7 @@
       "id": "Qr41Mw2MSjo",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8863,
-          9.0668
-        ]
+        "coordinates": [-12.8863, 9.0668]
       },
       "properties": {
         "code": "OU_211240",
@@ -12019,10 +10450,7 @@
       "id": "wjP03y8OY5k",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1532,
-          8.28012
-        ]
+        "coordinates": [-11.1532, 8.28012]
       },
       "properties": {
         "code": "OU_222643",
@@ -12042,10 +10470,7 @@
       "id": "ZOZ4s2gTPj7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0768,
-          9.5348
-        ]
+        "coordinates": [-11.0768, 9.5348]
       },
       "properties": {
         "code": "OU_226252",
@@ -12065,10 +10490,7 @@
       "id": "kzmwOrwmzbW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9216,
-          9.4654
-        ]
+        "coordinates": [-10.9216, 9.4654]
       },
       "properties": {
         "code": "OU_226249",
@@ -12088,10 +10510,7 @@
       "id": "p9KfD6eaRvu",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9517,
-          7.9085
-        ]
+        "coordinates": [-12.9517, 7.9085]
       },
       "properties": {
         "code": "OU_247069",
@@ -12111,10 +10530,7 @@
       "id": "Bq5nb7UAEGd",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.45803,
-          7.69661
-        ]
+        "coordinates": [-12.45803, 7.69661]
       },
       "properties": {
         "code": "OU_197420",
@@ -12134,10 +10550,7 @@
       "id": "IlnqGuxfQAw",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4291,
-          9.863
-        ]
+        "coordinates": [-11.4291, 9.863]
       },
       "properties": {
         "code": "OU_226216",
@@ -12157,10 +10570,7 @@
       "id": "wicmjKI3xiP",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9355,
-          8.7209
-        ]
+        "coordinates": [-11.9355, 8.7209]
       },
       "properties": {
         "code": "OU_268153",
@@ -12179,10 +10589,7 @@
       "id": "pXDcgDRz8Od",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.9303,
-          8.3706
-        ]
+        "coordinates": [-12.9303, 8.3706]
       },
       "properties": {
         "code": "OU_278402",
@@ -12202,10 +10609,7 @@
       "id": "RUCp6OaTSAD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2125,
-          8.6258
-        ]
+        "coordinates": [-13.2125, 8.6258]
       },
       "properties": {
         "code": "OU_255015",
@@ -12224,10 +10628,7 @@
       "id": "xWIyicUgscN",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5252,
-          8.7034
-        ]
+        "coordinates": [-12.5252, 8.7034]
       },
       "properties": {
         "code": "OU_255055",
@@ -12246,10 +10647,7 @@
       "id": "vv1QJFONsT6",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5019,
-          7.5309
-        ]
+        "coordinates": [-12.5019, 7.5309]
       },
       "properties": {
         "code": "OU_197443",
@@ -12268,10 +10666,7 @@
       "id": "M721NHGtdZV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2967,
-          7.7822
-        ]
+        "coordinates": [-12.2967, 7.7822]
       },
       "properties": {
         "code": "OU_247017",
@@ -12290,10 +10685,7 @@
       "id": "jCnyQOKQBFX",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.731,
-          7.9491
-        ]
+        "coordinates": [-11.731, 7.9491]
       },
       "properties": {
         "code": "OU_978",
@@ -12314,10 +10706,7 @@
       "id": "EoIjKXqXxi2",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.6806,
-          8.504
-        ]
+        "coordinates": [-10.6806, 8.504]
       },
       "properties": {
         "code": "OU_233322",
@@ -12337,10 +10726,7 @@
       "id": "PfZXxl6Wp3F",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5773,
-          6.9679
-        ]
+        "coordinates": [-11.5773, 6.9679]
       },
       "properties": {
         "code": "OU_260414",
@@ -12360,10 +10746,7 @@
       "id": "GvstqlRRnpV",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.26109,
-          8.8685
-        ]
+        "coordinates": [-11.26109, 8.8685]
       },
       "properties": {
         "code": "OU_226271",
@@ -12383,10 +10766,7 @@
       "id": "W2KnxOMvmgE",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9641,
-          7.6524
-        ]
+        "coordinates": [-11.9641, 7.6524]
       },
       "properties": {
         "code": "OU_1050",
@@ -12406,10 +10786,7 @@
       "id": "pUZIL5xBsve",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8979,
-          8.4205
-        ]
+        "coordinates": [-12.8979, 8.4205]
       },
       "properties": {
         "code": "OU_254972",
@@ -12429,10 +10806,7 @@
       "id": "rJ25bHbIujw",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2273,
-          8.4897
-        ]
+        "coordinates": [-13.2273, 8.4897]
       },
       "properties": {
         "code": "OU_278350",
@@ -12452,10 +10826,7 @@
       "id": "wcHRDp21Lw1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.231,
-          8.3472
-        ]
+        "coordinates": [-13.231, 8.3472]
       },
       "properties": {
         "code": "OU_278393",
@@ -12475,10 +10846,7 @@
       "id": "fzBpuujglTY",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9621,
-          8.6228
-        ]
+        "coordinates": [-10.9621, 8.6228]
       },
       "properties": {
         "code": "OU_233329",
@@ -12498,10 +10866,7 @@
       "id": "s5aXfzOL456",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1298,
-          7.4386
-        ]
+        "coordinates": [-12.1298, 7.4386]
       },
       "properties": {
         "code": "OU_197437",
@@ -12521,10 +10886,7 @@
       "id": "dU3vTbLRLHy",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5141,
-          7.4722
-        ]
+        "coordinates": [-11.5141, 7.4722]
       },
       "properties": {
         "code": "OU_260432",
@@ -12544,10 +10906,7 @@
       "id": "agEKP19IUKI",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1103,
-          8.9948
-        ]
+        "coordinates": [-12.1103, 8.9948]
       },
       "properties": {
         "code": "OU_193280",
@@ -12567,10 +10926,7 @@
       "id": "Fhko00f3hXT",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4078,
-          7.4116
-        ]
+        "coordinates": [-11.4078, 7.4116]
       },
       "properties": {
         "code": "OU_260429",
@@ -12590,10 +10946,7 @@
       "id": "iHQVo7h7KOQ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2309,
-          8.0043
-        ]
+        "coordinates": [-12.2309, 8.0043]
       },
       "properties": {
         "code": "OU_247022",
@@ -12613,10 +10966,7 @@
       "id": "Cc9kMNFpGmC",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.5411,
-          8.1075
-        ]
+        "coordinates": [-12.5411, 8.1075]
       },
       "properties": {
         "code": "OU_247081",
@@ -12636,10 +10986,7 @@
       "id": "GHPuYdLcVN5",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0292,
-          7.8633
-        ]
+        "coordinates": [-11.0292, 7.8633]
       },
       "properties": {
         "code": "OU_222742",
@@ -12659,10 +11006,7 @@
       "id": "nAH0uNc3b5f",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.2113,
-          8.7066
-        ]
+        "coordinates": [-11.2113, 8.7066]
       },
       "properties": {
         "code": "OU_233368",
@@ -12682,10 +11026,7 @@
       "id": "OuwX8H2CcRO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0286,
-          8.8707
-        ]
+        "coordinates": [-12.0286, 8.8707]
       },
       "properties": {
         "code": "OU_193212",
@@ -12705,10 +11046,7 @@
       "id": "erqWTArTsyJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.639,
-          7.8029
-        ]
+        "coordinates": [-11.639, 7.8029]
       },
       "properties": {
         "code": "OU_824",
@@ -12728,10 +11066,7 @@
       "id": "AhnK8hb3JWm",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9815,
-          8.6447
-        ]
+        "coordinates": [-10.9815, 8.6447]
       },
       "properties": {
         "code": "OU_233326",
@@ -12750,10 +11085,7 @@
       "id": "BzEwqabuW19",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2725,
-          8.4799
-        ]
+        "coordinates": [-13.2725, 8.4799]
       },
       "properties": {
         "code": "OU_278341",
@@ -12773,10 +11105,7 @@
       "id": "ua5GXy2uhBR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0898,
-          7.5666
-        ]
+        "coordinates": [-12.0898, 7.5666]
       },
       "properties": {
         "code": "OU_197412",
@@ -12796,10 +11125,7 @@
       "id": "KYXbIQBQgP1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.7815,
-          7.8783
-        ]
+        "coordinates": [-11.7815, 7.8783]
       },
       "properties": {
         "code": "OU_1103",
@@ -12819,10 +11145,7 @@
       "id": "CFPrsD3dNeb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.70613,
-          7.53912
-        ]
+        "coordinates": [-12.70613, 7.53912]
       },
       "properties": {
         "code": "OU_197423",
@@ -12842,10 +11165,7 @@
       "id": "GGDHb8xd8jc",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1913,
-          8.3136
-        ]
+        "coordinates": [-13.1913, 8.3136]
       },
       "properties": {
         "code": "OU_278368",
@@ -12865,10 +11185,7 @@
       "id": "lxxASQqPUqd",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0121,
-          8.702
-        ]
+        "coordinates": [-11.0121, 8.702]
       },
       "properties": {
         "code": "OU_233341",
@@ -12888,10 +11205,7 @@
       "id": "K3jhn3TXF3a",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0581,
-          8.2154
-        ]
+        "coordinates": [-11.0581, 8.2154]
       },
       "properties": {
         "code": "OU_222665",
@@ -12911,10 +11225,7 @@
       "id": "xIMxph4NMP1",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2665,
-          8.8744
-        ]
+        "coordinates": [-12.2665, 8.8744]
       },
       "properties": {
         "code": "OU_193264",
@@ -12934,10 +11245,7 @@
       "id": "rZkUcho9Z65",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0092,
-          7.4143
-        ]
+        "coordinates": [-12.0092, 7.4143]
       },
       "properties": {
         "code": "OU_197405",
@@ -12957,10 +11265,7 @@
       "id": "PdGktj8bAML",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.1676,
-          7.605
-        ]
+        "coordinates": [-12.1676, 7.605]
       },
       "properties": {
         "code": "OU_197388",
@@ -12979,10 +11284,7 @@
       "id": "Qw7c6Ckb0XC",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.0601,
-          8.2029
-        ]
+        "coordinates": [-12.0601, 8.2029]
       },
       "properties": {
         "code": "OU_246996",
@@ -13002,10 +11304,7 @@
       "id": "g5A3hiJlwmI",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.09,
-          8.5439
-        ]
+        "coordinates": [-11.09, 8.5439]
       },
       "properties": {
         "code": "OU_233397",
@@ -13024,10 +11323,7 @@
       "id": "Ykx8Ovui7g0",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8618,
-          7.6677
-        ]
+        "coordinates": [-11.8618, 7.6677]
       },
       "properties": {
         "code": "OU_1069",
@@ -13047,10 +11343,7 @@
       "id": "up9gjdODKXE",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0037,
-          8.0275
-        ]
+        "coordinates": [-11.0037, 8.0275]
       },
       "properties": {
         "code": "OU_222720",
@@ -13070,10 +11363,7 @@
       "id": "GjJjES51GvK",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4124,
-          7.5426
-        ]
+        "coordinates": [-11.4124, 7.5426]
       },
       "properties": {
         "code": "OU_260430",
@@ -13093,10 +11383,7 @@
       "id": "dyn5pihalrJ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3309,
-          7.646
-        ]
+        "coordinates": [-12.3309, 7.646]
       },
       "properties": {
         "code": "OU_197419",
@@ -13116,10 +11403,7 @@
       "id": "YPSCWmJ3TyN",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4531,
-          7.4467
-        ]
+        "coordinates": [-11.4531, 7.4467]
       },
       "properties": {
         "code": "OU_260431",
@@ -13139,10 +11423,7 @@
       "id": "zCSWBz2pyMd",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4542,
-          7.0472
-        ]
+        "coordinates": [-11.4542, 7.0472]
       },
       "properties": {
         "code": "OU_260412",
@@ -13162,10 +11443,7 @@
       "id": "m0PiiU5BteW",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9602,
-          9.6549
-        ]
+        "coordinates": [-10.9602, 9.6549]
       },
       "properties": {
         "code": "OU_226247",
@@ -13185,10 +11463,7 @@
       "id": "DXegteybeb5",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.6382,
-          8.4899
-        ]
+        "coordinates": [-12.6382, 8.4899]
       },
       "properties": {
         "code": "OU_254971",
@@ -13208,10 +11483,7 @@
       "id": "CKkE4GBJekz",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9459,
-          8.1675
-        ]
+        "coordinates": [-10.9459, 8.1675]
       },
       "properties": {
         "code": "OU_222671",
@@ -13231,10 +11503,7 @@
       "id": "Qc9lf4VM9bD",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1678,
-          8.4479
-        ]
+        "coordinates": [-13.1678, 8.4479]
       },
       "properties": {
         "code": "OU_278317",
@@ -13254,10 +11523,7 @@
       "id": "XJ6DqDkMlPv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.1807,
-          8.468
-        ]
+        "coordinates": [-13.1807, 8.468]
       },
       "properties": {
         "code": "OU_278315",
@@ -13277,10 +11543,7 @@
       "id": "EUUkKEDoNsf",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2644,
-          8.4757
-        ]
+        "coordinates": [-13.2644, 8.4757]
       },
       "properties": {
         "code": "OU_278343",
@@ -13300,10 +11563,7 @@
       "id": "EDxXfB4iVpY",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2614,
-          8.4763
-        ]
+        "coordinates": [-13.2614, 8.4763]
       },
       "properties": {
         "code": "OU_278316",
@@ -13323,10 +11583,7 @@
       "id": "ui12Hyvn6jR",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2561,
-          8.464
-        ]
+        "coordinates": [-13.2561, 8.464]
       },
       "properties": {
         "code": "OU_278321",
@@ -13346,10 +11603,7 @@
       "id": "AtZJOoQiGHd",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.9648,
-          8.5512
-        ]
+        "coordinates": [-10.9648, 8.5512]
       },
       "properties": {
         "code": "OU_233328",
@@ -13369,10 +11623,7 @@
       "id": "Qwzs1iinAI7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.6182,
-          8.5959
-        ]
+        "coordinates": [-11.6182, 8.5959]
       },
       "properties": {
         "code": "OU_268216",
@@ -13392,10 +11643,7 @@
       "id": "bW5BaqrBM4K",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0992,
-          8.9375
-        ]
+        "coordinates": [-11.0992, 8.9375]
       },
       "properties": {
         "code": "OU_233367",
@@ -13415,10 +11663,7 @@
       "id": "XbyObqerCya",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4761,
-          7.6407
-        ]
+        "coordinates": [-11.4761, 7.6407]
       },
       "properties": {
         "code": "OU_222752",
@@ -13438,10 +11683,7 @@
       "id": "AnXoUM1tfNT",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4277,
-          8.0041
-        ]
+        "coordinates": [-11.4277, 8.0041]
       },
       "properties": {
         "code": "OU_583",
@@ -13460,10 +11702,7 @@
       "id": "nX05QLraDhO",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.4894,
-          7.9341
-        ]
+        "coordinates": [-11.4894, 7.9341]
       },
       "properties": {
         "code": "OU_585",
@@ -13482,10 +11721,7 @@
       "id": "QDoO5r6Sae7",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8915,
-          7.6541
-        ]
+        "coordinates": [-11.8915, 7.6541]
       },
       "properties": {
         "code": "OU_1072",
@@ -13505,10 +11741,7 @@
       "id": "SQz3xtx1Sgr",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3094,
-          8.7978
-        ]
+        "coordinates": [-12.3094, 8.7978]
       },
       "properties": {
         "code": "OU_193257",
@@ -13528,10 +11761,7 @@
       "id": "M9q1wOOsrXp",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.5822,
-          9.2701
-        ]
+        "coordinates": [-11.5822, 9.2701]
       },
       "properties": {
         "code": "OU_226264",
@@ -13551,10 +11781,7 @@
       "id": "XctPvvWIIcF",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.3374,
-          7.5738
-        ]
+        "coordinates": [-12.3374, 7.5738]
       },
       "properties": {
         "code": "OU_197416",
@@ -13574,10 +11801,7 @@
       "id": "g031LbUPMmh",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.9933,
-          8.4001
-        ]
+        "coordinates": [-11.9933, 8.4001]
       },
       "properties": {
         "code": "OU_268209",
@@ -13597,10 +11821,7 @@
       "id": "dBD9OHJFN8u",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -10.878,
-          8.5759
-        ]
+        "coordinates": [-10.878, 8.5759]
       },
       "properties": {
         "code": "OU_233361",
@@ -13620,10 +11841,7 @@
       "id": "sesv0eXljBq",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.8329,
-          8.4141
-        ]
+        "coordinates": [-11.8329, 8.4141]
       },
       "properties": {
         "code": "OU_268207",
@@ -13643,10 +11861,7 @@
       "id": "PA1spYiNZfv",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.0427,
-          8.6167
-        ]
+        "coordinates": [-11.0427, 8.6167]
       },
       "properties": {
         "code": "OU_233398",
@@ -13666,10 +11881,7 @@
       "id": "YDDOlgRBEAA",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -13.2015,
-          8.5922
-        ]
+        "coordinates": [-13.2015, 8.5922]
       },
       "properties": {
         "code": "OU_255006",
@@ -13689,10 +11901,7 @@
       "id": "x5ZxMDvEQUb",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.2435,
-          8.4394
-        ]
+        "coordinates": [-12.2435, 8.4394]
       },
       "properties": {
         "code": "OU_268238",
@@ -13712,10 +11921,7 @@
       "id": "TGRCfJEnXJr",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.8331,
-          7.8653
-        ]
+        "coordinates": [-12.8331, 7.8653]
       },
       "properties": {
         "code": "OU_247076",
@@ -13735,10 +11941,7 @@
       "id": "roGdTjEqLZQ",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.1019,
-          8.7393
-        ]
+        "coordinates": [-11.1019, 8.7393]
       },
       "properties": {
         "code": "OU_233371",
@@ -13758,10 +11961,7 @@
       "id": "VdXuxcNkiad",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -12.4948,
-          8.1729
-        ]
+        "coordinates": [-12.4948, 8.1729]
       },
       "properties": {
         "code": "OU_247067",
@@ -13781,10 +11981,7 @@
       "id": "BNFrspDBKel",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          -11.309,
-          7.3213
-        ]
+        "coordinates": [-11.309, 7.3213]
       },
       "properties": {
         "code": "OU_260382",

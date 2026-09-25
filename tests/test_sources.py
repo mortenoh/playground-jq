@@ -124,10 +124,12 @@ def test_input_refs() -> None:
         InputRef.parse("bookstore")
 
 
-def test_dump_json_keeps_large_values_compact() -> None:
+def test_dump_json_indents_and_keeps_number_arrays_inline() -> None:
     assert dump_json({"a": 1}) == '{\n  "a": 1\n}\n'
-    large = dump_json({"a": "x" * 300_000})
-    assert "\n" not in large.rstrip("\n")
+    assert dump_json({"c": [[1, 2.5], [3, 4]], "e": [], "f": {}}) == (
+        '{\n  "c": [\n    [1, 2.5],\n    [3, 4]\n  ],\n  "e": [],\n  "f": {}\n}\n'
+    )
+    assert dump_json([True, None, "ø"]) == '[\n  true,\n  null,\n  "ø"\n]\n'
 
 
 def test_ttl_cache_expires() -> None:

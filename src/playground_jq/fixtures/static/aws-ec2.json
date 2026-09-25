@@ -1,0 +1,162 @@
+{
+  "Reservations": [
+    {
+      "ReservationId": "r-0a1",
+      "Instances": [
+        {
+          "InstanceId": "i-0aa11",
+          "InstanceType": "t3.micro",
+          "State": {
+            "Code": 16,
+            "Name": "running"
+          },
+          "Placement": {
+            "AvailabilityZone": "eu-north-1a"
+          },
+          "PublicIpAddress": "13.48.10.1",
+          "PrivateIpAddress": "10.0.2.17",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "bastion"
+            },
+            {
+              "Key": "env",
+              "Value": "prod"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ReservationId": "r-0b2",
+      "Instances": [
+        {
+          "InstanceId": "i-0bb22",
+          "InstanceType": "m6i.large",
+          "State": {
+            "Code": 16,
+            "Name": "running"
+          },
+          "Placement": {
+            "AvailabilityZone": "eu-north-1a"
+          },
+          "PublicIpAddress": null,
+          "PrivateIpAddress": "10.0.3.34",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "api-1"
+            },
+            {
+              "Key": "env",
+              "Value": "prod"
+            }
+          ]
+        },
+        {
+          "InstanceId": "i-0bb23",
+          "InstanceType": "m6i.large",
+          "State": {
+            "Code": 16,
+            "Name": "running"
+          },
+          "Placement": {
+            "AvailabilityZone": "eu-north-1b"
+          },
+          "PublicIpAddress": null,
+          "PrivateIpAddress": "10.0.2.35",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "api-2"
+            },
+            {
+              "Key": "env",
+              "Value": "prod"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ReservationId": "r-0c3",
+      "Instances": [
+        {
+          "InstanceId": "i-0cc33",
+          "InstanceType": "t3.small",
+          "State": {
+            "Code": 80,
+            "Name": "stopped"
+          },
+          "Placement": {
+            "AvailabilityZone": "eu-north-1b"
+          },
+          "PublicIpAddress": null,
+          "PrivateIpAddress": "10.0.3.51",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "scratch"
+            },
+            {
+              "Key": "env",
+              "Value": "dev"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ReservationId": "r-0d4",
+      "Instances": [
+        {
+          "InstanceId": "i-0dd44",
+          "InstanceType": "r6g.xlarge",
+          "State": {
+            "Code": 16,
+            "Name": "running"
+          },
+          "Placement": {
+            "AvailabilityZone": "eu-north-1c"
+          },
+          "PublicIpAddress": null,
+          "PrivateIpAddress": "10.0.2.68",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "db-replica"
+            },
+            {
+              "Key": "env",
+              "Value": "prod"
+            }
+          ]
+        },
+        {
+          "InstanceId": "i-0dd45",
+          "InstanceType": "t3.medium",
+          "State": {
+            "Code": 16,
+            "Name": "running"
+          },
+          "Placement": {
+            "AvailabilityZone": "eu-north-1c"
+          },
+          "PublicIpAddress": "13.48.99.7",
+          "PrivateIpAddress": "10.0.1.69",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "ci-runner"
+            },
+            {
+              "Key": "env",
+              "Value": "dev"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "api-7d9f8-abcde",
+        "namespace": "prod",
+        "labels": {
+          "app": "api",
+          "tier": "backend"
+        },
+        "creationTimestamp": "2026-03-15T09:00:00Z"
+      },
+      "spec": {
+        "nodeName": "node-a",
+        "containers": [
+          {
+            "name": "api",
+            "image": "ghcr.io/acme/api:2.4.1",
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi"
+              }
+            }
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "api",
+            "ready": true,
+            "restartCount": 0,
+            "image": "ghcr.io/acme/api:2.4.1"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "api-7d9f8-fghij",
+        "namespace": "prod",
+        "labels": {
+          "app": "api",
+          "tier": "backend"
+        },
+        "creationTimestamp": "2026-03-15T09:00:00Z"
+      },
+      "spec": {
+        "nodeName": "node-b",
+        "containers": [
+          {
+            "name": "api",
+            "image": "ghcr.io/acme/api:2.4.1",
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi"
+              }
+            }
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "api",
+            "ready": true,
+            "restartCount": 3,
+            "image": "ghcr.io/acme/api:2.4.1"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "web-5c6b7-klmno",
+        "namespace": "prod",
+        "labels": {
+          "app": "web",
+          "tier": "frontend"
+        },
+        "creationTimestamp": "2026-03-15T09:00:00Z"
+      },
+      "spec": {
+        "nodeName": "node-a",
+        "containers": [
+          {
+            "name": "web",
+            "image": "ghcr.io/acme/web:1.9.0",
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              }
+            }
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "web",
+            "ready": true,
+            "restartCount": 0,
+            "image": "ghcr.io/acme/web:1.9.0"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "worker-66f5-pqrst",
+        "namespace": "prod",
+        "labels": {
+          "app": "worker",
+          "tier": "backend"
+        },
+        "creationTimestamp": "2026-03-15T09:00:00Z"
+      },
+      "spec": {
+        "nodeName": "node-c",
+        "containers": [
+          {
+            "name": "worker",
+            "image": "ghcr.io/acme/worker:0.8.3",
+            "resources": {
+              "requests": {
+                "cpu": "500m",
+                "memory": "1Gi"
+              }
+            }
+          }
+        ]
+      },
+      "status": {
+        "phase": "CrashLoopBackOff",
+        "containerStatuses": [
+          {
+            "name": "worker",
+            "ready": false,
+            "restartCount": 17,
+            "image": "ghcr.io/acme/worker:0.8.3"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "api-5b4c3-uvwxy",
+        "namespace": "staging",
+        "labels": {
+          "app": "api",
+          "tier": "backend"
+        },
+        "creationTimestamp": "2026-03-15T09:00:00Z"
+      },
+      "spec": {
+        "nodeName": "node-c",
+        "containers": [
+          {
+            "name": "api",
+            "image": "ghcr.io/acme/api:2.5.0-rc1",
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi"
+              }
+            }
+          }
+        ]
+      },
+      "status": {
+        "phase": "Running",
+        "containerStatuses": [
+          {
+            "name": "api",
+            "ready": true,
+            "restartCount": 1,
+            "image": "ghcr.io/acme/api:2.5.0-rc1"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "migrate-1234-zzzzz",
+        "namespace": "staging",
+        "labels": {
+          "app": "migrate",
+          "tier": "job"
+        },
+        "creationTimestamp": "2026-03-15T09:00:00Z"
+      },
+      "spec": {
+        "nodeName": "node-b",
+        "containers": [
+          {
+            "name": "migrate",
+            "image": "ghcr.io/acme/api:2.5.0-rc1",
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "64Mi"
+              }
+            }
+          }
+        ]
+      },
+      "status": {
+        "phase": "Succeeded",
+        "containerStatuses": [
+          {
+            "name": "migrate",
+            "ready": false,
+            "restartCount": 0,
+            "image": "ghcr.io/acme/api:2.5.0-rc1"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "web-9a8b7-aaaaa",
+        "namespace": "staging",
+        "labels": {
+          "app": "web",
+          "tier": "frontend"
+        },
+        "creationTimestamp": "2026-03-15T09:00:00Z"
+      },
+      "spec": {
+        "nodeName": null,
+        "containers": [
+          {
+            "name": "web",
+            "image": "ghcr.io/acme/web:2.0.0-rc2",
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              }
+            }
+          }
+        ]
+      },
+      "status": {
+        "phase": "Pending",
+        "containerStatuses": [
+          {
+            "name": "web",
+            "ready": false,
+            "restartCount": 0,
+            "image": "ghcr.io/acme/web:2.0.0-rc2"
+          }
+        ]
+      }
+    }
+  ]
+}

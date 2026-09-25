@@ -3,15 +3,12 @@
 import json
 import time
 from pathlib import Path
-from typing import Any, Literal, Protocol
+from typing import Any, Literal, Protocol, cast
 
 from pydantic import BaseModel, Field, JsonValue
 
 #: Where fixtures live inside the package: `static/`, and one recorded directory per live source.
 FIXTURES_DIR = Path(__file__).resolve().parent.parent / "fixtures"
-
-#: Compact JSON above this size stays compact in a fixture, so large GeoJSON stays readable to an editor.
-PRETTY_LIMIT_BYTES = 200_000
 
 SourceKind = Literal["static", "echo", "dhis2"]
 
@@ -120,11 +117,34 @@ class Source(Protocol):
 
 
 def dump_json(value: Any) -> str:
-    """JSON text for the editor: indented when small, compact when large."""
-    compact = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
-    if len(compact.encode()) > PRETTY_LIMIT_BYTES:
-        return compact + "\n"
-    return json.dumps(value, ensure_ascii=False, indent=2) + "\n"
+    """JSON text for the editor: indented, with arrays of plain numbers kept on one line.
+
+    GeoJSON coordinates are what would otherwise explode into thousands of lines: each
+    `[lon, lat]` pair stays on one line, and everything around it is indented as usual.
+    """
+    return _dump(value, 0) + "\n"
+
+
+def _dump(value: Any, depth: int) -> str:
+    pad = "  " * (depth + 1)
+    end = "  " * depth
+    if isinstance(value, dict):
+        mapping = cast("dict[str, object]", value)
+        if not mapping:
+            return "{}"
+        members = [
+            f"{pad}{json.dumps(key, ensure_ascii=False)}: {_dump(item, depth + 1)}" for key, item in mapping.items()
+        ]
+        return "{\n" + ",\n".join(members) + "\n" + end + "}"
+    if isinstance(value, list):
+        sequence = cast("list[object]", value)
+        if not sequence:
+            return "[]"
+        if all(isinstance(item, int | float) and not isinstance(item, bool) for item in sequence):
+            return "[" + ", ".join(json.dumps(item) for item in sequence) + "]"
+        items = [pad + _dump(item, depth + 1) for item in sequence]
+        return "[\n" + ",\n".join(items) + "\n" + end + "]"
+    return json.dumps(value, ensure_ascii=False)
 
 
 def snapshot_path(source: SourceKind, preset: str) -> Path:

@@ -1,0 +1,282 @@
+[
+  {
+    "number": 101,
+    "title": "Crash when input is empty",
+    "state": "open",
+    "user": {
+      "login": "alice",
+      "type": "User"
+    },
+    "labels": [
+      {
+        "name": "bug",
+        "color": "d73a4a"
+      },
+      {
+        "name": "priority: high",
+        "color": "b60205"
+      }
+    ],
+    "comments": 7,
+    "assignees": [
+      {
+        "login": "bob"
+      }
+    ],
+    "created_at": "2026-01-03T09:15:00Z",
+    "closed_at": null,
+    "reactions": {
+      "+1": 12,
+      "heart": 1
+    }
+  },
+  {
+    "number": 102,
+    "title": "Add --tab to the docs",
+    "state": "closed",
+    "user": {
+      "login": "carol",
+      "type": "User"
+    },
+    "labels": [
+      {
+        "name": "docs",
+        "color": "0075ca"
+      }
+    ],
+    "comments": 2,
+    "assignees": [],
+    "created_at": "2026-01-05T14:02:00Z",
+    "closed_at": "2026-01-06T08:30:00Z",
+    "reactions": {
+      "+1": 3,
+      "heart": 0
+    }
+  },
+  {
+    "number": 103,
+    "title": "Support @base32d",
+    "state": "open",
+    "user": {
+      "login": "dave",
+      "type": "User"
+    },
+    "labels": [
+      {
+        "name": "enhancement",
+        "color": "a2eeef"
+      }
+    ],
+    "comments": 4,
+    "assignees": [
+      {
+        "login": "alice"
+      },
+      {
+        "login": "erin"
+      }
+    ],
+    "created_at": "2026-01-11T11:45:00Z",
+    "closed_at": null,
+    "reactions": {
+      "+1": 25,
+      "heart": 6
+    }
+  },
+  {
+    "number": 104,
+    "title": "Bump actions/checkout",
+    "state": "closed",
+    "user": {
+      "login": "dependabot[bot]",
+      "type": "Bot"
+    },
+    "labels": [
+      {
+        "name": "dependencies",
+        "color": "0366d6"
+      }
+    ],
+    "comments": 0,
+    "assignees": [],
+    "created_at": "2026-01-12T00:05:00Z",
+    "closed_at": "2026-01-12T07:10:00Z",
+    "reactions": {
+      "+1": 0,
+      "heart": 0
+    }
+  },
+  {
+    "number": 105,
+    "title": "Wrong error message for .[] on null",
+    "state": "open",
+    "user": {
+      "login": "alice",
+      "type": "User"
+    },
+    "labels": [
+      {
+        "name": "bug",
+        "color": "d73a4a"
+      }
+    ],
+    "comments": 1,
+    "assignees": [],
+    "created_at": "2026-01-20T16:20:00Z",
+    "closed_at": null,
+    "reactions": {
+      "+1": 2,
+      "heart": 0
+    }
+  },
+  {
+    "number": 106,
+    "title": "Document limit/2 with negative numbers",
+    "state": "closed",
+    "user": {
+      "login": "frank",
+      "type": "User"
+    },
+    "labels": [
+      {
+        "name": "docs",
+        "color": "0075ca"
+      },
+      {
+        "name": "good first issue",
+        "color": "7057ff"
+      }
+    ],
+    "comments": 5,
+    "assignees": [
+      {
+        "login": "carol"
+      }
+    ],
+    "created_at": "2026-02-01T10:00:00Z",
+    "closed_at": "2026-02-14T12:00:00Z",
+    "reactions": {
+      "+1": 1,
+      "heart": 2
+    }
+  },
+  {
+    "number": 107,
+    "title": "Segfault with deeply nested arrays",
+    "state": "open",
+    "user": {
+      "login": "gina",
+      "type": "User"
+    },
+    "labels": [
+      {
+        "name": "bug",
+        "color": "d73a4a"
+      },
+      {
+        "name": "priority: high",
+        "color": "b60205"
+      },
+      {
+        "name": "needs repro",
+        "color": "fbca04"
+      }
+    ],
+    "comments": 11,
+    "assignees": [
+      {
+        "login": "bob"
+      },
+      {
+        "login": "erin"
+      }
+    ],
+    "created_at": "2026-02-03T19:40:00Z",
+    "closed_at": null,
+    "reactions": {
+      "+1": 40,
+      "heart": 0
+    }
+  },
+  {
+    "number": 108,
+    "title": "Add getpath examples",
+    "state": "closed",
+    "user": {
+      "login": "carol",
+      "type": "User"
+    },
+    "labels": [
+      {
+        "name": "docs",
+        "color": "0075ca"
+      }
+    ],
+    "comments": 3,
+    "assignees": [
+      {
+        "login": "carol"
+      }
+    ],
+    "created_at": "2026-02-10T09:00:00Z",
+    "closed_at": "2026-02-11T09:00:00Z",
+    "reactions": {
+      "+1": 0,
+      "heart": 1
+    }
+  },
+  {
+    "number": 109,
+    "title": "Bump pytest",
+    "state": "open",
+    "user": {
+      "login": "dependabot[bot]",
+      "type": "Bot"
+    },
+    "labels": [
+      {
+        "name": "dependencies",
+        "color": "0366d6"
+      }
+    ],
+    "comments": 0,
+    "assignees": [],
+    "created_at": "2026-02-15T00:05:00Z",
+    "closed_at": null,
+    "reactions": {
+      "+1": 0,
+      "heart": 0
+    }
+  },
+  {
+    "number": 110,
+    "title": "Windows line endings in -R mode",
+    "state": "open",
+    "user": {
+      "login": "hank",
+      "type": "User"
+    },
+    "labels": [
+      {
+        "name": "bug",
+        "color": "d73a4a"
+      },
+      {
+        "name": "windows",
+        "color": "c5def5"
+      }
+    ],
+    "comments": 6,
+    "assignees": [
+      {
+        "login": "erin"
+      }
+    ],
+    "created_at": "2026-02-21T13:13:00Z",
+    "closed_at": null,
+    "reactions": {
+      "+1": 9,
+      "heart": 1
+    }
+  }
+]
