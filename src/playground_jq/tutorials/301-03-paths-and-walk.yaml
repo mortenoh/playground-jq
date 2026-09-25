@@ -53,7 +53,7 @@ steps:
       Because paths are arrays, you can filter them like any other value.
       `.[-1]` is the last element of a path: the key or index of the value it
       points at.
-    task: Output the path (as an array) of every key named `password`, wherever it is in the document.
+    task: Output the path (as an array) of every key named `password`, wherever it is in the document, one output per path.
     hints:
       - '`paths` emits every path, leaves and containers alike.'
       - 'Keep those whose last element is `"password"`.'

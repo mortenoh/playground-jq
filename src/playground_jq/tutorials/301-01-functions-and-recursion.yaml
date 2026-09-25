@@ -15,7 +15,7 @@ steps:
 
       The input is a category tree: every node has a `name`, an `id` and a
       `children` array of nodes of the same shape.
-    task: 'Define a function `caption` that formats a node as `"<id>: <name>"`, then apply it to each direct child of the root.'
+    task: 'Define a function `caption` that formats a node as `"<id>: <name>"`, then apply it to each direct child of the root, one output per child.'
     hints:
       - 'Start with `def caption: "\(.id): \(.name)";`'
       - The direct children of the root are `.children[]`.

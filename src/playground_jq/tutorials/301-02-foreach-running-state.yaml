@@ -121,7 +121,7 @@ steps:
     body: |
       `first(f)` emits the first output of `f` and stops evaluating it. Wrapped
       around a `foreach`, it answers "when does the running value first cross
-      a threshold" without reading the rest of the input.
+      a threshold" without folding the remaining orders.
     task: Output the id of the order that pushes the running revenue to 100 or more.
     hints:
       - 'Fold the order totals as in step 3, but emit the order id when the sum reaches 100: `if . >= 100 then $o.id else empty end`.'

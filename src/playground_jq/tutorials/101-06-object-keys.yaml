@@ -79,7 +79,7 @@ steps:
       ```
 
       outputs `true`.
-    task: For every user, in order, output whether it has a `preferences` key (one boolean per user).
+    task: For every user, in order, output whether it has a `preferences` key, as separate outputs, one boolean per user.
     hints:
       - Iterate the users with `.[]`.
       - Pipe each into `has(...)` with the key as a string.
@@ -99,7 +99,7 @@ steps:
       ```
 
       outputs nothing: every user has a `last_login` key.
-    task: Output the username of every user that has no `preferences` key.
+    task: Output the username of every user that has no `preferences` key, one output per user.
     hints:
       - Use `select` with `has("preferences") | not`.
       - Then take `.username`.
@@ -122,7 +122,7 @@ steps:
       ```
 
       outputs `0` for margaret.
-    task: For every user, in order, output the number of keys in their `preferences` (0 when there are none).
+    task: For every user, in order, output the number of keys in their `preferences` (0 when there are none), as separate outputs.
     hints:
       - Iterate the users and take `.preferences`.
       - Pipe that into `length`.
@@ -144,7 +144,7 @@ steps:
       ```
 
       outputs `true` and then `null`: linus has never logged in, but the field is there.
-    task: Output the username of every user whose `email` is `null`.
+    task: Output the username of every user whose `email` is `null`, one output per user.
     hints:
       - Every user has the `email` key, so `has` will not help here.
       - Compare the value with `null` inside `select`.

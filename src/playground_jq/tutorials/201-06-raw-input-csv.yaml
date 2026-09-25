@@ -39,7 +39,7 @@ steps:
       ```
 
       drops the header line and keeps the others.
-    task: With raw input on, output the city (the third field) of every person, skipping the header line.
+    task: With raw input on, output the city (the third field) of every person, skipping the header line, one output per person.
     options: {raw_input: true}
     hints:
       - Split the line, then drop the header with `select(.[0] != "name")`.

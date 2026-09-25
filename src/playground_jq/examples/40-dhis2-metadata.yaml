@@ -120,7 +120,7 @@ examples:
       elsewhere in the same payload. Bo has 15 chiefdoms.
     program: 'INDEX(.organisationUnits[]; .id) as $by | $by["O6uvpzGd5pu"].children | map($by[.id].name) | sort'
     input: {ref: dhis2:org-unit-tree}
-    manual: [https://jqlang.org/manual/v1.8/]
+    manual: [https://jqlang.org/manual/v1.8/#sql-style-operators]
     guide: [sql-style-and-joins]
     expected: [["Badjia", "Baoma", "Bargbe", "Bargbo", "Bumpe Ngao", "Gbo", "Jaiama Bongor", "Kakua", "Komboya", "Lugbu", "Niawa Lenga", "Selenga", "Tikonko", "Valunia", "Wonde"]]
 
@@ -209,8 +209,7 @@ examples:
       is a common mistake.
     program: '.pager | {page, pageCount, onThisPage: .pageSize, total, notYetFetched: (.total - .page * .pageSize)}'
     input: {ref: dhis2:data-elements}
-    manual: [https://jqlang.org/manual/v1.8/#length]
-    guide: [collections]
+    guide: [building-values, operators]
     expected: [{"page": 1, "pageCount": 11, "onThisPage": 100, "total": 1038, "notYetFetched": 938}]
 
   - id: dhis2-metadata-missing-code
@@ -253,8 +252,8 @@ examples:
       `TRUE_ONLY`, `SUM` is legitimate: it counts the true values.
     program: '.dataElements | map(select(.valueType | IN("NUMBER", "INTEGER", "INTEGER_ZERO_OR_POSITIVE") | not) | {valueType, aggregationType}) | group_by(.) | map(.[0] + {count: length})'
     input: {ref: dhis2:data-elements}
-    manual: [https://jqlang.org/manual/v1.8/]
-    guide: [collections]
+    manual: [https://jqlang.org/manual/v1.8/#sql-style-operators, https://jqlang.org/manual/v1.8/#group_by]
+    guide: [sql-style-and-joins, sorting-and-grouping]
     expected: [[{"valueType": "DATE", "aggregationType": "AVERAGE", "count": 1}, {"valueType": "BOOLEAN", "aggregationType": "COUNT", "count": 1}, {"valueType": "TEXT", "aggregationType": "COUNT", "count": 1}, {"valueType": "MULTI_TEXT", "aggregationType": "NONE", "count": 1}, {"valueType": "TEXT", "aggregationType": "NONE", "count": 4}, {"valueType": "BOOLEAN", "aggregationType": "SUM", "count": 9}, {"valueType": "DATE", "aggregationType": "SUM", "count": 1}, {"valueType": "FILE_RESOURCE", "aggregationType": "SUM", "count": 1}, {"valueType": "LONG_TEXT", "aggregationType": "SUM", "count": 2}, {"valueType": "TRUE_ONLY", "aggregationType": "SUM", "count": 7}]]
 
   - id: dhis2-metadata-category-combo-usage
@@ -399,8 +398,9 @@ examples:
       An option combo is named after its options joined by `, `. Splitting the name and
       subtracting the combo's current option names leaves the parts that no longer belong.
       The 12 leftovers mention `At PHU` and `In Community`, options of the category
-      "Location PHU/Community": Births was once disaggregated by location, and the option combos
-      generated then were never removed when the category was replaced by Gender.
+      "Location PHU/Community", which is not among the combo's categories. The likely story:
+      Births was once disaggregated by location, and the option combos generated then were never
+      removed when the category was replaced by Gender.
     program: '.categoryCombos[] | select(.name == "Births") | [.categories[].categoryOptions[].name] as $options | .categoryOptionCombos | map(.name | select(split(", ") - $options != [])) | sort'
     input: {ref: dhis2:category-combos}
     manual: [https://jqlang.org/manual/v1.8/#split-1]
@@ -525,15 +525,15 @@ examples:
   - id: dhis2-metadata-users-never-logged-in
     title: Users who never logged in
     level: 101
-    tags: [users, has, alternative-operator]
+    tags: [users, alternative-operator, group_by]
     explanation: |
       `lastLogin` is omitted, not null, for a user who never logged in. `.lastLogin // "never"`
       substitutes a label, and `disabled` is included to show that none of these accounts is
       disabled either. A report of dormant accounts is a common security task.
     program: '.users | map({username, lastLogin: (.lastLogin // "never"), disabled}) | group_by(.lastLogin == "never") | map({neverLoggedIn: .[0].lastLogin == "never", users: length, disabled: (map(select(.disabled)) | length)})'
     input: {ref: dhis2:users}
-    manual: [https://jqlang.org/manual/v1.8/#has]
-    guide: [collections]
+    manual: [https://jqlang.org/manual/v1.8/#alternative-operator, https://jqlang.org/manual/v1.8/#group_by]
+    guide: [operators, sorting-and-grouping]
     expected: [[{"neverLoggedIn": false, "users": 2, "disabled": 0}, {"neverLoggedIn": true, "users": 28, "disabled": 0}]]
 
   - id: dhis2-metadata-superusers

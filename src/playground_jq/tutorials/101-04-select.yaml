@@ -15,7 +15,7 @@ steps:
       ```
 
       outputs `true`, `true`, `false`.
-    task: For every book, in shelf order, output whether its price is below 10 (one boolean per book).
+    task: For every book, in shelf order, output whether its price is below 10, as separate outputs, one boolean per book.
     hints:
       - Iterate the books and pipe each one into a comparison.
       - Compare `.price` with `10`.
@@ -37,7 +37,7 @@ steps:
       ```
 
       outputs `"Ingrid"` and `"Omar"`.
-    task: Output the titles of the books that cost less than 10.
+    task: Output the titles of the books that cost less than 10, one output per title.
     hints:
       - Put the comparison from the previous step inside `select(...)`.
       - After `select`, take the title.
@@ -58,7 +58,7 @@ steps:
       ```
 
       outputs `"Omar"` and `"Lena"`.
-    task: Output the titles of the books written by Ada Filter.
+    task: Output the titles of the books written by Ada Filter, one output per title.
     hints:
       - Compare `.author` with a string.
       - The string is `"Ada Filter"`.
@@ -79,7 +79,7 @@ steps:
       ```
 
       outputs `"The Art of the Shell"`.
-    task: Output the titles of the books that are out of stock (`inStock` is 0).
+    task: Output the titles of the books that are out of stock (`inStock` is 0), one output per title.
     hints:
       - The stock count is `.inStock`.
       - Keep the books where it equals `0`.
@@ -100,7 +100,7 @@ steps:
       ```
 
       outputs `"Lena"`.
-    task: Output the titles of the books published in 2020 or later that cost less than 20.
+    task: Output the titles of the books published in 2020 or later that cost less than 20, one output per title.
     hints:
       - Two conditions joined by `and`.
       - '`.year >= 2020` and `.price < 20`.'
@@ -122,7 +122,7 @@ steps:
       ```
 
       outputs `"Ingrid"` and `"Lena"`.
-    task: Output the titles of the books published before 2016 or priced above 25.
+    task: Output the titles of the books published before 2016 or priced above 25, one output per title.
     hints:
       - Two conditions joined by `or`.
       - '`.year < 2016` and `.price > 25`.'
@@ -144,7 +144,7 @@ steps:
       ```
 
       outputs the two sold-out titles.
-    task: Output the names of the staff members whose role is not "owner".
+    task: Output the names of the staff members whose role is not "owner", one output per name.
     hints:
       - Iterate `.store.staff`.
       - Either use `!=`, or pipe `.role == "owner"` into `not`.
@@ -166,7 +166,7 @@ steps:
       ```
 
       outputs the titles of the books that someone rated 2.
-    task: Output the titles of the books tagged "jq".
+    task: Output the titles of the books tagged "jq", one output per title.
     hints:
       - Pipe `.tags` into `any(...)`.
       - Inside `any`, `.` is one tag; compare it with `"jq"`.

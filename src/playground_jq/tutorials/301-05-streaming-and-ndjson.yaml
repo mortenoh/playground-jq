@@ -14,7 +14,7 @@ steps:
       The input is an access log of 16 requests to three services (`api`,
       `auth` and `worker`), each line with a status and a latency in
       milliseconds.
-    task: Output the `path` of every line whose `level` is `"error"`.
+    task: Output the `path` of every line whose `level` is `"error"`, one output per line.
     hints:
       - 'The program runs once per line, so `.` is one log object.'
       - 'Keep the error lines with `select(.level == "error")`.'
@@ -125,7 +125,7 @@ steps:
 
       This step runs with `--stream`, so the program runs once per event, and
       a single huge document can be processed without ever being held whole.
-    task: Output every latency above 1000 milliseconds, working on the stream events.
+    task: Output every latency above 1000 milliseconds, working on the stream events, one output per latency.
     hints:
       - 'Leaf events have two elements: `select(length == 2)`.'
       - 'The latency events have the path `["latency_ms"]`: `select(.[0] == ["latency_ms"])`.'

@@ -52,7 +52,7 @@ examples:
     tags: [geojson, group_by, geometry]
     explanation: |
       A district made of one piece of land is a `Polygon`; one with islands or detached parts
-      is a `MultiPolygon`. Six of the 13 districts are MultiPolygons, mostly the coastal ones.
+      is a `MultiPolygon`. Six of the 13 districts are MultiPolygons: exactly the six on the coast.
       Code that assumes one geometry type breaks on the other.
     program: '.features | map({type: .geometry.type, name: .properties.name}) | group_by(.type) | map({type: .[0].type, count: length, districts: map(.name)})'
     input: {ref: dhis2:org-units-geojson-level-2}
@@ -305,8 +305,7 @@ examples:
     program: '.features[].properties |= {name}'
     input: {ref: dhis2:org-units-geojson-level-2}
     geojson: true
-    manual: [https://jqlang.org/manual/v1.8/#map-map_values]
-    guide: [geojson-with-jq]
+    guide: [geojson-with-jq, assignment-and-update]
     digest: db23e774c8d16a9d1e880654ca6950c0b4673fe972188f64700046730ec29240
 
   - id: dhis2-geojson-rename-properties
@@ -380,7 +379,7 @@ examples:
       only the group ids that are `IN` the set and counting them finds them.
     program: '["oRVt7g429ZO", "MAs88nJc9nL", "w0gFTTmsUcF", "PVLOW4bCshG"] as $ownership | .features | map(select([.properties.groups[] | select(IN($ownership[]))] | length > 1) | {name: .properties.name, groups: .properties.groups})'
     input: {ref: dhis2:org-units-geojson-level-4}
-    manual: [https://jqlang.org/manual/v1.8/]
+    manual: [https://jqlang.org/manual/v1.8/#sql-style-operators]
     guide: [geojson-with-jq, collections]
     expected: [[{"name": "Bucksal Clinic", "groups": ["MAs88nJc9nL", "RXL3lPSK8oG", "oRVt7g429ZO", "GGghZsfu7qV"]}, {"name": "Kpolies Clinic", "groups": ["MAs88nJc9nL", "RXL3lPSK8oG", "oRVt7g429ZO", "GGghZsfu7qV"]}, {"name": "Manjama UMC CHC", "groups": ["oRVt7g429ZO", "GGghZsfu7qV", "CXw2yu5fodb", "w0gFTTmsUcF"]}, {"name": "St Monica's Clinic", "groups": ["RXL3lPSK8oG", "oRVt7g429ZO", "GGghZsfu7qV", "w0gFTTmsUcF"]}]]
 
@@ -394,7 +393,7 @@ examples:
       built from a group set silently drop the first kind and double count the second.
     program: '["CXw2yu5fodb", "uYxK4wmcPqA", "RXL3lPSK8oG", "tDZVQ1WtwpA", "EYbopBOJWsW"] as $types | .features | map({name: .properties.name, types: [.properties.groups[] | select(IN($types[]))] | length}) | map(select(.types != 1)) | group_by(.types) | map({types: .[0].types, facilities: map(.name)})'
     input: {ref: dhis2:org-units-geojson-level-4}
-    manual: [https://jqlang.org/manual/v1.8/]
+    manual: [https://jqlang.org/manual/v1.8/#sql-style-operators]
     guide: [geojson-with-jq, collections]
     expected: [[{"types": 0, "facilities": ["Ahamadyya Mission Cl", "Air Port Centre, Lungi", "Allen Town Health Post", "Baptist Centre Kassirie", "Bo Govt. Hosp.", "Kambia GH", "MCH Static/U5", "UBC Under 5"]}, {"types": 2, "facilities": ["Golu MCHP"]}]]
 
@@ -455,8 +454,8 @@ examples:
     program: '.features | map(select(.geometry.coordinates as [$x, $y] | $x >= $box[0] and $x <= $box[2] and $y >= $box[1] and $y <= $box[3]) | .properties.name) | sort'
     input: {ref: dhis2:org-units-geojson-level-4}
     options: {argjson: {box: [-11.76, 7.94, -11.72, 7.98]}}
-    manual: [https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
-    guide: [geojson-with-jq]
+    manual: [https://jqlang.org/manual/v1.8/#select]
+    guide: [geojson-with-jq, variables-and-destructuring]
     expected: [["Bo Govt. Hosp.", "Bucksal Clinic", "Gbotima MCHP", "Kpolies Clinic", "Paramedical CHC", "St Monica's Clinic"]]
 
   - id: dhis2-geojson-nearest-facility
@@ -491,7 +490,7 @@ examples:
   - id: dhis2-geojson-join-value-counts
     title: Which data value org units have a location
     level: 301
-    tags: [geojson, join, argjson, in]
+    tags: [geojson, join, argjson, IN]
     explanation: |
       `$counts` holds the number of data values per facility from
       `dhis2:data-value-set-bo-children`, computed with
@@ -503,7 +502,7 @@ examples:
     options:
       argjson:
         counts: {"CvBAqD6RzLZ": 58, "DiszpKrYNg8": 52, "E497Rk80ivZ": 40, "FLjwMPWLrL2": 41, "KYXbIQBQgP1": 37, "PC3Ag91n82e": 40, "PuZOFApTSeo": 59, "QsAwd531Cpd": 49, "RhJbg8UD75Q": 26, "TSyzvBiovKh": 42, "UOJlcpPnBat": 25, "Umh4HKqqFp6": 34, "W2KnxOMvmgE": 50, "jGYT5U5qJP6": 58, "jhtj3eQa1pM": 61, "k1Y0oNqPlmy": 52, "lOv6IFgr6Fs": 29, "mwN7QuEfT8m": 32, "mzsOsz0NwNY": 19, "nX05QLraDhO": 31, "tSBcgrTDdB8": 34, "vELbGdEphPd": 16, "wByqtWCCuDJ": 22, "wtdBuXDwZYQ": 27}
-    manual: [https://jqlang.org/manual/v1.8/#keys-keys_unsorted]
+    manual: [https://jqlang.org/manual/v1.8/#sql-style-operators, https://jqlang.org/manual/v1.8/#keys-keys_unsorted]
     guide: [sql-style-and-joins, geojson-with-jq]
     expected: [{"withData": 24, "onTheMap": 15, "missing": ["RhJbg8UD75Q", "TSyzvBiovKh", "UOJlcpPnBat", "jhtj3eQa1pM", "k1Y0oNqPlmy", "lOv6IFgr6Fs", "mzsOsz0NwNY", "vELbGdEphPd", "wtdBuXDwZYQ"]}]
 
@@ -552,8 +551,7 @@ examples:
       without its coordinates; drop the last step to get the full GeoJSON.
     program: '{type: "FeatureCollection", features: [.organisationUnits[] | {type: "Feature", id, geometry, properties: {name, code, level}}]} | {type, features: (.features | length), first: (.features[0] | {type, id, properties, geometryType: .geometry.type})}'
     input: {ref: dhis2:org-units-geometry}
-    manual: [https://jqlang.org/manual/v1.8/#map-map_values]
-    guide: [geojson-with-jq]
+    guide: [geojson-with-jq, building-values]
     expected: [{"type": "FeatureCollection", "features": 13, "first": {"type": "Feature", "id": "O6uvpzGd5pu", "properties": {"name": "Bo", "code": "OU_264", "level": 2}, "geometryType": "Polygon"}}]
 
   - id: dhis2-geojson-geofeature-co-string
@@ -566,7 +564,7 @@ examples:
       a JSON-encoded string. `fromjson` parses the string into the real nested array.
     program: '.[0] | {na, le, pn, coType: (.co | type), co: (.co | .[:40]), parsedType: (.co | fromjson | type), positions: (.co | fromjson | length)}'
     input: {ref: dhis2:geo-features-facilities-bo}
-    manual: [https://jqlang.org/manual/v1.8/]
+    manual: [https://jqlang.org/manual/v1.8/#convert-to-from-json]
     guide: [geojson-with-jq]
     expected: [{"na": "Baoma Station CHP", "le": 4, "pn": "Baoma", "coType": "string", "co": "[-11.4382,7.9294]", "parsedType": "array", "positions": 2}]
 
@@ -597,7 +595,7 @@ examples:
     program: '{type: "FeatureCollection", features: [.[] | (.co | fromjson) as $c | ($c | [paths | length] | max) as $depth | {type: "Feature", id, properties: {name: .na, code, level: .le, parent: .pn}, geometry: {type: (if $depth == 1 then "Point" elif $depth == 3 then "Polygon" else "MultiPolygon" end), coordinates: $c}}]}'
     input: {ref: dhis2:geo-features-level-2}
     geojson: true
-    manual: [https://jqlang.org/manual/v1.8/]
+    manual: [https://jqlang.org/manual/v1.8/#convert-to-from-json]
     guide: [geojson-with-jq]
     digest: 0f1184b1a8c86a82f723cc34dcb165b1ed1719ebf49542c51d731996c1ab24c8
 
@@ -612,7 +610,7 @@ examples:
     program: '{type: "FeatureCollection", features: [.[] | {type: "Feature", id, properties: {name: .na, chiefdom: .pn}, geometry: {type: "Point", coordinates: (.co | fromjson)}}]}'
     input: {ref: dhis2:geo-features-facilities-bo}
     geojson: true
-    manual: [https://jqlang.org/manual/v1.8/]
+    manual: [https://jqlang.org/manual/v1.8/#convert-to-from-json]
     guide: [geojson-with-jq]
     digest: fd8720ac1b786e5c4067cbe97ec04fd7375d01ab1bec17c0680cae50083c941b
 
