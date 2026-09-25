@@ -53,10 +53,12 @@ examples:
     level: 101
     tags: [and, or, select, index]
     explanation: |
-      `and` and `or` combine two conditions, and `and` binds more tightly than `or`, so the
-      parentheses here make the grouping explicit. `index("admin")` is `null` (falsy) when the
-      role is missing and a position (truthy, even `0`) when present. This keeps active users that are either admins or have no email address
-      on file, which matches Ada, Margaret (admins) and Ken (email is `null`).
+      `and` and `or` combine two conditions, and `and` binds more tightly than `or`. Without
+      the parentheses around the `or`, the test would read `(.active and admin) or no email`
+      and let an inactive user without an email through. `index("admin")` is `null` (falsy)
+      when the role is missing and a position (truthy, even `0`) when present. This keeps
+      active users that are either admins or have no email address on file, which matches
+      Ada, Margaret (admins) and Ken (email is `null`).
     program: '.[] | select(.active and ((.roles | index("admin")) or (.email == null))) | .username'
     input: {ref: static:users}
     manual: [https://jqlang.org/manual/v1.8/#and-or-not]

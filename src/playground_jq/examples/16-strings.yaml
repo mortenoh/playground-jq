@@ -117,15 +117,16 @@ examples:
     tags: [startswith, endswith, contains]
     explanation: |
       `startswith`, `endswith` and `contains` answer yes-or-no questions about a string.
-      Here they classify access log paths: API routes start with `/v1/`, background jobs
-      start with `job:`, and three log lines hit a path containing `alerts`. The parentheses
-      matter: without them, the comma would bind inside the pipe after `unique`.
-    program: '([.[].path | select(startswith("/v1/"))] | unique), [.[].path | select(startswith("job:"))], ([.[].path | select(contains("alerts"))] | length)'
+      Here they classify access log paths: the distinct API routes start with `/v1/`, two
+      paths end with `radar` (the radar endpoint and the background job that refreshes it),
+      and three log lines hit a path containing `alerts`. The parentheses matter: without
+      them, the comma would bind inside the pipe after `unique`.
+    program: '([.[].path | select(startswith("/v1/"))] | unique), [.[].path | select(endswith("radar"))], ([.[].path | select(contains("alerts"))] | length)'
     input: {ref: static:access-log}
     options: {slurp: true, compact: true}
-    manual: [https://jqlang.org/manual/v1.8/#startswith, https://jqlang.org/manual/v1.8/#contains]
+    manual: [https://jqlang.org/manual/v1.8/#startswith, https://jqlang.org/manual/v1.8/#endswith, https://jqlang.org/manual/v1.8/#contains]
     guide: [strings]
-    expected: [["/v1/alerts", "/v1/alerts/17", "/v1/forecast", "/v1/radar", "/v1/stations"], ["job:refresh-radar", "job:cleanup"], 3]
+    expected: [["/v1/alerts", "/v1/alerts/17", "/v1/forecast", "/v1/radar", "/v1/stations"], ["/v1/radar", "job:refresh-radar"], 3]
 
   - id: strings-length-bytes
     title: Characters versus bytes

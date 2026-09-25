@@ -43,14 +43,15 @@ examples:
     explanation: |
       Every leaf path, joined with dots, becomes a key, and `getpath` reads the leaf value.
       `from_entries` turns the list of `{key, value}` objects into one flat object. Array
-      indices are numbers, so they are converted with `tostring` before joining. The
-      `false` leaf is kept because the filter is `scalars | true`.
-    program: '.server | [paths(scalars | true) as $p | {key: ($p | map(tostring) | join(".")), value: getpath($p)}] | from_entries'
+      indices are numbers, so they are converted with `tostring` before joining, which
+      gives `cache.backends.0`. The `app.debug` leaf is `false` and is kept only because
+      the filter is `scalars | true`; plain `paths(scalars)` would drop it.
+    program: '{app, cache} | [paths(scalars | true) as $p | {key: ($p | map(tostring) | join(".")), value: getpath($p)}] | from_entries'
     input: {ref: static:config}
     options: {compact: true}
     manual: [https://jqlang.org/manual/v1.8/#paths, https://jqlang.org/manual/v1.8/#getpath, https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
     guide: [paths]
-    expected: [{"host": "0.0.0.0", "port": 8080, "tls.enabled": true, "tls.cert": "/etc/ssl/app.pem", "tls.key": "/etc/ssl/app.key", "timeouts.read": 30, "timeouts.write": 30, "timeouts.idle": 120}]
+    expected: [{"app.name": "weather-api", "app.version": "2.4.1", "app.debug": false, "cache.enabled": true, "cache.ttl_seconds": 300, "cache.backends.0": "memory", "cache.backends.1": "redis"}]
 
   - id: paths-setpath-delpaths
     title: Set and delete values by path arrays
@@ -71,11 +72,12 @@ examples:
   - id: paths-redact-anywhere
     title: Redact every key with a given name, at any depth
     level: 301
-    tags: [paths, delpaths, walk]
+    tags: [paths, delpaths, IN]
     explanation: |
       `paths` finds keys wherever they are. Selecting the paths whose last element is
       `password` or `key` and passing them to `delpaths` removes those secrets from the whole
-      document. The check keeps the TLS `enabled` flag and shows that no secret remains.
+      document. The summary shows the TLS object without its `key`, the database without
+      its `password`, and an empty list of remaining secret paths.
     program: 'delpaths([paths | select(.[-1] | IN("password", "key"))]) | {tls: .server.tls, database_keys: (.database | keys), remaining: [paths | select(.[-1] | IN("password", "key"))]}'
     input: {ref: static:config}
     options: {compact: true}

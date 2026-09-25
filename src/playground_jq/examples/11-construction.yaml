@@ -98,15 +98,16 @@ examples:
     level: 101
     tags: ['+', map]
     explanation: |
-      `. + {total: ...}` returns the original object with one more key. The line total is
-      the quantity times the unit price, computed per item of the first order. The existing
-      keys are kept in their original order and `total` is added at the end.
-    program: '.[0].items | map(. + {total: (.qty * .price)})'
-    input: {ref: static:orders}
+      `. + {years: ...}` returns the original object with one more key. The value is
+      computed from the object itself: the number of years each staff member has been with
+      the shop in 2026, from the `since` field. The existing keys are kept in their original
+      order and `years` is added at the end.
+    program: '.store.staff | map(. + {years: (2026 - .since)})'
+    input: {ref: static:bookstore}
     options: {compact: true}
     manual: [https://jqlang.org/manual/v1.8/#addition, https://jqlang.org/manual/v1.8/#map-map_values]
     guide: [building-values]
-    expected: [[{"sku": "BOOK-1", "title": "Learning jq", "qty": 2, "price": 8.5, "total": 17}, {"sku": "MUG-7", "title": "JSON mug", "qty": 1, "price": 9, "total": 9}]]
+    expected: [[{"name": "Ingrid", "role": "owner", "since": 2012, "years": 14}, {"name": "Omar", "role": "clerk", "since": 2020, "years": 6}, {"name": "Lena", "role": "clerk", "since": 2023, "years": 3}]]
 
   - id: construction-nested
     title: Nest a summary inside a new document

@@ -101,7 +101,9 @@ examples:
     explanation: |
       Folding with `*` applies a list of objects on top of a base, later ones winning. The
       base config is overlaid with the `prod` environment, and then with an extra override
-      supplied inline; the result shows only the settings that were touched.
+      supplied inline. The result shows the sections the overrides touched: `port`,
+      `timeouts.idle`, the database host and `pool.max` changed, while untouched neighbours
+      such as `timeouts.read` and `pool.min` survive the deep merge.
     program: 'reduce (.environments.prod, {server: {timeouts: {idle: 60}}}) as $o (del(.environments); . * $o) | {server: {port: .server.port, timeouts: .server.timeouts}, database: .database.host, pool: .database.pool}'
     input: {ref: static:config}
     options: {compact: true}

@@ -99,9 +99,11 @@ examples:
     level: 201
     tags: [--argjson, variables]
     explanation: |
-      `--arg` always gives a string, so `$min > 20` would compare a number with a string.
-      `--argjson` parses its value as JSON, so `$min` is the number 20 and `$tags` a real
-      array. The program lists books above the price with at least one of the tags.
+      `--arg` always gives a string, so with `--arg min 20` the test `.price > $min` would
+      compare a number with the string `"20"` and be false for every book, because strings
+      sort after all numbers. `--argjson` parses its value as JSON, so `$min` is the number
+      20 and `$tags` a real array. The program lists books above the price with at least
+      one of the tags.
     program: '[.store.books[] | select(.price > $min and any(.tags[]; IN($tags[]))) | .title]'
     input: {ref: static:bookstore}
     options: {compact: true, argjson: {min: 20, tags: [jq, unix]}}
