@@ -1,0 +1,185 @@
+id: 101-08-issue-report
+level: 101
+order: 8
+title: 'Putting it together: an issue report'
+summary: Use everything from the 101 track to build a small status report from GitHub issues.
+input: {ref: static:github-issues}
+steps:
+  - title: How many issues?
+    body: |
+      Your team wants a quick status report of its GitHub issues. The dataset is an array of ten
+      issues in the shape the GitHub API returns. Start with the size:
+
+      ```jq
+      length
+      ```
+
+      on an array counts its elements.
+    task: Output the number of issues.
+    hints:
+      - The input is already an array.
+      - '`length` needs no path here.'
+      - '`length`'
+    solution: length
+    why: |
+      The top-level value is the array, so `length` counts the issues: `10`.
+
+      Variation: `map(.number)` shows which issue numbers are in the file.
+    expected: [10]
+  - title: Open issues
+    body: |
+      `map(select(...))` keeps the elements you want, and a second `map` picks a field:
+
+      ```jq
+      map(select(.comments > 5)) | map(.number)
+      ```
+
+      outputs the numbers of the busiest issues.
+    task: Output one array with the `number` of every open issue (`state` is `"open"`), in file order.
+    hints:
+      - Keep the issues with `.state == "open"`.
+      - Then map each to its `.number`.
+      - '`map(select(.state == "open")) | map(.number)`'
+    solution: map(select(.state == "open")) | map(.number)
+    why: |
+      Six of the ten issues are open. `map(select(...) | .number)` would also work, since the
+      select and the field can share a single `map`.
+
+      Variation: `[.[] | select(.state == "open") | .number]` builds the same array.
+    expected: [[101, 103, 105, 107, 109, 110]]
+  - title: Issues by one person
+    body: |
+      Fields nest, and `select` can look as deep as you like:
+
+      ```jq
+      .[] | select(.user.type == "Bot") | .number
+      ```
+
+      outputs the numbers of the issues opened by a bot.
+    task: Output the title of every issue opened by the user with login "alice", one output per issue.
+    hints:
+      - The author's login is at `.user.login`.
+      - Iterate, select, then take `.title`.
+      - '`.[] | select(.user.login == "alice") | .title`'
+    solution: .[] | select(.user.login == "alice") | .title
+    why: |
+      alice opened issues 101 and 105. Issue 103 lists her as an assignee, but `.user.login` is
+      only the author, so it is not included.
+
+      Variation: `select(any(.assignees[]; .login == "alice"))` finds the issues assigned to her
+      instead.
+    expected: ["Crash when input is empty", "Wrong error message for .[] on null"]
+  - title: Label names
+    body: |
+      Labels are objects with a name and a colour. Collect the names with brackets inside an
+      object constructor:
+
+      ```jq
+      .[0] | {number, assignees: [.assignees[].login]}
+      ```
+
+      outputs `{"number": 101, "assignees": ["bob"]}`.
+    task: 'Output one array with an object per issue holding its `number` and the key `labels` set to an array of its label names, in that key order.'
+    hints:
+      - Use `map` with an object constructor.
+      - '`[.labels[].name]` collects the names of one issue''s labels.'
+      - '`map({number, labels: [.labels[].name]})`'
+    solution: 'map({number, labels: [.labels[].name]})'
+    why: |
+      The brackets collect all names of one issue into one array, so each issue gives exactly
+      one object, even issue 107 with three labels.
+
+      Variation: without the brackets, `{number, labels: .labels[].name}` would give one object
+      per label instead.
+    expected: [[{"number": 101, "labels": ["bug", "priority: high"]}, {"number": 102, "labels": ["docs"]}, {"number": 103, "labels": ["enhancement"]}, {"number": 104, "labels": ["dependencies"]}, {"number": 105, "labels": ["bug"]}, {"number": 106, "labels": ["docs", "good first issue"]}, {"number": 107, "labels": ["bug", "priority: high", "needs repro"]}, {"number": 108, "labels": ["docs"]}, {"number": 109, "labels": ["dependencies"]}, {"number": 110, "labels": ["bug", "windows"]}]]
+  - title: The bugs
+    body: |
+      To test "has a label called bug", look through the label objects with `any`:
+
+      ```jq
+      map(select(.labels | any(.name == "docs"))) | map(.number)
+      ```
+
+      outputs the numbers of the documentation issues.
+    task: Output one array with the `number` of every issue that has a label named "bug", in file order.
+    hints:
+      - The condition is `.labels | any(.name == "bug")`.
+      - Keep matching issues with `map(select(...))`, then take the numbers.
+      - '`map(select(.labels | any(.name == "bug"))) | map(.number)`'
+    solution: map(select(.labels | any(.name == "bug"))) | map(.number)
+    why: |
+      Four issues carry the bug label: 101, 105, 107 and 110. `any` stops at the first matching
+      label, so issues with several labels are counted once.
+
+      Variation: `map(select([.labels[].name] | index("bug")))` tests the collected names
+      instead.
+    expected: [[101, 105, 107, 110]]
+  - title: Most wanted
+    body: |
+      The number of thumbs-up reactions is at `.reactions["+1"]`. The key starts with `+`, so it
+      needs the bracket form with quotes:
+
+      ```jq
+      .[0].reactions["+1"]
+      ```
+
+      outputs `12`.
+    task: 'Among the open issues opened by humans (`user.type` is "User"), output one array of objects `{number, votes}` where `votes` is the thumbs-up count, sorted by votes, highest first.'
+    hints:
+      - Select with `.state == "open" and .user.type == "User"`.
+      - 'Build `{number, votes: .reactions["+1"]}`, then sort by `-.votes`.'
+      - '`map(select(.state == "open" and .user.type == "User")) | map({number, votes: .reactions["+1"]}) | sort_by(-.votes)`'
+    solution: 'map(select(.state == "open" and .user.type == "User")) | map({number, votes: .reactions["+1"]}) | sort_by(-.votes)'
+    why: |
+      Five issues match, and issue 107 leads with 40 votes. The vote counts are all different,
+      so the order is fully determined.
+
+      Variation: `sort_by(.votes) | reverse` gives the same order.
+    expected: [[{"number": 107, "votes": 40}, {"number": 103, "votes": 25}, {"number": 101, "votes": 12}, {"number": 110, "votes": 9}, {"number": 105, "votes": 2}]]
+  - title: A summary object
+    body: |
+      An object constructor can hold several computed values, each in parentheses, all read
+      from the same input:
+
+      ```jq
+      {issues: length, comments: (map(.comments) | add)}
+      ```
+
+      outputs `{"issues": 10, "comments": 39}`.
+    task: 'Output one object with the keys `total` (number of issues), `open` (number of open issues) and `closed` (number of closed issues), in that order.'
+    hints:
+      - Count with `map(select(...)) | length`.
+      - Put each count in parentheses inside the object.
+      - '`{total: length, open: (map(select(.state == "open")) | length), closed: (map(select(.state == "closed")) | length)}`'
+    solution: '{total: length, open: (map(select(.state == "open")) | length), closed: (map(select(.state == "closed")) | length)}'
+    why: |
+      Every value sees the whole array, so each one counts from scratch: 10 issues, 6 open and
+      4 closed.
+
+      Variation: `closed: (length - (map(select(.state == "open")) | length))` computes the
+      closed count from the others.
+    expected: [{"total": 10, "open": 6, "closed": 4}]
+  - title: The report as text
+    body: |
+      Finally, print a line per open issue for a chat message. With raw output on (it is for
+      this step), strings print without quotes:
+
+      ```jq
+      .[] | select(.state == "closed") | "closed: \(.title)"
+      ```
+
+      prints four lines of plain text.
+    task: 'With raw output on, output one line per open issue in file order, of the form `#NUMBER TITLE`, for example `#101 Crash when input is empty`.'
+    options: {raw_output: true}
+    hints:
+      - Iterate, keep the open issues, then build a string.
+      - 'Interpolate both fields: `"#\(.number) \(.title)"`.'
+      - '`.[] | select(.state == "open") | "#\(.number) \(.title)"`'
+    solution: '.[] | select(.state == "open") | "#\(.number) \(.title)"'
+    why: |
+      Interpolation turns the number into text, and raw output drops the JSON quotes, so the
+      result is ready to paste.
+
+      Variation: `"#" + (.number | tostring) + " " + .title` builds the same line with `+`
+      and an explicit conversion.
+    expected: ["#101 Crash when input is empty", "#103 Support @base32d", "#105 Wrong error message for .[] on null", "#107 Segfault with deeply nested arrays", "#109 Bump pytest", "#110 Windows line endings in -R mode"]

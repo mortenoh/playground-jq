@@ -1,0 +1,192 @@
+id: 201-07-defaults-and-errors
+level: 201
+order: 7
+title: Defaults and errors in messy readings
+summary: Cope with nulls, missing fields and a temperature stored as text using //, type checks, try and ?.
+input: {ref: static:sensor-readings}
+steps:
+  - title: The alternative operator
+    body: |
+      Real data is messy. In this week of weather station readings, one station is offline
+      (its values are `null`) and one reports its temperature as a string.
+
+      `a // b` outputs `a` unless it is `null` or `false` (or produces nothing), in which case
+      it outputs `b`. It is the usual way to supply a default:
+
+      ```jq
+      {"name": null} | .name // "anonymous"
+      ```
+
+      outputs `"anonymous"`.
+    task: 'Output one array with the `celsius` value of every reading, in file order, using the string "no data" where the value is `null`.'
+    hints:
+      - 'The readings are in `.readings`.'
+      - 'For each reading, `.celsius // "no data"`.'
+      - '`.readings | map(.celsius // "no data")`'
+    solution: '.readings | map(.celsius // "no data")'
+    why: |
+      Only BO-02 is `null`, so only it gets the default. The string `"32.1"` from PORT-02 is not
+      `null`, so `//` passes it through unchanged; fixing it needs a different tool.
+
+      Variation: `[.readings[] | .celsius // "no data"]` builds the same array with brackets.
+    expected: [[31.2, 30.4, 33.8, "no data", 34.9, 35.6, 36.1, 32.7, "32.1"]]
+  - title: Defaults before arithmetic
+    body: |
+      `null` in arithmetic is forgiving for `+` (`null + 1` is `1`) but not for most other
+      operators. A default makes the intent explicit:
+
+      ```jq
+      [3, null, 4] | map(. // 0) | add
+      ```
+
+      outputs `7`.
+    task: 'Output the sum of the `humidity` values of all readings, counting a `null` humidity as 0.'
+    hints:
+      - Replace each null with 0 before adding.
+      - '`map(.humidity // 0)` on the readings array.'
+      - '`.readings | map(.humidity // 0) | add`'
+    solution: '.readings | map(.humidity // 0) | add'
+    why: |
+      The eight real humidity values add up to 537. Here `add` would skip the `null` anyway, but
+      with the default in place the program still works if you later average or multiply.
+
+      Variation: be careful with booleans: `false // true` is `true`, so `//` is the wrong tool
+      for defaulting a field that can legitimately be `false`.
+    expected: [537]
+  - title: Checking types
+    body: |
+      `type` names the type of a value: `"null"`, `"boolean"`, `"number"`, `"string"`,
+      `"array"` or `"object"`. Checking it finds values stored the wrong way:
+
+      ```jq
+      [1, "1", null] | map(type)
+      ```
+
+      outputs `["number", "string", "null"]`.
+    task: Output the `station` of every reading whose `celsius` is a string, one output per reading.
+    hints:
+      - Select with `.celsius | type == "string"`.
+      - Iterate the readings with `.readings[]`.
+      - '`.readings[] | select(.celsius | type == "string") | .station`'
+    solution: '.readings[] | select(.celsius | type == "string") | .station'
+    why: |
+      Only PORT-02 stores its temperature as text, `"32.1"`. A comparison such as `.celsius >
+      32` would silently treat it as larger than every number, because jq orders all strings
+      after all numbers.
+
+      Variation: `.readings[] | select(.celsius | strings) | .station` uses the `strings` filter,
+      which passes only string values.
+    expected: ["PORT-02"]
+  - title: tonumber and try
+    body: |
+      `tonumber` converts `"32.1"` to `32.1` and leaves numbers alone, but it raises an error on
+      `null`, and an error stops the program. `try EXPR` runs `EXPR` and, if it fails, outputs
+      nothing instead of stopping:
+
+      ```jq
+      [1, "2", null] | map(try tonumber)
+      ```
+
+      outputs `[1, 2]`.
+    task: 'Output one array with every `celsius` value that can be converted to a number, converted, in file order.'
+    hints:
+      - 'Convert with `.celsius | tonumber`.'
+      - 'Wrap the conversion in `try` so the offline station produces nothing.'
+      - '`[.readings[] | try (.celsius | tonumber)]`'
+    solution: '[.readings[] | try (.celsius | tonumber)]'
+    why: |
+      Eight readings convert; the offline station's `null` fails inside `try` and simply drops
+      out. The string `"32.1"` becomes the number `32.1`.
+
+      Variation: `.readings | map(try (.celsius | tonumber))` gives the same array.
+    expected: [[31.2, 30.4, 33.8, 34.9, 35.6, 36.1, 32.7, 32.1]]
+  - title: The ? shorthand
+    body: |
+      `EXPR?` is short for `try EXPR`. It fits neatly at the end of a pipeline:
+
+      ```jq
+      ["1", "x", "3"] | map(tonumber?)
+      ```
+
+      outputs `[1, 3]`.
+    task: Output how many `celsius` values can be converted to a number.
+    hints:
+      - '`.readings[].celsius | tonumber?` produces only the convertible values.'
+      - Collect them and take the `length`.
+      - '`[.readings[].celsius | tonumber?] | length`'
+    solution: '[.readings[].celsius | tonumber?] | length'
+    why: |
+      `?` binds to the filter right before it, here `tonumber`, so a failure skips that one
+      value and the rest of the stream continues. The answer is `8` of 9 readings.
+
+      Variation: `.readings | map(.celsius | tonumber?) | length` counts the same way.
+    expected: [8]
+  - title: Replacing errors with catch
+    body: |
+      `try EXPR catch HANDLER` runs `HANDLER` when `EXPR` fails, so a failure can produce a
+      placeholder instead of nothing:
+
+      ```jq
+      ["1", null] | map(try tonumber catch -1)
+      ```
+
+      outputs `[1, -1]`.
+    task: 'Output one array with an object `{station, celsius}` per reading, in file order, where `celsius` is converted to a number, or the string "invalid" when the conversion fails.'
+    hints:
+      - 'Build `{station, celsius: (...)}` for each reading.'
+      - 'The value is `try (.celsius | tonumber) catch "invalid"`.'
+      - '`.readings | map({station, celsius: (try (.celsius | tonumber) catch "invalid")})`'
+    solution: '.readings | map({station, celsius: (try (.celsius | tonumber) catch "invalid")})'
+    why: |
+      Every reading now has a value, so all nine objects are kept, and BO-02 is clearly
+      marked. Inside `catch`, `.` is the error message; using a constant keeps the output
+      independent of the exact wording.
+
+      Variation: `catch null` keeps the field but leaves it empty.
+    expected: [[{"station": "FNA-01", "celsius": 31.2}, {"station": "FNA-02", "celsius": 30.4}, {"station": "BO-01", "celsius": 33.8}, {"station": "BO-02", "celsius": "invalid"}, {"station": "KEN-01", "celsius": 34.9}, {"station": "KEN-02", "celsius": 35.6}, {"station": "MAK-01", "celsius": 36.1}, {"station": "PORT-01", "celsius": 32.7}, {"station": "PORT-02", "celsius": 32.1}]]
+  - title: Keeping only one type
+    body: |
+      `numbers`, `strings`, `nulls`, `booleans`, `arrays` and `objects` pass values of one type
+      and drop everything else, without any error handling:
+
+      ```jq
+      [1, "a", null, 2] | map(numbers)
+      ```
+
+      outputs `[1, 2]`.
+    task: 'Output the highest `celsius` value among the readings that store it as a number (ignore strings and nulls).'
+    hints:
+      - '`.readings[].celsius | numbers` keeps the real numbers.'
+      - Collect them and take `max`.
+      - '`[.readings[].celsius | numbers] | max`'
+    solution: '[.readings[].celsius | numbers] | max'
+    why: |
+      MAK-01's 36.1 is the highest. Filtering first matters: `max` over the raw values would
+      return `"32.1"`, because strings sort after numbers.
+
+      Variation: `[.readings[].celsius | tonumber?] | max` also includes the converted string;
+      the answer is the same here.
+    expected: [36.1]
+  - title: A clean report
+    body: |
+      Combine the tools: `?` to skip what cannot be converted, `//` to fill the gap it leaves.
+      When the left side of `//` produces no output at all, the right side is used:
+
+      ```jq
+      "x" | (tonumber? // "not a number")
+      ```
+
+      outputs `"not a number"`.
+    task: 'Output one array with an object `{station, celsius}` per reading, in file order, where `celsius` is the value converted to a number, or the string "n/a" when that is not possible.'
+    hints:
+      - 'The value is `((.celsius | tonumber?) // "n/a")`.'
+      - 'Wrap it in an object inside `map`.'
+      - '`.readings | map({station, celsius: ((.celsius | tonumber?) // "n/a")})`'
+    solution: '.readings | map({station, celsius: ((.celsius | tonumber?) // "n/a")})'
+    why: |
+      For BO-02, `tonumber?` produces nothing, so `//` supplies `"n/a"`. For PORT-02, the string
+      becomes a number. Every reading is now safe to chart.
+
+      Variation: `celsius: (try (.celsius | tonumber) catch "n/a")` gives the same objects with
+      `try` and `catch`.
+    expected: [[{"station": "FNA-01", "celsius": 31.2}, {"station": "FNA-02", "celsius": 30.4}, {"station": "BO-01", "celsius": 33.8}, {"station": "BO-02", "celsius": "n/a"}, {"station": "KEN-01", "celsius": 34.9}, {"station": "KEN-02", "celsius": 35.6}, {"station": "MAK-01", "celsius": 36.1}, {"station": "PORT-01", "celsius": 32.7}, {"station": "PORT-02", "celsius": 32.1}]]

@@ -1,0 +1,183 @@
+id: 101-02-arrays
+level: 101
+order: 2
+title: Shelves of books
+summary: Index, slice and iterate the bookstore's arrays, and count what is on them.
+input: {ref: static:bookstore}
+steps:
+  - title: Indexing an array
+    body: |
+      The shop's books sit in an array at `.store.books`. Arrays are indexed from zero, with
+      the index in square brackets:
+
+      ```jq
+      .store.staff[0]
+      ```
+
+      outputs the first staff member, `{"name": "Ingrid", "role": "owner", "since": 2012}`.
+      You can keep going with fields after an index: `.store.staff[0].name` is `"Ingrid"`.
+    task: Output the title of the first book.
+    hints:
+      - The books are at `.store.books`.
+      - The first element has index 0.
+      - '`.store.books[0].title`'
+    solution: .store.books[0].title
+    why: |
+      `.store.books[0]` picks the first book object and `.title` reads its title,
+      `"Learning jq"`.
+
+      Variation: `.store.books[1].title` is the second book, `"JSON at Scale"`.
+    expected: ["Learning jq"]
+  - title: Counting from the end
+    body: |
+      A negative index counts from the end: `[-1]` is the last element, `[-2]` the one before.
+
+      ```jq
+      .store.staff[-1].name
+      ```
+
+      outputs `"Lena"`, the newest member of staff.
+    task: Output the title of the last book on the shelf.
+    hints:
+      - You do not need to know how many books there are.
+      - Use a negative index.
+      - '`.store.books[-1].title`'
+    solution: .store.books[-1].title
+    why: |
+      `[-1]` means "one from the end", so it always finds the last element, however long the
+      array is. Here it is `"Streams and Generators"`.
+
+      Variation: `.store.books[-2].title` is the second to last, `"Regular Expressions Unleashed"`.
+    expected: ["Streams and Generators"]
+  - title: Out of range
+    body: |
+      An index past the end of an array is not an error; like a missing key, it gives `null`:
+
+      ```jq
+      .store.staff[10]
+      ```
+
+      outputs `null`, because there are only three people on the staff.
+    task: Output the element at index 20 of the books array (there is no such book).
+    hints:
+      - Write the index exactly as in the previous steps.
+      - The index is 20.
+      - '`.store.books[20]`'
+    solution: .store.books[20]
+    why: |
+      jq answers `null` for anything that is not there, whether a key or an index. That keeps
+      programs running over incomplete data, but watch for `null`s that come from a wrong index.
+
+      Variation: `.store.books[20].title` is also `null`, since `.title` of `null` is `null`.
+    expected: [null]
+  - title: Slices
+    body: |
+      A slice `[from:to]` takes a range of elements: from index `from` up to, but not including,
+      index `to`. It returns an array. Either end may be left out.
+
+      ```jq
+      .store.staff[1:]
+      ```
+
+      outputs the staff array without its first element (Omar and Lena).
+    task: Output an array holding the first two tags of the first book.
+    hints:
+      - The tags are at `.store.books[0].tags`.
+      - A slice from index 0 up to (not including) index 2.
+      - '`.store.books[0].tags[0:2]`'
+    solution: .store.books[0].tags[0:2]
+    why: |
+      `[0:2]` takes indexes 0 and 1, giving `["jq", "cli"]`. A slice always gives back an
+      array, even if it holds one element or none.
+
+      Variation: `[:2]` leaves out the start and means the same thing. Slices work on strings
+      too: `.store.name[0:6]` is `"The jq"`.
+    expected: [["jq", "cli"]]
+  - title: Iterating with []
+    body: |
+      Empty brackets `[]` iterate: they output every element of the array as a separate
+      output.
+
+      ```jq
+      .store.staff[]
+      ```
+
+      outputs three objects, one per person, one after the other.
+    task: Output each tag of the first book as a separate output.
+    hints:
+      - Start from `.store.books[0].tags`.
+      - Add empty brackets to iterate.
+      - '`.store.books[0].tags[]`'
+    solution: .store.books[0].tags[]
+    why: |
+      `[]` turns one array into a stream of its elements: `"jq"`, `"cli"` and `"beginner"`.
+      Anything after it runs once for each element.
+
+      Variation: `.store.books[0].tags` without `[]` outputs the array itself, a single output.
+    expected: ["jq", "cli", "beginner"]
+  - title: A field of every element
+    body: |
+      After `[]` you can continue with a field, and it is applied to each element:
+
+      ```jq
+      .store.books[].year
+      ```
+
+      outputs eight years, one per book.
+    task: Output the name of every staff member, one output per person.
+    hints:
+      - The staff array is `.store.staff`.
+      - Iterate it with `[]`, then take `.name`.
+      - '`.store.staff[].name`'
+    solution: .store.staff[].name
+    why: |
+      `.store.staff[]` produces three objects, and `.name` is taken from each: `"Ingrid"`,
+      `"Omar"`, `"Lena"`.
+
+      Variation: `.store.staff[].role` lists their roles instead.
+    expected: ["Ingrid", "Omar", "Lena"]
+  - title: How many?
+    body: |
+      `length` counts the elements of an array. To feed an array into `length`, use the pipe
+      `|`, which sends the output of the left side into the right side (more about pipes in the
+      next tutorial):
+
+      ```jq
+      .store.staff | length
+      ```
+
+      outputs `3`.
+    task: Output the number of books in the store.
+    hints:
+      - The books array is `.store.books`.
+      - Pipe it into `length`.
+      - '`.store.books | length`'
+    solution: .store.books | length
+    why: |
+      `length` of an array is the number of elements, here `8`.
+
+      Variation: `length` also works on strings (number of characters) and objects (number of
+      keys): `.store.name | length` is `15`.
+    expected: [8]
+  - title: Counting inside each element
+    body: |
+      Iteration and `length` combine. Because `[]` produces one output per element, a
+      `| length` after it runs once per element:
+
+      ```jq
+      .store.books[].tags | length
+      ```
+
+      outputs how many tags each book has.
+    task: Output the number of ratings each book has received, one number per book, in shelf order.
+    hints:
+      - Each book has a `ratings` array.
+      - Iterate the books, take `.ratings`, and pipe into `length`.
+      - '`.store.books[].ratings | length`'
+    solution: .store.books[].ratings | length
+    why: |
+      The pipe sends each book's ratings array to `length` separately, so you get eight
+      numbers. One of them is `0`: "Functional Filters" has no ratings yet.
+
+      Variation: `.store.books | length` without the `[]` would count the books instead.
+    expected: [4, 3, 2, 5, 0, 3, 2, 2]

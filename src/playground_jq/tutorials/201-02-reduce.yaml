@@ -1,0 +1,189 @@
+id: 201-02-reduce
+level: 201
+order: 2
+title: Running totals with reduce and foreach
+summary: Fold the web shop orders into counts, totals and lookup tables, and follow a running total step by step.
+input: {ref: static:orders}
+steps:
+  - title: The shape of reduce
+    body: |
+      `reduce SOURCE as $x (INIT; UPDATE)` starts with `INIT` and, for every output `$x` of
+      `SOURCE`, replaces the state `.` with the result of `UPDATE`. The final state is the one
+      output.
+
+      ```jq
+      reduce (1, 2, 3) as $n (0; . + $n)
+      ```
+
+      outputs `6`: the state goes 0, 1, 3, 6.
+    task: Count the orders with `reduce` (add 1 to the state for every order).
+    starter: 'reduce .[] as $o (0; .)'
+    hints:
+      - The source is `.[]`, one order at a time.
+      - The update ignores `$o` and adds 1 to the state.
+      - '`reduce .[] as $o (0; . + 1)`'
+    solution: 'reduce .[] as $o (0; . + 1)'
+    why: |
+      Each of the eight orders bumps the state by one, so the result is `8`, the same as
+      `length`. Counting is the simplest fold; the next steps fold real values.
+
+      Variation: `reduce .[] as $o (0; . + ($o.items | length))` counts line items instead.
+    expected: [8]
+  - title: Summing a nested value
+    body: |
+      The source can be any stream, including one that walks nested arrays. Inside `UPDATE`,
+      `$x` is the current element and `.` is the state so far:
+
+      ```jq
+      reduce .[].items[] as $i (0; . + $i.price)
+      ```
+
+      adds the unit price of every line item.
+    task: Output the total number of units sold across all orders (the sum of every line item's `qty`), using `reduce`.
+    hints:
+      - Iterate every line item with `.[].items[]`.
+      - Add `$i.qty` to the state.
+      - '`reduce .[].items[] as $i (0; . + $i.qty)`'
+    solution: 'reduce .[].items[] as $i (0; . + $i.qty)'
+    why: |
+      Thirteen line items add up to `29` units. `reduce` never builds the intermediate list,
+      which matters for big inputs.
+
+      Variation: `[.[].items[].qty] | add` gives the same number by collecting first.
+    expected: [29]
+  - title: Counting into an object
+    body: |
+      The state can be an object. `.[$key] += 1` adds one to the count under `$key`; a missing
+      key starts as `null`, and `null + 1` is `1`:
+
+      ```jq
+      reduce ("a", "b", "a") as $k ({}; .[$k] += 1)
+      ```
+
+      outputs `{"a": 2, "b": 1}`.
+    task: 'Output one object mapping each order `status` to how many orders have it, keys in the order each status first appears.'
+    hints:
+      - Start the state at `{}`.
+      - 'Update with `.[$o.status] += 1`.'
+      - '`reduce .[] as $o ({}; .[$o.status] += 1)`'
+    solution: 'reduce .[] as $o ({}; .[$o.status] += 1)'
+    why: |
+      Keys appear in the order they are first added: shipped, delivered, cancelled, pending.
+      Unlike `group_by`, `reduce` does not sort.
+
+      Variation: `group_by(.status) | map({(.[0].status): length}) | add` gives the same counts
+      with keys sorted alphabetically.
+    expected: [{"shipped": 3, "delivered": 2, "cancelled": 1, "pending": 2}]
+  - title: Totals per key
+    body: |
+      Instead of adding 1, add a value from the element:
+
+      ```jq
+      reduce .[] as $o ({}; .[$o.shipping.method] += $o.shipping.cost)
+      ```
+
+      totals shipping cost per method.
+    task: 'Output one object mapping each product `sku` to the total `qty` ordered across all orders, keys in the order each sku first appears.'
+    hints:
+      - The source is every line item, `.[].items[]`.
+      - 'Update with `.[$i.sku] += $i.qty`.'
+      - '`reduce .[].items[] as $i ({}; .[$i.sku] += $i.qty)`'
+    solution: 'reduce .[].items[] as $i ({}; .[$i.sku] += $i.qty)'
+    why: |
+      The sticker pack (`STK-3`) leads with 12 units, and the JSON mug (`MUG-7`) appears in
+      three orders for 6 units in total.
+
+      Variation: `.[$i.sku] += $i.qty * $i.price` totals revenue per product instead.
+    expected: [{"BOOK-1": 3, "MUG-7": 6, "BOOK-4": 1, "STK-3": 12, "BOOK-2": 1, "BOOK-3": 1, "BOOK-5": 3, "BOOK-8": 1, "BOOK-7": 1}]
+  - title: Filtering the source
+    body: |
+      The source is an ordinary filter, so it can `select`. Anything filtered out never reaches
+      the update:
+
+      ```jq
+      reduce (.[] | select(.coupon != null)) as $o (0; . + 1)
+      ```
+
+      counts the orders that used a coupon.
+    task: 'Output one object mapping each customer `name` to their total spend (the sum of `qty * price` over their items), counting only orders whose status is not "cancelled"; keys in first-seen order.'
+    hints:
+      - "Source: `(.[] | select(.status != \"cancelled\"))`."
+      - 'The spend of one order is `($o.items | map(.qty * .price) | add)`.'
+      - '`reduce (.[] | select(.status != "cancelled")) as $o ({}; .[$o.customer.name] += ($o.items | map(.qty * .price) | add))`'
+    solution: 'reduce (.[] | select(.status != "cancelled")) as $o ({}; .[$o.customer.name] += ($o.items | map(.qty * .price) | add))'
+    why: |
+      Ada's cancelled sticker order is skipped, so she stays at 26. Grace (two orders) and
+      Linus (two orders) have their totals combined.
+
+      Variation: dropping the `select` adds Ada's cancelled 22.5, giving her 48.5.
+    expected: [{"Ada Lovelace": 26, "Grace Hopper": 76.4, "Linus T": 65.75, "Margaret H": 59.97, "Ken Thompson": 27.75}]
+  - title: Keeping the best so far
+    body: |
+      The update can decide what to keep. Here the state holds the best element seen so far,
+      starting from `null`:
+
+      ```jq
+      reduce .[] as $o (null; if . == null or $o.shipping.cost > .shipping.cost then $o else . end) | .id
+      ```
+
+      outputs `"A-1002"`, the first order with the highest shipping cost.
+    task: 'With `reduce`, find the order with the highest total (sum of `qty * price`) and output it as `{id, total}`, in that key order.'
+    hints:
+      - 'Map the orders to `{id, total}` first, then reduce over `.[]`.'
+      - 'Keep `$o` when the state is `null` or `$o.total > .total`.'
+      - '`map({id, total: (.items | map(.qty * .price) | add)}) | reduce .[] as $o (null; if . == null or $o.total > .total then $o else . end)`'
+    solution: 'map({id, total: (.items | map(.qty * .price) | add)}) | reduce .[] as $o (null; if . == null or $o.total > .total then $o else . end)'
+    why: |
+      The state only changes when a larger total comes along, so it ends as A-1005 with 59.97.
+      This is how `max_by` works inside.
+
+      Variation: `map({id, total: (.items | map(.qty * .price) | add)}) | max_by(.total)` is
+      the built-in shortcut.
+    expected: [{"id": "A-1005", "total": 59.97}]
+  - title: Running totals with foreach
+    body: |
+      `foreach SOURCE as $x (INIT; UPDATE; EXTRACT)` is like `reduce`, but outputs a value after
+      every update, not just at the end. `EXTRACT` sees the new state as `.` and can still use
+      `$x`:
+
+      ```jq
+      [foreach (1, 2, 3) as $n (0; . + $n; .)]
+      ```
+
+      outputs `[1, 3, 6]`.
+    task: 'Output one array with an object `{id, running}` (in that key order) per order, where `running` is the sum of the order totals (`qty * price` over items) up to and including that order, in file order.'
+    starter: 'foreach .[] as $o (0; .; .)'
+    hints:
+      - 'The update adds `($o.items | map(.qty * .price) | add)` to the state.'
+      - 'The extract builds `{id: $o.id, running: .}`; wrap the whole `foreach` in `[...]`.'
+      - '`[foreach .[] as $o (0; . + ($o.items | map(.qty * .price) | add); {id: $o.id, running: .})]`'
+    solution: '[foreach .[] as $o (0; . + ($o.items | map(.qty * .price) | add); {id: $o.id, running: .})]'
+    why: |
+      After each order the running total is emitted, ending at 278.37, which equals the sum of
+      all totals. `reduce` would output only that last number.
+
+      Variation: `[foreach .[] as $o (0; . + 1; "\(.) of 8: \($o.id)")]` numbers the orders.
+    expected: [[{"id": "A-1001", "running": 26}, {"id": "A-1002", "running": 57.9}, {"id": "A-1003", "running": 80.4}, {"id": "A-1004", "running": 115.15}, {"id": "A-1005", "running": 175.12}, {"id": "A-1006", "running": 219.62}, {"id": "A-1007", "running": 247.37}, {"id": "A-1008", "running": 278.37}]]
+  - title: Two totals at once
+    body: |
+      A state object can carry several accumulators at once, so one pass computes several
+      numbers:
+
+      ```jq
+      reduce .[] as $o ({n: 0, express: 0}; .n += 1 | .express += (if $o.shipping.method == "express" then 1 else 0 end))
+      ```
+
+      outputs `{"n": 8, "express": 3}`.
+    task: 'In one `reduce`, output an object `{orders, units}` (in that key order): the number of orders and the total `qty` of all their line items.'
+    hints:
+      - 'Start from `{orders: 0, units: 0}`.'
+      - 'Update with `.orders += 1 | .units += ($o.items | map(.qty) | add)`.'
+      - '`reduce .[] as $o ({orders: 0, units: 0}; .orders += 1 | .units += ($o.items | map(.qty) | add))`'
+    solution: 'reduce .[] as $o ({orders: 0, units: 0}; .orders += 1 | .units += ($o.items | map(.qty) | add))'
+    why: |
+      Both fields are updated for every order: 8 orders and 29 units. The pipe inside `UPDATE`
+      chains the two changes to the same state.
+
+      Variation: `{orders: length, units: ([.[].items[].qty] | add)}` gives the same object in
+      two passes.
+    expected: [{"orders": 8, "units": 29}]

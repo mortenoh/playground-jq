@@ -1,0 +1,182 @@
+id: 101-03-pipes-and-objects
+level: 101
+order: 3
+title: Pipes and new objects
+summary: Chain filters with the pipe and build the objects you want from the bookstore data.
+input: {ref: static:bookstore}
+steps:
+  - title: The pipe
+    body: |
+      The pipe `|` feeds every output of the filter on its left into the filter on its right.
+      Inside the right side, `.` means "the value that came through the pipe".
+
+      ```jq
+      .store.location | .country
+      ```
+
+      outputs `"NO"`: the left side produces the location object, and `.country` is read from it.
+    task: Using a pipe, output the store's name (first take `.store`, then read `name` from it).
+    hints:
+      - The left side is `.store`.
+      - The right side reads `.name` from whatever comes through.
+      - '`.store | .name`'
+    solution: .store | .name
+    why: |
+      `.store | .name` is the same as `.store.name`. The pipe form matters once the left side
+      does more than walk a path, as in the next steps.
+
+      Variation: `. | .store | .name` works too: piping into `.` changes nothing.
+    expected: ["The jq Bookshop"]
+  - title: Piping many outputs
+    body: |
+      When the left side produces several outputs, the right side runs once for each:
+
+      ```jq
+      .store.staff[] | .role
+      ```
+
+      outputs `"owner"`, `"clerk"`, `"clerk"`.
+    task: Output the author of every book, one output per book, in shelf order.
+    hints:
+      - Iterate the books with `.store.books[]`.
+      - Pipe each book into a field access.
+      - '`.store.books[] | .author`'
+    solution: .store.books[] | .author
+    why: |
+      Each book object flows through the pipe on its own, and `.author` runs on it. Authors
+      with two books, such as Ada Filter, appear twice.
+
+      Variation: `.store.books[].author` gives the same eight outputs without a pipe.
+    expected: ["Ada Filter", "Ben Stream", "Cleo Reduce", "Dev Null", "Ada Filter", "Eve Map", "Gus Match", "Cleo Reduce"]
+  - title: Building an object
+    body: |
+      Curly braces build a new object. Each value is a filter, run against the current input:
+
+      ```jq
+      .store.staff[0] | {person: .name, job: .role}
+      ```
+
+      outputs `{"person": "Ingrid", "job": "owner"}`.
+    task: 'Output one object with the key `name` holding the store name and the key `city` holding its city, in that order.'
+    hints:
+      - Pipe `.store` into an object constructor.
+      - The city is at `.location.city` relative to the store.
+      - '`.store | {name: .name, city: .location.city}`'
+    solution: '.store | {name: .name, city: .location.city}'
+    why: |
+      Inside the braces, `.` is the store object, so `.name` and `.location.city` are read from
+      it. The keys are written in the order you list them.
+
+      Variation: `{name: .store.name, city: .store.location.city}` does the same without the
+      pipe, by starting each path from the top.
+    expected: [{"name": "The jq Bookshop", "city": "Oslo"}]
+  - title: The shorthand
+    body: |
+      When the new key has the same name as the field you read, you can write it once:
+      `{title}` means `{title: .title}`.
+
+      ```jq
+      .store.staff[] | {name, since}
+      ```
+
+      outputs three objects, each with just `name` and `since`.
+    task: 'For every book, output an object with only its `title` and `price`, in that order.'
+    hints:
+      - Iterate the books and pipe each into an object.
+      - Use the shorthand for both keys.
+      - '`.store.books[] | {title, price}`'
+    solution: '.store.books[] | {title, price}'
+    why: |
+      The object constructor runs once per book, so you get eight small objects. Everything you
+      did not ask for is left out, which is how you trim a large record down to what matters.
+
+      Variation: `{title, price, currency}` adds the currency too.
+    expected: [{"title": "Learning jq", "price": 8.5}, {"title": "JSON at Scale", "price": 24}, {"title": "Pipes and Paths", "price": 6.25}, {"title": "The Art of the Shell", "price": 31.9}, {"title": "Functional Filters", "price": 19.99}, {"title": "Data Wrangling Recipes", "price": 14.5}, {"title": "Regular Expressions Unleashed", "price": 22}, {"title": "Streams and Generators", "price": 27.75}]
+  - title: Renaming keys
+    body: |
+      The key on the left of the colon is yours to choose, so objects are also how you rename:
+
+      ```jq
+      .store.books[0] | {book: .title, by: .author}
+      ```
+
+      outputs `{"book": "Learning jq", "by": "Ada Filter"}`.
+    task: 'For every staff member, output an object with the key `person` (their name) and the key `joined` (their `since` year), in that order.'
+    hints:
+      - Iterate `.store.staff` and pipe into an object.
+      - The values are `.name` and `.since`.
+      - '`.store.staff[] | {person: .name, joined: .since}`'
+    solution: '.store.staff[] | {person: .name, joined: .since}'
+    why: |
+      Each output object has your key names and the original values. The data is unchanged; only
+      the labels are new.
+
+      Variation: `{person: .name, role}` mixes a renamed key with the shorthand.
+    expected: [{"person": "Ingrid", "joined": 2012}, {"person": "Omar", "joined": 2020}, {"person": "Lena", "joined": 2023}]
+  - title: Computed values
+    body: |
+      A value can be any filter, including a comparison or arithmetic. Put it in parentheses
+      when it is more than a path:
+
+      ```jq
+      .store.books[0] | {title, older: (.year < 2020)}
+      ```
+
+      outputs `{"title": "Learning jq", "older": false}`.
+    task: 'For every book, output an object with its `title` and the key `available`, which is `true` when `inStock` is greater than 0 and `false` otherwise.'
+    hints:
+      - Compare `.inStock > 0`; the comparison gives `true` or `false`.
+      - Wrap the comparison in parentheses as the value of `available`.
+      - '`.store.books[] | {title, available: (.inStock > 0)}`'
+    solution: '.store.books[] | {title, available: (.inStock > 0)}'
+    why: |
+      `.inStock > 0` evaluates to a boolean for each book. Two books, "JSON at Scale" and "Data
+      Wrangling Recipes", have none in stock and get `false`.
+
+      Variation: `{title, stock_value: (.price * .inStock)}` computes a number instead.
+    expected: [{"title": "Learning jq", "available": true}, {"title": "JSON at Scale", "available": false}, {"title": "Pipes and Paths", "available": true}, {"title": "The Art of the Shell", "available": true}, {"title": "Functional Filters", "available": true}, {"title": "Data Wrangling Recipes", "available": false}, {"title": "Regular Expressions Unleashed", "available": true}, {"title": "Streams and Generators", "available": true}]
+  - title: String interpolation
+    body: |
+      Inside a string, `\(...)` inserts the result of a filter:
+
+      ```jq
+      .store.staff[0] | "\(.name) is the \(.role)"
+      ```
+
+      outputs `"Ingrid is the owner"`.
+    task: 'For every book, output a string of the form `TITLE by AUTHOR`, for example `"Learning jq by Ada Filter"`.'
+    hints:
+      - Iterate the books and pipe each into a string.
+      - Use `\(.title)` and `\(.author)` inside the string.
+      - '`.store.books[] | "\(.title) by \(.author)"`'
+    solution: '.store.books[] | "\(.title) by \(.author)"'
+    why: |
+      Interpolation evaluates each `\(...)` against the current book and turns the result into
+      text. Numbers are converted too: `"\(.title) (\(.year))"` works.
+
+      Variation: `.title + " by " + .author` builds the same string with `+`.
+    expected: ["Learning jq by Ada Filter", "JSON at Scale by Ben Stream", "Pipes and Paths by Cleo Reduce", "The Art of the Shell by Dev Null", "Functional Filters by Ada Filter", "Data Wrangling Recipes by Eve Map", "Regular Expressions Unleashed by Gus Match", "Streams and Generators by Cleo Reduce"]
+  - title: When a value produces several outputs
+    body: |
+      If a value in an object constructor produces several outputs, jq builds one object for
+      each of them:
+
+      ```jq
+      {tag: .store.books[0].tags[]}
+      ```
+
+      outputs three objects: `{"tag": "jq"}`, `{"tag": "cli"}`, `{"tag": "beginner"}`.
+    task: 'Output one object per staff member, each with the key `city` (the store city) and the key `staff` (that person''s name), in that order.'
+    hints:
+      - Start from `.store` so both the city and the staff are in reach.
+      - Use `.staff[].name` as the value of `staff`; it produces three names.
+      - '`.store | {city: .location.city, staff: .staff[].name}`'
+    solution: '.store | {city: .location.city, staff: .staff[].name}'
+    why: |
+      `.staff[].name` has three outputs, so the constructor produces three objects, each
+      repeating the city. This is handy for flattening, and surprising when you did not expect
+      it.
+
+      Variation: `{city: .location.city, staff: [.staff[].name]}` collects the names into one
+      array instead, giving a single object (collecting comes in tutorial 5).
+    expected: [{"city": "Oslo", "staff": "Ingrid"}, {"city": "Oslo", "staff": "Omar"}, {"city": "Oslo", "staff": "Lena"}]

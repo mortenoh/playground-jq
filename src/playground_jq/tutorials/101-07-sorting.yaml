@@ -1,0 +1,186 @@
+id: 101-07-sorting
+level: 101
+order: 7
+title: Sorting the web shop orders
+summary: Put orders in order with sort, sort_by and reverse, and pick the first, last and top few.
+input: {ref: static:orders}
+steps:
+  - title: sort
+    body: |
+      This dataset is an array of web shop orders. `sort` sorts an array of simple values:
+      numbers ascending, strings alphabetically.
+
+      ```jq
+      [3, 1, 2] | sort
+      ```
+
+      outputs `[1, 2, 3]`.
+    task: Output one array of the customer country of every order, sorted alphabetically (duplicates kept).
+    hints:
+      - '`map(.customer.country)` gives the countries in order placed.'
+      - Pipe that array into `sort`.
+      - '`map(.customer.country) | sort`'
+    solution: map(.customer.country) | sort
+    why: |
+      `sort` rearranges the eight country codes, keeping repeats: two `FI`, two `GB` and four
+      `US`.
+
+      Variation: `unique` instead of `sort` sorts and removes duplicates, giving
+      `["FI", "GB", "US"]`.
+    expected: [["FI", "FI", "GB", "GB", "US", "US", "US", "US"]]
+  - title: sort_by a field
+    body: |
+      `sort_by(f)` sorts an array of objects by the value of `f` for each element. Elements
+      with equal values keep their original order.
+
+      ```jq
+      sort_by(.status) | map(.status)
+      ```
+
+      outputs the statuses alphabetically, from `"cancelled"` to `"shipped"`.
+    task: Sort the orders by shipping cost, cheapest first, and output one array of their `id`s.
+    hints:
+      - The cost is at `.shipping.cost`.
+      - Use `sort_by(...)`, then `map(.id)`.
+      - '`sort_by(.shipping.cost) | map(.id)`'
+    solution: sort_by(.shipping.cost) | map(.id)
+    why: |
+      The pickup order A-1004 costs nothing to ship and comes first. The four standard orders
+      (4.95) follow in their original order, then the three express ones (12).
+
+      Variation: `sort_by(.shipping.method)` sorts by the method's name instead.
+    expected: [["A-1004", "A-1001", "A-1003", "A-1006", "A-1007", "A-1002", "A-1005", "A-1008"]]
+  - title: reverse
+    body: |
+      `reverse` turns an array around. After an ascending sort it gives descending order:
+
+      ```jq
+      [1, 3, 2] | sort | reverse
+      ```
+
+      outputs `[3, 2, 1]`.
+    task: Output one array of the order `id`s, newest first, sorted by `created_at`.
+    hints:
+      - '`created_at` is an ISO 8601 string, so sorting it as text sorts by time.'
+      - Sort by it, reverse, then take the ids.
+      - '`sort_by(.created_at) | reverse | map(.id)`'
+    solution: sort_by(.created_at) | reverse | map(.id)
+    why: |
+      Timestamps in the form `2026-03-01T10:15:00Z` sort correctly as strings because every
+      part has a fixed width, largest unit first. Reversing puts A-1008 first.
+
+      Variation: `reverse` alone would give the same answer here only because the file happens
+      to be in date order; sorting first makes the program correct for any input.
+    expected: [["A-1008", "A-1007", "A-1006", "A-1005", "A-1004", "A-1003", "A-1002", "A-1001"]]
+  - title: first and last
+    body: |
+      `first` is the first element of an array and `last` the last, the same as `.[0]` and
+      `.[-1]`:
+
+      ```jq
+      map(.id) | first, last
+      ```
+
+      outputs `"A-1001"` and `"A-1008"`.
+    task: 'Collect the unit `price` of every line item of every order into one array, sort it, and output the lowest and then the highest price, as two outputs.'
+    hints:
+      - '`[.[].items[].price]` collects every item price.'
+      - Sort it, then use `first, last`.
+      - '`[.[].items[].price] | sort | first, last`'
+    solution: '[.[].items[].price] | sort | first, last'
+    why: |
+      After sorting, the cheapest item (the sticker pack, 2.25) is first and the most expensive
+      (The Art of the Shell, 31.9) is last.
+
+      Variation: `min` and `max` find the same two values without sorting:
+      `[.[].items[].price] | min, max`.
+    expected: [2.25, 31.9]
+  - title: Sorting by a computed value
+    body: |
+      The argument of `sort_by` can be any filter, not just a field. First add the value you
+      want to sort by, then sort:
+
+      ```jq
+      map({id, lines: (.items | length)}) | sort_by(.lines)
+      ```
+
+      sorts orders by how many line items they have.
+    task: 'Output one array of objects with each order''s `id` and `total` (the sum of `qty * price` over its items), in that key order, sorted by total, lowest first.'
+    hints:
+      - 'The total of one order is `(.items | map(.qty * .price) | add)`.'
+      - 'Build `{id, total: ...}` with `map`, then `sort_by(.total)`.'
+      - '`map({id, total: (.items | map(.qty * .price) | add)}) | sort_by(.total)`'
+    solution: 'map({id, total: (.items | map(.qty * .price) | add)}) | sort_by(.total)'
+    why: |
+      Each total is computed once per order, and `sort_by(.total)` orders them from the
+      cancelled sticker order (22.5) up to A-1005 (59.97).
+
+      Variation: `sort_by(.items | map(.qty * .price) | add) | map(.id)` sorts the original
+      orders by total without building new objects.
+    expected: [[{"id": "A-1003", "total": 22.5}, {"id": "A-1001", "total": 26}, {"id": "A-1007", "total": 27.75}, {"id": "A-1008", "total": 31}, {"id": "A-1002", "total": 31.9}, {"id": "A-1004", "total": 34.75}, {"id": "A-1006", "total": 44.5}, {"id": "A-1005", "total": 59.97}]]
+  - title: The biggest order
+    body: |
+      Sort, reverse and take `first` to find the largest. `max_by(f)` does the same in one step:
+
+      ```jq
+      max_by(.shipping.cost) | .id
+      ```
+
+      outputs the first order with the highest shipping cost.
+    task: 'Output the object `{id, total}` (as in the previous step) of the order with the highest total.'
+    hints:
+      - Start from the program of the previous step.
+      - Take the last element of the sorted array, or use `max_by(.total)`.
+      - '`map({id, total: (.items | map(.qty * .price) | add)}) | sort_by(.total) | last`'
+    solution: 'map({id, total: (.items | map(.qty * .price) | add)}) | sort_by(.total) | last'
+    why: |
+      The sorted array ends with the largest total, so `last` picks A-1005 with 59.97.
+
+      Variation: `map({id, total: (.items | map(.qty * .price) | add)}) | max_by(.total)` gives
+      the same object without sorting.
+    expected: [{"id": "A-1005", "total": 59.97}]
+  - title: Sorting by several keys
+    body: |
+      `sort_by(a, b)` sorts by `a` first, and by `b` where `a` is equal:
+
+      ```jq
+      sort_by(.shipping.method, .id) | map(.id)
+      ```
+
+      groups orders by method, each group ordered by id.
+    task: Sort the orders by customer country, and by `created_at` within the same country; output one array of their `id`s.
+    hints:
+      - The country is `.customer.country`.
+      - Give `sort_by` two keys separated by a comma.
+      - '`sort_by(.customer.country, .created_at) | map(.id)`'
+    solution: sort_by(.customer.country, .created_at) | map(.id)
+    why: |
+      The two Finnish orders come first, then the two British ones, then the four American ones,
+      each group in date order.
+
+      Variation: `sort_by(.customer.country, .created_at) | reverse` gives the exact opposite
+      order; to reverse only one key, sort by a negated number instead.
+    expected: [["A-1004", "A-1008", "A-1001", "A-1003", "A-1002", "A-1005", "A-1006", "A-1007"]]
+  - title: The top three
+    body: |
+      A slice after a sort gives the top few. Sorting by a negated number sorts descending
+      without `reverse`:
+
+      ```jq
+      sort_by(-.shipping.cost) | .[:2] | map(.id)
+      ```
+
+      outputs the ids of the first two express orders.
+    task: Output one array of the `id`s of the three orders with the highest totals, highest first.
+    hints:
+      - 'Sort by the negated total: `sort_by(-(.items | map(.qty * .price) | add))`.'
+      - Then take the slice `.[:3]` and the ids.
+      - '`sort_by(-(.items | map(.qty * .price) | add)) | .[:3] | map(.id)`'
+    solution: 'sort_by(-(.items | map(.qty * .price) | add)) | .[:3] | map(.id)'
+    why: |
+      Negating the total flips the order, so the largest total sorts first. `.[:3]` keeps the
+      first three: A-1005, A-1006 and A-1004.
+
+      Variation: `sort_by(.items | map(.qty * .price) | add) | reverse | .[:3] | map(.id)` gives
+      the same ids.
+    expected: [["A-1005", "A-1006", "A-1004"]]

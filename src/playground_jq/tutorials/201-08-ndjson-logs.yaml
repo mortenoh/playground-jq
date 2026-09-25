@@ -1,0 +1,215 @@
+id: 201-08-ndjson-logs
+level: 201
+order: 8
+title: Digging through NDJSON logs
+summary: Read a log with one JSON object per line, first line by line, then slurped with -s to count, group and summarise.
+input: {ref: static:access-log}
+steps:
+  - title: One object per line
+    body: |
+      Services often log NDJSON: one JSON object per line, not one big array. jq reads such a
+      file as a sequence of separate inputs and runs the program once for each, so there is no
+      outer array to iterate:
+
+      ```jq
+      .status
+      ```
+
+      outputs sixteen numbers, one per log line.
+    task: 'Output the `path` of every log line whose `level` is "error", one output per line.'
+    hints:
+      - Each input is already one log object; do not use `.[]`.
+      - '`select(.level == "error")` keeps the error lines.'
+      - '`select(.level == "error") | .path`'
+    solution: 'select(.level == "error") | .path'
+    why: |
+      The program runs sixteen times, and `select` lets three of those runs through. This
+      line-by-line mode works on logs of any size, because jq never holds more than one line.
+
+      Variation: `select(.status >= 500) | .ts` lists when the server errors happened.
+    expected: ["/v1/alerts", "job:refresh-radar", "/v1/alerts"]
+  - title: Slurping into an array
+    body: |
+      Questions about the log as a whole (how many, which is largest) need all lines at once.
+      `-s` (slurp, on from this step) reads every input into one array and runs the program
+      once:
+
+      ```jq
+      map(.service) | unique
+      ```
+
+      outputs `["api", "auth", "worker"]`.
+    task: With slurp on, output the number of log lines.
+    options: {slurp: true}
+    hints:
+      - The input is now one array of log objects.
+      - Count its elements.
+      - '`length`'
+    solution: length
+    why: |
+      Slurping turned sixteen inputs into one array of sixteen objects, so `length` counts
+      lines. Without `-s`, `length` would run on each object and count its keys.
+
+      Variation: `[.[].method] | unique` shows the HTTP methods (and `RUN` for jobs) in the log.
+    expected: [16]
+  - title: Counting failures
+    body: |
+      With the log as an array, the 101 tools apply directly:
+
+      ```jq
+      map(select(.method == "POST")) | length
+      ```
+
+      outputs `3`.
+    task: With slurp on, output how many log lines have a `status` of 400 or above.
+    options: {slurp: true}
+    hints:
+      - Keep the lines with `.status >= 400`.
+      - Then count them.
+      - '`map(select(.status >= 400)) | length`'
+    solution: 'map(select(.status >= 400)) | length'
+    why: |
+      Five lines failed: one rate limit (429), one unauthorised login (401) and three server
+      errors.
+
+      Variation: `[.[] | select(.status >= 400)] | length` counts the same way.
+    expected: [5]
+  - title: Requests per service
+    body: |
+      `group_by` splits the lines per service; each group's `length` is its request count:
+
+      ```jq
+      group_by(.level) | map({level: .[0].level, lines: length})
+      ```
+
+      counts lines per log level.
+    task: 'With slurp on, output one array of objects `{service, requests}` (in that key order), one per service, where `requests` is its number of log lines.'
+    options: {slurp: true}
+    hints:
+      - Group by `.service`.
+      - 'Build `{service: .[0].service, requests: length}` per group.'
+      - '`group_by(.service) | map({service: .[0].service, requests: length})`'
+    solution: 'group_by(.service) | map({service: .[0].service, requests: length})'
+    why: |
+      The api handled 11 of the 16 lines, auth 3 and the worker 2. The groups come out sorted by
+      service name.
+
+      Variation: `reduce .[] as $l ({}; .[$l.service] += 1)` gives the same counts as one
+      object.
+    expected: [[{"service": "api", "requests": 11}, {"service": "auth", "requests": 3}, {"service": "worker", "requests": 2}]]
+  - title: Errors per service
+    body: |
+      Filter first, then group, and only the failing lines are counted:
+
+      ```jq
+      map(select(.level == "warn")) | group_by(.service) | map({(.[0].service): length}) | add
+      ```
+
+      outputs `{"api": 1, "auth": 1}`.
+    task: 'With slurp on, output one object mapping each service that had a server error (`status` 500 or above) to its number of server errors.'
+    options: {slurp: true}
+    hints:
+      - Keep the lines with `.status >= 500`.
+      - 'Group by service, then `map({(.[0].service): length}) | add`.'
+      - '`map(select(.status >= 500)) | group_by(.service) | map({(.[0].service): length}) | add`'
+    solution: 'map(select(.status >= 500)) | group_by(.service) | map({(.[0].service): length}) | add'
+    why: |
+      auth had no server errors, so it has no group and no key. If you need every service
+      listed with a zero, group all lines and count the errors inside each group instead.
+
+      Variation: `reduce (.[] | select(.status >= 500)) as $l ({}; .[$l.service] += 1)` counts in
+      one pass.
+    expected: [{"api": 2, "worker": 1}]
+  - title: Average latency of one endpoint
+    body: |
+      Pick out one path's latencies and average them with `add / length`:
+
+      ```jq
+      map(select(.path == "/login") | .latency_ms) | add / length
+      ```
+
+      averages the two login requests.
+    task: 'With slurp on, output the average `latency_ms` of the requests to the path "/v1/forecast".'
+    options: {slurp: true}
+    hints:
+      - Select the lines with `.path == "/v1/forecast"` and take `.latency_ms`.
+      - Collect them in an array and divide the sum by the count.
+      - '`map(select(.path == "/v1/forecast") | .latency_ms) | add / length`'
+    solution: 'map(select(.path == "/v1/forecast") | .latency_ms) | add / length'
+    why: |
+      Five forecast requests took 170 ms in total, an average of `34`. The 304 response (5 ms)
+      pulls the average down; cached answers are fast.
+
+      Variation: `map(select(.path == "/v1/forecast") | .latency_ms) | max` gives the slowest one,
+      45 ms.
+    expected: [34]
+  - title: The slowest request
+    body: |
+      `max_by(f)` returns the whole element with the largest `f`, so you keep its context:
+
+      ```jq
+      min_by(.latency_ms) | .path
+      ```
+
+      outputs `"/v1/radar"`, the fastest (rate-limited) request.
+    task: 'With slurp on, output `{service, path, latency_ms}` (in that key order) for the log line with the highest `latency_ms`.'
+    options: {slurp: true}
+    hints:
+      - '`max_by(.latency_ms)` finds the line.'
+      - 'Trim it with `{service, path, latency_ms}`.'
+      - '`max_by(.latency_ms) | {service, path, latency_ms}`'
+    solution: 'max_by(.latency_ms) | {service, path, latency_ms}'
+    why: |
+      The radar refresh job ran for over 30 seconds before failing, far slower than any HTTP
+      request.
+
+      Variation: `sort_by(.latency_ms) | last | {service, path, latency_ms}` sorts the whole log
+      to get the same answer.
+    expected: [{"service": "worker", "path": "job:refresh-radar", "latency_ms": 30211}]
+  - title: Status classes
+    body: |
+      A computed value can be grouped like any field. `.status / 100 | floor` turns 404 into 4:
+
+      ```jq
+      404 | "\(. / 100 | floor)xx"
+      ```
+
+      outputs `"4xx"`.
+    task: 'With slurp on, output one array of objects `{class, count}` (in that key order), sorted by class, where `class` is the status class as a string such as "2xx" and `count` is the number of lines in it.'
+    options: {slurp: true}
+    hints:
+      - '`map("\(.status / 100 | floor)xx")` gives one class string per line.'
+      - 'Then `group_by(.) | map({class: .[0], count: length})`.'
+      - '`map("\(.status / 100 | floor)xx") | group_by(.) | map({class: .[0], count: length})`'
+    solution: 'map("\(.status / 100 | floor)xx") | group_by(.) | map({class: .[0], count: length})'
+    why: |
+      Ten successes (including the 204), one 304, two client errors and three server errors add
+      up to sixteen lines.
+
+      Variation: `group_by(.status / 100 | floor)` groups the log lines themselves, if you want
+      to see which requests fall in each class.
+    expected: [[{"class": "2xx", "count": 10}, {"class": "3xx", "count": 1}, {"class": "4xx", "count": 2}, {"class": "5xx", "count": 3}]]
+  - title: A one-line summary per service
+    body: |
+      Finish with a text report. Raw output is on for this step, and the program can iterate the
+      groups directly with `group_by(...)[]`:
+
+      ```jq
+      group_by(.level)[] | "\(.[0].level)=\(length)"
+      ```
+
+      prints one line per log level, such as `error=3`.
+    task: 'With slurp and raw output on, output one line per service, sorted by service name, of the form `SERVICE requests=N errors=E`, where `E` counts the lines with `status` 500 or above, for example `auth requests=3 errors=0`.'
+    options: {slurp: true, raw_output: true}
+    hints:
+      - '`group_by(.service)[]` gives one group at a time.'
+      - 'The error count of a group is `(map(select(.status >= 500)) | length)`.'
+      - '`group_by(.service)[] | "\(.[0].service) requests=\(length) errors=\(map(select(.status >= 500)) | length)"`'
+    solution: 'group_by(.service)[] | "\(.[0].service) requests=\(length) errors=\(map(select(.status >= 500)) | length)"'
+    why: |
+      Because each group holds every line of its service, auth appears with `errors=0` instead
+      of disappearing, as it did in the "errors per service" step.
+
+      Variation: add `max_ms=\(map(.latency_ms) | max)` to the string for each service's slowest
+      request.
+    expected: ["api requests=11 errors=2", "auth requests=3 errors=0", "worker requests=2 errors=1"]
