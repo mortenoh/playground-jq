@@ -135,6 +135,6 @@ examples:
     program: '(.store.staff[] | .name, " "), "\n"'
     input: {ref: static:bookstore}
     options: {join_output: true}
-    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    manual: [https://jqlang.org/manual/v1.8/#invoking-jq]
     guide: [formats-and-escaping, invoking-jq]
     expected: ["Ingrid", " ", "Omar", " ", "Lena", " ", "\n"]

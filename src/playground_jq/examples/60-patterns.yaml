@@ -72,7 +72,7 @@ examples:
       record, from which the station name is taken.
     program: '[.readings[] | select(.status == "active") | .celsius |= tonumber | {station, region, fahrenheit: (.celsius * 9 / 5 + 32 | round)}] | {stations: length, regions: (map(.region) | unique), warmest: (max_by(.fahrenheit) | .station)}'
     input: {ref: static:sensor-readings}
-    manual: [https://jqlang.org/manual/v1.8/#unique-unique, https://jqlang.org/manual/v1.8/#min-max-min]
+    manual: [https://jqlang.org/manual/v1.8/#unique-unique_by, https://jqlang.org/manual/v1.8/#min-max-min_by-max_by]
     expected: [{"stations": 7, "regions": ["Eastern", "North East", "North West", "Southern", "Western Area"], "warmest": "MAK-01"}]
   - id: patterns-dirigent-note
     title: A one-line note with string interpolation
@@ -85,7 +85,7 @@ examples:
     program: '{note: "\(.country) \(.week): \(.readings | length) readings"}'
     input: {ref: static:sensor-readings}
     manual: [https://jqlang.org/manual/v1.8/#string-interpolation]
-    expected: [{"note": "Sierra Leone 2026-W12: 9 readings"}]
+    expected: ["note": "Sierra Leone 2026-W12: 9 readings"]
   - id: patterns-dirigent-ndjson-string
     title: Parse NDJSON that arrives as one string
     level: 301
@@ -119,7 +119,7 @@ examples:
       order stable.
     program: '.readings | map(.celsius |= (tonumber? // null) | select(.celsius != null)) | group_by(.region) | map({region: .[0].region, stations: length, mean_celsius: (map(.celsius) | add / length | . * 10 | round / 10)})'
     input: {ref: static:sensor-readings}
-    manual: [https://jqlang.org/manual/v1.8/#group]
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
     expected: [[{"region": "Eastern", "stations": 2, "mean_celsius": 35.3}, {"region": "North East", "stations": 1, "mean_celsius": 36.1}, {"region": "North West", "stations": 2, "mean_celsius": 32.4}, {"region": "Southern", "stations": 1, "mean_celsius": 33.8}, {"region": "Western Area", "stations": 2, "mean_celsius": 30.8}]]
   - id: patterns-fhir-to-dhis2
     title: FHIR QuestionnaireResponse to DHIS2 dataValues
@@ -136,6 +136,10 @@ examples:
       only when present. The answer value is whichever `value*` field is set,
       and DHIS2 expects it as a string, hence `tostring`. The unanswered item
       and the section headers produce nothing.
+
+      Beware of the `//` chain: a `valueBoolean` of `false` would fall
+      through it and become `"null"`. The next example reads the one value
+      field by position instead, which keeps `false`.
     program: '[.item[] | recurse(.item[]?) | select(.answer != null and (.answer | length) > 0)] | map((.linkId | split(".")) as $key | (.answer[0] | (.valueDecimal // .valueInteger // .valueString // .valueBoolean)) as $value | {dataElement: $key[0], value: ($value | tostring)} + (if ($key | length) > 1 then {categoryOptionCombo: $key[1]} else {} end))'
     input: {ref: static:fhir-questionnaire-response}
     manual: [https://jqlang.org/manual/v1.8/#recurse, https://jqlang.org/manual/v1.8/#alternative-operator]
@@ -151,12 +155,17 @@ examples:
       monthly data set). Taking the fields for the envelope from the
       document itself keeps the mapping free of hard-coded ids.
 
-      The data set id is passed with `--arg`, as a pipeline would.
-    program: '{dataSet: $dataSet, period: (.authored[:7] | sub("-"; "")), orgUnit: (.subject.reference | ltrimstr("Location/")), dataValues: [.item[] | recurse(.item[]?) | select((.answer // []) | length > 0) | {dataElement: (.linkId | split(".")[0]), value: (.answer[0] | to_entries[0].value | tostring)}]}'
+      The data set id is passed with `--arg`, as a pipeline would. The
+      `linkId` is destructured with `[$de, $coc]`; `$coc` is `null` when
+      there is no option combo, so the key is only added when present.
+      Dropping it would leave two `fbfJHSPpUQD` values that DHIS2 could not
+      tell apart. `to_entries[0].value` takes the single `value*` field of
+      the answer whatever its name, so a `false` answer survives.
+    program: '{dataSet: $dataSet, period: (.authored[:7] | sub("-"; "")), orgUnit: (.subject.reference | ltrimstr("Location/")), dataValues: [.item[] | recurse(.item[]?) | select((.answer // []) | length > 0) | (.linkId | split(".")) as [$de, $coc] | {dataElement: $de, value: (.answer[0] | to_entries[0].value | tostring)} + (if $coc then {categoryOptionCombo: $coc} else {} end)]}'
     input: {ref: static:fhir-questionnaire-response}
     options: {args: {dataSet: BfMAe6Itzgt}}
-    manual: [https://jqlang.org/manual/v1.8/#sub, https://jqlang.org/manual/v1.8/#ltrimstr]
-    expected: [{"dataSet": "BfMAe6Itzgt", "period": "202603", "orgUnit": "DiszpKrYNg8", "dataValues": [{"dataElement": "fbfJHSPpUQD", "value": "14"}, {"dataElement": "fbfJHSPpUQD", "value": "6"}, {"dataElement": "cYeuwXTCPkU", "value": "11"}, {"dataElement": "hfdmMSPBgLG", "value": "Stock-out of iron tablets"}, {"dataElement": "rbkr8PL0rwM", "value": "true"}]}]
+    manual: [https://jqlang.org/manual/v1.8/#sub, https://jqlang.org/manual/v1.8/#ltrimstr, https://jqlang.org/manual/v1.8/#destructuring-alternative-operator]
+    expected: [{"dataSet": "BfMAe6Itzgt", "period": "202603", "orgUnit": "DiszpKrYNg8", "dataValues": [{"dataElement": "fbfJHSPpUQD", "value": "14", "categoryOptionCombo": "pq2XI5kz2BY"}, {"dataElement": "fbfJHSPpUQD", "value": "6", "categoryOptionCombo": "PT59n8BQbqM"}, {"dataElement": "cYeuwXTCPkU", "value": "11", "categoryOptionCombo": "pq2XI5kz2BY"}, {"dataElement": "hfdmMSPBgLG", "value": "Stock-out of iron tablets"}, {"dataElement": "rbkr8PL0rwM", "value": "true"}]}]
   # kubectl
   - id: patterns-kubectl-not-running
     title: 'kubectl: pods that are not running'
@@ -186,7 +195,7 @@ examples:
       order).
     program: '[.items[] | {pod: .metadata.name, restarts: (.status.containerStatuses | map(.restartCount) | add)} | select(.restarts > 0)] | sort_by(-.restarts)'
     input: {ref: static:k8s-pods}
-    manual: [https://jqlang.org/manual/v1.8/#sort-sort]
+    manual: [https://jqlang.org/manual/v1.8/#sort-sort_by]
     expected: [[{"pod": "worker-66f5-pqrst", "restarts": 17}, {"pod": "api-7d9f8-fghij", "restarts": 3}, {"pod": "api-5b4c3-uvwxy", "restarts": 1}]]
   - id: patterns-kubectl-images-per-namespace
     title: 'kubectl: images per namespace'
@@ -199,7 +208,7 @@ examples:
       `from_entries`. Staging runs release candidates; prod does not.
     program: '.items | group_by(.metadata.namespace) | map({key: .[0].metadata.namespace, value: ([.[].spec.containers[].image] | unique)}) | from_entries'
     input: {ref: static:k8s-pods}
-    manual: [https://jqlang.org/manual/v1.8/#group, https://jqlang.org/manual/v1.8/#to]
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
     expected: [{"prod": ["ghcr.io/acme/api:2.4.1", "ghcr.io/acme/web:1.9.0", "ghcr.io/acme/worker:0.8.3"], "staging": ["ghcr.io/acme/api:2.5.0-rc1", "ghcr.io/acme/web:2.0.0-rc2"]}]
   - id: patterns-kubectl-labels
     title: 'kubectl: labels as key=value selectors'
@@ -213,7 +222,7 @@ examples:
     program: '.items[] | "\(.metadata.name) \(.metadata.labels | to_entries | map("\(.key)=\(.value)") | join(","))"'
     input: {ref: static:k8s-pods}
     options: {raw_output: true}
-    manual: [https://jqlang.org/manual/v1.8/#to, https://jqlang.org/manual/v1.8/#join]
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries, https://jqlang.org/manual/v1.8/#join]
     expected: ["api-7d9f8-abcde app=api,tier=backend", "api-7d9f8-fghij app=api,tier=backend", "web-5c6b7-klmno app=web,tier=frontend", "worker-66f5-pqrst app=worker,tier=backend", "api-5b4c3-uvwxy app=api,tier=backend", "migrate-1234-zzzzz app=migrate,tier=job", "web-9a8b7-aaaaa app=web,tier=frontend"]
   - id: patterns-kubectl-resource-requests
     title: 'kubectl: CPU and memory requests per namespace'
@@ -242,7 +251,7 @@ examples:
       at all. Merging it with `+` gives one flat record per instance.
     program: '.Reservations[].Instances[] | {id: .InstanceId, type: .InstanceType} + (.Tags | from_entries)'
     input: {ref: static:aws-ec2}
-    manual: [https://jqlang.org/manual/v1.8/#to]
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
     expected: [{"id": "i-0aa11", "type": "t3.micro", "Name": "bastion", "env": "prod"}, {"id": "i-0bb22", "type": "m6i.large", "Name": "api-1", "env": "prod"}, {"id": "i-0bb23", "type": "m6i.large", "Name": "api-2", "env": "prod"}, {"id": "i-0cc33", "type": "t3.small", "Name": "scratch", "env": "dev"}, {"id": "i-0dd44", "type": "r6g.xlarge", "Name": "db-replica", "env": "prod"}, {"id": "i-0dd45", "type": "t3.medium", "Name": "ci-runner", "env": "dev"}]
   - id: patterns-aws-per-az
     title: 'aws ec2: instances per availability zone'
@@ -255,7 +264,7 @@ examples:
       `add`.
     program: '[.Reservations[].Instances[]] | group_by(.Placement.AvailabilityZone) | map({(.[0].Placement.AvailabilityZone): length}) | add'
     input: {ref: static:aws-ec2}
-    manual: [https://jqlang.org/manual/v1.8/#group, https://jqlang.org/manual/v1.8/#add]
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#add]
     expected: [{"eu-north-1a": 2, "eu-north-1b": 2, "eu-north-1c": 2}]
   - id: patterns-aws-running-prod
     title: 'aws ec2: running instances tagged env=prod'
@@ -296,21 +305,22 @@ examples:
     program: '.dependencies | to_entries[] | "\(.key)@\(.value)"'
     input: {ref: static:package-json}
     options: {raw_output: true}
-    manual: [https://jqlang.org/manual/v1.8/#to]
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
     expected: ["react@^19.3.0", "react-dom@^19.3.0", "maplibre-gl@^6.11.2", "date-fns@^4.1.0"]
   - id: patterns-package-scripts
-    title: 'package.json: list the scripts'
-    level: 101
-    tags: [package-json, keys_unsorted, to_entries]
+    title: 'package.json: which scripts run a tool?'
+    level: 201
+    tags: [package-json, keys_unsorted, keys, test]
     explanation: |
-      **Pattern: discover commands.** What can `npm run` do here? One line per
-      script with its command. `keys_unsorted` alone would give the names in
-      file order; `keys` would sort them.
-    program: '.scripts | to_entries[] | "\(.key): \(.value)"'
+      **Pattern: discover commands.** What can `npm run` do here, and which
+      scripts call `vite`? `keys_unsorted` gives the script names in file
+      order, `keys` sorts them. The regular expression `\bvite\b` matches
+      `vite` only as a whole word, so `dev` and `build` match while `test`,
+      which runs `vitest`, does not.
+    program: '.scripts | {names: keys_unsorted, sorted: keys, uses_vite: [to_entries[] | select(.value | test("\\bvite\\b")) | .key]}'
     input: {ref: static:package-json}
-    options: {raw_output: true}
-    manual: [https://jqlang.org/manual/v1.8/#to, https://jqlang.org/manual/v1.8/#keys-keys]
-    expected: ["dev: vite", "build: tsc -b && vite build", "test: vitest run", "lint: oxlint"]
+    manual: [https://jqlang.org/manual/v1.8/#keys-keys_unsorted, https://jqlang.org/manual/v1.8/#test]
+    expected: [{"names": ["dev", "build", "test", "lint"], "sorted": ["build", "dev", "lint", "test"], "uses_vite": ["dev", "build"]}]
   - id: patterns-package-major-versions
     title: 'package.json: major versions of all dependencies'
     level: 201
@@ -322,7 +332,7 @@ examples:
       the values and keeps the keys.
     program: '.dependencies + .devDependencies | map_values(sub("^[^0-9]*"; "") | split(".")[0] | tonumber)'
     input: {ref: static:package-json}
-    manual: [https://jqlang.org/manual/v1.8/#map-map, https://jqlang.org/manual/v1.8/#sub]
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values, https://jqlang.org/manual/v1.8/#sub]
     expected: [{"react": 19, "react-dom": 19, "maplibre-gl": 6, "date-fns": 4, "typescript": 7, "vite": 8, "vitest": 5, "oxlint": 1}]
   # GitHub issues
   - id: patterns-github-open-bugs-by-assignee
@@ -342,17 +352,20 @@ examples:
     manual: [https://jqlang.org/manual/v1.8/#reduce, https://jqlang.org/manual/v1.8/#any]
     expected: [{"bob": [101, 107], "unassigned": [105], "erin": [107, 110]}]
   - id: patterns-github-label-frequency
-    title: 'GitHub: label frequency'
+    title: 'GitHub: label frequency among open issues'
     level: 201
     tags: [github, group_by, sort_by]
     explanation: |
-      **Pattern: histogram.** Collect every label name, group equal names, and
-      count. `sort_by(-.count, .label)` sorts by count descending and breaks
-      ties alphabetically.
-    program: '[.[].labels[].name] | group_by(.) | map({label: .[0], count: length}) | sort_by(-.count, .label)'
+      **Pattern: histogram with members.** For the open issues, emit one
+      `{label, issue}` pair per label (binding the issue number first with
+      `as $n`), group the pairs by label, and keep both the count and the
+      issue numbers, so the triage list says where to look.
+      `sort_by(-.count, .label)` sorts by count descending and breaks ties
+      alphabetically. The closed `docs` issues no longer appear.
+    program: '[.[] | select(.state == "open") | .number as $n | .labels[] | {label: .name, issue: $n}] | group_by(.label) | map({label: .[0].label, count: length, issues: map(.issue)}) | sort_by(-.count, .label)'
     input: {ref: static:github-issues}
-    manual: [https://jqlang.org/manual/v1.8/#group, https://jqlang.org/manual/v1.8/#sort-sort]
-    expected: [[{"label": "bug", "count": 4}, {"label": "docs", "count": 3}, {"label": "dependencies", "count": 2}, {"label": "priority: high", "count": 2}, {"label": "enhancement", "count": 1}, {"label": "good first issue", "count": 1}, {"label": "needs repro", "count": 1}, {"label": "windows", "count": 1}]]
+    manual: [https://jqlang.org/manual/v1.8/#group_by, https://jqlang.org/manual/v1.8/#sort-sort_by]
+    expected: [[{"label": "bug", "count": 4, "issues": [101, 105, 107, 110]}, {"label": "priority: high", "count": 2, "issues": [101, 107]}, {"label": "dependencies", "count": 1, "issues": [109]}, {"label": "enhancement", "count": 1, "issues": [103]}, {"label": "needs repro", "count": 1, "issues": [107]}, {"label": "windows", "count": 1, "issues": [110]}]]
   - id: patterns-github-time-to-close
     title: 'GitHub: time to close in hours'
     level: 201
@@ -376,7 +389,7 @@ examples:
       correctly as a string. No date parsing needed.
     program: 'group_by(.created_at[:7]) | map({month: .[0].created_at[:7], opened: length, still_open: map(select(.state == "open")) | length})'
     input: {ref: static:github-issues}
-    manual: [https://jqlang.org/manual/v1.8/#array-string-slice, https://jqlang.org/manual/v1.8/#group]
+    manual: [https://jqlang.org/manual/v1.8/#array-string-slice, https://jqlang.org/manual/v1.8/#group_by]
     expected: [[{"month": "2026-01", "opened": 5, "still_open": 3}, {"month": "2026-02", "opened": 5, "still_open": 3}]]
   # Logs
   - id: patterns-logs-error-rate
@@ -392,7 +405,7 @@ examples:
     program: 'group_by(.service) | map({service: .[0].service, requests: length, errors: (map(select(.status >= 500)) | length)} | .error_pct = (.errors / .requests * 100 | round))'
     input: {ref: static:access-log}
     options: {slurp: true}
-    manual: [https://jqlang.org/manual/v1.8/#group]
+    manual: [https://jqlang.org/manual/v1.8/#group_by]
     expected: [[{"service": "api", "requests": 11, "errors": 2, "error_pct": 18}, {"service": "auth", "requests": 3, "errors": 0, "error_pct": 0}, {"service": "worker", "requests": 2, "errors": 1, "error_pct": 50}]]
   - id: patterns-logs-slowest-paths
     title: 'Logs: slowest request per path'
@@ -406,7 +419,7 @@ examples:
     program: 'group_by(.path) | map({path: .[0].path, requests: length, max_ms: (map(.latency_ms) | max)}) | sort_by(-.max_ms)'
     input: {ref: static:access-log}
     options: {slurp: true}
-    manual: [https://jqlang.org/manual/v1.8/#min-max-min, https://jqlang.org/manual/v1.8/#sort-sort]
+    manual: [https://jqlang.org/manual/v1.8/#min-max-min_by-max_by, https://jqlang.org/manual/v1.8/#sort-sort_by]
     expected: [[{"path": "job:refresh-radar", "requests": 1, "max_ms": 30211}, {"path": "/v1/alerts", "requests": 2, "max_ms": 2001}, {"path": "/login", "requests": 2, "max_ms": 120}, {"path": "/v1/stations", "requests": 2, "max_ms": 91}, {"path": "/v1/alerts/17", "requests": 1, "max_ms": 61}, {"path": "/v1/forecast", "requests": 5, "max_ms": 45}, {"path": "/logout", "requests": 1, "max_ms": 15}, {"path": "job:cleanup", "requests": 1, "max_ms": 12}, {"path": "/v1/radar", "requests": 1, "max_ms": 3}]]
   - id: patterns-logs-percentiles
     title: 'Logs: latency percentiles (nearest rank)'
@@ -420,7 +433,7 @@ examples:
     program: 'def percentile($p): sort | .[(length * $p / 100 | ceil) - 1]; map(.latency_ms) | {p50: percentile(50), p90: percentile(90), max: max}'
     input: {ref: static:access-log}
     options: {slurp: true}
-    manual: [https://jqlang.org/manual/v1.8/#defining-functions, https://jqlang.org/manual/v1.8/#sort-sort]
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions, https://jqlang.org/manual/v1.8/#sort-sort_by]
     expected: [{"p50": 45, "p90": 2001, "max": 30211}]
   - id: patterns-logs-status-histogram
     title: 'Logs: status class histogram'
@@ -465,7 +478,7 @@ examples:
     program: 'split("\n") | map(select(length > 0) | split(",")) | .[0] as $header | .[1:] | map([$header, map(tonumber? // .)] | transpose | map({key: .[0], value: .[1]}) | from_entries)'
     input: {ref: static:people-csv}
     options: {raw_input: true, slurp: true}
-    manual: [https://jqlang.org/manual/v1.8/#transpose, https://jqlang.org/manual/v1.8/#to]
+    manual: [https://jqlang.org/manual/v1.8/#transpose, https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
     expected: [[{"name": "Astrid", "age": 41, "city": "Oslo", "team": "platform"}, {"name": "Bjorn", "age": 29, "city": "Bergen", "team": "platform"}, {"name": "Chiara", "age": 35, "city": "Milan", "team": "data"}, {"name": "Dmitri", "age": 47, "city": "Riga", "team": "ops"}, {"name": "Efua", "age": 31, "city": "Accra", "team": "ops"}, {"name": "Farid", "age": 26, "city": "Lyon", "team": "sales"}]]
   - id: patterns-analytics-rows-to-objects
     title: 'DHIS2 analytics: rows to named objects'

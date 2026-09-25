@@ -41,7 +41,8 @@ examples:
     explanation: |
       `capture(re)` returns an object with one key per named group `(?<name>...)`. Splitting
       an image reference into registry, repository and tag this way is more robust than
-      splitting on `/` and `:`. Captured values are always strings.
+      splitting on `/` and `:`. Captured values are strings (or `null` for an optional
+      group that did not take part in the match), so a numeric part still needs `tonumber`.
     program: '.items[] | .spec.containers[0].image | capture("^(?<registry>[^/]+)/(?<repo>[^:]+):(?<tag>.+)$")'
     input: {ref: static:k8s-pods}
     options: {compact: true}
@@ -99,9 +100,9 @@ examples:
     level: 101
     tags: [gsub]
     explanation: |
-      `gsub(re; repl)` replaces every match. Turning a title into a URL slug is two passes:
-      lowercase it, replace every run of non-alphanumeric characters with a single dash, and
-      then strip dashes at either end.
+      `gsub(re; repl)` replaces every match. Turning a title into a URL slug takes three
+      steps: lowercase it, replace every run of non-alphanumeric characters with a single
+      dash, and then strip dashes at either end with a second `gsub`.
     program: '.store.books[] | .title | ascii_downcase | gsub("[^a-z0-9]+"; "-") | gsub("^-|-$"; "")'
     input: {ref: static:bookstore}
     manual: [https://jqlang.org/manual/v1.8/#gsub]

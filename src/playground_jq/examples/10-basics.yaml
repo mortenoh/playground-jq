@@ -25,8 +25,9 @@ examples:
     explanation: |
       Reading a key that an object does not have produces `null`. Here the first user has an
       `email`, but no `phone`, so the program outputs the email and then `null`. Indexing
-      `null` itself is also allowed (`null.x` is `null`), which is why deep chains over
-      missing data quietly produce `null` instead of failing.
+      `null` itself is also allowed (`null.x` is `null`), so `.phone.mobile` gives a second
+      `null`; that is why deep chains over missing data quietly produce `null` instead of
+      failing.
     program: '.[0] | .email, .phone, .phone.mobile'
     input: {ref: static:users}
     manual: [https://jqlang.org/manual/v1.8/#object-identifier-index]

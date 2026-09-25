@@ -28,7 +28,7 @@ examples:
       list, however many times it was sent.
     program: '.args | map_values(if type == "array" then . else [.] end)'
     input: {ref: echo:get-args}
-    manual: [https://jqlang.org/manual/v1.8/#map-map, https://jqlang.org/manual/v1.8/#type]
+    manual: [https://jqlang.org/manual/v1.8/#map-map_values, https://jqlang.org/manual/v1.8/#type]
     expected: [{"name": ["playground"], "lang": ["jq"], "tag": ["json", "cli", "filter"]}]
   - id: echo-args-to-query-string
     title: Build the query string back with @uri
@@ -42,7 +42,7 @@ examples:
       round trip is exact.
     program: '(.args | to_entries | map(.key as $k | .value | if type == "array" then .[] else . end | "\($k)=\(@uri)") | join("&")) as $query | {query: $query, matches_url: ("https://postman-echo.com/get?" + $query == .url)}'
     input: {ref: echo:get-args}
-    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping, https://jqlang.org/manual/v1.8/#to]
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping, https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
     expected: [{"query": "name=playground&lang=jq&tag=json&tag=cli&tag=filter", "matches_url": true}]
   - id: echo-url-parse-query
     title: Parse the query string out of a URL
@@ -202,7 +202,7 @@ examples:
       drop or rewrite headers, so check before relying on one.
     program: '[.headers | keys[] | select(startswith("x-"))]'
     input: {ref: echo:headers}
-    manual: [https://jqlang.org/manual/v1.8/#keys-keys, https://jqlang.org/manual/v1.8/#startswith]
+    manual: [https://jqlang.org/manual/v1.8/#keys-keys_unsorted, https://jqlang.org/manual/v1.8/#startswith]
     expected: [["x-forwarded-proto", "x-tenant"]]
   - id: echo-header-case-insensitive
     title: Look up a header whatever its case
@@ -215,7 +215,7 @@ examples:
       echo and would find `X-Tenant` in a service that keeps the case.
     program: 'def header($name): .headers | to_entries[] | select(.key | ascii_downcase == ($name | ascii_downcase)) | .value; {exact: .headers["X-Tenant"], lookup: header("X-Tenant")}'
     input: {ref: echo:headers}
-    manual: [https://jqlang.org/manual/v1.8/#defining-functions, https://jqlang.org/manual/v1.8/#ascii]
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions, https://jqlang.org/manual/v1.8/#ascii_downcase-ascii_upcase]
     expected: [{"exact": null, "lookup": "sierra-leone"}]
   - id: echo-response-headers-lines
     title: Response headers as Name value lines
@@ -229,7 +229,7 @@ examples:
     program: 'to_entries[] | "\(.key): \(.value)"'
     input: {ref: echo:response-headers}
     options: {raw_output: true}
-    manual: [https://jqlang.org/manual/v1.8/#to]
+    manual: [https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries]
     expected: ["Cache-Control: no-store", "X-Rate-Limit: 100", "X-Version: 2.43"]
   - id: echo-status-418
     title: Branch on an error status
