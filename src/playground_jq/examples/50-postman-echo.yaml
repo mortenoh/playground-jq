@@ -1,0 +1,257 @@
+id: echo
+title: 'postman-echo: HTTP as JSON'
+description: postman-echo answers every request with a JSON description of it - query parameters, body, form fields and headers. A safe place to see what an HTTP client really sends, and to practise reading API responses with jq.
+order: 50
+track: echo
+examples:
+  - id: echo-args
+    title: Query parameters come back under args
+    level: 101
+    tags: [http, args]
+    explanation: |
+      The request was `GET /get?name=playground&lang=jq&tag=json&tag=cli&tag=filter`.
+      postman-echo parses the query string into `.args`. A parameter given
+      once is a string; `tag`, given three times, becomes an array of its
+      values in the order they were sent.
+    program: '.args'
+    input: {ref: echo:get-args}
+    manual: [https://jqlang.org/manual/v1.8/#object-identifier-index]
+    expected: [{"name": "playground", "lang": "jq", "tag": ["json", "cli", "filter"]}]
+  - id: echo-args-normalise
+    title: Make every parameter an array
+    level: 201
+    tags: [http, args, map_values, type]
+    explanation: |
+      Code that reads `.args.tag` must handle both a string (one value) and an
+      array (several). Normalising removes the special case: wrap every
+      non-array value in an array with `map_values`, so each parameter is a
+      list, however many times it was sent.
+    program: '.args | map_values(if type == "array" then . else [.] end)'
+    input: {ref: echo:get-args}
+    manual: [https://jqlang.org/manual/v1.8/#map-map, https://jqlang.org/manual/v1.8/#type]
+    expected: [{"name": ["playground"], "lang": ["jq"], "tag": ["json", "cli", "filter"]}]
+  - id: echo-args-to-query-string
+    title: Build the query string back with @uri
+    level: 201
+    tags: [http, args, uri, to_entries]
+    explanation: |
+      The reverse direction: from parameters to a query string. Each key is
+      paired with each of its values (an array expands into several pairs),
+      the value is percent-encoded with `@uri`, and the pairs are joined with
+      `&`. Comparing the result with the `.url` postman-echo reports shows the
+      round trip is exact.
+    program: '(.args | to_entries | map(.key as $k | .value | if type == "array" then .[] else . end | "\($k)=\(@uri)") | join("&")) as $query | {query: $query, matches_url: ("https://postman-echo.com/get?" + $query == .url)}'
+    input: {ref: echo:get-args}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping, https://jqlang.org/manual/v1.8/#to]
+    expected: [{"query": "name=playground&lang=jq&tag=json&tag=cli&tag=filter", "matches_url": true}]
+  - id: echo-url-parse-query
+    title: Parse the query string out of a URL
+    level: 301
+    tags: [http, url, split, reduce]
+    explanation: |
+      jq has no URL parser, but a query string is simple: split off the part
+      after `?`, split on `&`, then on the first `=`. `reduce` collects the
+      pairs into an object of arrays, so repeated keys keep every value.
+      (Percent-encoded values would still need decoding; these have none.)
+    program: '.url | split("?")[1] | split("&") | map(index("=") as $i | {key: .[:$i], value: .[$i + 1:]}) | reduce .[] as $p ({}; .[$p.key] += [$p.value])'
+    input: {ref: echo:get-args}
+    manual: [https://jqlang.org/manual/v1.8/#split-1, https://jqlang.org/manual/v1.8/#reduce]
+    expected: [{"name": ["playground"], "lang": ["jq"], "tag": ["json", "cli", "filter"]}]
+  - id: echo-args-to-curl
+    title: Turn the parameters into a curl command
+    level: 301
+    tags: [http, args, sh, raw-output]
+    explanation: |
+      Generate a command that repeats the request. `curl -G` with
+      `--data-urlencode` puts each pair in the query string and does the
+      encoding itself; `@sh` quotes each argument for the shell, so values
+      with spaces or quotes are safe. `-r` prints the command ready to paste.
+    program: '"curl -G https://postman-echo.com/get " + (.args | to_entries | map(.key as $k | .value | if type == "array" then .[] else . end | "--data-urlencode \("\($k)=\(.)" | @sh)") | join(" "))'
+    input: {ref: echo:get-args}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#format-strings-and-escaping]
+    expected: ["curl -G https://postman-echo.com/get --data-urlencode 'name=playground' --data-urlencode 'lang=jq' --data-urlencode 'tag=json' --data-urlencode 'tag=cli' --data-urlencode 'tag=filter'"]
+  - id: echo-post-json-body
+    title: The JSON body comes back parsed
+    level: 101
+    tags: [http, body, json]
+    explanation: |
+      A request sent with `Content-Type: application/json` is echoed with the
+      parsed body under `.json`. The `?source=playground` query parameter of
+      the same request is still under `.args`: a POST can carry both.
+    program: '{source: .args.source, order: .json.order, customer: .json.customer.name, items: (.json.items | length), paid: .json.paid}'
+    input: {ref: echo:post-json}
+    manual: [https://jqlang.org/manual/v1.8/#object-construction]
+    expected: [{"source": "playground", "order": "A-1001", "customer": "Ada Lovelace", "items": 3, "paid": true}]
+  - id: echo-data-vs-json
+    title: data versus json
+    level: 201
+    tags: [http, body, type]
+    explanation: |
+      postman-echo reports the body twice: `.json` is the parsed JSON, and
+      `.data` is the raw body. For a JSON request both hold the same object
+      (`.data` is not a string here, as one might expect); for a form post,
+      `.data` is the empty string. Checking `type` before using a field you
+      did not design is a good habit with any API.
+    program: '{same: (.data == .json), data_type: (.data | type), json_type: (.json | type)}'
+    input: {ref: echo:post-json}
+    manual: [https://jqlang.org/manual/v1.8/#type]
+    expected: [{"same": true, "data_type": "object", "json_type": "object"}]
+  - id: echo-order-total
+    title: Compute the order total from the echoed body
+    level: 201
+    tags: [http, body, arithmetic, add]
+    explanation: |
+      The echoed order has line items with quantity and unit price. The total
+      is the sum of `qty * price`: 2 x 19.5 + 1 x 9 + 4 x 2.25 = 57. Server
+      code that checks a client's total does exactly this.
+    program: '.json | {order, lines: (.items | length), units: (.items | map(.qty) | add), total: (.items | map(.qty * .price) | add)}'
+    input: {ref: echo:post-json}
+    manual: [https://jqlang.org/manual/v1.8/#add]
+    expected: [{"order": "A-1001", "lines": 3, "units": 7, "total": 57}]
+  - id: echo-order-lines
+    title: Print the order as receipt lines
+    level: 101
+    tags: [http, body, raw-output, string-interpolation]
+    explanation: |
+      One line per item with quantity, title and line total, printed raw with
+      `-r`. The line total is computed inside the interpolation.
+    program: '.json.items[] | "\(.qty) x \(.title) (\(.sku)): \(.qty * .price)"'
+    input: {ref: echo:post-json}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#string-interpolation]
+    expected: ["2 x Learning jq (BOOK-1): 39", "1 x JSON mug (MUG-7): 9", "4 x Sticker pack (STK-3): 9"]
+  - id: echo-sent-equals-echoed
+    title: Compare what was sent with what came back
+    level: 201
+    tags: [http, argjson, equality]
+    explanation: |
+      Pass the body you sent into the program with `--argjson sent '...'` and
+      compare it with the echo. jq's `==` compares JSON values structurally,
+      so key order and number formatting (`9.0` versus `9`) do not matter.
+      This is a quick check that a client serialises what you think it does.
+    program: '{identical: ($sent == .json), missing_keys: (($sent | keys) - (.json | keys))}'
+    input: {ref: echo:post-json}
+    options:
+      argjson:
+        sent: {order: A-1001, customer: {name: Ada Lovelace, email: ada@example.org}, items: [{sku: BOOK-1, title: Learning jq, qty: 2, price: 19.5}, {sku: MUG-7, title: JSON mug, qty: 1, price: 9.0}, {sku: STK-3, title: Sticker pack, qty: 4, price: 2.25}], paid: true}
+    manual: [https://jqlang.org/manual/v1.8/#conditionals-and-comparisons]
+    expected: [{"identical": true, "missing_keys": []}]
+  - id: echo-form-fields
+    title: Form fields come back under form
+    level: 101
+    tags: [http, form]
+    explanation: |
+      A request with an `application/x-www-form-urlencoded` body is echoed
+      under `.form`. Every form value is a string, even the ones that look
+      like numbers or booleans, because the wire format has no types.
+    program: '{form, content_type: .headers["content-type"]}'
+    input: {ref: echo:post-form}
+    manual: [https://jqlang.org/manual/v1.8/#object-identifier-index]
+    expected: [{"form": {"username": "ada", "plan": "pro", "newsletter": "yes"}, "content_type": "application/x-www-form-urlencoded"}]
+  - id: echo-form-types
+    title: Give form values real types
+    level: 201
+    tags: [http, form, update-assignment]
+    explanation: |
+      Convert the string fields you know the meaning of: `"yes"` becomes a
+      boolean with `== "yes"`, and the plan name is validated against the
+      allowed values with `IN`. Everything else is left as it is.
+    program: '.form | .newsletter |= (. == "yes") | .plan_valid = (.plan | IN("free", "pro", "team"))'
+    input: {ref: echo:post-form}
+    manual: [https://jqlang.org/manual/v1.8/#update-assignment]
+    expected: [{"username": "ada", "plan": "pro", "newsletter": true, "plan_valid": true}]
+  - id: echo-put-settings-flatten
+    title: Flatten the echoed settings document
+    level: 201
+    tags: [http, put, tostream, paths]
+    explanation: |
+      The PUT request sent a nested settings document. `tostream` emits a
+      `[path, leaf]` pair for every leaf (and shorter closing events, dropped
+      by `select(length == 2)`); joining each path with dots gives a flat
+      view such as `editor.tabSize`, handy for comparing two documents.
+
+      The obvious `paths(scalars)` would lose `editor.minimap`: `paths(f)`
+      keeps a path only when `f` of its value is truthy, and `scalars` of
+      `false` is `false`. Leaves that are `false` or `null` silently vanish.
+    program: '.json.settings | [tostream | select(length == 2) | {key: (.[0] | join(".")), value: .[1]}] | from_entries'
+    input: {ref: echo:put-json}
+    manual: [https://jqlang.org/manual/v1.8/#tostream, https://jqlang.org/manual/v1.8/#paths]
+    expected: [{"theme": "dark", "editor.tabSize": 2, "editor.minimap": false}]
+  - id: echo-put-next-body
+    title: Build the next request body from the echo
+    level: 201
+    tags: [http, put, assignment]
+    explanation: |
+      Read, modify, write back: take the document the server echoed, change
+      two settings with assignments, and output the body for the next PUT.
+      Assignments return the whole document, so they chain with `|`.
+    program: '.json | .settings.theme = "light" | .settings.editor.tabSize = 4'
+    input: {ref: echo:put-json}
+    manual: [https://jqlang.org/manual/v1.8/#plain-assignment]
+    expected: [{"id": 42, "settings": {"theme": "light", "editor": {"tabSize": 4, "minimap": false}}}]
+  - id: echo-headers-custom
+    title: Which custom headers arrived?
+    level: 201
+    tags: [http, headers, startswith]
+    explanation: |
+      postman-echo lower-cases header names. The names starting with `x-`
+      are the custom ones: `x-tenant` from the request, and
+      `x-forwarded-proto`, added by the proxy in front of the service. The
+      request also sent `X-Request-Id`, which is not in the echo: proxies can
+      drop or rewrite headers, so check before relying on one.
+    program: '[.headers | keys[] | select(startswith("x-"))]'
+    input: {ref: echo:headers}
+    manual: [https://jqlang.org/manual/v1.8/#keys-keys, https://jqlang.org/manual/v1.8/#startswith]
+    expected: [["x-forwarded-proto", "x-tenant"]]
+  - id: echo-header-case-insensitive
+    title: Look up a header whatever its case
+    level: 301
+    tags: [http, headers, def, ascii_downcase]
+    explanation: |
+      HTTP header names are case-insensitive, but JSON keys are not:
+      `.headers["X-Tenant"]` is `null` here. A small function compares
+      lower-cased names, so `header("X-Tenant")` finds `x-tenant` in this
+      echo and would find `X-Tenant` in a service that keeps the case.
+    program: 'def header($name): .headers | to_entries[] | select(.key | ascii_downcase == ($name | ascii_downcase)) | .value; {exact: .headers["X-Tenant"], lookup: header("X-Tenant")}'
+    input: {ref: echo:headers}
+    manual: [https://jqlang.org/manual/v1.8/#defining-functions, https://jqlang.org/manual/v1.8/#ascii]
+    expected: [{"exact": null, "lookup": "sierra-leone"}]
+  - id: echo-response-headers-lines
+    title: Response headers as Name value lines
+    level: 101
+    tags: [http, headers, raw-output, to_entries]
+    explanation: |
+      `/response-headers?Cache-Control=no-store&...` makes postman-echo send
+      those headers back, and its body is the same pairs as a JSON object.
+      `to_entries` and `-r` print them in the `Name: value` form of an HTTP
+      response.
+    program: 'to_entries[] | "\(.key): \(.value)"'
+    input: {ref: echo:response-headers}
+    options: {raw_output: true}
+    manual: [https://jqlang.org/manual/v1.8/#to]
+    expected: ["Cache-Control: no-store", "X-Rate-Limit: 100", "X-Version: 2.43"]
+  - id: echo-status-418
+    title: Branch on an error status
+    level: 101
+    tags: [http, status, if-then-else]
+    explanation: |
+      `/status/418` answers with status 418 ("I'm a teapot") and a body naming
+      the status. Classify it the way a client would: 2xx is success, 4xx a
+      client error, 5xx a server error.
+    program: '.status | {status: ., class: (if . >= 500 then "server error" elif . >= 400 then "client error" elif . >= 200 and . < 300 then "success" else "other" end)}'
+    input: {ref: echo:status-418}
+    manual: [https://jqlang.org/manual/v1.8/#if-then-else-end]
+    expected: [{"status": 418, "class": "client error"}]
+  - id: echo-gzip
+    title: A compressed response is still just JSON
+    level: 101
+    tags: [http, gzip]
+    explanation: |
+      `/gzip` compresses its body. HTTP clients decompress transparently, so
+      by the time jq sees it, it is ordinary JSON with a `gzipped` flag and
+      the request method.
+    program: '{gzipped, method}'
+    input: {ref: echo:gzip}
+    manual: [https://jqlang.org/manual/v1.8/#object-construction]
+    expected: [{"gzipped": true, "method": "GET"}]

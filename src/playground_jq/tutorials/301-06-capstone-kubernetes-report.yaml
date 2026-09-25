@@ -1,0 +1,172 @@
+id: 301-06-capstone-kubernetes-report
+level: 301
+order: 6
+title: 'Capstone: a Kubernetes cluster report'
+summary: Combine functions, grouping, reduce, regular expressions and output formats into the reports an operator actually runs against kubectl output.
+input: {ref: static:k8s-pods}
+steps:
+  - title: A pod table
+    body: |
+      The input is what `kubectl get pods -A -o json` prints: a `List` whose
+      `.items` are pods. The fields you need most sit at different depths:
+      the name and namespace under `.metadata`, the phase under `.status`,
+      the node under `.spec`.
+
+      This capstone builds a cluster report one piece at a time. The same
+      techniques work on `aws ec2 describe-instances` output; see the
+      real-world patterns examples for those.
+    task: 'Output one object per pod with `name`, `namespace` and `phase`, in the order of the list.'
+    hints:
+      - 'Iterate the pods with `.items[]`.'
+      - 'Build each object from the nested fields: `.metadata.name`, `.metadata.namespace`, `.status.phase`.'
+      - '`.items[] | {name: .metadata.name, namespace: .metadata.namespace, phase: .status.phase}`'
+    solution: '.items[] | {name: .metadata.name, namespace: .metadata.namespace, phase: .status.phase}'
+    starter: '.items[]'
+    why: |
+      Seven pods in two namespaces. Flattening the nested document into small
+      records is the first step of almost every report.
+    expected: [{"name": "api-7d9f8-abcde", "namespace": "prod", "phase": "Running"}, {"name": "api-7d9f8-fghij", "namespace": "prod", "phase": "Running"}, {"name": "web-5c6b7-klmno", "namespace": "prod", "phase": "Running"}, {"name": "worker-66f5-pqrst", "namespace": "prod", "phase": "CrashLoopBackOff"}, {"name": "api-5b4c3-uvwxy", "namespace": "staging", "phase": "Running"}, {"name": "migrate-1234-zzzzz", "namespace": "staging", "phase": "Succeeded"}, {"name": "web-9a8b7-aaaaa", "namespace": "staging", "phase": "Pending"}]
+  - title: Which pods need attention
+    body: |
+      A healthy pod is `Running`, or `Succeeded` for a finished job. Anything
+      else (`Pending`, `CrashLoopBackOff`, `Failed`) needs a look. `IN(...)`
+      tests a value against a list of alternatives.
+    task: 'Collect the names of the pods whose phase is neither `Running` nor `Succeeded`.'
+    hints:
+      - 'Test the phase with `.status.phase | IN("Running", "Succeeded")`.'
+      - 'Negate it with `| not` inside `select`.'
+      - '`[.items[] | select(.status.phase | IN("Running", "Succeeded") | not) | .metadata.name]`'
+    solution: '[.items[] | select(.status.phase | IN("Running", "Succeeded") | not) | .metadata.name]'
+    starter: '[.items[] | .metadata.name]'
+    why: |
+      The crash-looping worker in prod and the unscheduled web pod in staging.
+      Listing the healthy phases rather than the unhealthy ones means a phase
+      you did not think of shows up in the report instead of hiding.
+    expected: [["worker-66f5-pqrst", "web-9a8b7-aaaaa"]]
+  - title: Restarts per namespace
+    body: |
+      A pod can have several containers, each with its own `restartCount` in
+      `.status.containerStatuses`. Sum them per pod, then per namespace:
+      `group_by` sorts and groups, and an object with a computed key plus
+      `add` turns the groups into one object.
+    task: 'Output one object mapping each namespace to the total number of container restarts in it.'
+    hints:
+      - '`.items | group_by(.metadata.namespace)` gives one array of pods per namespace.'
+      - 'For each group: `{(.[0].metadata.namespace): (map(.status.containerStatuses[].restartCount) | add)}`.'
+      - 'Wrap it in `map(...)` and merge the objects with `add`.'
+    solution: '.items | group_by(.metadata.namespace) | map({(.[0].metadata.namespace): (map(.status.containerStatuses[].restartCount) | add)}) | add'
+    starter: '.items | group_by(.metadata.namespace)'
+    why: |
+      Prod has 20 restarts (17 of them the crash-looping worker, 3 an api pod),
+      staging 1. `map(.status.containerStatuses[].restartCount)` works because
+      `map(f)` collects *every* output of `f`, however many containers a pod
+      has.
+    expected: [{"prod": 20, "staging": 1}]
+  - title: A function for CPU quantities
+    body: |
+      Kubernetes writes CPU as a quantity string: `"250m"` is 250 millicores,
+      `"1"` is a whole core (1000 millicores). Summing requests needs them as
+      numbers, and a small `def` keeps the conversion in one place.
+    task: 'Define `millicores` (for a CPU string) and output the total CPU requested by every container, in millicores.'
+    hints:
+      - 'A string ending in `m` loses its last character: `if endswith("m") then .[:-1] | tonumber else ... end`.'
+      - 'Otherwise it is in cores: `tonumber * 1000`.'
+      - '`def millicores: if endswith("m") then .[:-1] | tonumber else tonumber * 1000 end; [.items[].spec.containers[].resources.requests.cpu | millicores] | add`'
+    solution: 'def millicores: if endswith("m") then .[:-1] | tonumber else tonumber * 1000 end; [.items[].spec.containers[].resources.requests.cpu | millicores] | add'
+    starter: 'def millicores: ...; [.items[].spec.containers[].resources.requests.cpu]'
+    why: |
+      250 + 250 + 100 + 500 + 250 + 100 + 100 = 1550 millicores, a little over
+      one and a half cores. The data only uses the `m` form, but the function
+      handles whole cores too, as real clusters do.
+    expected: [1550]
+  - title: Memory with a regular expression
+    body: |
+      Memory quantities carry a binary unit: `"256Mi"` is 256 mebibytes,
+      `"1Gi"` is 1024 of them. `capture` with named groups splits number and
+      unit in one step: `capture("(?<n>[0-9]+)(?<unit>Mi|Gi)")` gives
+      `{"n": "256", "unit": "Mi"}`.
+    task: 'Define `mebibytes` with `capture`, and output an object mapping each namespace to its total requested memory in MiB.'
+    hints:
+      - '`def mebibytes: capture("(?<n>[0-9]+)(?<unit>Mi|Gi)") | (.n | tonumber) * (if .unit == "Gi" then 1024 else 1 end);`'
+      - 'Group as in the restarts step, summing `.spec.containers[].resources.requests.memory | mebibytes`.'
+      - '`... | group_by(.metadata.namespace) | map({(.[0].metadata.namespace): (map(.spec.containers[].resources.requests.memory | mebibytes) | add)}) | add`'
+    solution: 'def mebibytes: capture("(?<n>[0-9]+)(?<unit>Mi|Gi)") | (.n | tonumber) * (if .unit == "Gi" then 1024 else 1 end); .items | group_by(.metadata.namespace) | map({(.[0].metadata.namespace): (map(.spec.containers[].resources.requests.memory | mebibytes) | add)}) | add'
+    starter: 'def mebibytes: capture("(?<n>[0-9]+)(?<unit>Mi|Gi)"); .items[].spec.containers[].resources.requests.memory | mebibytes'
+    why: |
+      Prod requests 256 + 256 + 128 + 1024 = 1664 MiB, staging 256 + 64 + 128
+      = 448 MiB. A quantity with a unit the regular expression does not know
+      (`"500M"`) makes `capture` produce nothing, so the sum would silently
+      miss it; a production version would raise an `error` instead.
+    expected: [{"prod": 1664, "staging": 448}]
+  - title: Images per namespace with reduce
+    body: |
+      `group_by` is not the only way to group. `reduce` can build the grouped
+      object directly: append each pod's images to the array under its
+      namespace, then clean up with `map_values`.
+    task: 'Output an object mapping each namespace to the sorted, de-duplicated list of container images running in it, using `reduce`.'
+    hints:
+      - 'Start from `{}` and append: `.[$p.metadata.namespace] += [$p.spec.containers[].image]`.'
+      - 'Appending to a missing key works because `null + [...]` is the array.'
+      - '`reduce .items[] as $p ({}; .[$p.metadata.namespace] += [$p.spec.containers[].image]) | map_values(unique)`'
+    solution: 'reduce .items[] as $p ({}; .[$p.metadata.namespace] += [$p.spec.containers[].image]) | map_values(unique)'
+    starter: 'reduce .items[] as $p ({}; .)'
+    why: |
+      `unique` sorts as it removes duplicates. Staging runs a release
+      candidate of the api image twice (the api pod and the migration job), so
+      it appears once. Unlike `group_by`, `reduce` keeps the namespaces in the
+      order they first appear.
+    expected: [{"prod": ["ghcr.io/acme/api:2.4.1", "ghcr.io/acme/web:1.9.0", "ghcr.io/acme/worker:0.8.3"], "staging": ["ghcr.io/acme/api:2.5.0-rc1", "ghcr.io/acme/web:2.0.0-rc2"]}]
+  - title: Where pods run, and where they do not
+    body: |
+      `.spec.nodeName` is `null` for a pod the scheduler has not placed yet.
+      `group_by` sorts `null` before every string, so the unscheduled pods
+      form the first group, and `//` gives that group a readable name.
+    task: 'Output an array of `{node, pods}` objects, one per node, with `pods` the list of pod names on it, and `"unscheduled"` as the node for pods without one.'
+    hints:
+      - '`.items | group_by(.spec.nodeName)`'
+      - 'For each group: `{node: (.[0].spec.nodeName // "unscheduled"), pods: map(.metadata.name)}`.'
+      - '`.items | group_by(.spec.nodeName) | map({node: (.[0].spec.nodeName // "unscheduled"), pods: map(.metadata.name)})`'
+    solution: '.items | group_by(.spec.nodeName) | map({node: (.[0].spec.nodeName // "unscheduled"), pods: map(.metadata.name)})'
+    starter: '.items | group_by(.spec.nodeName)'
+    why: |
+      Grouping on the raw value and naming the missing node afterwards keeps
+      the unscheduled pods together and first. Replacing `null` before
+      grouping would sort "unscheduled" in among the node names.
+    expected: [[{"node": "unscheduled", "pods": ["web-9a8b7-aaaaa"]}, {"node": "node-a", "pods": ["api-7d9f8-abcde", "web-5c6b7-klmno"]}, {"node": "node-b", "pods": ["api-7d9f8-fghij", "migrate-1234-zzzzz"]}, {"node": "node-c", "pods": ["worker-66f5-pqrst", "api-5b4c3-uvwxy"]}]]
+  - title: A table for the terminal
+    body: |
+      For a human, a tab-separated table is often the best report. `@tsv`
+      turns an array into one tab-separated line, and `-r` prints the lines
+      without JSON quotes. A header row is just another array, emitted first
+      with the comma. This step runs with `-r`.
+    task: 'Print a header row `NAMESPACE NAME PHASE RESTARTS`, then one row per pod with its namespace, name, phase and total restarts, all tab-separated.'
+    hints:
+      - 'The header: `["NAMESPACE", "NAME", "PHASE", "RESTARTS"]`.'
+      - 'A row: `[.metadata.namespace, .metadata.name, .status.phase, (.status.containerStatuses | map(.restartCount) | add)]`.'
+      - '`(HEADER), (.items[] | ROW) | @tsv`'
+    solution: '["NAMESPACE", "NAME", "PHASE", "RESTARTS"], (.items[] | [.metadata.namespace, .metadata.name, .status.phase, (.status.containerStatuses | map(.restartCount) | add)]) | @tsv'
+    starter: '["NAMESPACE", "NAME", "PHASE", "RESTARTS"] | @tsv'
+    options: {raw_output: true}
+    why: |
+      The final `| @tsv` applies to both sides of the comma, because the pipe
+      binds more loosely than the comma. Pipe the result into `column -t` in a
+      shell for aligned columns.
+    expected: ["NAMESPACE\tNAME\tPHASE\tRESTARTS", "prod\tapi-7d9f8-abcde\tRunning\t0", "prod\tapi-7d9f8-fghij\tRunning\t3", "prod\tweb-5c6b7-klmno\tRunning\t0", "prod\tworker-66f5-pqrst\tCrashLoopBackOff\t17", "staging\tapi-5b4c3-uvwxy\tRunning\t1", "staging\tmigrate-1234-zzzzz\tSucceeded\t0", "staging\tweb-9a8b7-aaaaa\tPending\t0"]
+  - title: The summary
+    body: |
+      The last step puts the pieces together in one object, the kind of
+      summary a monitoring job posts to a chat channel. Define the function
+      you need, bind intermediate results with `as`, and build the object at
+      the end.
+    task: 'Output `{pods, unhealthy, restarting, cpu_millicores}`: the number of pods, the names of pods not `Running` or `Succeeded`, the names of pods with at least one restart, and the total CPU requested.'
+    hints:
+      - 'Reuse `millicores` from step 4 and the `select` from step 2.'
+      - 'A pod restarts when `(.status.containerStatuses | map(.restartCount) | add) > 0`.'
+      - 'Start with `.items as $pods | {pods: ($pods | length), ...}`.'
+    solution: 'def millicores: if endswith("m") then .[:-1] | tonumber else tonumber * 1000 end; .items as $pods | {pods: ($pods | length), unhealthy: [$pods[] | select(.status.phase | IN("Running", "Succeeded") | not) | .metadata.name], restarting: [$pods[] | select((.status.containerStatuses | map(.restartCount) | add) > 0) | .metadata.name], cpu_millicores: ([$pods[].spec.containers[].resources.requests.cpu | millicores] | add)}'
+    starter: '.items as $pods | {pods: ($pods | length)}'
+    why: |
+      Every value in the summary is one of the earlier steps, now named. That
+      is the way to write a larger jq program: small pieces you have checked
+      one at a time, bound with `def` and `as`, assembled at the end.
+    expected: [{"pods": 7, "unhealthy": ["worker-66f5-pqrst", "web-9a8b7-aaaaa"], "restarting": ["api-7d9f8-fghij", "worker-66f5-pqrst", "api-5b4c3-uvwxy"], "cpu_millicores": 1550}]

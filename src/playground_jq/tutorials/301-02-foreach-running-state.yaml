@@ -1,0 +1,153 @@
+id: 301-02-foreach-running-state
+level: 301
+order: 2
+title: foreach and running state
+summary: Carry state from one item to the next with foreach, and emit running totals, counters, gaps and windows along the way.
+input: {ref: static:orders}
+steps:
+  - title: reduce keeps the end, foreach keeps every step
+    body: |
+      `reduce .[] as $o (init; update)` folds a stream into one final value.
+      `foreach .[] as $o (init; update)` runs the same fold but emits the state
+      after *every* item. That makes it the tool for anything "running":
+      running totals, counters, the previous value, a sliding window.
+
+      The input is an array of eight web shop orders in date order.
+    task: Use `foreach` to emit a running count of the orders (1, 2, 3, ...).
+    hints:
+      - 'The shape is `foreach .[] as $o (init; update)`.'
+      - 'Start at `0` and add one per order.'
+      - '`foreach .[] as $o (0; . + 1)`'
+    solution: 'foreach .[] as $o (0; . + 1)'
+    starter: 'foreach .[] as $o (0; ...)'
+    why: |
+      The update runs once per order with the previous state as `.`, and each
+      new state is emitted. Swap `foreach` for `reduce` and only the last value,
+      8, remains.
+    expected: [1, 2, 3, 4, 5, 6, 7, 8]
+  - title: The extract expression
+    body: |
+      `foreach` takes an optional third expression, the *extract*:
+      `foreach SOURCE as $x (init; update; extract)`. The state is still what
+      the update returns, but what is emitted is the extract applied to it,
+      and `$x` is still in scope there.
+    task: 'Emit one string per order of the form `"1 A-1001"`: the running count, a space, and the order id.'
+    hints:
+      - 'Keep the update from the previous step and add a third expression.'
+      - 'In the extract, `.` is the count and `$o` is the current order.'
+      - '`foreach .[] as $o (0; . + 1; "\(.) \($o.id)")`'
+    solution: 'foreach .[] as $o (0; . + 1; "\(.) \($o.id)")'
+    starter: 'foreach .[] as $o (0; . + 1; ...)'
+    why: |
+      The extract only shapes the output; it does not feed back into the state.
+      This split (a small state, a rich output) keeps the update simple.
+    expected: ["1 A-1001", "2 A-1002", "3 A-1003", "4 A-1004", "5 A-1005", "6 A-1006", "7 A-1007", "8 A-1008"]
+  - title: A running revenue total
+    body: |
+      The value you fold over does not have to be an item as it is. Compute
+      it in the source expression: `foreach (.[] | f) as $t (...)`.
+
+      An order's total is the sum of `qty * price` over its items. Money in
+      floating point needs rounding: `. * 100 | round / 100` rounds to cents.
+    task: Emit the cumulative revenue after each order, rounded to cents (the first value is 26, the order total of A-1001).
+    hints:
+      - 'An order total: `.items | map(.qty * .price) | add`'
+      - 'Fold over those totals: `foreach (.[] | .items | map(.qty * .price) | add) as $t (0; . + $t; ...)`'
+      - 'Round in the extract, not in the update: `. * 100 | round / 100`'
+    solution: 'foreach (.[] | .items | map(.qty * .price) | add) as $t (0; . + $t; . * 100 | round / 100)'
+    starter: 'foreach (.[] | .items | map(.qty * .price) | add) as $t (0; ...)'
+    why: |
+      Rounding only in the extract keeps the running sum at full precision;
+      only the emitted values are rounded. Rounding inside the update would
+      round an already rounded sum again on every order.
+    expected: [26, 57.9, 80.4, 115.15, 175.12, 219.62, 247.37, 278.37]
+  - title: An object as state
+    body: |
+      The state can be any value. An object keyed by customer counts how many
+      orders each customer has placed *so far*, and the extract can read the
+      count for the current customer.
+
+      `.[$key] += 1` works on a missing key because `null + 1` is `1`.
+    task: 'For each order emit `{order, customer, nth}`: the order id, the customer name, and which order of that customer it is (1 for their first, 2 for their second).'
+    hints:
+      - 'Start with `{}` and update with `.[$o.customer.name] += 1`.'
+      - 'In the extract, build `{order: $o.id, customer: $o.customer.name, nth: ...}`.'
+      - 'The count for this customer is `.[$o.customer.name]`.'
+    solution: 'foreach .[] as $o ({}; .[$o.customer.name] += 1; {order: $o.id, customer: $o.customer.name, nth: .[$o.customer.name]})'
+    starter: 'foreach .[] as $o ({}; ...; {order: $o.id, customer: $o.customer.name})'
+    why: |
+      This is the "row number per group" of SQL window functions. Ada, Grace and
+      Linus come back for a second order; nobody places a third.
+    expected: [{"order": "A-1001", "customer": "Ada Lovelace", "nth": 1}, {"order": "A-1002", "customer": "Grace Hopper", "nth": 1}, {"order": "A-1003", "customer": "Ada Lovelace", "nth": 2}, {"order": "A-1004", "customer": "Linus T", "nth": 1}, {"order": "A-1005", "customer": "Margaret H", "nth": 1}, {"order": "A-1006", "customer": "Grace Hopper", "nth": 2}, {"order": "A-1007", "customer": "Ken Thompson", "nth": 1}, {"order": "A-1008", "customer": "Linus T", "nth": 2}]
+  - title: Remember the previous item
+    body: |
+      To compare an item with the one before it, keep a pair
+      `[previous, current]` as state and shift it on every update:
+      `[.[1], $new]`. The first item has no previous one, so the first pair
+      starts with `null`.
+
+      `fromdate` turns an ISO 8601 timestamp such as `"2026-03-01T10:15:00Z"`
+      into seconds since the epoch.
+    task: Emit the gap in whole hours between each order and the previous one, and `null` for the first order.
+    hints:
+      - 'Fold over the timestamps: `foreach (.[] | .created_at | fromdate) as $t ([null, null]; [.[1], $t]; ...)`'
+      - 'In the extract, `.[0]` is the previous time and `.[1]` the current one.'
+      - '`if .[0] == null then null else (.[1] - .[0]) / 3600 | round end`'
+    solution: 'foreach (.[] | .created_at | fromdate) as $t ([null, null]; [.[1], $t]; if .[0] == null then null else (.[1] - .[0]) / 3600 | round end)'
+    starter: 'foreach (.[] | .created_at | fromdate) as $t ([null, null]; [.[1], $t]; ...)'
+    why: |
+      The state is exactly as large as the comparison needs: two timestamps.
+      The same shape detects changes ("status differs from the previous
+      order") or computes deltas between readings.
+    expected: [null, 22, 60, 12, 53, 52, 17, 61]
+  - title: Emit only when something happens
+    body: |
+      The extract may produce no output at all (`empty`), so `foreach` can
+      also *filter*: keep a record in the state and emit only when it changes.
+    task: Emit the id of every order that sets a new record, that is, whose total is higher than every order before it.
+    hints:
+      - 'Keep `{best: 0, record: null}` as state.'
+      - 'In the update, compute the total as `$t`; if `$t > .best`, set `{best: $t, record: $o.id}`, otherwise set `.record = null`.'
+      - 'Extract with `.record // empty`, so only orders that set a record are emitted.'
+    solution: 'foreach .[] as $o ({best: 0, record: null}; ($o.items | map(.qty * .price) | add) as $t | if $t > .best then {best: $t, record: $o.id} else .record = null end; .record // empty)'
+    starter: 'foreach .[] as $o ({best: 0, record: null}; ...; .record // empty)'
+    why: |
+      The totals are 26, 31.9, 22.5, 34.75, 59.97, 44.5, 27.75 and 31, so the
+      records are set by A-1001, A-1002, A-1004 and A-1005. Clearing `.record`
+      when no record is set is what keeps the extract from repeating the
+      previous record holder.
+    expected: ["A-1001", "A-1002", "A-1004", "A-1005"]
+  - title: Stop as soon as you know
+    body: |
+      `first(f)` emits the first output of `f` and stops evaluating it. Wrapped
+      around a `foreach`, it answers "when does the running value first cross
+      a threshold" without reading the rest of the input.
+    task: Output the id of the order that pushes the running revenue to 100 or more.
+    hints:
+      - 'Fold the order totals as in step 3, but emit the order id when the sum reaches 100: `if . >= 100 then $o.id else empty end`.'
+      - 'You need `$o` for the id, so iterate the orders and compute the total inside the update.'
+      - '`first(foreach .[] as $o (0; . + ($o.items | map(.qty * .price) | add); if . >= 100 then $o.id else empty end))`'
+    solution: 'first(foreach .[] as $o (0; . + ($o.items | map(.qty * .price) | add); if . >= 100 then $o.id else empty end))'
+    starter: 'first(foreach .[] as $o (0; ...; ...))'
+    why: |
+      The running sum goes 26, 57.9, 80.4 and then 115.15 with A-1004. Every
+      later order is also over 100, which is why `first` matters: without it
+      you get five ids.
+    expected: ["A-1004"]
+  - title: A sliding window
+    body: |
+      A window keeps the last *n* items: append the new one and slice off the
+      front, `(. + [$t])[-3:]`. A negative slice start counts from the end, and
+      a short array is returned whole.
+    task: For each order, emit the average total of the last three orders up to and including it (fewer at the start), rounded to cents.
+    hints:
+      - 'State: an array of totals, starting with `[]`.'
+      - 'Update: `(. + [$t])[-3:]`'
+      - 'Extract: `add / length | . * 100 | round / 100`'
+    solution: 'foreach (.[] | .items | map(.qty * .price) | add) as $t ([]; (. + [$t])[-3:]; add / length | . * 100 | round / 100)'
+    starter: 'foreach (.[] | .items | map(.qty * .price) | add) as $t ([]; ...; ...)'
+    why: |
+      A moving average smooths a noisy series. The state never grows beyond
+      three numbers, however long the input is, which is the point of
+      `foreach` over building an array and slicing it afterwards.
+    expected: [26, 28.95, 26.8, 29.72, 39.07, 46.41, 44.07, 34.42]
