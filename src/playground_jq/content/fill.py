@@ -5,6 +5,7 @@ Authoring-only: needs `ruamel.yaml` from the dev group. Every filled value is pr
 can be reviewed before it is committed; a run that fails is reported and nothing is written.
 """
 
+import io
 import json
 from pathlib import Path
 from typing import Any
@@ -30,28 +31,6 @@ from playground_jq.sources.registry import Sources
 INLINE_LIMIT_BYTES = 3_000
 
 
-def _flow(value: Any) -> Any:
-    """A value as ruamel nodes in flow style, so expected outputs stay on one line where they can."""
-    from ruamel.yaml.comments import CommentedMap, CommentedSeq
-    from ruamel.yaml.scalarstring import DoubleQuotedScalarString
-
-    # Every string is double-quoted: the loader reads YAML 1.1, where a bare `yes` or `NO` is a
-    # boolean, so an unquoted recorded string would come back as something else.
-    if isinstance(value, str):
-        return DoubleQuotedScalarString(value)
-    if isinstance(value, dict):
-        mapping = CommentedMap()
-        for key, item in value.items():
-            mapping[DoubleQuotedScalarString(key)] = _flow(item)
-        mapping.fa.set_flow_style()
-        return mapping
-    if isinstance(value, list):
-        sequence = CommentedSeq([_flow(item) for item in value])
-        sequence.fa.set_flow_style()
-        return sequence
-    return value
-
-
 def _preview(outputs: list[JsonValue]) -> str:
     text = json.dumps(outputs, ensure_ascii=False, separators=(",", ":"))
     return text if len(text) <= 160 else text[:157] + "..."
@@ -69,6 +48,28 @@ async def _outputs(
     return result.outputs, ""
 
 
+#: Expected outputs waiting to be written as JSON text, keyed by the placeholder standing in for them.
+_PENDING: dict[str, str] = {}
+
+
+def _placeholder(outputs: list[JsonValue]) -> str:
+    """A plain token the dump writes unquoted, replaced by the outputs' JSON text afterwards."""
+    token = f"PJQ_EXPECTED_{len(_PENDING)}_PJQ"
+    _PENDING[token] = json.dumps(outputs, ensure_ascii=False)
+    return token
+
+
+def _dump(yaml: Any, document: Any, path: Path) -> None:
+    """Write a document, with every recorded output as one line of JSON (valid YAML flow, strings quoted)."""
+    stream = io.StringIO()
+    yaml.dump(document, stream)
+    text = stream.getvalue()
+    for token, value in _PENDING.items():
+        text = text.replace(token, value)
+    _PENDING.clear()
+    path.write_text(text)
+
+
 def _record(node: Any, outputs: list[JsonValue]) -> str:
     """Write expected (or a digest for large outputs) into a ruamel mapping; answer how it was recorded."""
     size = len(json.dumps(outputs, ensure_ascii=False).encode())
@@ -77,7 +78,7 @@ def _record(node: Any, outputs: list[JsonValue]) -> str:
     if size > INLINE_LIMIT_BYTES:
         node["digest"] = digest(outputs)
         return f"digest ({size} bytes, {len(outputs)} outputs)"
-    node["expected"] = _flow(outputs)
+    node["expected"] = _placeholder(outputs)
     return _preview(outputs)
 
 
@@ -115,7 +116,7 @@ async def fill(settings: Settings, *, prefix: str | None = None, overwrite: bool
             report.append(f"fill example {identifier}: {_record(node, outputs)}")
             changed = True
         if changed:
-            yaml.dump(document, path)
+            _dump(yaml, document, path)
 
     for path in sorted(TUTORIALS_DIR.glob("*.yaml")):
         document = yaml.load(path)
@@ -133,7 +134,7 @@ async def fill(settings: Settings, *, prefix: str | None = None, overwrite: bool
             report.append(f"fill tutorial {identifier}: {_record(node, outputs)}")
             changed = True
         if changed:
-            yaml.dump(document, path)
+            _dump(yaml, document, path)
 
     if STARTERS_FILE.is_file():
         document = yaml.load(STARTERS_FILE)
@@ -151,7 +152,7 @@ async def fill(settings: Settings, *, prefix: str | None = None, overwrite: bool
             report.append(f"fill {identifier}: {_record(node, outputs)}")
             changed = True
         if changed:
-            yaml.dump(document, STARTERS_FILE)
+            _dump(yaml, document, STARTERS_FILE)
 
     for path in sorted(GUIDE_DIR.glob("*.md")):
         report.extend(await _fill_chapter(path, sources, settings, prefix=prefix, overwrite=overwrite))

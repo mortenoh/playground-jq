@@ -27,3 +27,4 @@ src/playground_jq/static/*
 !src/playground_jq/static/.gitkeep
 .playwright-mcp/
 build/
+.claude/

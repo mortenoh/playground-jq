@@ -65,7 +65,7 @@ PRESETS: list[tuple[Preset, EchoRequest]] = [
         Preset(
             id="post-form",
             title="POST a form",
-            description="Form fields come back under `form`; `json` is null.",
+            description="Form fields come back under `form` (postman-echo also mirrors them under `json`).",
             tags=["http", "body"],
         ),
         EchoRequest(method="POST", path="/post", form={"username": "ada", "plan": "pro", "newsletter": "yes"}),

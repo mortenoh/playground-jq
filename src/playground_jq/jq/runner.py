@@ -3,6 +3,7 @@
 import asyncio
 import atexit
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -28,6 +29,8 @@ class ProgramRunner:
             (sys.executable, str(RUNNER_SCRIPT)),
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
+            # Date functions that read the local zone answer in UTC, as the stand-in `$ENV` says.
+            env={**os.environ, "TZ": "UTC"},
         )
         self._to = cast("IO[bytes]", self.process.stdin)
         self._from = cast("IO[bytes]", self.process.stdout)

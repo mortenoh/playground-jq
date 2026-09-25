@@ -9,9 +9,10 @@ export function shellQuote(word: string): string {
     return `'${word.replaceAll("'", `'"'"'`)}'`
 }
 
-/** Flags that change what jq reads or which variables it has (not how it prints). */
+/** Flags that change what jq reads or which variables it has; `--seq` changes reading and printing. */
 export function inputFlags(options: RunOptions): string[] {
     const flags: string[] = []
+    if (options.seq) flags.push('--seq')
     if (options.null_input) flags.push('-n')
     if (options.slurp) flags.push('-s')
     if (options.raw_input) flags.push('-R')
@@ -31,7 +32,6 @@ export function outputFlags(options: RunOptions): string[] {
     if (options.compact) flags.push('-c')
     if (options.sort_keys) flags.push('-S')
     if (options.tab) flags.push('--tab')
-    if (options.seq) flags.push('--seq')
     if (options.indent !== 2 && !options.tab && !options.compact)
         flags.push('--indent', String(options.indent))
     return flags

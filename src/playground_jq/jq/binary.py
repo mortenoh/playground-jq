@@ -42,6 +42,7 @@ def build_argv(executable: str, program: str, options: RunOptions) -> list[str]:
         (options.slurp, "-s"),
         (options.raw_input, "-R"),
         (options.stream, "--stream"),
+        (options.seq, "--seq"),
     ):
         if enabled:
             argv.append(flag)
@@ -83,7 +84,8 @@ async def run_binary(
 def read_outcome(stdout: str, stderr: str, returncode: int, max_outputs: int) -> BinaryOutcome:
     """Parse the binary's two streams and exit status into outputs, errors and messages."""
     outcome = BinaryOutcome()
-    for line in stdout.splitlines():
+    for raw in stdout.splitlines():
+        line = raw.lstrip("\x1e")
         if not line:
             continue
         if len(outcome.outputs) >= max_outputs:

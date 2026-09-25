@@ -19,9 +19,19 @@ from playground_jq.sources.geojson import is_geojson
 CLI_ONLY = re.compile(r"(?<![\w$.])(input|inputs|input_filename|input_line_number|debug|stderr|halt|halt_error)\b")
 
 
-def needs_cli(program: str, options: RunOptions) -> bool:
-    """Whether this program or its flags need the command-line binary."""
-    return options.stream or bool(CLI_ONLY.search(program))
+#: An integer literal longer than a double holds exactly; jq 1.8 keeps it, jq.py rounds it.
+BIG_INTEGER = re.compile(r"(?<![\d.])\d{16,}(?![\d.])")
+
+
+def needs_cli(program: str, options: RunOptions, input_text: str = "") -> bool:
+    """Whether this program, its flags or its input need the command-line binary.
+
+    `--seq` changes how input is read as well as how output is written, so it runs where jq
+    implements both; large integer literals keep their precision only in jq itself.
+    """
+    if options.stream or options.seq or CLI_ONLY.search(program):
+        return True
+    return bool(BIG_INTEGER.search(program) or BIG_INTEGER.search(input_text))
 
 
 def reads_input(program: str, options: RunOptions) -> bool:
@@ -40,7 +50,7 @@ async def run_program(
     """Run a program over an input text with the given flags."""
     started = time.perf_counter()
     engine: Literal["library", "cli"] = "library"
-    if options.engine == "cli" or (options.engine == "auto" and needs_cli(program, options)):
+    if options.engine == "cli" or (options.engine == "auto" and needs_cli(program, options, input_text)):
         engine = "cli"
     command = equivalent_command(program, options, reads_input=reads_input(program, options))
 
@@ -104,8 +114,9 @@ async def run_program(
     errors: list[JqError] = []
     if "error" in reply:
         message = cast("str", reply["error"])
-        phase = reply.get("phase", "runtime")
-        errors = compile_errors(message) if phase == "compile" else [plain_error(phase, message)]
+        errors = compile_errors(message) if reply.get("phase") == "compile" else [plain_error("runtime", message)]
+    for failure in cast("list[dict[str, str]]", reply.get("errors", [])):
+        errors.append(plain_error("input" if failure["phase"] == "input" else "runtime", failure["error"]))
     return finish(outputs, errors, truncated=bool(reply.get("truncated")))
 
 

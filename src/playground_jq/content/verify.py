@@ -204,13 +204,23 @@ def _same(expected: list[JsonValue], actual: list[JsonValue], *, unordered: bool
     """Whether two output lists are equal, as JSON."""
     if not unordered:
         return _canonical(expected) == _canonical(actual)
-    return Counter(json.dumps(item, sort_keys=True) for item in expected) == Counter(
-        json.dumps(item, sort_keys=True) for item in actual
-    )
+    return Counter(_canonical([item]) for item in expected) == Counter(_canonical([item]) for item in actual)
+
+
+def _numbers(value: Any) -> Any:
+    """A value with integral floats as integers: jq may print `24.0` or `24` for the same number."""
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    if isinstance(value, dict):
+        mapping = cast("dict[str, object]", value)
+        return {key: _numbers(item) for key, item in mapping.items()}
+    if isinstance(value, list):
+        return [_numbers(item) for item in cast("list[object]", value)]
+    return value
 
 
 def _canonical(values: list[JsonValue]) -> str:
-    return json.dumps(values, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return json.dumps(_numbers(values), sort_keys=True, ensure_ascii=False, separators=(",", ":"))
 
 
 def digest(values: list[JsonValue]) -> str:

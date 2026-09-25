@@ -184,6 +184,13 @@ def load_library() -> Library:
     _refuse_duplicates("tutorial", [tutorial.id for tutorial in library.tutorials])
     _refuse_duplicates("chapter", [chapter.slug for chapter in library.chapters])
     _refuse_duplicates("starter", [starter.ref for starter in library.starters])
+    if library.chapters:
+        slugs = {chapter.slug for chapter in library.chapters}
+        linked = [(example.id, slug) for example in library.examples() for slug in example.guide]
+        linked += [(tutorial.id, slug) for tutorial in library.tutorials for slug in tutorial.guide]
+        unknown = [f"{owner} -> {slug}" for owner, slug in linked if slug not in slugs]
+        if unknown:
+            raise ContentError("guide links to chapters that do not exist: " + ", ".join(unknown))
     return library
 
 

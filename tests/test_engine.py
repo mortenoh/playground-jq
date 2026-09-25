@@ -36,8 +36,29 @@ async def test_compact_sort_keys_and_tab(settings: Settings) -> None:
 
 
 async def test_ascii_output_and_seq(settings: Settings) -> None:
-    result = await run_program(".", '"ø"', RunOptions(ascii_output=True, seq=True), settings)
-    assert result.text == '\x1e"\\u00f8"\n'
+    ascii_only = await run_program(".", '"ø"', RunOptions(ascii_output=True), settings)
+    assert ascii_only.text == '"\\u00f8"\n'
+    seq = await run_program('"ø"', "", RunOptions(ascii_output=True, seq=True, null_input=True), settings)
+    assert seq.engine == "cli"
+    assert seq.outputs == ["ø"]
+    assert seq.text == '\x1e"\\u00f8"\n'
+
+
+async def test_several_inputs_continue_after_an_error(settings: Settings) -> None:
+    result = await run_program(".a", '{"a": 1} 5 {"a": 3}', RunOptions(), settings)
+    assert result.outputs == [1, 3]
+    assert [error.kind for error in result.errors] == ["runtime"]
+
+
+async def test_big_integers_and_args_and_local_time(settings: Settings) -> None:
+    big = await run_program(".", "12345678901234567890", RunOptions(), settings)
+    assert big.engine == "cli"
+    assert big.outputs == [12345678901234567890]
+    named = await run_program("$ARGS.named", "", RunOptions(null_input=True, args={"a": "x"}), settings)
+    assert named.engine == "library"
+    assert named.outputs == [{"a": "x"}]
+    local = await run_program('0 | strflocaltime("%H %Z")', "", RunOptions(null_input=True), settings)
+    assert local.outputs == ["00 UTC"]
 
 
 async def test_slurp_and_several_input_values(settings: Settings) -> None:
