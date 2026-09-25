@@ -185,7 +185,8 @@ expected: [[1, 3, 6, 10]]
 
 `UPDATE` is a filter, and a filter may produce several outputs or none. In `reduce`, jq 1.8 keeps
 the last output as the new state, and if there is none, the state becomes `null`. In `foreach`,
-each output of `UPDATE` becomes a state that is extracted. Most programs never rely on this, but
+each output of `UPDATE` is passed to `EXTRACT`, and the last one carries on as the state for the
+next step. Most programs never rely on this, but
 an `empty` or a `select` that removes everything inside `UPDATE` can silently wipe the state.
 
 ```jq-try

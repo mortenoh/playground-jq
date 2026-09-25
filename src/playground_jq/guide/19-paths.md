@@ -168,7 +168,7 @@ expected: [{"b": {"d": 1}}]
 
 [`to_entries`](https://jqlang.org/manual/v1.8/#to_entries-from_entries-with_entries) turns an
 object into an array of `{key, value}` pairs. `from_entries` turns such an array back into an
-object; it also accepts `name` or `Key` instead of `key`, and `Value` instead of `value`. Keys
+object; it also accepts `name`, `Name` or `Key` instead of `key`, and `Value` instead of `value`. Keys
 must end up as strings. `with_entries(f)` is `to_entries | map(f) | from_entries`, the standard
 way to transform or filter an object's keys and values together.
 
@@ -202,7 +202,7 @@ error: 'Cannot use number (1) as object key'
 
 ## pick
 
-[`pick(pathexps)`](https://jqlang.org/manual/v1.8/#pick), new in jq 1.8, keeps only the given
+[`pick(pathexps)`](https://jqlang.org/manual/v1.8/#pick), added in jq 1.7, keeps only the given
 paths and rebuilds the structure around them. It is the path-based counterpart of `{a, b}`
 object construction, and it works at any depth. When a path goes through an array index, the
 earlier elements are filled with `null`.

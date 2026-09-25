@@ -72,8 +72,8 @@ expected: ["read=30s, write=30s, idle=120s"]
 
 ### from_entries with dynamic keys
 
-`from_entries` accepts `key`/`value`, `k`/`v`, `name`/`value` and the capitalised `Key`/`Value`
-that AWS uses, so tag lists become objects in one step:
+`from_entries` accepts `key`/`value`, `name`/`value` and the capitalised `Key`/`Value` that AWS
+uses (but not `k`/`v`), so tag lists become objects in one step:
 
 ```jq-try
 program: '[.Reservations[].Instances[] | {id: .InstanceId, state: .State.Name} + (.Tags | from_entries)] | map(select(.env == "prod")) | map({id, Name, state})'

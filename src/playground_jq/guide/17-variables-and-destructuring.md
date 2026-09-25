@@ -8,7 +8,7 @@ A jq pipeline passes one value along: each filter only sees what the previous on
 That is usually what you want, but sometimes a value from earlier is needed later, after `.` has
 moved on to something else. Variables solve this. `expr as $name | body` runs `expr`, binds each
 of its outputs to `$name`, and runs `body` with the same input `.` that `expr` had. The manual
-calls this the [variable binding operator](https://jqlang.org/manual/v1.8/#variable-binding-operator).
+calls this the [variable binding operator](https://jqlang.org/manual/v1.8/#variable-symbolic-binding-operator).
 
 ## Binding with as
 

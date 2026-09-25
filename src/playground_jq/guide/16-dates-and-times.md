@@ -183,7 +183,7 @@ expected: [[106, 107, 108]]
 ```jq-try
 program: '[.[] | select((.created_at | fromdate) > ("2026-03-08T00:00:00Z" | fromdate)) | .id]'
 ref: static:orders
-caption: The same kind of filter with timestamps, which also works across formats.
+caption: 'The same kind of filter on timestamps, the form to use once the boundary is computed (a date minus seven days, say).'
 expected: [["A-1006", "A-1007", "A-1008"]]
 ```
 

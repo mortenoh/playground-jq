@@ -177,10 +177,10 @@ Descendants are the units whose path starts with this unit's path followed by a 
 answers "how many chiefdoms per district" without following any links:
 
 ```jq-try
-program: '.organisationUnits as $all | [$all[] | select(.level == 2) | .path as $p | {name, chiefdoms: ([$all[] | select(.path | startswith($p + "/"))] | length)}] | sort_by(-.chiefdoms) | .[0:3]'
+program: '.organisationUnits as $all | [$all[] | select(.level == 2) | .path as $p | {name, chiefdoms: ([$all[] | select(.path | startswith($p + "/"))] | length)}] | sort_by(-.chiefdoms) | .[0:5]'
 ref: dhis2:org-unit-tree
-caption: The three districts with the most chiefdoms.
-expected: [[{"name": "Kenema", "chiefdoms": 16}, {"name": "Bo", "chiefdoms": 15}, {"name": "Kailahun", "chiefdoms": 14}]]
+caption: 'The five districts with the most chiefdoms; Kailahun, Kono and Moyamba tie at 14, and the stable sort keeps them in their original order.'
+expected: [[{"name": "Kenema", "chiefdoms": 16}, {"name": "Bo", "chiefdoms": 15}, {"name": "Kailahun", "chiefdoms": 14}, {"name": "Kono", "chiefdoms": 14}, {"name": "Moyamba", "chiefdoms": 14}]]
 ```
 
 The `parent` and `children` fields must agree with each other. Every unit except the root has
@@ -241,15 +241,16 @@ leaf paths and `getpath` their values:
 ```jq-try
 program: '[paths(scalars) as $p | {key: ($p | map(tostring) | join(".")), value: getpath($p)}] | from_entries'
 input: '{"server": {"host": "db", "ports": [5432, 5433]}, "debug": false}'
-caption: 'Array indices become numbers in the key. But debug is missing.'
+caption: 'Array indices become digits in the key. But debug is missing.'
 expected: [{"server.host": "db", "server.ports.0": 5432, "server.ports.1": 5433}]
 ```
 
 The `debug` leaf is gone. `paths(f)` keeps a path when `f`, applied to the value there,
 produces a *truthy* result, and `scalars` passes its input through unchanged: for the value
-`false` it outputs `false`, which counts as "no". The same happens to `null` leaves, and to
-`leaf_paths`, which is defined as `paths(scalars)`. Test the type instead, which is always a
-non-empty string:
+`false` it outputs `false`, which counts as "no". The same happens to `null` leaves (and to
+`leaf_paths` in older jq versions, which was defined as `paths(scalars)` and is gone in 1.8).
+Test the type instead, so the condition is always `true` or `false` and never the leaf value
+itself:
 
 ```jq-try
 program: '[paths(type | IN("object", "array") | not) as $p | {key: ($p | map(tostring) | join(".")), value: getpath($p)}] | from_entries'
