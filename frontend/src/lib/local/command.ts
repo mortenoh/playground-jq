@@ -38,7 +38,7 @@ export function outputFlags(options: RunOptions): string[] {
 }
 
 /** The equivalent `jq` command line. */
-export function equivalentCommand(program: string, options: RunOptions, readsInput: boolean): string {
+export function equivalentCommand(program: string, options: RunOptions, withInput: boolean): string {
     const flags: string[] = []
     for (const [enabled, flag] of [
         [options.null_input, '-n'],
@@ -61,7 +61,7 @@ export function equivalentCommand(program: string, options: RunOptions, readsInp
     for (const [name, value] of Object.entries(options.argjson))
         flags.push('--argjson', name, shellQuote(JSON.stringify(value)))
     const command = ['jq', ...flags, shellQuote(program)]
-    if (readsInput) command.push('input.json')
+    if (withInput) command.push('input.json')
     return command.join(' ')
 }
 

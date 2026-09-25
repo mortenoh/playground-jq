@@ -48,14 +48,14 @@ const selected = only === undefined ? items : items.filter((item) => item.id.sta
 function canonical(value: unknown): string {
     return JSON.stringify(value, (_key, held: unknown) =>
         held !== null && typeof held === 'object' && !Array.isArray(held)
-            ? Object.fromEntries(Object.entries(held).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)))
+            ? Object.fromEntries(Object.entries(held).toSorted(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)))
             : held,
     )
 }
 
 function same(expected: unknown[], actual: unknown[], unordered: boolean): boolean {
     if (!unordered) return canonical(expected) === canonical(actual)
-    const sort = (values: unknown[]) => values.map(canonical).sort()
+    const sort = (values: unknown[]) => values.map(canonical).toSorted()
     return canonical(sort(expected)) === canonical(sort(actual))
 }
 

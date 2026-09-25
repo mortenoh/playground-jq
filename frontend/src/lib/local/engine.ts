@@ -23,6 +23,9 @@ export const SANDBOX_ENV = {
 const SANDBOX_PREFIX = `${JSON.stringify(SANDBOX_ENV)} as $ENV | def env: $ENV; (`
 const SANDBOX_SUFFIX = '\n)'
 
+/** What `--seq` prints before every output. */
+const RECORD_SEPARATOR = String.fromCharCode(0x1e)
+
 const TIMEOUT_MS = 4000
 const MAX_OUTPUTS = 10_000
 
@@ -65,7 +68,7 @@ function exchange(input: string, program: string, flags: string[]): Promise<Work
 export function parseLines(stdout: string): { outputs: JsonValue[]; truncated: boolean } {
     const outputs: JsonValue[] = []
     for (const raw of stdout.split('\n')) {
-        const line = raw.replace(/^\u001e/, '')
+        const line = raw.startsWith(RECORD_SEPARATOR) ? raw.slice(1) : raw
         if (line === '') continue
         if (outputs.length >= MAX_OUTPUTS) return { outputs, truncated: true }
         outputs.push(JSON.parse(line) as JsonValue)
