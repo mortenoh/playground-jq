@@ -256,7 +256,7 @@ def content_check(
     only: Annotated[str | None, typer.Option(help="Only items whose id starts with this.")] = None,
 ) -> None:
     """Validate all content and run every example, tutorial solution and guide snippet."""
-    _verify(kinds={"example", "tutorial", "snippet"}, live=live, prefix=only)
+    _verify(kinds={"example", "tutorial", "snippet", "starter"}, live=live, prefix=only)
 
 
 @content_app.command("fill")

@@ -12,7 +12,14 @@ from typing import Any
 from pydantic import JsonValue
 
 from playground_jq.config import Settings
-from playground_jq.content.library import EXAMPLES_DIR, GUIDE_DIR, SNIPPET_BLOCK, TUTORIALS_DIR, parse_chapter
+from playground_jq.content.library import (
+    EXAMPLES_DIR,
+    GUIDE_DIR,
+    SNIPPET_BLOCK,
+    STARTERS_FILE,
+    TUTORIALS_DIR,
+    parse_chapter,
+)
 from playground_jq.content.models import InputSpec
 from playground_jq.content.verify import digest, input_text
 from playground_jq.jq.engine import run_program
@@ -26,11 +33,16 @@ INLINE_LIMIT_BYTES = 3_000
 def _flow(value: Any) -> Any:
     """A value as ruamel nodes in flow style, so expected outputs stay on one line where they can."""
     from ruamel.yaml.comments import CommentedMap, CommentedSeq
+    from ruamel.yaml.scalarstring import DoubleQuotedScalarString
 
+    # Every string is double-quoted: the loader reads YAML 1.1, where a bare `yes` or `NO` is a
+    # boolean, so an unquoted recorded string would come back as something else.
+    if isinstance(value, str):
+        return DoubleQuotedScalarString(value)
     if isinstance(value, dict):
         mapping = CommentedMap()
         for key, item in value.items():
-            mapping[key] = _flow(item)
+            mapping[DoubleQuotedScalarString(key)] = _flow(item)
         mapping.fa.set_flow_style()
         return mapping
     if isinstance(value, list):
@@ -122,6 +134,24 @@ async def fill(settings: Settings, *, prefix: str | None = None, overwrite: bool
             changed = True
         if changed:
             yaml.dump(document, path)
+
+    if STARTERS_FILE.is_file():
+        document = yaml.load(STARTERS_FILE)
+        changed = False
+        for node in document.get("starters", []):
+            identifier = f"starter:{node['ref']}"
+            if not wanted(identifier, node):
+                continue
+            spec = InputSpec(ref=str(node["ref"]))
+            options = RunOptions.model_validate(json.loads(json.dumps(node.get("options", {}))))
+            outputs, reason = await _outputs(str(node["program"]), spec, options, sources, settings)
+            if outputs is None:
+                report.append(f"FAIL {identifier}: {reason}")
+                continue
+            report.append(f"fill {identifier}: {_record(node, outputs)}")
+            changed = True
+        if changed:
+            yaml.dump(document, STARTERS_FILE)
 
     for path in sorted(GUIDE_DIR.glob("*.md")):
         report.extend(await _fill_chapter(path, sources, settings, prefix=prefix, overwrite=overwrite))

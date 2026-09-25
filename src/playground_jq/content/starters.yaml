@@ -1,0 +1,148 @@
+# The program the playground suggests when a dataset or snapshot is loaded. Each one runs in
+# the test suite against its input like every other piece of content.
+starters:
+  - ref: static:bookstore
+    program: '.store.books[] | select(.price < 10) | {title, price}'
+    expected: [{"title": "Learning jq", "price": 8.5}, {"title": "Pipes and Paths", "price": 6.25}]
+  - ref: static:github-issues
+    program: 'map(select(.state == "open")) | map({number, title, labels: [.labels[].name]})'
+    expected: [[{"number": 101, "title": "Crash when input is empty", "labels": ["bug", "priority: high"]}, {"number": 103, "title": "Support @base32d", "labels": ["enhancement"]}, {"number": 105, "title": "Wrong error message for .[] on null", "labels": ["bug"]}, {"number": 107, "title": "Segfault with deeply nested arrays", "labels": ["bug", "priority: high", "needs repro"]}, {"number": 109, "title": "Bump pytest", "labels": ["dependencies"]}, {"number": 110, "title": "Windows line endings in -R mode", "labels": ["bug", "windows"]}]]
+  - ref: static:employees
+    program: '.employees | group_by(.dept) | map({dept: .[0].dept, people: length, payroll: (map(.salary) | add)})'
+    expected: [[{"dept": "eng", "people": 4, "payroll": 383000}, {"dept": "hr", "people": 1, "payroll": 70000}, {"dept": "ops", "people": 2, "payroll": 205000}, {"dept": "sal", "people": 3, "payroll": 268000}]]
+  - ref: static:orders
+    program: 'map({id, total: ([.items[] | .qty * .price] | add)})'
+    expected: [[{"id": "A-1001", "total": 26}, {"id": "A-1002", "total": 31.9}, {"id": "A-1003", "total": 22.5}, {"id": "A-1004", "total": 34.75}, {"id": "A-1005", "total": 59.97}, {"id": "A-1006", "total": 44.5}, {"id": "A-1007", "total": 27.75}, {"id": "A-1008", "total": 31}]]
+  - ref: static:users
+    program: '.[] | {username, email: (.email // "(none)"), theme: (.preferences.theme // "default")}'
+    expected: [{"username": "ada", "email": "ada@example.org", "theme": "dark"}, {"username": "grace", "email": "grace@example.org", "theme": "light"}, {"username": "linus", "email": "linus@example.org", "theme": "dark"}, {"username": "margaret", "email": "margaret@example.org", "theme": "default"}, {"username": "ken", "email": "(none)", "theme": "dark"}, {"username": "barbara", "email": "barbara@example.org", "theme": "light"}]
+  - ref: static:config
+    program: '[paths(type | IN("object", "array") | not) | map(tostring) | join(".")]'
+    expected: [["app.name", "app.version", "app.debug", "server.host", "server.port", "server.tls.enabled", "server.tls.cert", "server.tls.key", "server.timeouts.read", "server.timeouts.write", "server.timeouts.idle", "database.driver", "database.host", "database.port", "database.name", "database.pool.min", "database.pool.max", "database.password", "features.forecasts", "features.alerts", "features.radar", "features.beta.ai_summaries", "features.beta.dark_mode", "cache.enabled", "cache.ttl_seconds", "cache.backends.0", "cache.backends.1", "logging.level", "logging.format", "logging.outputs.0.type", "logging.outputs.1.type", "logging.outputs.1.path", "logging.outputs.1.rotate.max_mb", "logging.outputs.1.rotate.keep", "environments.dev.server.port", "environments.dev.app.debug", "environments.prod.server.port", "environments.prod.database.host", "environments.prod.database.pool.max"]]
+  - ref: static:sensor-readings
+    program: '[.readings[] | select(.status == "active") | {station, region, celsius}]'
+    expected: [[{"station": "FNA-01", "region": "Western Area", "celsius": 31.2}, {"station": "FNA-02", "region": "Western Area", "celsius": 30.4}, {"station": "BO-01", "region": "Southern", "celsius": 33.8}, {"station": "KEN-01", "region": "Eastern", "celsius": 34.9}, {"station": "MAK-01", "region": "North East", "celsius": 36.1}, {"station": "PORT-01", "region": "North West", "celsius": 32.7}, {"station": "PORT-02", "region": "North West", "celsius": "32.1"}]]
+  - ref: static:access-log
+    program: 'select(.status >= 500) | "\(.ts) \(.status) \(.path)"'
+    options: {raw_output: true}
+    expected: ["2026-03-16T10:00:07Z 500 /v1/alerts", "2026-03-16T10:00:18Z 500 job:refresh-radar", "2026-03-16T10:00:30Z 503 /v1/alerts"]
+  - ref: static:people-csv
+    program: '[inputs | split(",")] | .[0] as $head | .[1:] | map([$head, .] | transpose | map({(.[0]): .[1]}) | add)'
+    options: {raw_input: true, null_input: true}
+    expected: [[{"name": "Astrid", "age": "41", "city": "Oslo", "team": "platform"}, {"name": "Bjorn", "age": "29", "city": "Bergen", "team": "platform"}, {"name": "Chiara", "age": "35", "city": "Milan", "team": "data"}, {"name": "Dmitri", "age": "47", "city": "Riga", "team": "ops"}, {"name": "Efua", "age": "31", "city": "Accra", "team": "ops"}, {"name": "Farid", "age": "26", "city": "Lyon", "team": "sales"}]]
+  - ref: static:world-cities
+    program: '.features |= map(select(.properties.capital))'
+    geojson: true
+    expected: [{"type": "FeatureCollection", "features": [{"type": "Feature", "id": 1, "geometry": {"type": "Point", "coordinates": [10.7522, 59.9139]}, "properties": {"name": "Oslo", "country": "NO", "population": 709037, "capital": true}}, {"type": "Feature", "id": 3, "geometry": {"type": "Point", "coordinates": [-13.2317, 8.4657]}, "properties": {"name": "Freetown", "country": "SL", "population": 1055964, "capital": true}}, {"type": "Feature", "id": 6, "geometry": {"type": "Point", "coordinates": [-0.187, 5.6037]}, "properties": {"name": "Accra", "country": "GH", "population": 2514005, "capital": true}}, {"type": "Feature", "id": 7, "geometry": {"type": "Point", "coordinates": [36.8219, -1.2921]}, "properties": {"name": "Nairobi", "country": "KE", "population": 4397073, "capital": true}}, {"type": "Feature", "id": 8, "geometry": {"type": "Point", "coordinates": [32.5825, 0.3476]}, "properties": {"name": "Kampala", "country": "UG", "population": 1680600, "capital": true}}, {"type": "Feature", "id": 9, "geometry": {"type": "Point", "coordinates": [105.8342, 21.0278]}, "properties": {"name": "Hanoi", "country": "VN", "population": 8053663, "capital": true}}, {"type": "Feature", "id": 10, "geometry": {"type": "Point", "coordinates": [90.4125, 23.8103]}, "properties": {"name": "Dhaka", "country": "BD", "population": 10278882, "capital": true}}, {"type": "Feature", "id": 11, "geometry": {"type": "Point", "coordinates": [-77.0428, -12.0464]}, "properties": {"name": "Lima", "country": "PE", "population": 9751000, "capital": true}}, {"type": "Feature", "id": 12, "geometry": {"type": "Point", "coordinates": [85.324, 27.7172]}, "properties": {"name": "Kathmandu", "country": "NP", "population": 1442271, "capital": true}}, {"type": "Feature", "id": 14, "geometry": {"type": "Point", "coordinates": [28.3228, -15.3875]}, "properties": {"name": "Lusaka", "country": "ZM", "population": 3041789, "capital": true}}, {"type": "Feature", "id": 15, "geometry": {"type": "Point", "coordinates": [102.6331, 17.9757]}, "properties": {"name": "Vientiane", "country": "LA", "population": 948477, "capital": true}}]}]
+  - ref: static:analytics-response
+    program: '[.headers[].name] as $cols | .rows | map([$cols, .] | transpose | map({(.[0]): .[1]}) | add)'
+    expected: [[{"dx": "fbfJHSPpUQD", "ou": "O6uvpzGd5pu", "pe": "202601", "value": "1204.0"}, {"dx": "fbfJHSPpUQD", "ou": "O6uvpzGd5pu", "pe": "202602", "value": "1150.0"}, {"dx": "fbfJHSPpUQD", "ou": "fdc6uOvgoji", "pe": "202601", "value": "987.0"}, {"dx": "fbfJHSPpUQD", "ou": "fdc6uOvgoji", "pe": "202602", "value": "1012.0"}, {"dx": "fbfJHSPpUQD", "ou": "lc3eMKXaEfw", "pe": "202601", "value": "402.0"}, {"dx": "fbfJHSPpUQD", "ou": "lc3eMKXaEfw", "pe": "202602", "value": "388.0"}, {"dx": "fbfJHSPpUQD", "ou": "jUb8gELQApl", "pe": "202601", "value": "860.0"}, {"dx": "fbfJHSPpUQD", "ou": "jUb8gELQApl", "pe": "202602", "value": "901.0"}, {"dx": "cYeuwXTCPkU", "ou": "O6uvpzGd5pu", "pe": "202601", "value": "1011.0"}, {"dx": "cYeuwXTCPkU", "ou": "O6uvpzGd5pu", "pe": "202602", "value": "990.0"}, {"dx": "cYeuwXTCPkU", "ou": "fdc6uOvgoji", "pe": "202601", "value": "802.0"}, {"dx": "cYeuwXTCPkU", "ou": "fdc6uOvgoji", "pe": "202602", "value": "845.0"}, {"dx": "cYeuwXTCPkU", "ou": "lc3eMKXaEfw", "pe": "202601", "value": "310.0"}, {"dx": "cYeuwXTCPkU", "ou": "jUb8gELQApl", "pe": "202601", "value": "700.0"}, {"dx": "cYeuwXTCPkU", "ou": "jUb8gELQApl", "pe": "202602", "value": "722.0"}]]
+  - ref: static:category-tree
+    program: '[.. | objects | .name]'
+    expected: [["root", "Books", "Programming", "jq", "Python", "Fiction", "Music", "Jazz", "Bebop", "Folk", "Games"]]
+  - ref: static:package-json
+    program: '.dependencies | to_entries | map("\(.key)@\(.value)")'
+    expected: [["react@^19.3.0", "react-dom@^19.3.0", "maplibre-gl@^6.11.2", "date-fns@^4.1.0"]]
+  - ref: static:k8s-pods
+    program: '.items[] | select(.status.phase != "Running") | {name: .metadata.name, ns: .metadata.namespace, phase: .status.phase}'
+    expected: [{"name": "worker-66f5-pqrst", "ns": "prod", "phase": "CrashLoopBackOff"}, {"name": "migrate-1234-zzzzz", "ns": "staging", "phase": "Succeeded"}, {"name": "web-9a8b7-aaaaa", "ns": "staging", "phase": "Pending"}]
+  - ref: static:aws-ec2
+    program: '[.Reservations[].Instances[] | {id: .InstanceId, state: .State.Name} + (.Tags | from_entries)]'
+    expected: [[{"id": "i-0aa11", "state": "running", "Name": "bastion", "env": "prod"}, {"id": "i-0bb22", "state": "running", "Name": "api-1", "env": "prod"}, {"id": "i-0bb23", "state": "running", "Name": "api-2", "env": "prod"}, {"id": "i-0cc33", "state": "stopped", "Name": "scratch", "env": "dev"}, {"id": "i-0dd44", "state": "running", "Name": "db-replica", "env": "prod"}, {"id": "i-0dd45", "state": "running", "Name": "ci-runner", "env": "dev"}]]
+  - ref: static:fhir-questionnaire-response
+    program: '[.item[] | recurse(.item[]?) | select(.answer? | length > 0) | {linkId, answer: .answer[0]}]'
+
+    expected: [[{"linkId": "fbfJHSPpUQD.pq2XI5kz2BY", "answer": {"valueInteger": 14}}, {"linkId": "fbfJHSPpUQD.PT59n8BQbqM", "answer": {"valueInteger": 6}}, {"linkId": "cYeuwXTCPkU.pq2XI5kz2BY", "answer": {"valueInteger": 11}}, {"linkId": "hfdmMSPBgLG", "answer": {"valueString": "Stock-out of iron tablets"}}, {"linkId": "rbkr8PL0rwM", "answer": {"valueBoolean": true}}]]
+  - ref: echo:get-args
+    program: '.args'
+    expected: [{"name": "playground", "lang": "jq", "tag": ["json", "cli", "filter"]}]
+  - ref: echo:post-json
+    program: '.json | {order, customer: .customer.name, total: ([.items[] | .qty * .price] | add)}'
+    expected: [{"order": "A-1001", "customer": "Ada Lovelace", "total": 57}]
+  - ref: echo:post-form
+    program: '.form'
+    expected: [{"username": "ada", "plan": "pro", "newsletter": "yes"}]
+  - ref: echo:put-json
+    program: '.json.settings | paths(type | IN("object", "array") | not) as $p | {path: ($p | join(".")), value: getpath($p)}'
+    expected: [{"path": "theme", "value": "dark"}, {"path": "editor.tabSize", "value": 2}, {"path": "editor.minimap", "value": false}]
+  - ref: echo:headers
+    program: '.headers | with_entries(select(.key | startswith("x-")))'
+    expected: [{"x-tenant": "sierra-leone", "x-forwarded-proto": "https"}]
+  - ref: echo:response-headers
+    program: 'to_entries | map("\(.key): \(.value)") | .[]'
+    options: {raw_output: true}
+    expected: ["Cache-Control: no-store", "X-Rate-Limit: 100", "X-Version: 2.43"]
+  - ref: echo:gzip
+    program: '{gzipped, method, client: .headers["user-agent"]}'
+    expected: [{"gzipped": true, "method": "GET", "client": "playground-jq"}]
+  - ref: echo:status-418
+    program: '.status'
+
+    expected: [418]
+  - ref: dhis2:system-info
+    program: '{version, revision, systemName, serverTimeZoneId}'
+    expected: [{"version": "2.43.3-SNAPSHOT", "revision": "d6b645f", "systemName": "DHIS 2 Demo - Sierra Leone", "serverTimeZoneId": "Etc/UTC"}]
+  - ref: dhis2:org-units-geojson-level-2
+    program: '.features |= map(select(.properties.name | test("^B|^K")))'
+    geojson: true
+    digest: 687b6bfe1eef5b4cd1a5cd38cc30ad854f14adbc2d959ffaf7940c94e9fbc60a
+  - ref: dhis2:org-units-geojson-level-3
+    program: '[.features[] | {name: .properties.name, type: .geometry.type}] | group_by(.type) | map({type: .[0].type, count: length})'
+    expected: [[{"type": "MultiPolygon", "count": 16}, {"type": "Polygon", "count": 136}]]
+  - ref: dhis2:org-units-geojson-level-4
+    program: '.features |= map(select(.properties.parentGraph | contains("O6uvpzGd5pu")))'
+    geojson: true
+    digest: 6391116c43203815f2626ddc4cdb65ed80aa50abc8163b2a13956dbb78ac0d4d
+  - ref: dhis2:org-units-geometry
+    program: '.organisationUnits | map({name, type: .geometry.type, rings: (.geometry.coordinates | length)})'
+    expected: [[{"name": "Bo", "type": "Polygon", "rings": 1}, {"name": "Bombali", "type": "Polygon", "rings": 1}, {"name": "Bonthe", "type": "MultiPolygon", "rings": 39}, {"name": "Kailahun", "type": "Polygon", "rings": 1}, {"name": "Kambia", "type": "MultiPolygon", "rings": 14}, {"name": "Kenema", "type": "Polygon", "rings": 1}, {"name": "Koinadugu", "type": "Polygon", "rings": 1}, {"name": "Kono", "type": "Polygon", "rings": 1}, {"name": "Moyamba", "type": "MultiPolygon", "rings": 7}, {"name": "Port Loko", "type": "MultiPolygon", "rings": 17}, {"name": "Pujehun", "type": "MultiPolygon", "rings": 3}, {"name": "Tonkolili", "type": "Polygon", "rings": 1}, {"name": "Western Area", "type": "MultiPolygon", "rings": 5}]]
+  - ref: dhis2:geo-features-level-2
+    program: '{type: "FeatureCollection", features: [.data[] | {type: "Feature", id, properties: {name: .na, code}, geometry: {type: (if .ty == 2 then "Polygon" elif .ty == 3 then "MultiPolygon" else "Point" end), coordinates: (.co | fromjson)}}]}'
+    geojson: true
+    digest: 7b6677e3e4a88abb4d898f2c2c840eb136cad90d271d1a3820d64dda374d21c5
+  - ref: dhis2:geo-features-facilities-bo
+    program: '[.data[] | {name: .na, coordinates: (.co | fromjson)}] | length'
+    expected: [54]
+  - ref: dhis2:org-unit-tree
+    program: '.organisationUnits | group_by(.level) | map({level: .[0].level, count: length})'
+    expected: [[{"level": 1, "count": 1}, {"level": 2, "count": 13}, {"level": 3, "count": 152}]]
+  - ref: dhis2:org-unit-levels
+    program: '.organisationUnitLevels | sort_by(.level) | map("\(.level): \(.name)") | .[]'
+    options: {raw_output: true}
+    expected: ["1: National", "2: District", "3: Chiefdom", "4: Facility"]
+  - ref: dhis2:org-unit-groups
+    program: '.organisationUnitGroups | map({name, members}) | sort_by(-.members)'
+    expected: [[{"name": "Public facilities", "members": 1097}, {"name": "Urban", "members": 868}, {"name": "MCHP", "members": 594}, {"name": "Rural", "members": 432}, {"name": "CHP", "members": 223}, {"name": "CHC", "members": 194}, {"name": "Chiefdom", "members": 152}, {"name": "Clinic", "members": 51}, {"name": "Hospital", "members": 34}, {"name": "District", "members": 13}, {"name": "Private Clinic", "members": 11}, {"name": "Mission", "members": 6}, {"name": "Northern Area", "members": 4}, {"name": "Eastern Area", "members": 3}, {"name": "NGO", "members": 3}, {"name": "Southern Area", "members": 3}, {"name": "Western Area", "members": 3}, {"name": "Country", "members": 1}]]
+  - ref: dhis2:data-elements
+    program: '.dataElements | group_by(.valueType) | map({valueType: .[0].valueType, count: length}) | sort_by(-.count)'
+    expected: [[{"valueType": "NUMBER", "count": 69}, {"valueType": "BOOLEAN", "count": 10}, {"valueType": "TRUE_ONLY", "count": 7}, {"valueType": "TEXT", "count": 5}, {"valueType": "DATE", "count": 2}, {"valueType": "INTEGER", "count": 2}, {"valueType": "LONG_TEXT", "count": 2}, {"valueType": "FILE_RESOURCE", "count": 1}, {"valueType": "INTEGER_ZERO_OR_POSITIVE", "count": 1}, {"valueType": "MULTI_TEXT", "count": 1}]]
+  - ref: dhis2:data-element-groups
+    program: '.dataElementGroups | map({name, size: (.dataElements | length)}) | sort_by(-.size) | .[:5]'
+    expected: [[{"name": "ART", "size": 122}, {"name": "Morbidity", "size": 102}, {"name": "Follow-up", "size": 36}, {"name": "New cases", "size": 36}, {"name": "PMTCT", "size": 32}]]
+  - ref: dhis2:indicators
+    program: '.indicators[:5] | map({name, numerator, denominator})'
+    expected: [[{"name": "Albendazole/ Mebendazole Balance end of period", "numerator": "(#{F2fghR7q97C.v1zZbpr1GKV} + #{F2fghR7q97C.AuXo3xeDhM5}) \n\n- \n\n(#{F2fghR7q97C.sL2nHckg0mI} + #{F2fghR7q97C.QoAtX3tx6dy})", "denominator": "1"}, {"name": "Amoxicillin Balance end of period", "numerator": "(#{lXUEMIud5HE.v1zZbpr1GKV} + #{lXUEMIud5HE.AuXo3xeDhM5}) \n\n- \n\n(#{lXUEMIud5HE.sL2nHckg0mI} + #{lXUEMIud5HE.QoAtX3tx6dy})", "denominator": "1"}, {"name": "ANC 1-3 Dropout Rate", "numerator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}-#{Jtf34kNZhzP.pq2XI5kz2BY}-#{Jtf34kNZhzP.PT59n8BQbqM}", "denominator": "#{fbfJHSPpUQD.pq2XI5kz2BY}+#{fbfJHSPpUQD.PT59n8BQbqM}"}, {"name": "ANC 1 Coverage", "numerator": "#{fbfJHSPpUQD}", "denominator": "#{h0xKKjijTdI}"}, {"name": "ANC 2 Coverage", "numerator": "#{cYeuwXTCPkU}", "denominator": "#{h0xKKjijTdI}"}]]
+  - ref: dhis2:data-sets
+    program: '.dataSets | map({name, periodType, elements}) | sort_by(.name)'
+    expected: [[{"name": "ART monthly summary", "periodType": "Monthly", "elements": 123}, {"name": "Child Health", "periodType": "Monthly", "elements": 31}, {"name": "Clinical Monitoring Checklist ", "periodType": "SixMonthly", "elements": 95}, {"name": "EPI Stock", "periodType": "Monthly", "elements": 12}, {"name": "Emergency Response", "periodType": "Monthly", "elements": 10}, {"name": "Expenditures", "periodType": "FinancialApril", "elements": 5}, {"name": "Facility Assessment", "periodType": "Yearly", "elements": 19}, {"name": "HIV Care Monthly", "periodType": "Monthly", "elements": 4}, {"name": "HIV Peadiatric monthly summary", "periodType": "Monthly", "elements": 23}, {"name": "IDSR Weekly", "periodType": "Weekly", "elements": 5}, {"name": "IDSR Weekly (Start Wednesday)", "periodType": "WeeklyWednesday", "elements": 5}, {"name": "Inpatient Morbidity/Mortality Summary", "periodType": "Monthly", "elements": 4}, {"name": "Life-Saving Commodities", "periodType": "Monthly", "elements": 13}, {"name": "MNCH Quarterly Report", "periodType": "Quarterly", "elements": 9}, {"name": "Morbidity", "periodType": "Monthly", "elements": 104}, {"name": "Mortality < 5 years", "periodType": "Monthly", "elements": 14}, {"name": "Mortality < 5 years Narratives", "periodType": "Monthly", "elements": 5}, {"name": "Mortality < 5 years by age group", "periodType": "Monthly", "elements": 14}, {"name": "Mortality < 5 years by gender", "periodType": "Monthly", "elements": 14}, {"name": "NUT- Outpatient Therapeutic Programme (OTP)", "periodType": "Weekly", "elements": 1}, {"name": "PMTCT monthly summary", "periodType": "Monthly", "elements": 32}, {"name": "Population", "periodType": "Yearly", "elements": 5}, {"name": "Project Management", "periodType": "Quarterly", "elements": 9}, {"name": "Reproductive Health", "periodType": "Monthly", "elements": 30}, {"name": "Staffing", "periodType": "SixMonthly", "elements": 18}, {"name": "TB Facility Reporting Form", "periodType": "Monthly", "elements": 21}, {"name": "TB/HIV (VCCT) monthly summary", "periodType": "Monthly", "elements": 10}]]
+  - ref: dhis2:category-combos
+    program: '.categoryCombos | map({name, categories: [.categories[].name], combos: (.categoryOptionCombos | length)})'
+    expected: [[{"name": "Births", "categories": ["Births attended by", "Gender"], "combos": 24}, {"name": "Commodities", "categories": ["Commodities"], "combos": 3}, {"name": "default", "categories": ["default"], "combos": 1}, {"name": "Fixed/Outreach", "categories": ["Location Fixed/Outreach"], "combos": 2}, {"name": "Gender", "categories": ["Gender"], "combos": 2}, {"name": "HIV age", "categories": ["HIV age"], "combos": 4}, {"name": "HIV age+gender", "categories": ["Gender", "HIV age"], "combos": 8}, {"name": "HIV Paed age+gender", "categories": ["Gender", "HIV paediatric age"], "combos": 6}, {"name": "Implementing Partner", "categories": ["Implementing Partner"], "combos": 16}, {"name": "Implementing Partner and Projects", "categories": ["Implementing Partner", "Project"], "combos": 64}, {"name": "Location and age group", "categories": ["Location Fixed/Outreach", "EPI/nutrition age"], "combos": 4}, {"name": "Maternal deaths", "categories": ["Location PHU/Community", "Labour complications"], "combos": 30}, {"name": "Morbidity Age", "categories": ["Morbidity Age"], "combos": 4}, {"name": "Morbidity Age and Gender", "categories": ["Morbidity Age", "Gender"], "combos": 8}, {"name": "Morbidity Cases", "categories": ["Morbidity Age"], "combos": 4}, {"name": "Morbidity Referrals", "categories": ["Referrals Age"], "combos": 2}, {"name": "NUT-Quantities reported (Balance start of the week, Received, Expired/ Damaged, Used during the week)", "categories": ["NUT-Quantities reported (Balance start of the week, Received, Expired/ Damaged, Used during the week)"], "combos": 4}, {"name": "Pregnancy complications", "categories": ["Outcome", "Labour complications"], "combos": 30}, {"name": "Project", "categories": ["Project"], "combos": 4}, {"name": "Rural and Urban", "categories": ["Rural and Urban"], "combos": 2}, {"name": "Staffing", "categories": ["Staffing"], "combos": 2}, {"name": "Stock discarded", "categories": ["Stock discarded"], "combos": 3}, {"name": "Target vs Result", "categories": ["Target vs Result"], "combos": 2}, {"name": "TT", "categories": ["Pregnant/Non-pregnant", "Point of service"], "combos": 6}, {"name": "Under 5/5 and above", "categories": ["Under 5/5 and above of age"], "combos": 2}, {"name": "Under 5/5+ and Gender", "categories": ["Under 5/5 and above of age", "Gender"], "combos": 4}]]
+  - ref: dhis2:data-value-set
+    program: '.dataValues | map(.value | tonumber? // empty) | {values: length, total: add}'
+    expected: [{"values": 52, "total": 1817}]
+  - ref: dhis2:data-value-set-bo-children
+    program: '.dataValues | group_by(.orgUnit) | map({orgUnit: .[0].orgUnit, values: length}) | sort_by(-.values) | .[:5]'
+    expected: [[{"orgUnit": "jhtj3eQa1pM", "values": 61}, {"orgUnit": "PuZOFApTSeo", "values": 59}, {"orgUnit": "CvBAqD6RzLZ", "values": 58}, {"orgUnit": "jGYT5U5qJP6", "values": 58}, {"orgUnit": "DiszpKrYNg8", "values": 52}]]
+  - ref: dhis2:tracker-events
+    program: '.events[:3] | map({event, orgUnit, values: (.dataValues | map({(.dataElement): .value}) | add)})'
+    expected: [[{"event": "lfjiNgsMNCR", "orgUnit": "cHqboEGRUiY", "values": {"fWIAEtYVEGk": "MODABSC", "eMyVanycQSC": "2021-12-15", "oZg33kd9taw": "Female", "vV9UWAZohSf": "79", "K6uUAvq500H": "W242", "qrur9Dvnyt5": "2", "GieVkTxp4HH": "63", "msodh3rEMJa": "2021-12-29"}}, {"event": "TMRkAnM7gZZ", "orgUnit": "NnQpISrLYWZ", "values": {"fWIAEtYVEGk": "MODTRANS", "eMyVanycQSC": "2021-12-15", "oZg33kd9taw": "Male", "vV9UWAZohSf": "15", "K6uUAvq500H": "I839", "qrur9Dvnyt5": "45", "GieVkTxp4HH": "90", "msodh3rEMJa": "2021-12-29"}}, {"event": "AO60KwZsiqV", "orgUnit": "DcmSvQd5N8c", "values": {"fWIAEtYVEGk": "MODDISCH", "eMyVanycQSC": "2021-12-15", "oZg33kd9taw": "Female", "vV9UWAZohSf": "41", "K6uUAvq500H": "P37", "qrur9Dvnyt5": "30", "GieVkTxp4HH": "171", "msodh3rEMJa": "2021-12-29"}}]]
+  - ref: dhis2:tracked-entities
+    program: '.trackedEntities | map({trackedEntity, attributes: (.attributes | map({(.displayName): .value}) | add)}) | .[:3]'
+    expected: [[{"trackedEntity": "PQfMcpmXeFE", "attributes": {"First name": "John", "Last name": "Kelly", "Gender": "Male"}}, {"trackedEntity": "gGDBG5aGlIk", "attributes": {"First name": "Mark", "Last name": "Coleman", "Gender": "Male"}}, {"trackedEntity": "IjhtI0sk0O6", "attributes": {"First name": "Deborah", "Last name": "James", "Gender": "Female"}}]]
+  - ref: dhis2:schema-data-element
+    program: '{name, required: [.properties[] | select(.required) | .name]}'
+    expected: [{"name": "dataElement", "required": ["aggregationType", "domainType", "categoryCombo", "valueType", "zeroIsSignificant", "name", "shortName"]}]
+  - ref: dhis2:users
+    program: '.users | map({username, roles: [.userRoles[].name]}) | .[:5]'
+    expected: [[{"username": "traore", "roles": ["Superuser"]}, {"username": "alinana", "roles": ["Guest"]}, {"username": "arabicB", "roles": ["M and E Officer"]}, {"username": "arabiceB", "roles": ["M and E Officer"]}, {"username": "arabice", "roles": ["Antenatal care program", "System administrator (ALL)"]}]]

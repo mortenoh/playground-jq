@@ -16,7 +16,7 @@ from playground_jq.sources.geojson import validate_geojson
 from playground_jq.sources.registry import InputRef, Sources
 
 #: What kind of content a verdict is about.
-ItemKind = Literal["example", "tutorial", "snippet"]
+ItemKind = Literal["example", "tutorial", "snippet", "starter"]
 
 #: pass: matches; drift: live values differ but the shape matches; fail: wrong or broken.
 Status = Literal["pass", "drift", "fail", "skip"]
@@ -74,6 +74,18 @@ def items(library: Library) -> list[Item]:
                     check=Check.model_validate(step.model_dump(include=set(Check.model_fields))),
                 )
             )
+    for starter in library.starters:
+        found.append(
+            Item(
+                kind="starter",
+                id=f"starter:{starter.ref}",
+                program=starter.program,
+                input=InputSpec(ref=starter.ref),
+                options=starter.options,
+                check=Check.model_validate(starter.model_dump(include=set(Check.model_fields))),
+                live_capable=not starter.ref.startswith("static:"),
+            )
+        )
     for chapter in library.chapters:
         for snippet in chapter.snippets:
             found.append(

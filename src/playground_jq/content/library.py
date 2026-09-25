@@ -16,6 +16,7 @@ from playground_jq.content.models import (
     ExampleGroup,
     InputSpec,
     Snippet,
+    Starter,
     Tutorial,
 )
 
@@ -24,6 +25,7 @@ EXAMPLES_DIR = PACKAGE_DIR / "examples"
 TUTORIALS_DIR = PACKAGE_DIR / "tutorials"
 GUIDE_DIR = PACKAGE_DIR / "guide"
 BUILTINS_FILE = PACKAGE_DIR / "content" / "builtins.yaml"
+STARTERS_FILE = PACKAGE_DIR / "content" / "starters.yaml"
 
 #: A runnable snippet in a chapter: a fenced block whose body is YAML.
 SNIPPET_BLOCK = re.compile(r"^```jq-try[ \t]*\n(?P<body>.*?)^```[ \t]*$", re.MULTILINE | re.DOTALL)
@@ -43,6 +45,11 @@ class Library(BaseModel):
     tutorials: list[Tutorial]
     chapters: list[Chapter]
     builtins: list[Builtin]
+    starters: list[Starter] = []
+
+    def starter(self, ref: str) -> Starter | None:
+        """The suggested program for a preset."""
+        return next((starter for starter in self.starters if starter.ref == ref), None)
 
     def examples(self) -> list[Example]:
         """Every example, in group order."""
@@ -153,6 +160,17 @@ def load_builtins(path: Path = BUILTINS_FILE) -> list[Builtin]:
     return TypeAdapter(list[Builtin]).validate_python(_load_yaml(path) or [])
 
 
+def load_starters(path: Path = STARTERS_FILE) -> list[Starter]:
+    """The suggested program per preset."""
+    if not path.is_file():
+        return []
+    raw: Any = _load_yaml(path) or {}
+    try:
+        return TypeAdapter(list[Starter]).validate_python(raw.get("starters", []))
+    except ValueError as error:
+        raise ContentError(f"{path.name}: {error}") from error
+
+
 def load_library() -> Library:
     """Load and validate all content, refusing duplicates."""
     library = Library(
@@ -160,10 +178,12 @@ def load_library() -> Library:
         tutorials=load_tutorials(),
         chapters=load_chapters(),
         builtins=load_builtins(),
+        starters=load_starters(),
     )
     _refuse_duplicates("example", [example.id for example in library.examples()])
     _refuse_duplicates("tutorial", [tutorial.id for tutorial in library.tutorials])
     _refuse_duplicates("chapter", [chapter.slug for chapter in library.chapters])
+    _refuse_duplicates("starter", [starter.ref for starter in library.starters])
     return library
 
 

@@ -37,6 +37,12 @@ class Preset(BaseModel):
     request: dict[str, JsonValue] = Field(default_factory=lambda: {})
     """What a live source sends for this preset (method, path, params, body)."""
 
+    program: str | None = None
+    """The program the playground suggests for this input (from `content/starters.yaml`)."""
+
+    options: dict[str, JsonValue] = Field(default_factory=lambda: {})
+    """Flags the suggested program runs with."""
+
 
 class SourceInfo(BaseModel):
     """A source and everything it offers."""

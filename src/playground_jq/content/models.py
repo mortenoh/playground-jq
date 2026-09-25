@@ -189,6 +189,19 @@ class Chapter(ChapterSummary):
     snippets: list[Snippet]
 
 
+class Starter(Check):
+    """The program the playground suggests when a dataset or snapshot is loaded."""
+
+    ref: str
+    """The preset it belongs to, as `source:preset`."""
+
+    program: str
+    """The suggested program."""
+
+    options: RunOptions = Field(default_factory=RunOptions)
+    """Flags it runs with."""
+
+
 class Builtin(BaseModel):
     """One builtin function or operator of jq."""
 
