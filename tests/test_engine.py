@@ -237,3 +237,14 @@ async def test_missing_binary() -> None:
 )
 def test_literals_jq_prints_as_written_go_to_the_binary(text: str, kept: bool) -> None:
     assert needs_cli(".", RunOptions(), text) is kept
+
+
+@pytest.mark.cli_jq
+def test_the_jq_binary_is_the_version_the_browser_build_embeds() -> None:
+    # Error messages and printing differ between jq releases; content is recorded against 1.8.2.
+    import shutil
+    import subprocess
+
+    executable = shutil.which("jq")
+    assert executable is not None
+    assert subprocess.run([executable, "--version"], capture_output=True, text=True).stdout.strip() == "jq-1.8.2"

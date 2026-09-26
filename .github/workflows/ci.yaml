@@ -27,8 +27,9 @@ jobs:
       # Content snippets marked cli_only run on the jq binary and must match jq 1.8.
       - name: Install jq 1.8
         run: |
-          sudo curl -fsSL -o /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-linux-amd64
+          sudo curl -fsSL -o /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-1.8.2/jq-linux-amd64
           sudo chmod +x /usr/local/bin/jq
+          test "$(jq --version)" = jq-1.8.2
           jq --version
 
       - name: Install dependencies
@@ -56,8 +57,9 @@ jobs:
 
       - name: Install jq 1.8
         run: |
-          sudo curl -fsSL -o /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-linux-amd64
+          sudo curl -fsSL -o /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-1.8.2/jq-linux-amd64
           sudo chmod +x /usr/local/bin/jq
+          test "$(jq --version)" = jq-1.8.2
 
       - name: Install Chromium
         run: cd frontend && bun install --frozen-lockfile && bunx playwright install --with-deps chromium
