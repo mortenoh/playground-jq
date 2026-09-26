@@ -4,14 +4,31 @@ import { Route, Routes } from 'react-router'
 import { AppShell } from '@/components/AppShell'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Loading } from '@/components/PageState'
+import { whenIdle } from '@/lib/idle'
 
-const PlaygroundPage = lazy(() => import('@/pages/PlaygroundPage'))
-const ExamplesPage = lazy(() => import('@/pages/ExamplesPage'))
-const ExamplePage = lazy(() => import('@/pages/ExamplePage'))
-const GuidePage = lazy(() => import('@/pages/GuidePage'))
-const LearnPage = lazy(() => import('@/pages/LearnPage'))
-const TutorialPage = lazy(() => import('@/pages/TutorialPage'))
-const ReferencePage = lazy(() => import('@/pages/ReferencePage'))
+const pages = {
+    playground: () => import('@/pages/PlaygroundPage'),
+    examples: () => import('@/pages/ExamplesPage'),
+    example: () => import('@/pages/ExamplePage'),
+    guide: () => import('@/pages/GuidePage'),
+    learn: () => import('@/pages/LearnPage'),
+    tutorial: () => import('@/pages/TutorialPage'),
+    reference: () => import('@/pages/ReferencePage'),
+}
+
+const PlaygroundPage = lazy(pages.playground)
+const ExamplesPage = lazy(pages.examples)
+const ExamplePage = lazy(pages.example)
+const GuidePage = lazy(pages.guide)
+const LearnPage = lazy(pages.learn)
+const TutorialPage = lazy(pages.tutorial)
+const ReferencePage = lazy(pages.reference)
+
+// Every page's chunk is fetched once the browser is idle, so the first visit to a tab does not
+// wait for the network (this matters most on the static site).
+whenIdle(() => {
+    for (const load of Object.values(pages)) void load().catch(() => undefined)
+})
 
 export default function App() {
     return (

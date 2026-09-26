@@ -34,3 +34,22 @@ describe('history', () => {
         expect(history.get()).toHaveLength(HISTORY_LIMIT)
     })
 })
+
+describe('persisted stores', () => {
+    it('save once changes pause', async () => {
+        const { persistedStore } = await import('@/lib/store')
+        const writes: string[] = []
+        const storage = {
+            getItem: () => null,
+            setItem: (key: string, value: string) => (key === 'debounced' ? writes.push(value) : 0),
+        }
+        Object.defineProperty(globalThis, 'localStorage', { value: storage, configurable: true })
+        const store = persistedStore('debounced', 0, 20)
+        store.set(1)
+        store.set(2)
+        store.set(3)
+        expect(writes).toEqual([])
+        await new Promise((resolve) => setTimeout(resolve, 40))
+        expect(writes).toEqual(['3'])
+    })
+})

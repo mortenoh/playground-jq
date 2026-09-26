@@ -32,8 +32,8 @@ export function createStore<T>(initial: T): Store<T> {
     }
 }
 
-/** A store persisted to localStorage under a key; storage errors fall back to memory. */
-export function persistedStore<T>(key: string, initial: T): Store<T> {
+/** A store persisted to localStorage under a key (debounced); storage errors fall back to memory. */
+export function persistedStore<T>(key: string, initial: T, delayMs = 400): Store<T> {
     let start = initial
     try {
         const raw = localStorage.getItem(key)
@@ -42,12 +42,21 @@ export function persistedStore<T>(key: string, initial: T): Store<T> {
         // Storage denied or the value is not JSON: start from the initial value.
     }
     const store = createStore(start)
-    store.subscribe(() => {
+    let timer: ReturnType<typeof setTimeout> | null = null
+    const save = () => {
+        timer = null
         try {
             localStorage.setItem(key, JSON.stringify(store.get()))
         } catch {
             // Storage denied or full: the value lives for this page only.
         }
+    }
+    // Written once changes pause: serialising a megabyte input on every keystroke is what
+    // makes typing lag, and nothing reads storage between keystrokes.
+    store.subscribe(() => {
+        if (timer !== null) clearTimeout(timer)
+        timer = setTimeout(save, delayMs)
     })
+    if (typeof window !== 'undefined') window.addEventListener('pagehide', () => timer !== null && save())
     return store
 }

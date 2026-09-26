@@ -7,7 +7,7 @@ import { persistedStore } from '@/lib/store'
 /** Solved step numbers per tutorial id. */
 export type Progress = Record<string, number[]>
 
-export const progress = persistedStore<Progress>('pjq.progress', {})
+export const progress = persistedStore<Progress>('pjq.progress', {}, 0)
 
 /** Mark a step solved. */
 export function markSolved(tutorial: string, step: number): void {
