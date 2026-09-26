@@ -27,6 +27,7 @@ interface Case {
 
 const CASES: Case[] = [
     { click: [], program: '.', input: JSON_INPUT },
+    { click: ['-c'], program: '., .n + 1', input: '{"n": 24.0, "e": 1e3, "z": 1.000, "m": -0}' },
     { click: ['-c'], program: '.', input: JSON_INPUT },
     { click: ['-r'], program: '.s', input: JSON_INPUT },
     { click: ['-j'], program: '.s', input: JSON_INPUT },

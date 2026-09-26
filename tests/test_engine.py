@@ -164,6 +164,8 @@ async def test_geojson_output_is_detected(settings: Settings) -> None:
         ("$input", RunOptions(), False),
         ("map(.a)", RunOptions(), False),
         ('"invalid input" | debug_not', RunOptions(), False),
+        ("24.0 + 1", RunOptions(), True),
+        (". * 2", RunOptions(), False),
     ],
 )
 def test_needs_cli(program: str, options: RunOptions, expected: bool) -> None:
@@ -217,3 +219,21 @@ async def test_missing_binary() -> None:
     settings = Settings(jq_binary="no-such-jq-binary")
     result = await run_program("[inputs]", "1", RunOptions(null_input=True), settings)
     assert result.errors[0].kind == "unavailable"
+
+
+@pytest.mark.parametrize(
+    ("text", "kept"),
+    [
+        ('{"price": 24.0}', True),
+        ("[1.000, 2]", True),
+        ('{"e": 1e3}', True),
+        ("1.5E-7", True),
+        ("-0", True),
+        ("[2.50]", True),
+        ('{"price": 24, "lat": 8.4875, "n": -3, "x": 0.5}', False),
+        ('"v1.10 is a version string"', False),
+        ("[10, 100, 1000]", False),
+    ],
+)
+def test_literals_jq_prints_as_written_go_to_the_binary(text: str, kept: bool) -> None:
+    assert needs_cli(".", RunOptions(), text) is kept

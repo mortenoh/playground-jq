@@ -26,16 +26,22 @@ STRING_LITERAL = re.compile(r'"(?:\\.|[^"\\])*"')
 BIG_INTEGER = re.compile(r"(?<![\d.])\d{16,}(?![\d.])")
 
 
+#: A number jq 1.8 prints as written but jq.py would print canonically: trailing zeros after the
+#: point (24.0, 2.50), an exponent (1e3, which jq prints 1E+3), or negative zero.
+KEPT_LITERAL = re.compile(r"(?<![\w.])-?\d+(?:\.\d*0(?!\d)|(?:\.\d+)?[eE][-+]?\d)|(?<![\w.])-0(?![\d.])")
+
+
 def needs_cli(program: str, options: RunOptions, input_text: str = "") -> bool:
     """Whether this program, its flags or its input need the command-line binary.
 
     `--seq` changes how input is read as well as how output is written, so it runs where jq
-    implements both; large integer literals keep their precision only in jq itself.
+    implements both; large integers and literals such as `24.0` or `1e3` print as written only
+    in jq itself.
     """
     code = STRING_LITERAL.sub('""', program)
     if options.stream or options.seq or CLI_ONLY.search(code):
         return True
-    return bool(BIG_INTEGER.search(program) or BIG_INTEGER.search(input_text))
+    return any(pattern.search(text) for pattern in (BIG_INTEGER, KEPT_LITERAL) for text in (code, input_text))
 
 
 def reads_input(program: str, options: RunOptions) -> bool:

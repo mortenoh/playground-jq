@@ -5,7 +5,9 @@ case runs through `run_program` on the jq.py library and on the binary engine, a
 text must be identical. Needs jq 1.8 on PATH.
 """
 
+import itertools
 import json
+import shlex
 import shutil
 import subprocess
 from typing import Any
@@ -121,7 +123,77 @@ async def test_engine_prints_what_jq_prints(
     run_options = RunOptions.model_validate({**options, "engine": engine})
     if engine == "library" and needs_cli(program, run_options, text):
         pytest.skip("this case needs the jq binary, which auto routes it to")
-    expected, failed = jq_itself(flags, program, text)
     result = await run_program(program, text, run_options, Settings(dhis2_enabled=False))
-    assert result.text == expected, json.dumps({"ours": result.text, "jq": expected})
+    # The command the playground shows, run in a terminal, must print exactly what it shows.
+    shown = shlex.split(result.command)
+    assert shown[0] == "jq"
+    argv = [arg for arg in shown[1:] if arg != "input.json"]
+    assert argv[-1] == program
+    expected, failed = jq_itself(argv[:-1], argv[-1], text)
+    assert result.text == expected, json.dumps({"ours": result.text, "jq": expected, "command": result.command})
     assert result.ok == (not failed)
+    # And the flags themselves took effect: jq given the case's own flags prints the same, unless
+    # the case sets two printing styles at once (-c or --tab with --indent), where jq's order decides.
+    if not ("--indent" in flags and {"-c", "--tab"} & set(flags)):
+        assert result.text == jq_itself(flags, program, text)[0]
+
+
+#: Every pair of on/off flags, and each flag with `--indent 0` and `--indent 4`.
+BOOLEAN_FLAGS: list[tuple[str, str]] = [
+    ("-n", "null_input"),
+    ("-s", "slurp"),
+    ("-R", "raw_input"),
+    ("-r", "raw_output"),
+    ("-j", "join_output"),
+    ("-a", "ascii_output"),
+    ("-c", "compact"),
+    ("-S", "sort_keys"),
+    ("--tab", "tab"),
+    ("--seq", "seq"),
+    ("--stream", "stream"),
+]
+
+#: Kept number literals, unicode, a tab in a string, nesting and two values.
+PAIR_JSON = '{"b": 24.0, "a": {"z": [1.000, "ø", 1e3]}, "s": "tab\\there"}\n{"b": 2, "s": "two"}\n'
+
+#: The same shapes with only canonical numbers: the jq.py engine runs these itself (kept literals
+#: are sent to the binary, which PAIR_JSON covers).
+PAIR_JSON_PLAIN = '{"b": 24, "a": {"z": [1, "ø", 1000]}, "s": "tab\\there"}\n{"b": 2, "s": "two"}\n'
+
+
+def pair_case(pairs: list[tuple[str, str]], indent: int | None = None) -> tuple[list[str], dict[str, Any], str, str]:
+    """One case: the flags, the options, a program that shows them, and an input they can read."""
+    names = {name for _, name in pairs}
+    flags = [flag for flag, name in BOOLEAN_FLAGS if name in names]
+    options: dict[str, Any] = {name: True for name in names}
+    if indent is not None:
+        flags += ["--indent", str(indent)]
+        options["indent"] = indent
+    raw = "raw_input" in names
+    text = TEXT_INPUT if raw else PAIR_JSON
+    if "null_input" in names:
+        program = "[inputs]"
+    elif raw:
+        program = "., length"
+    else:
+        program = "., .s"
+    return flags, options, program, text
+
+
+PAIR_CASES = [pair_case(list(pair)) for pair in itertools.combinations(BOOLEAN_FLAGS, 2)] + [
+    pair_case([flag], indent) for flag in BOOLEAN_FLAGS for indent in (0, 4)
+]
+
+
+@pytest.mark.parametrize(
+    ("flags", "options", "program", "text"),
+    PAIR_CASES,
+    ids=[f"{' '.join(flags)} | {program}" for flags, _, program, _ in PAIR_CASES],
+)
+@pytest.mark.parametrize("engine", ["library", "cli"])
+async def test_flag_pairs_print_what_jq_prints(
+    engine: str, flags: list[str], options: dict[str, Any], program: str, text: str
+) -> None:
+    if engine == "library" and text == PAIR_JSON:
+        text = PAIR_JSON_PLAIN
+    await test_engine_prints_what_jq_prints(engine, flags, options, program, text)

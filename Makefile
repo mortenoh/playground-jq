@@ -36,8 +36,7 @@ check: ## CI gate, read-only: formatting, lint, types, all tests, all content ve
 	$(UV) run ruff check .
 	$(UV) run mypy src tests
 	$(UV) run pyright
-	$(UV) run coverage run -m pytest
-	$(UV) run coverage report --fail-under=90
+	$(UV) run pytest --cov --cov-report=term-missing:skip-covered --cov-fail-under=90
 	cd $(FRONTEND) && bun run fmt:check && bun run lint && bun run typecheck && bun run test
 
 test: ## Backend and frontend unit tests (content verification included)
