@@ -2,6 +2,7 @@ import pytest
 
 from playground_jq.config import Settings
 from playground_jq.jq.engine import needs_cli, run_program
+from playground_jq.jq.formatting import equivalent_command
 from playground_jq.jq.models import SANDBOX_ENV, RunOptions
 from playground_jq.jq.runner import RunnerPool
 
@@ -248,3 +249,20 @@ def test_the_jq_binary_is_the_version_the_browser_build_embeds() -> None:
     executable = shutil.which("jq")
     assert executable is not None
     assert subprocess.run([executable, "--version"], capture_output=True, text=True).stdout.strip() == "jq-1.8.2"
+
+
+def test_commands_match_the_browser_builder() -> None:
+    # The same strings frontend/src/lib/local/local.test.ts expects from the browser's builder.
+    assert (
+        equivalent_command("$ARGS", RunOptions(null_input=True, positional=["a", "b c"]), reads_input=False)
+        == "jq -n --args '$ARGS' a 'b c'"
+    )
+    assert (
+        equivalent_command(".", RunOptions(positional=["1"], positional_json=True)) == "jq --jsonargs . 1 < input.json"
+    )
+    options = RunOptions(
+        exit_status=True, color=True, raw_output0=True, slurpfile={"s": "1"}, rawfile={"r": "x"}, modules={"m": ""}
+    )
+    assert equivalent_command(".", options) == (
+        "jq --raw-output0 -C -e --slurpfile s s.json --rawfile r r.txt -L modules . input.json"
+    )

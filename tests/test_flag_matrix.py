@@ -10,6 +10,8 @@ import json
 import shlex
 import shutil
 import subprocess
+import tempfile
+from pathlib import Path
 from typing import Any
 
 import pytest
@@ -92,23 +94,69 @@ CASES.extend(
             "",
         ),
         (["-c"], {"compact": True}, ".b | 1 / (. - 1)", JSON_INPUT),
+        (["-e"], {"exit_status": True}, ".t", JSON_INPUT),
+        (["-e"], {"exit_status": True}, ".b > 1", JSON_INPUT),
+        (["-e"], {"exit_status": True}, "empty", JSON_INPUT),
+        (["-e"], {"exit_status": True}, ".missing", JSON_INPUT),
+        (["--raw-output0"], {"raw_output0": True}, ".s", JSON_INPUT),
+        (["--raw-output0"], {"raw_output0": True}, ".a.z[]", JSON_INPUT),
+        (["-C"], {"color": True}, ".", JSON_INPUT),
+        (["-C", "-c"], {"color": True, "compact": True}, ".", JSON_INPUT),
+        (["-C", "-S", "--tab"], {"color": True, "sort_keys": True, "tab": True}, ".a", JSON_INPUT),
+        (["-n", "-c", "--args"], {"null_input": True, "compact": True, "positional": ["a", "b c"]}, "$ARGS", ""),
+        (
+            ["-n", "-c", "--jsonargs"],
+            {"null_input": True, "compact": True, "positional": ["1", '{"x": [2]}'], "positional_json": True},
+            "$ARGS.positional",
+            "",
+        ),
+        (["-c", "--args"], {"compact": True, "positional": ["x"]}, "[.b, $ARGS.positional]", JSON_INPUT),
+        (
+            ["-n", "-c", "--slurpfile", "s", "s.json", "--rawfile", "r", "r.txt"],
+            {"null_input": True, "compact": True, "slurpfile": {"s": "1 2.50\n[3]"}, "rawfile": {"r": "raw\ntext\n"}},
+            "[$s, $r]",
+            "",
+        ),
+        (
+            ["-L", "modules"],
+            {"modules": {"m": "def double: . * 2;", "n": 'def greet: "hi \\(.)";'}},
+            'import "m" as m; include "n"; .b | m::double, greet',
+            JSON_INPUT,
+        ),
     ]
 )
 
 
-def jq_itself(flags: list[str], program: str, text: str) -> tuple[str, bool]:
-    """What the jq binary prints, and whether it reported an error.
+def jq_itself(argv: list[str], text: str, options: RunOptions) -> tuple[str, bool, int]:
+    """What the jq binary prints for these arguments, whether it reported an error, and its exit status.
 
-    jq's exit status only reflects the last input, so stderr is what says whether anything failed.
+    It runs in a scratch directory holding the files the arguments name (`name.json`, `name.txt`,
+    `modules/`), as the playground's displayed command does. jq's exit status only reflects the
+    last input, so stderr is what says whether anything failed.
     """
-    done = subprocess.run(
-        [str(JQ), *flags, program],
-        input=text.encode(),
-        capture_output=True,
-        env={"HOME": "/home/learner", "TZ": "UTC"},
-        check=False,
-    )
-    return done.stdout.decode(), "jq: error" in done.stderr.decode()
+    with tempfile.TemporaryDirectory() as scratch:
+        where = Path(scratch)
+        for name, content in options.slurpfile.items():
+            (where / f"{name}.json").write_text(content)
+        for name, content in options.rawfile.items():
+            (where / f"{name}.txt").write_text(content)
+        if options.modules:
+            (where / "modules").mkdir()
+            for name, content in options.modules.items():
+                (where / "modules" / f"{name}.jq").write_text(content)
+        done = subprocess.run(
+            [str(JQ), *argv],
+            input=text.encode(),
+            capture_output=True,
+            env={"HOME": "/home/learner", "TZ": "UTC"},
+            cwd=scratch,
+            check=False,
+        )
+    return done.stdout.decode(), "jq: error" in done.stderr.decode(), done.returncode
+
+
+#: Printing styles that override each other on jq's command line, where the order decides.
+CONFLICTS = ({"-c", "--tab", "--indent"}, {"-j", "--raw-output0"})
 
 
 @pytest.mark.parametrize(
@@ -127,15 +175,18 @@ async def test_engine_prints_what_jq_prints(
     # The command the playground shows, run in a terminal, must print exactly what it shows.
     shown = shlex.split(result.command)
     assert shown[0] == "jq"
-    argv = [arg for arg in shown[1:] if arg != "input.json"]
-    assert argv[-1] == program
-    expected, failed = jq_itself(argv[:-1], argv[-1], text)
+    argv = [arg for arg in shown[1:] if arg not in ("input.json", "<")]
+    assert program in argv
+    expected, failed, status = jq_itself(argv, text, run_options)
     assert result.text == expected, json.dumps({"ours": result.text, "jq": expected, "command": result.command})
     assert result.ok == (not failed)
+    if result.exit_code is not None:
+        assert result.exit_code == status, (result.exit_code, status)
     # And the flags themselves took effect: jq given the case's own flags prints the same, unless
-    # the case sets two printing styles at once (-c or --tab with --indent), where jq's order decides.
-    if not ("--indent" in flags and {"-c", "--tab"} & set(flags)):
-        assert result.text == jq_itself(flags, program, text)[0]
+    # the case sets two printing styles that override each other, where jq's order decides.
+    if not any(len(group & set(flags)) > 1 for group in CONFLICTS):
+        own = [*flags, program, *options.get("positional", [])]
+        assert result.text == jq_itself(own, text, run_options)[0]
 
 
 #: Every pair of on/off flags, and each flag with `--indent 0` and `--indent 4`.
@@ -151,6 +202,9 @@ BOOLEAN_FLAGS: list[tuple[str, str]] = [
     ("--tab", "tab"),
     ("--seq", "seq"),
     ("--stream", "stream"),
+    ("-e", "exit_status"),
+    ("--raw-output0", "raw_output0"),
+    ("-C", "color"),
 ]
 
 #: Kept number literals, unicode, a tab in a string, nesting and two values.
@@ -184,6 +238,9 @@ PAIR_CASES = [pair_case(list(pair)) for pair in itertools.combinations(BOOLEAN_F
     pair_case([flag], indent) for flag in BOOLEAN_FLAGS for indent in (0, 4)
 ]
 
+#: Every triple of on/off flags.
+TRIPLE_CASES = [pair_case(list(triple)) for triple in itertools.combinations(BOOLEAN_FLAGS, 3)]
+
 
 @pytest.mark.parametrize(
     ("flags", "options", "program", "text"),
@@ -192,6 +249,20 @@ PAIR_CASES = [pair_case(list(pair)) for pair in itertools.combinations(BOOLEAN_F
 )
 @pytest.mark.parametrize("engine", ["library", "cli"])
 async def test_flag_pairs_print_what_jq_prints(
+    engine: str, flags: list[str], options: dict[str, Any], program: str, text: str
+) -> None:
+    if engine == "library" and text == PAIR_JSON:
+        text = PAIR_JSON_PLAIN
+    await test_engine_prints_what_jq_prints(engine, flags, options, program, text)
+
+
+@pytest.mark.parametrize(
+    ("flags", "options", "program", "text"),
+    TRIPLE_CASES,
+    ids=[f"{' '.join(flags)} | {program}" for flags, _, program, _ in TRIPLE_CASES],
+)
+@pytest.mark.parametrize("engine", ["library", "cli"])
+async def test_flag_triples_print_what_jq_prints(
     engine: str, flags: list[str], options: dict[str, Any], program: str, text: str
 ) -> None:
     if engine == "library" and text == PAIR_JSON:

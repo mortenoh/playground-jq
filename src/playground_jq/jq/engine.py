@@ -1,5 +1,6 @@
 """Running one jq program: pick the engine, enforce the limits, format the result."""
 
+import json
 import re
 import time
 from typing import Any, Literal, cast
@@ -35,13 +36,33 @@ def needs_cli(program: str, options: RunOptions, input_text: str = "") -> bool:
     """Whether this program, its flags or its input need the command-line binary.
 
     `--seq` changes how input is read as well as how output is written, so it runs where jq
-    implements both; large integers and literals such as `24.0` or `1e3` print as written only
+    implements both; the exit status, NUL-separated and coloured output, files and modules exist
+    only on the command line; large integers and literals such as `24.0` or `1e3` print as written only
     in jq itself.
     """
     code = STRING_LITERAL.sub('""', program)
-    if options.stream or options.seq or CLI_ONLY.search(code):
+    command_line_only = (
+        options.stream,
+        options.seq,
+        options.exit_status,
+        options.raw_output0,
+        options.color,
+        bool(options.slurpfile),
+        bool(options.rawfile),
+        bool(options.modules),
+        # --jsonargs values are JSON texts; jq keeps their number literals (2.50), Python would not.
+        options.positional_json and bool(options.positional),
+    )
+    if any(command_line_only) or CLI_ONLY.search(code):
         return True
     return any(pattern.search(text) for pattern in (BIG_INTEGER, KEPT_LITERAL) for text in (code, input_text))
+
+
+def positional_values(options: RunOptions) -> list[Any]:
+    """The positional arguments as `$ARGS.positional` holds them: strings, or parsed JSON."""
+    if not options.positional_json:
+        return list(options.positional)
+    return [json.loads(text) for text in options.positional]
 
 
 def reads_input(program: str, options: RunOptions) -> bool:
@@ -108,12 +129,14 @@ async def run_program(
             )
         except TimeoutError:
             return finish([], [_timeout(settings)])
-        return finish(
+        result = finish(
             outcome.outputs, outcome.errors, truncated=outcome.truncated, messages=outcome.messages, text=outcome.text
         )
+        return result.model_copy(update={"exit_code": outcome.exit_code})
     request: dict[str, Any] = {
         "program": program,
         "variables": {**options.args, **options.argjson},
+        "positional": positional_values(options),
         "input": input_text,
         "slurp": options.slurp,
         "null_input": options.null_input,

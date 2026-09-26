@@ -1,4 +1,7 @@
-import { execFileSync } from 'node:child_process'
+import { execFileSync, spawnSync } from 'node:child_process'
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import path from 'node:path'
 
 import { expect, test } from '@playwright/test'
 
@@ -17,8 +20,12 @@ const TEXT_INPUT = 'alpha,1\nbeta,2\ngamma,3\n'
 interface Case {
     /** Toolbar buttons to click, by their label. */
     click: string[]
-    /** A variable added with the toolbar's --arg row: name, value, and whether it is --argjson. */
-    variable?: { name: string; value: string; json: boolean }
+    /** A variable added with the toolbar's --arg row. */
+    variable?: { name: string; value: string; kind: 'arg' | 'argjson' | 'slurpfile' | 'rawfile' }
+    /** Positional arguments typed into the --args editor. */
+    positional?: { values: string[]; json: boolean }
+    /** A module defined with the -L button, named m1. */
+    module?: string
     /** A value for the --indent box, when the case sets one. */
     indent?: number
     program: string
@@ -51,42 +58,110 @@ const CASES: Case[] = [
     { click: ['-S'], indent: 7, program: '.', input: JSON_INPUT },
     {
         click: ['-n'],
-        variable: { name: 'who', value: 'jq learner', json: false },
+        variable: { name: 'who', value: 'jq learner', kind: 'arg' },
         program: '"hello \\($who)"',
         input: '',
     },
     {
         click: ['-n', '-c'],
-        variable: { name: 'cfg', value: '{"n": [1, 2]}', json: true },
+        variable: { name: 'cfg', value: '{"n": [1, 2]}', kind: 'argjson' },
         program: '$cfg.n | add, $cfg',
         input: '',
+    },
+    {
+        click: ['-n', '-c'],
+        variable: { name: 's', value: '1 2.50\n{"a": [3]}', kind: 'slurpfile' },
+        program: '$s',
+        input: '',
+    },
+    {
+        click: ['-n'],
+        variable: { name: 'r', value: 'line one\nline two\n', kind: 'rawfile' },
+        program: '$r | split("\\n")',
+        input: '',
+    },
+    { click: ['-n', '-c'], positional: { values: ['a', 'b c'], json: false }, program: '$ARGS', input: '' },
+    {
+        click: ['-n', '-c'],
+        positional: { values: ['1', '{"x": [2.50]}'], json: true },
+        program: '$ARGS.positional',
+        input: '',
+    },
+    { click: ['-e'], program: '.t', input: JSON_INPUT },
+    { click: ['-e'], program: 'false', input: JSON_INPUT },
+    { click: ['-e'], program: 'empty', input: JSON_INPUT },
+    { click: ['--raw-output0'], program: '.s', input: JSON_INPUT },
+    { click: ['-C'], program: '.', input: JSON_INPUT },
+    { click: ['-C', '-c', '-S'], program: '.', input: JSON_INPUT },
+    { click: ['-C', '-r'], program: '.s, .a', input: JSON_INPUT },
+    {
+        click: [],
+        module: 'def double: . * 2;',
+        program: 'import "m1" as m; .b | m::double',
+        input: JSON_INPUT,
     },
 ]
 
 /** The flags on jq's command line for a case, in the order the playground writes them. */
 function flagsOf(entry: Case): string[] {
-    const order = ['-n', '-s', '-R', '-j', '-r', '-a', '-c', '-S', '--tab', '--seq', '--stream']
+    const order = [
+        '-n',
+        '-s',
+        '-R',
+        '-j',
+        '--raw-output0',
+        '-r',
+        '-a',
+        '-C',
+        '-c',
+        '-S',
+        '--tab',
+        '--seq',
+        '--stream',
+        '-e',
+    ]
     // With -j set, the playground writes -j alone (it implies -r).
     const flags = order.filter(
         (flag) => entry.click.includes(flag) && !(flag === '-r' && entry.click.includes('-j')),
     )
     if (entry.indent !== undefined) flags.push('--indent', String(entry.indent))
     if (entry.variable !== undefined) {
-        const { name, value, json } = entry.variable
-        flags.push(json ? '--argjson' : '--arg', name, value)
+        const { name, value, kind } = entry.variable
+        if (kind === 'slurpfile') flags.push('--slurpfile', name, `${name}.json`)
+        else if (kind === 'rawfile') flags.push('--rawfile', name, `${name}.txt`)
+        else flags.push(`--${kind}`, name, value)
     }
+    if (entry.module !== undefined) flags.push('-L', 'modules')
     return flags
 }
 
-function jqPrints(entry: Case): string {
+/** What jq itself prints for the case, and its exit status, run where the files it names exist. */
+function jqPrints(entry: Case): { text: string; status: number } {
+    const scratch = mkdtempSync(path.join(tmpdir(), 'pjq-e2e-'))
     try {
-        return execFileSync(JQ, [...flagsOf(entry), entry.program], {
-            input: entry.input,
-            encoding: 'utf8',
-            env: { HOME: '/home/learner' },
-        })
-    } catch (error) {
-        return (error as { stdout: string }).stdout
+        if (entry.variable?.kind === 'slurpfile')
+            writeFileSync(path.join(scratch, `${entry.variable.name}.json`), entry.variable.value)
+        if (entry.variable?.kind === 'rawfile')
+            writeFileSync(path.join(scratch, `${entry.variable.name}.txt`), entry.variable.value)
+        if (entry.module !== undefined) {
+            mkdirSync(path.join(scratch, 'modules'))
+            writeFileSync(path.join(scratch, 'modules', 'm1.jq'), entry.module)
+        }
+        const positional =
+            entry.positional === undefined ? [] : [entry.positional.json ? '--jsonargs' : '--args']
+        const done = spawnSync(
+            JQ,
+            [...flagsOf(entry), ...positional, entry.program, ...(entry.positional?.values ?? [])],
+            {
+                input: entry.input,
+                encoding: 'utf8',
+                cwd: scratch,
+                env: { HOME: '/home/learner' },
+            },
+        )
+        return { text: done.stdout, status: done.status ?? -1 }
+    } finally {
+        rmSync(scratch, { recursive: true, force: true })
     }
 }
 
@@ -136,23 +211,41 @@ for (const entry of CASES) {
         }
         if (entry.indent !== undefined) await page.getByLabel('Indent').fill(String(entry.indent))
         if (entry.variable !== undefined) {
-            await toolbar.getByRole('button', { name: '--arg' }).click()
-            if (entry.variable.json) await page.getByLabel('Variable kind').selectOption('argjson')
+            await toolbar.getByRole('button', { name: '--arg', exact: true }).click()
+            await page.getByLabel('Variable kind').selectOption(entry.variable.kind)
             await page.getByLabel('Variable name').fill(entry.variable.name)
             await page.getByLabel('Variable value').fill(entry.variable.value)
         }
+        if (entry.positional !== undefined) {
+            await toolbar.getByRole('button', { name: '--args', exact: true }).click()
+            if (entry.positional.json) await page.getByLabel('Positional kind').selectOption('jsonargs')
+            await page
+                .getByLabel('Positional arguments, one per line')
+                .fill(entry.positional.values.join('\n'))
+        }
+        if (entry.module !== undefined && test.info().project.name === 'static') {
+            // The static build has no files, so modules are offered only with the reason why not.
+            const button = toolbar.getByRole('button', { name: '-L module' })
+            await expect(button).toBeDisabled()
+            await expect(button).toHaveAttribute('title', /run the playground locally/)
+            return
+        }
+        if (entry.module !== undefined) {
+            await toolbar.getByRole('button', { name: '-L module' }).click()
+            await page.getByLabel('Module source').fill(entry.module)
+        }
         await page.getByRole('button', { name: 'Run', exact: true }).click()
-        const expected = jqPrints(entry)
-        expect(expected, 'jq itself printed something to compare with').not.toBe('')
         const hook = page.getByTestId('run-outputs')
-        await expect
-            .poll(
-                async () =>
-                    (JSON.parse((await hook.textContent()) ?? '{}') as { text?: string }).text ?? null,
-                {
-                    timeout: 20_000,
-                },
-            )
-            .toBe(expected)
+        const shown = async () =>
+            JSON.parse((await hook.textContent()) ?? '{}') as {
+                text?: string
+                exit_code?: number | null
+                errors?: { kind: string }[]
+            }
+        const expected = jqPrints(entry)
+        if (entry.program !== 'empty')
+            expect(expected.text, 'jq itself printed something to compare with').not.toBe('')
+        await expect.poll(async () => (await shown()).text ?? null, { timeout: 20_000 }).toBe(expected.text)
+        if (entry.click.includes('-e')) expect((await shown()).exit_code).toBe(expected.status)
     })
 }

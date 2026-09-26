@@ -53,3 +53,15 @@ describe('persisted stores', () => {
         expect(writes).toEqual(['3'])
     })
 })
+
+describe('saved playground state', () => {
+    it('gains every option added since it was saved', async () => {
+        const { upgradeState } = await import('@/lib/playground')
+        const old = { program: '.', input: '1', options: { compact: true }, origin: null, lesson: null }
+        const upgraded = upgradeState(old as never)
+        expect(upgraded.options.compact).toBe(true)
+        expect(upgraded.options.slurpfile).toEqual({})
+        expect(upgraded.options.positional).toEqual([])
+        expect(upgraded.program).toBe('.')
+    })
+})

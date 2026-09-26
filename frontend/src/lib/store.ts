@@ -33,11 +33,17 @@ export function createStore<T>(initial: T): Store<T> {
 }
 
 /** A store persisted to localStorage under a key (debounced); storage errors fall back to memory. */
-export function persistedStore<T>(key: string, initial: T, delayMs = 400): Store<T> {
+export function persistedStore<T>(
+    key: string,
+    initial: T,
+    delayMs = 400,
+    /** Brings a value saved by an older version of the app up to the current shape. */
+    upgrade: (saved: T) => T = (saved) => saved,
+): Store<T> {
     let start = initial
     try {
         const raw = localStorage.getItem(key)
-        if (raw !== null) start = JSON.parse(raw) as T
+        if (raw !== null) start = upgrade(JSON.parse(raw) as T)
     } catch {
         // Storage denied or the value is not JSON: start from the initial value.
     }

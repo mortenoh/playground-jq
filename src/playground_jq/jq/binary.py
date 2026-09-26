@@ -9,12 +9,20 @@ library sees, so `$ENV` means the same on both.
 import asyncio
 import json
 import shutil
+import tempfile
+from pathlib import Path
 from typing import Any
 
 from pydantic import BaseModel, Field, JsonValue
 
 from playground_jq.jq.diagnostics import compile_errors, plain_error
-from playground_jq.jq.formatting import output_flags
+from playground_jq.jq.formatting import (
+    FilePaths,
+    output_flags,
+    program_and_positional,
+    reading_flags,
+    variable_flags,
+)
 from playground_jq.jq.models import SANDBOX_ENV, JqError, RunOptions
 
 #: jq's exit status for a program that did not compile.
@@ -31,33 +39,27 @@ class BinaryOutcome(BaseModel):
     text: str | None = None
     """What jq itself printed with the output flags, when a second run was made for it."""
 
+    exit_code: int | None = None
+    """jq's exit status for the printing run."""
+
 
 def locate(binary: str) -> str | None:
     """The absolute path of the jq binary, or None when it is not installed."""
     return shutil.which(binary)
 
 
-def build_argv(executable: str, program: str, options: RunOptions, *, printing: bool = False) -> list[str]:
+def build_argv(
+    executable: str, program: str, options: RunOptions, paths: FilePaths | None = None, *, printing: bool = False
+) -> list[str]:
     """The argument vector: compact JSON out, so every stdout line is one value we parse.
 
     With `printing`, the output flags instead, in the order the equivalent command shows them.
     """
-    argv = [executable, *output_flags(options)] if printing else [executable, "-c"]
-    for enabled, flag in (
-        (options.null_input, "-n"),
-        (options.slurp, "-s"),
-        (options.raw_input, "-R"),
-        (options.stream, "--stream"),
-        (options.seq, "--seq"),
-    ):
-        if enabled:
-            argv.append(flag)
-    for name, value in options.args.items():
-        argv.extend(["--arg", name, value])
-    for name, document in options.argjson.items():
-        argv.extend(["--argjson", name, json.dumps(document)])
-    argv.append(program)
-    return argv
+    reading = reading_flags(options)
+    argv = [executable, *reading, *output_flags(options)] if printing else [executable, "-c", *reading]
+    if printing and options.seq:
+        argv.remove("--seq")
+    return [*argv, *variable_flags(options, paths), *program_and_positional(program, options)]
 
 
 async def run_binary(
@@ -72,15 +74,40 @@ async def run_binary(
     """Run the binary over the input, killing it when the timeout is reached.
 
     One run with `-c` gives the values; a second run with the output flags gives the text exactly
-    as jq prints it, so nothing about jq's printing has to be reproduced here.
+    as jq prints it, and jq's exit status. Slurp files, raw files and modules are written to a
+    temporary directory for the length of the run.
     """
-    async with asyncio.timeout(timeout):
-        stdout, stderr, status = await _exec(build_argv(executable, program, options), input_text)
-        outcome = read_outcome(stdout, stderr, status, max_outputs)
-        if not outcome.truncated:
-            printed, _, _ = await _exec(build_argv(executable, program, options, printing=True), input_text)
-            outcome.text = printed
+    with tempfile.TemporaryDirectory(prefix="pjq-") as scratch:
+        paths = write_files(Path(scratch), options)
+        async with asyncio.timeout(timeout):
+            stdout, stderr, status = await _exec(build_argv(executable, program, options, paths), input_text)
+            outcome = read_outcome(stdout, stderr, status, max_outputs)
+            if not outcome.truncated:
+                argv = build_argv(executable, program, options, paths, printing=True)
+                printed, _, printed_status = await _exec(argv, input_text)
+                outcome.text = printed
+                outcome.exit_code = printed_status
     return outcome
+
+
+def write_files(scratch: Path, options: RunOptions) -> FilePaths:
+    """Write the run's slurp files, raw files and modules; answer where they are."""
+    paths = FilePaths()
+    for name, text in options.slurpfile.items():
+        path = scratch / f"slurp-{name}.json"
+        path.write_text(text)
+        paths.slurpfile[name] = str(path)
+    for name, text in options.rawfile.items():
+        path = scratch / f"raw-{name}.txt"
+        path.write_text(text)
+        paths.rawfile[name] = str(path)
+    if options.modules:
+        modules = scratch / "modules"
+        modules.mkdir()
+        for name, text in options.modules.items():
+            (modules / f"{name}.jq").write_text(text)
+        paths.modules = str(modules)
+    return paths
 
 
 async def _exec(argv: list[str], input_text: str) -> tuple[str, str, int]:

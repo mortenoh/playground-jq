@@ -66,6 +66,30 @@ class RunOptions(BaseModel):
     argjson: dict[str, JsonValue] = Field(default_factory=lambda: {})
     """`--argjson name json`: JSON variables."""
 
+    exit_status: bool = False
+    """`-e`: set the exit status from the last output (1 for false/null, 4 for no output)."""
+
+    raw_output0: bool = False
+    """`--raw-output0`: like `-r`, with a NUL after every output instead of a newline."""
+
+    color: bool = False
+    """`-C`: colour the output with ANSI escape codes."""
+
+    positional: list[str] = Field(default_factory=lambda: [])
+    """`--args` / `--jsonargs`: positional arguments, available as `$ARGS.positional`."""
+
+    positional_json: bool = False
+    """Whether the positional arguments are JSON texts (`--jsonargs`) rather than strings (`--args`)."""
+
+    slurpfile: dict[str, str] = Field(default_factory=lambda: {})
+    """`--slurpfile name file`: the file's text; `$name` is an array of its JSON values."""
+
+    rawfile: dict[str, str] = Field(default_factory=lambda: {})
+    """`--rawfile name file`: the file's text; `$name` is that text as a string."""
+
+    modules: dict[str, str] = Field(default_factory=lambda: {})
+    """`-L dir`: jq modules by name (`name.jq` in the search directory), for `import` and `include`."""
+
     engine: EngineName = "auto"
     """Which jq evaluates the program."""
 
@@ -121,3 +145,6 @@ class RunResult(BaseModel):
 
     command: str
     """The equivalent `jq` command line."""
+
+    exit_code: int | None = None
+    """jq's exit status, when the engine knows it exactly (the jq binary and WebAssembly do)."""

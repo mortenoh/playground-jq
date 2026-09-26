@@ -57,7 +57,12 @@ export const STARTER: PlaygroundState = {
 }
 
 /** The playground, remembered across reloads. */
-export const playground = persistedStore<PlaygroundState>('pjq.playground', STARTER)
+export const playground = persistedStore<PlaygroundState>('pjq.playground', STARTER, 400, upgradeState)
+
+/** Saved state from an older version lacks newer options; every missing one takes its default. */
+export function upgradeState(saved: PlaygroundState): PlaygroundState {
+    return { ...STARTER, ...saved, options: { ...DEFAULT_OPTIONS, ...saved.options } }
+}
 
 /** Open a program and input in the playground, replacing what is there. */
 export function openInPlayground(state: Partial<PlaygroundState> & { program: string }): void {

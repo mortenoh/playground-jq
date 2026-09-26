@@ -4,7 +4,7 @@
  * compile errors, the same formatting (jq's own), and the equivalent command line.
  */
 
-import { equivalentCommand, inputFlags, outputFlags, readsInput } from '@/lib/local/command'
+import { equivalentCommand, outputFlags, readingFlags, readsInput } from '@/lib/local/command'
 import { compileErrors, readStreams } from '@/lib/local/diagnostics'
 import { isGeoJson } from '@/lib/local/geojson'
 import type { WorkerReply, WorkerRequest } from '@/lib/local/jq.worker'
@@ -90,29 +90,86 @@ export async function runLocally(program: string, input: string, options: RunOpt
         truncated: false,
         is_geojson: false,
         command,
+        exit_code: null,
         ...partial,
         duration_ms: Math.round((performance.now() - started) * 100) / 100,
     })
-    const wrapped = SANDBOX_PREFIX + program + SANDBOX_SUFFIX
-    const reading = inputFlags(options)
+    if (Object.keys(options.modules).length > 0) {
+        return finish({
+            errors: [
+                {
+                    kind: 'unavailable',
+                    message: 'modules (-L) need files on disk; run the playground locally to use them',
+                    line: null,
+                    column: null,
+                    end_column: null,
+                },
+            ],
+        })
+    }
+    const reading = readingFlags(options)
     try {
+        // The browser has no files: a slurp file is bound the way jq binds it, as the array of its
+        // values (jq itself reads them, so number literals keep their form), and a raw file as text.
+        const variables: string[] = []
+        for (const [name, value] of Object.entries(options.args)) variables.push('--arg', name, value)
+        for (const [name, value] of Object.entries(options.argjson))
+            variables.push('--argjson', name, JSON.stringify(value))
+        for (const [name, content] of Object.entries(options.slurpfile)) {
+            const slurped = await exchange(content, '.', ['-c', '-s'])
+            if (slurped.exitCode !== 0) {
+                return finish({
+                    errors: [
+                        {
+                            kind: 'input',
+                            message: `--slurpfile ${name}: ${slurped.stderr.replace(/^jq: /, '')}`,
+                            line: null,
+                            column: null,
+                            end_column: null,
+                        },
+                    ],
+                })
+            }
+            variables.push('--argjson', name, slurped.stdout.trim())
+        }
+        for (const [name, content] of Object.entries(options.rawfile)) variables.push('--arg', name, content)
+        const bound = variables
+        // Positional arguments reach the program through $ARGS, which jq builds from every variable.
+        let argumentsPrefix = ''
+        if (options.positional.length > 0) {
+            const named = await exchange('null', '$ARGS.named', ['-n', '-c', ...bound])
+            const positional = options.positional_json
+                ? `[${options.positional.join(',')}]`
+                : JSON.stringify(options.positional)
+            argumentsPrefix = `{"positional": ${positional}, "named": ${named.stdout.trim()}} as $ARGS | `
+        }
+        const wrapped = SANDBOX_PREFIX + argumentsPrefix + program + SANDBOX_SUFFIX
         // One run for the values (compact JSON, one per line), one for the text as jq prints it.
-        const values = await exchange(input, wrapped, ['-c', ...reading])
+        const values = await exchange(input, wrapped, ['-c', ...reading, ...bound])
         if (values.exitCode === 3) {
             // Compile errors are located against the author's program, not the sandbox wrapper.
-            const bare = await exchange('null', program, ['-n', ...reading.filter((flag) => flag !== '-n')])
+            const bare = await exchange('null', program, [
+                '-n',
+                ...reading.filter((flag) => flag !== '-n'),
+                ...bound,
+            ])
             return finish({ errors: compileErrors(bare.stderr || values.stderr) })
         }
         const { outputs, truncated } = parseLines(values.stdout)
         const { errors, messages } = readStreams(values.stderr, values.exitCode)
-        const printed = await exchange(input, wrapped, [...reading, ...outputFlags(options)])
-        const text = printed.stdout === '' ? '' : options.join_output ? printed.stdout : `${printed.stdout}\n`
+        const printing = [
+            ...readingFlags(options).filter((flag) => flag !== '--seq'),
+            ...outputFlags(options),
+            ...bound,
+        ]
+        const printed = await exchange(input, wrapped, printing)
         return finish({
             outputs,
             truncated,
             errors,
             messages,
-            text,
+            text: printed.stdout,
+            exit_code: printed.exitCode,
             is_geojson: outputs.length === 1 && errors.length === 0 && isGeoJson(outputs[0]),
         })
     } catch (error) {

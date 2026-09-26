@@ -21,9 +21,11 @@ Try it: https://mortenoh.github.io/playground-jq/ (runs entirely in your browser
 ## What is in it
 
 - **Playground**: a Monaco editor with jq syntax highlighting, builtin completion and hover
-  docs, compile errors marked in place, plain-language hints for common errors, every jq flag
-  (`-n -s -R -r -j -c -S --tab --indent --seq --stream --arg --argjson`), the equivalent
-  command line, share links, and a map preview when the output is GeoJSON.
+  docs, compile errors marked in place, plain-language hints for common errors, the jq
+  command-line options (`-n -s -R -r -j -a -c -S -C -e --tab --indent --seq --stream
+  --raw-output0 --arg --argjson --slurpfile --rawfile --args --jsonargs -L`), each verified
+  against the jq 1.8.2 binary, the equivalent command line with exit status, share links, and
+  a map preview when the output is GeoJSON.
 - **Inputs**: static datasets (bookstore, GitHub issues, orders, Kubernetes pods, AWS EC2,
   NDJSON logs, CSV, GeoJSON, ...), [postman-echo](https://postman-echo.com/) requests, and the
   [DHIS2](https://dhis2.org/) demo database through [dhis2w](https://pypi.org/project/dhis2w-client/)

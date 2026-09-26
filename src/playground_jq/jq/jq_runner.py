@@ -25,9 +25,11 @@ libjq: Any = jq
 SANDBOX_SUFFIX = "\n)"
 
 
-def sandbox_prefix(env: dict[str, str], named: dict[str, Any] | None = None) -> str:
+def sandbox_prefix(
+    env: dict[str, str], named: dict[str, Any] | None = None, positional: list[Any] | None = None
+) -> str:
     """Replaces `$ENV`/`env` with the request's stand-in environment, and defines `$ARGS` as jq does."""
-    arguments = json.dumps({"positional": [], "named": named or {}})
+    arguments = json.dumps({"positional": positional or [], "named": named or {}})
     return f"{json.dumps(env)} as $ENV | def env: $ENV; {arguments} as $ARGS | ("
 
 
@@ -46,10 +48,10 @@ def answer(request: dict[str, Any]) -> dict[str, Any]:
     variables: dict[str, Any] = request.get("variables", {})
     try:
         # Compiled bare first, so compile errors point at the author's text; $ARGS is added there too.
-        libjq.compile(
-            f"{json.dumps({'positional': [], 'named': variables})} as $ARGS | (" + program + "\n)", args=variables
-        )
-        wrapped = sandbox_prefix(request.get("env", {}), variables) + program + SANDBOX_SUFFIX
+        positional: list[Any] = request.get("positional", [])
+        arguments = json.dumps({"positional": positional, "named": variables})
+        libjq.compile(f"{arguments} as $ARGS | (" + program + "\n)", args=variables)
+        wrapped = sandbox_prefix(request.get("env", {}), variables, positional) + program + SANDBOX_SUFFIX
         compiled = libjq.compile(wrapped, args=variables)
     except ValueError as error:
         return {"phase": "compile", "error": str(error).strip(), "outputs": [], "truncated": False}

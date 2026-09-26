@@ -30,7 +30,7 @@ function asciiOnly(text: string): string {
 
 /** One output as jq prints it. */
 export function printValue(value: JsonValue, options: RunOptions): string {
-    if (typeof value === 'string' && (options.raw_output || options.join_output)) {
+    if (typeof value === 'string' && (options.raw_output || options.join_output || options.raw_output0)) {
         // jq quirk: with -a, raw output still prints strings as escaped JSON.
         return options.ascii_output ? asciiOnly(JSON.stringify(value)) : value
     }
@@ -48,5 +48,7 @@ export function printValue(value: JsonValue, options: RunOptions): string {
 /** Every output as jq prints the stream. */
 export function printOutputs(values: JsonValue[], options: RunOptions): string {
     const parts = values.map((value) => (options.seq ? '\u001e' : '') + printValue(value, options))
-    return options.join_output ? parts.join('') : parts.join('\n')
+    if (options.join_output) return parts.join('')
+    if (options.raw_output0) return parts.map((part) => `${part}\u0000`).join('')
+    return parts.join('\n')
 }

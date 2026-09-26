@@ -21,6 +21,14 @@ export interface RunOptions {
     stream: boolean
     args: Record<string, string>
     argjson: Record<string, JsonValue>
+    exit_status: boolean
+    raw_output0: boolean
+    color: boolean
+    positional: string[]
+    positional_json: boolean
+    slurpfile: Record<string, string>
+    rawfile: Record<string, string>
+    modules: Record<string, string>
     engine: 'auto' | 'library' | 'cli'
 }
 
@@ -39,6 +47,14 @@ export const DEFAULT_OPTIONS: RunOptions = {
     stream: false,
     args: {},
     argjson: {},
+    exit_status: false,
+    raw_output0: false,
+    color: false,
+    positional: [],
+    positional_json: false,
+    slurpfile: {},
+    rawfile: {},
+    modules: {},
     engine: 'auto',
 }
 
@@ -65,6 +81,7 @@ export interface RunResult {
     duration_ms: number
     is_geojson: boolean
     command: string
+    exit_code: number | null
 }
 
 export type SourceKind = 'static' | 'echo' | 'dhis2'

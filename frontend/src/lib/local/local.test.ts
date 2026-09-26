@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { parseLines } from '@/lib/local/engine'
-import { equivalentCommand, inputFlags, outputFlags, shellQuote } from '@/lib/local/command'
+import { equivalentCommand, outputFlags, readingFlags, shellQuote } from '@/lib/local/command'
 import { compileErrors, readStreams } from '@/lib/local/diagnostics'
 import { isGeoJson } from '@/lib/local/geojson'
 import { DEFAULT_OPTIONS } from '@/lib/types'
@@ -27,9 +27,37 @@ describe('command', () => {
         expect(equivalentCommand('.a', DEFAULT_OPTIONS, true)).toBe('jq .a input.json')
     })
 
+    it('shows the new options like the server does', () => {
+        expect(
+            equivalentCommand(
+                '$ARGS',
+                { ...DEFAULT_OPTIONS, null_input: true, positional: ['a', 'b c'] },
+                false,
+            ),
+        ).toBe("jq -n --args '$ARGS' a 'b c'")
+        expect(
+            equivalentCommand('.', { ...DEFAULT_OPTIONS, positional: ['1'], positional_json: true }, true),
+        ).toBe('jq --jsonargs . 1 < input.json')
+        expect(
+            equivalentCommand(
+                '.',
+                {
+                    ...DEFAULT_OPTIONS,
+                    exit_status: true,
+                    color: true,
+                    raw_output0: true,
+                    slurpfile: { s: '1' },
+                    rawfile: { r: 'x' },
+                    modules: { m: '' },
+                },
+                true,
+            ),
+        ).toBe('jq --raw-output0 -C -e --slurpfile s s.json --rawfile r r.txt -L modules . input.json')
+    })
+
     it('splits reading flags from printing flags', () => {
         const options = { ...DEFAULT_OPTIONS, slurp: true, raw_output: true, indent: 4 }
-        expect(inputFlags(options)).toEqual(['-s'])
+        expect(readingFlags(options)).toEqual(['-s'])
         expect(outputFlags(options)).toEqual(['-r', '--indent', '4'])
     })
 })

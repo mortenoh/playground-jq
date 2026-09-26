@@ -50,5 +50,8 @@
         "typescript": "^7.0.2",
         "vite": "^8.3.1",
         "vitest": "^5.0.2"
+    },
+    "patchedDependencies": {
+        "jq-wasm@3.0.0-jq-1.8.2": "patches/jq-wasm@3.0.0-jq-1.8.2.patch"
     }
 }

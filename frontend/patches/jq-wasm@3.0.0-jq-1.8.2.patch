@@ -1,0 +1,95 @@
+diff --git a/dist/chunk-OUKQZV2W.mjs b/dist/chunk-OUKQZV2W.mjs
+index 8732393f0a9a07f40d6a32059b79930889ade24c..12aeb592bb25f1426c7b4b340809ce89816d2dec 100644
+--- a/dist/chunk-OUKQZV2W.mjs
++++ b/dist/chunk-OUKQZV2W.mjs
+@@ -85,12 +85,12 @@ var require_jq = __commonJS({
+             }
+             stackRestore(stackBefore);
+           }
+-          return { stdout: stdoutSink.toString().trim(), stderr: stderrSink.toString().trim(), exitCode };
++          return { stdout: stdoutSink.toString(), stderr: stderrSink.toString().trim(), exitCode };
+         }
+         function runJq(jsonString, query, flags) {
+           stdinBuffer = toByteArray(jsonString);
+           stdinBufferOffset = 0;
+-          if (!flags.includes("-M")) {
++          if (!flags.includes("-M") && !flags.includes("-C")) {
+             flags = ["-M", ...flags];
+           }
+           const args = [...flags, query, STDIN_PATH];
+diff --git a/dist/index.cjs b/dist/index.cjs
+index 2f3ad8411fc4a86344dd47d9d9526a53454b2f9d..6f4dec9a056f6598ecf4a5d3e0ed739e356817e7 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -107,12 +107,12 @@ var require_jq = __commonJS({
+             }
+             stackRestore(stackBefore);
+           }
+-          return { stdout: stdoutSink.toString().trim(), stderr: stderrSink.toString().trim(), exitCode };
++          return { stdout: stdoutSink.toString(), stderr: stderrSink.toString().trim(), exitCode };
+         }
+         function runJq(jsonString, query, flags) {
+           stdinBuffer = toByteArray(jsonString);
+           stdinBufferOffset = 0;
+-          if (!flags.includes("-M")) {
++          if (!flags.includes("-M") && !flags.includes("-C")) {
+             flags = ["-M", ...flags];
+           }
+           const args = [...flags, query, STDIN_PATH];
+diff --git a/dist/index.mjs b/dist/index.mjs
+index da44bd57c31aa1bc37e14831570508d962e24b71..baf460f6d3897c57393930dca23a2e044ee2e874 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -107,12 +107,12 @@ var require_jq = __commonJS({
+             }
+             stackRestore(stackBefore);
+           }
+-          return { stdout: stdoutSink.toString().trim(), stderr: stderrSink.toString().trim(), exitCode };
++          return { stdout: stdoutSink.toString(), stderr: stderrSink.toString().trim(), exitCode };
+         }
+         function runJq(jsonString, query, flags) {
+           stdinBuffer = toByteArray(jsonString);
+           stdinBufferOffset = 0;
+-          if (!flags.includes("-M")) {
++          if (!flags.includes("-M") && !flags.includes("-C")) {
+             flags = ["-M", ...flags];
+           }
+           const args = [...flags, query, STDIN_PATH];
+diff --git a/dist/inline.cjs b/dist/inline.cjs
+index 756c5acf23bbcca2e18faec377347e0e4d3bd78b..0832842af5bd1f4dfd4e1f40a01d09ccb1a4fe13 100644
+--- a/dist/inline.cjs
++++ b/dist/inline.cjs
+@@ -92,12 +92,12 @@ var require_jq = __commonJS({
+             }
+             stackRestore(stackBefore);
+           }
+-          return { stdout: stdoutSink.toString().trim(), stderr: stderrSink.toString().trim(), exitCode };
++          return { stdout: stdoutSink.toString(), stderr: stderrSink.toString().trim(), exitCode };
+         }
+         function runJq(jsonString, query, flags) {
+           stdinBuffer = toByteArray(jsonString);
+           stdinBufferOffset = 0;
+-          if (!flags.includes("-M")) {
++          if (!flags.includes("-M") && !flags.includes("-C")) {
+             flags = ["-M", ...flags];
+           }
+           const args = [...flags, query, STDIN_PATH];
+diff --git a/dist/inline.mjs b/dist/inline.mjs
+index 8894c307bb58ac0dc4dab22cb3eed46323ea171a..b156ca856700e8267b032c94fc8ec7248f3fb5b0 100644
+--- a/dist/inline.mjs
++++ b/dist/inline.mjs
+@@ -86,12 +86,12 @@ var require_jq = __commonJS({
+             }
+             stackRestore(stackBefore);
+           }
+-          return { stdout: stdoutSink.toString().trim(), stderr: stderrSink.toString().trim(), exitCode };
++          return { stdout: stdoutSink.toString(), stderr: stderrSink.toString().trim(), exitCode };
+         }
+         function runJq(jsonString, query, flags) {
+           stdinBuffer = toByteArray(jsonString);
+           stdinBufferOffset = 0;
+-          if (!flags.includes("-M")) {
++          if (!flags.includes("-M") && !flags.includes("-C")) {
+             flags = ["-M", ...flags];
+           }
+           const args = [...flags, query, STDIN_PATH];

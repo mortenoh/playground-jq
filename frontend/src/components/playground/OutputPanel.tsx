@@ -2,6 +2,7 @@ import { Check, Copy, Map as MapIcon, TriangleAlert } from 'lucide-react'
 import { Suspense, lazy, useState } from 'react'
 
 import { CodePane } from '@/components/editor/CodePane'
+import { AnsiText } from '@/components/playground/AnsiText'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { hintFor } from '@/lib/hints'
@@ -97,6 +98,14 @@ export function OutputPanel({
                                     {STATIC ? 'jq wasm' : result.engine === 'cli' ? 'jq binary' : 'jq.py'}
                                 </span>
                                 {result.truncated && <span className="text-warning-ink">truncated</span>}
+                                {result.exit_code !== null && result.exit_code !== undefined && (
+                                    <span
+                                        title="jq's exit status"
+                                        className={result.exit_code === 0 ? undefined : 'text-warning-ink'}
+                                    >
+                                        exit {result.exit_code}
+                                    </span>
+                                )}
                             </>
                         )}
                         {result !== null && <CopyButton text={result.text} label="Copy the output" />}
@@ -144,14 +153,18 @@ export function OutputPanel({
                     </div>
                 )}
                 <TabsContent value="output" className="min-h-0 flex-1">
-                    <CodePane
-                        value={result?.text ?? ''}
-                        language={raw ? 'plaintext' : 'json'}
-                        path={path}
-                        label="Output"
-                        readOnly
-                        lineNumbers={false}
-                    />
+                    {result !== null && result.text.includes('\u001b[') ? (
+                        <AnsiText text={result.text} />
+                    ) : (
+                        <CodePane
+                            value={result?.text ?? ''}
+                            language={raw ? 'plaintext' : 'json'}
+                            path={path}
+                            label="Output"
+                            readOnly
+                            lineNumbers={false}
+                        />
+                    )}
                 </TabsContent>
                 <TabsContent value="command" className="min-h-0 flex-1 overflow-auto p-3">
                     <p className="mb-2 text-sm text-muted-foreground">
@@ -180,7 +193,12 @@ export function OutputPanel({
             </Tabs>
             {result !== null && (
                 <pre hidden data-testid="run-outputs" data-program={ranFor ?? ''} data-ok={String(result.ok)}>
-                    {JSON.stringify({ outputs: result.outputs, errors: result.errors, text: result.text })}
+                    {JSON.stringify({
+                        outputs: result.outputs,
+                        errors: result.errors,
+                        text: result.text,
+                        exit_code: result.exit_code,
+                    })}
                 </pre>
             )}
         </section>
