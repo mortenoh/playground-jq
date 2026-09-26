@@ -6,11 +6,15 @@
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue)](LICENSE)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-3776ab)](https://www.python.org/)
 [![jq 1.8](https://img.shields.io/badge/jq-1.8.2-5a5a5a)](https://jqlang.org/)
+[![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-D97757?logo=claude&logoColor=white)](https://claude.com/claude-code)
 
 A place to learn [jq](https://jqlang.org/) properly: an interactive playground, a complete
 language guide, tutorials in three levels (101, 201, 301), and a large library of examples.
 Every example, tutorial solution and guide snippet is executed by the test suite, so what
 you read is what jq actually does.
+
+This project was written entirely by Claude (Anthropic) through Claude Code, directed and
+reviewed by Morten Hansen: the code, the tests, and all of the guide, tutorials and examples.
 
 Try it: https://mortenoh.github.io/playground-jq/ (runs entirely in your browser)
 
@@ -75,6 +79,6 @@ See [docs/authoring.md](docs/authoring.md) for how content is written and verifi
 
 ## License
 
-GNU Affero General Public License v3.0 ([LICENSE](LICENSE)), the same as
-[chap-core](https://github.com/dhis2-chap/chap-core). The builtin reference and the jq manual examples are derived from
-the jq manual (CC BY 3.0); see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+GNU Affero General Public License v3.0 ([LICENSE](LICENSE)). The builtin reference and the jq
+manual examples are derived from the jq manual (CC BY 3.0); see
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

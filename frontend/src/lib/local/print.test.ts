@@ -19,5 +19,9 @@ describe('printOutputs', () => {
         expect(printOutputs(['a', 'b'], { ...DEFAULT_OPTIONS, raw_output: true })).toBe('a\nb')
         expect(printOutputs(['a', 1], { ...DEFAULT_OPTIONS, join_output: true })).toBe('a1')
         expect(printOutputs([1], { ...DEFAULT_OPTIONS, seq: true })).toBe('\u001e1')
+        expect(printOutputs(['ø'], { ...DEFAULT_OPTIONS, raw_output: true, ascii_output: true })).toBe(
+            '"\\u00f8"',
+        )
+        expect(printOutputs([[1]], { ...DEFAULT_OPTIONS, compact: true, tab: true })).toBe('[\n\t1\n]')
     })
 })

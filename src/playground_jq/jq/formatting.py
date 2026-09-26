@@ -11,11 +11,35 @@ from playground_jq.jq.models import RunOptions
 RECORD_SEPARATOR = "\x1e"
 
 
+def output_flags(options: RunOptions) -> list[str]:
+    """The flags that change printing, in the order the equivalent command writes them.
+
+    Order matters to jq: a later `--tab` or `--indent` overrides an earlier `-c`.
+    """
+    flags: list[str] = []
+    for enabled, flag in (
+        (options.join_output, "-j"),
+        (options.raw_output and not options.join_output, "-r"),
+        (options.ascii_output, "-a"),
+        (options.compact, "-c"),
+        (options.sort_keys, "-S"),
+        (options.tab, "--tab"),
+        (options.seq, "--seq"),
+    ):
+        if enabled:
+            flags.append(flag)
+    if options.indent != 2 and not options.tab and not options.compact:
+        flags.extend(["--indent", str(options.indent)])
+    return flags
+
+
 def format_value(value: JsonValue, options: RunOptions) -> str:
-    """One output, formatted per the flags."""
+    """One output, formatted per the flags, as jq prints it."""
     if isinstance(value, str) and (options.raw_output or options.join_output):
-        return value
-    compact = options.compact
+        # jq quirk: with -a, raw output still prints strings as escaped JSON.
+        return json.dumps(value) if options.ascii_output else value
+    # A --tab after -c wins, as it does on jq's command line.
+    compact = options.compact and not options.tab
     indent: str | int | None = None if compact else ("\t" if options.tab else options.indent)
     separators = (",", ":") if compact else (",", ": ")
     return json.dumps(

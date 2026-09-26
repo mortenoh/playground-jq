@@ -180,7 +180,7 @@ export function OutputPanel({
             </Tabs>
             {result !== null && (
                 <pre hidden data-testid="run-outputs" data-program={ranFor ?? ''} data-ok={String(result.ok)}>
-                    {JSON.stringify({ outputs: result.outputs, errors: result.errors })}
+                    {JSON.stringify({ outputs: result.outputs, errors: result.errors, text: result.text })}
                 </pre>
             )}
         </section>

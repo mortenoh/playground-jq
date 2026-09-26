@@ -30,11 +30,15 @@ function asciiOnly(text: string): string {
 
 /** One output as jq prints it. */
 export function printValue(value: JsonValue, options: RunOptions): string {
-    if (typeof value === 'string' && (options.raw_output || options.join_output)) return value
+    if (typeof value === 'string' && (options.raw_output || options.join_output)) {
+        // jq quirk: with -a, raw output still prints strings as escaped JSON.
+        return options.ascii_output ? asciiOnly(JSON.stringify(value)) : value
+    }
     const shown = options.sort_keys ? sortKeys(value) : value
     let text: string
-    if (options.compact) text = JSON.stringify(shown)
-    else if (options.tab) text = JSON.stringify(shown, null, '\t')
+    // A --tab after -c wins, as on jq's command line.
+    if (options.tab) text = JSON.stringify(shown, null, '\t')
+    else if (options.compact) text = JSON.stringify(shown)
     // jq 1.8 prints `--indent 0` over several lines with no indentation; JSON.stringify would compact it.
     else if (options.indent === 0) text = JSON.stringify(shown, null, 1).replace(/^ +/gm, '')
     else text = JSON.stringify(shown, null, options.indent)

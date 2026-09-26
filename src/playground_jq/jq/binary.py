@@ -14,6 +14,7 @@ from typing import Any
 from pydantic import BaseModel, Field, JsonValue
 
 from playground_jq.jq.diagnostics import compile_errors, plain_error
+from playground_jq.jq.formatting import output_flags
 from playground_jq.jq.models import SANDBOX_ENV, JqError, RunOptions
 
 #: jq's exit status for a program that did not compile.
@@ -27,6 +28,8 @@ class BinaryOutcome(BaseModel):
     errors: list[JqError] = Field(default_factory=lambda: [])
     messages: list[str] = Field(default_factory=lambda: [])
     truncated: bool = False
+    text: str | None = None
+    """What jq itself printed with the output flags, when a second run was made for it."""
 
 
 def locate(binary: str) -> str | None:
@@ -34,9 +37,12 @@ def locate(binary: str) -> str | None:
     return shutil.which(binary)
 
 
-def build_argv(executable: str, program: str, options: RunOptions) -> list[str]:
-    """The argument vector: compact JSON out, so every stdout line is one value we parse."""
-    argv = [executable, "-c"]
+def build_argv(executable: str, program: str, options: RunOptions, *, printing: bool = False) -> list[str]:
+    """The argument vector: compact JSON out, so every stdout line is one value we parse.
+
+    With `printing`, the output flags instead, in the order the equivalent command shows them.
+    """
+    argv = [executable, *output_flags(options)] if printing else [executable, "-c"]
     for enabled, flag in (
         (options.null_input, "-n"),
         (options.slurp, "-s"),
@@ -63,22 +69,36 @@ async def run_binary(
     timeout: float,
     max_outputs: int,
 ) -> BinaryOutcome:
-    """Run the binary over the input, killing it when the timeout is reached."""
+    """Run the binary over the input, killing it when the timeout is reached.
+
+    One run with `-c` gives the values; a second run with the output flags gives the text exactly
+    as jq prints it, so nothing about jq's printing has to be reproduced here.
+    """
+    async with asyncio.timeout(timeout):
+        stdout, stderr, status = await _exec(build_argv(executable, program, options), input_text)
+        outcome = read_outcome(stdout, stderr, status, max_outputs)
+        if not outcome.truncated:
+            printed, _, _ = await _exec(build_argv(executable, program, options, printing=True), input_text)
+            outcome.text = printed
+    return outcome
+
+
+async def _exec(argv: list[str], input_text: str) -> tuple[str, str, int]:
+    """One run of the binary; killed when the surrounding timeout cancels it."""
     process = await asyncio.create_subprocess_exec(
-        *build_argv(executable, program, options),
+        *argv,
         stdin=asyncio.subprocess.PIPE,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
         env=SANDBOX_ENV,
     )
     try:
-        async with asyncio.timeout(timeout):
-            stdout, stderr = await process.communicate(input_text.encode())
+        stdout, stderr = await process.communicate(input_text.encode())
     except (TimeoutError, asyncio.CancelledError):
         process.kill()
         await process.wait()
         raise
-    return read_outcome(stdout.decode(), stderr.decode(), process.returncode or 0, max_outputs)
+    return stdout.decode(), stderr.decode(), process.returncode or 0
 
 
 def read_outcome(stdout: str, stderr: str, returncode: int, max_outputs: int) -> BinaryOutcome:

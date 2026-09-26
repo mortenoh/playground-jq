@@ -76,7 +76,9 @@ function CustomRequest({
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-lg">
                 <DialogHeader>
-                    <DialogTitle>Custom {source.title} request</DialogTitle>
+                    <DialogTitle>
+                        {isEcho ? 'Send an HTTP request to postman-echo' : 'Query the DHIS2 Web API'}
+                    </DialogTitle>
                     <DialogDescription>
                         {isEcho
                             ? 'Send any request to postman-echo; the response describing it becomes the input.'
@@ -249,7 +251,8 @@ export function SourcePicker({
                         onClick={() => setCustom(info)}
                         disabled={!info.available}
                     >
-                        <SlidersHorizontal /> {info.id === 'echo' ? 'echo request' : 'DHIS2 request'}
+                        <SlidersHorizontal />{' '}
+                        {info.id === 'echo' ? 'Send an HTTP request' : 'Query the DHIS2 API'}
                     </Button>
                 ))}
             {preset !== undefined && (

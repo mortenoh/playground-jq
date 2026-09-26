@@ -59,9 +59,14 @@ async def run_program(
     command = equivalent_command(program, options, reads_input=reads_input(program, options))
 
     def finish(
-        outputs: list[JsonValue], errors: list[JqError], *, truncated: bool = False, messages: list[str] | None = None
+        outputs: list[JsonValue],
+        errors: list[JqError],
+        *,
+        truncated: bool = False,
+        messages: list[str] | None = None,
+        text: str | None = None,
     ) -> RunResult:
-        text = format_outputs(outputs, options)
+        text = format_outputs(outputs, options) if text is None else text
         if len(text.encode()) > settings.jq_max_output_bytes:
             text = text.encode()[: settings.jq_max_output_bytes].decode(errors="ignore")
             truncated = True
@@ -97,7 +102,9 @@ async def run_program(
             )
         except TimeoutError:
             return finish([], [_timeout(settings)])
-        return finish(outcome.outputs, outcome.errors, truncated=outcome.truncated, messages=outcome.messages)
+        return finish(
+            outcome.outputs, outcome.errors, truncated=outcome.truncated, messages=outcome.messages, text=outcome.text
+        )
     request: dict[str, Any] = {
         "program": program,
         "variables": {**options.args, **options.argjson},
