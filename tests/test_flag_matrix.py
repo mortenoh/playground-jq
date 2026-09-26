@@ -57,44 +57,48 @@ for flags, options in OUTPUT_FLAGS:
         CASES.append((flags, options, program, JSON_INPUT))
 
 #: Flags that change how input is read or what the program sees.
-CASES += [
-    (["-s"], {"slurp": True}, "length, map(.b)", JSON_INPUT),
-    (["-s", "-c"], {"slurp": True, "compact": True}, ".", JSON_INPUT),
-    (["-n"], {"null_input": True}, ".", JSON_INPUT),
-    (["-n"], {"null_input": True}, "[inputs | .b]", JSON_INPUT),
-    (["-n"], {"null_input": True}, "input | .s", JSON_INPUT),
-    (["-R"], {"raw_input": True}, ".", TEXT_INPUT),
-    (["-R", "-c"], {"raw_input": True, "compact": True}, "split(\",\")", TEXT_INPUT),
-    (["-R", "-s"], {"raw_input": True, "slurp": True}, ".", TEXT_INPUT),
-    (["-R", "-s", "-c"], {"raw_input": True, "slurp": True, "compact": True}, "split(\"\\n\")", TEXT_INPUT),
-    (["-R", "-n"], {"raw_input": True, "null_input": True}, "[inputs]", TEXT_INPUT),
-    (["-R", "-r"], {"raw_input": True, "raw_output": True}, "ascii_upcase", TEXT_INPUT),
-    (["--stream", "-c"], {"stream": True, "compact": True}, ".", JSON_INPUT),
-    (["--stream"], {"stream": True}, "select(length == 2)", JSON_INPUT),
-    (["-n", "--stream", "-c"], {"null_input": True, "stream": True, "compact": True}, "[inputs]", JSON_INPUT),
-    (["--seq"], {"seq": True}, ".b", JSON_INPUT),
-    (["-n", "--seq"], {"null_input": True, "seq": True}, "1, [2, 3]", ""),
-    (["-n", "--seq", "-c"], {"null_input": True, "seq": True, "compact": True}, '{"a": 1}, "x"', ""),
-    (["-n", "--arg", "name", "jq"], {"null_input": True, "args": {"name": "jq"}}, "$name", ""),
-    (
-        ["-n", "--argjson", "n", '{"x": [1, 2]}'],
-        {"null_input": True, "argjson": {"n": {"x": [1, 2]}}},
-        "$n.x | add",
-        "",
-    ),
-    (
-        ["-n", "-c", "--arg", "a", "1", "--argjson", "b", "2"],
-        {"null_input": True, "compact": True, "args": {"a": "1"}, "argjson": {"b": 2}},
-        "[$a, $b, $ARGS.named]",
-        "",
-    ),
-    (["-c"], {"compact": True}, ".b | 1 / (. - 1)", JSON_INPUT),
-]
+CASES.extend(
+    [
+        (["-s"], {"slurp": True}, "length, map(.b)", JSON_INPUT),
+        (["-s", "-c"], {"slurp": True, "compact": True}, ".", JSON_INPUT),
+        (["-n"], {"null_input": True}, ".", JSON_INPUT),
+        (["-n"], {"null_input": True}, "[inputs | .b]", JSON_INPUT),
+        (["-n"], {"null_input": True}, "input | .s", JSON_INPUT),
+        (["-R"], {"raw_input": True}, ".", TEXT_INPUT),
+        (["-R", "-c"], {"raw_input": True, "compact": True}, 'split(",")', TEXT_INPUT),
+        (["-R", "-s"], {"raw_input": True, "slurp": True}, ".", TEXT_INPUT),
+        (["-R", "-s", "-c"], {"raw_input": True, "slurp": True, "compact": True}, 'split("\\n")', TEXT_INPUT),
+        (["-R", "-n"], {"raw_input": True, "null_input": True}, "[inputs]", TEXT_INPUT),
+        (["-R", "-r"], {"raw_input": True, "raw_output": True}, "ascii_upcase", TEXT_INPUT),
+        (["--stream", "-c"], {"stream": True, "compact": True}, ".", JSON_INPUT),
+        (["--stream"], {"stream": True}, "select(length == 2)", JSON_INPUT),
+        (["-n", "--stream", "-c"], {"null_input": True, "stream": True, "compact": True}, "[inputs]", JSON_INPUT),
+        (["--seq"], {"seq": True}, ".b", JSON_INPUT),
+        (["-n", "--seq"], {"null_input": True, "seq": True}, "1, [2, 3]", ""),
+        (["-n", "--seq", "-c"], {"null_input": True, "seq": True, "compact": True}, '{"a": 1}, "x"', ""),
+        (["-n", "--arg", "name", "jq"], {"null_input": True, "args": {"name": "jq"}}, "$name", ""),
+        (
+            ["-n", "--argjson", "n", '{"x": [1, 2]}'],
+            {"null_input": True, "argjson": {"n": {"x": [1, 2]}}},
+            "$n.x | add",
+            "",
+        ),
+        (
+            ["-n", "-c", "--arg", "a", "1", "--argjson", "b", "2"],
+            {"null_input": True, "compact": True, "args": {"a": "1"}, "argjson": {"b": 2}},
+            "[$a, $b, $ARGS.named]",
+            "",
+        ),
+        (["-c"], {"compact": True}, ".b | 1 / (. - 1)", JSON_INPUT),
+    ]
+)
 
 
 def jq_itself(flags: list[str], program: str, text: str) -> tuple[str, bool]:
-    """What the jq binary prints, and whether it reported an error (its exit status only
-    reflects the last input, so stderr is what says whether anything failed)."""
+    """What the jq binary prints, and whether it reported an error.
+
+    jq's exit status only reflects the last input, so stderr is what says whether anything failed.
+    """
     done = subprocess.run(
         [str(JQ), *flags, program],
         input=text.encode(),
