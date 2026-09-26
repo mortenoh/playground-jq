@@ -6,8 +6,6 @@
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue)](LICENSE)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-3776ab)](https://www.python.org/)
 [![jq 1.8](https://img.shields.io/badge/jq-1.8.2-5a5a5a)](https://jqlang.org/)
-[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 A place to learn [jq](https://jqlang.org/) properly: an interactive playground, a complete
 language guide, tutorials in three levels (101, 201, 301), and a large library of examples.
