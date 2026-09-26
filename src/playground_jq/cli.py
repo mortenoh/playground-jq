@@ -92,7 +92,7 @@ def dev(
     host: Annotated[str | None, typer.Option(help="Interface to listen on.")] = None,
     port: Annotated[int | None, typer.Option(help="Port to listen on.")] = None,
 ) -> None:
-    """Serve with reload, for development (pair with `make ui-dev`)."""
+    """Serve with reload, for development (pair with `bun run dev` in frontend/)."""
     serve(host=host, port=port, reload=True)
 
 

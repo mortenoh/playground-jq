@@ -44,7 +44,7 @@ def test_missing_bundle_says_how_to_build_it(tmp_path: Path, library: Library) -
     with TestClient(create_app(settings, library=library)) as client:
         answered = client.get("/", headers={"accept": "text/html"})
         assert answered.status_code == 503
-        assert "make ui" in answered.text
+        assert "make install" in answered.text
 
 
 def test_ui_can_be_turned_off(library: Library) -> None:

@@ -33,8 +33,8 @@ HTML_ACCEPT = ("text/html", "application/xhtml+xml")
 RESERVED_PREFIXES = ("/health", "/docs", "/redoc", "/openapi.json", ASSETS_MOUNT_PATH, CONFIG_PATH)
 
 BUNDLE_MISSING = (
-    "The web UI is enabled and no bundle is built. Build one with `make ui`, or run the "
-    "frontend dev server with `make ui-dev`. The API itself is serving normally."
+    "The web UI is enabled and no bundle is built. Build one with `make install`, or run the "
+    "frontend dev server with `cd frontend && bun run dev`. The API itself is serving normally."
 )
 
 #: The bundle inside the installed package.
