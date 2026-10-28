@@ -13,12 +13,17 @@ from playground_jq.sources.registry import Sources
 
 ITEMS = items(cached_library())
 
+#: These tests check outputs, not speed: a loaded machine running every test in parallel can push the
+#: heaviest GeoJSON programs past the playground's 2 s limit. The browser suite (`make e2e`) runs every
+#: item through the served app, where the real limit applies.
+CONTENT_SETTINGS = Settings(jq_timeout_seconds=30.0, dhis2_enabled=False, ui_enabled=False)
+
 
 @pytest.mark.parametrize("item", ITEMS, ids=[f"{item.kind}:{item.id}" for item in ITEMS])
-async def test_content_item(item: Item, sources: Sources, settings: Settings) -> None:
+async def test_content_item(item: Item, sources: Sources) -> None:
     if item.cli_only and shutil.which("jq") is None:
         pytest.skip("needs the jq binary")
-    verdict = await verify_item(item, sources, settings)
+    verdict = await verify_item(item, sources, CONTENT_SETTINGS)
     assert verdict.status == "pass", verdict.reason
 
 

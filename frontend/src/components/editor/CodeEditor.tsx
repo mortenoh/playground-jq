@@ -1,6 +1,6 @@
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
+import * as monaco from 'monaco-editor/editor/editor.api'
+import editorWorker from 'monaco-editor/editor/editor.worker?worker'
+import jsonWorker from 'monaco-editor/language/json/json.worker?worker'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef } from 'react'
 
@@ -11,13 +11,13 @@ import { palette } from '@/lib/theme'
 import type { Builtin, JqError } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
-import 'monaco-editor/esm/vs/editor/contrib/suggest/browser/suggestController'
-import 'monaco-editor/esm/vs/editor/contrib/hover/browser/hoverContribution'
-import 'monaco-editor/esm/vs/editor/contrib/find/browser/findController'
-import 'monaco-editor/esm/vs/editor/contrib/folding/browser/folding'
-import 'monaco-editor/esm/vs/editor/contrib/bracketMatching/browser/bracketMatching'
-import 'monaco-editor/esm/vs/editor/contrib/comment/browser/comment'
-import 'monaco-editor/esm/vs/language/json/monaco.contribution'
+import 'monaco-editor/editor/contrib/suggest/browser/suggestController'
+import 'monaco-editor/editor/contrib/hover/browser/hoverContribution'
+import 'monaco-editor/editor/contrib/find/browser/findController'
+import 'monaco-editor/editor/contrib/folding/browser/folding'
+import 'monaco-editor/editor/contrib/bracketMatching/browser/bracketMatching'
+import 'monaco-editor/editor/contrib/comment/browser/comment'
+import 'monaco-editor/language/json/monaco.contribution'
 
 /**
  * The editor for programs (jq), inputs (JSON or text) and outputs (read-only).
