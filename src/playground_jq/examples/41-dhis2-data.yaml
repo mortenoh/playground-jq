@@ -69,12 +69,13 @@ examples:
     explanation: |
       `reduce` builds a nested object in one pass: `.[$v.dataElement][$v.categoryOptionCombo]`
       creates both levels as needed. The result is a pivot table keyed by data element, then by
-      category option combo, with numeric values. Only the first three elements are kept.
-    program: 'reduce .dataValues[] as $v ({}; .[$v.dataElement][$v.categoryOptionCombo] = ($v.value | tonumber)) | to_entries | .[:3] | from_entries'
+      category option combo, with numeric values. Object keys keep the order the server sent the
+      values in, so `sort_by(.key)` makes the result stable before the first three elements are kept.
+    program: 'reduce .dataValues[] as $v ({}; .[$v.dataElement][$v.categoryOptionCombo] = ($v.value | tonumber)) | to_entries | sort_by(.key) | .[:3] | from_entries'
     input: {ref: dhis2:data-value-set}
     manual: [https://jqlang.org/manual/v1.8/#reduce]
     guide: [reduce-and-foreach]
-    expected: [{"bTcRDVjC66S": {"Prlt0C1RF0s": 1}, "dU0GquGkGQr": {"V6L425pT3A0": 5, "Prlt0C1RF0s": 10}, "DUSpd8Jq3M7": {"V6L425pT3A0": 5, "Prlt0C1RF0s": 10}}]
+    expected: [{"DUSpd8Jq3M7": {"V6L425pT3A0": 5, "Prlt0C1RF0s": 10}, "I78gJm4KBo7": {"V6L425pT3A0": 6, "Prlt0C1RF0s": 15}, "NLnXLV5YpZF": {"V6L425pT3A0": 12, "psbwp3CQEhs": 6, "Prlt0C1RF0s": 40, "hEFKSsPV5et": 4}}]
 
   - id: dhis2-data-stored-by
     title: Who stored the values
