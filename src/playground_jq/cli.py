@@ -41,6 +41,14 @@ console = Console()
 err_console = Console(stderr=True)
 
 
+@app.callback()
+def main() -> None:
+    """A playground for learning jq."""
+    # Every command logs to stderr, so stdout carries only what the command prints.
+    settings = get_settings()
+    configure_logging(settings.log_level, settings.log_format)
+
+
 def _tty() -> bool:
     return sys.stdout.isatty()
 
@@ -74,7 +82,6 @@ def serve(
 ) -> None:
     """Serve the playground: the API and the built UI."""
     settings = get_settings()
-    configure_logging(settings.log_level, settings.log_format)
     uvicorn.run(
         "playground_jq.cli:build_app",
         factory=True,
@@ -153,8 +160,9 @@ def run_command(
 
 
 @sources_app.command("list")
+@sources_app.command("ls", hidden=True)
 def sources_list() -> None:
-    """List every source and its presets."""
+    """List every source and its presets (alias: ls)."""
     infos = Sources(get_settings()).infos()
     if not _tty():
         for info in infos:
@@ -189,7 +197,6 @@ def sources_record(
 ) -> None:
     """Fetch every live preset and write it as its recorded snapshot."""
     settings = get_settings()
-    configure_logging(settings.log_level, settings.log_format)
     chosen: list[SourceKind] = [s for s in ("echo", "dhis2") if not source or s in source]
 
     async def go() -> bool:
@@ -215,8 +222,9 @@ def sources_record(
 
 
 @examples_app.command("list")
+@examples_app.command("ls", hidden=True)
 def examples_list(group: Annotated[str | None, typer.Option(help="Only this group.")] = None) -> None:
-    """List examples by group."""
+    """List examples by group (alias: ls)."""
     library = load_library()
     for g in library.groups:
         if group and g.id != group:

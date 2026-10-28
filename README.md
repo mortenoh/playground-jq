@@ -58,6 +58,7 @@ DHIS2 inputs come from the recorded snapshots.
 
 ```shell
 make dev        # refresh everything, then serve on http://127.0.0.1:8765 with reload
+make start      # build, then serve on http://127.0.0.1:8765 without reload
 make refresh    # wipe every build artifact and dependency, then rebuild
 make check      # the CI gate: format, lint, types, tests, every content item verified
 make test       # backend and frontend unit tests

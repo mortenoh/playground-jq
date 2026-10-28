@@ -5,7 +5,7 @@ PORT ?= 8765
 FRONTEND := frontend
 STATIC := src/playground_jq/static
 
-.PHONY: help install refresh dev lint check test e2e live
+.PHONY: help install refresh dev start lint check test e2e live
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -25,6 +25,9 @@ refresh: ## Wipe every build artifact, cache and dependency, then rebuild everyt
 
 dev: refresh ## Refresh everything (make refresh), then serve on $(HOST):$(PORT) with reload
 	$(UV) run pjq dev --host $(HOST) --port $(PORT)
+
+start: install ## Build, then serve on $(HOST):$(PORT) as installed: no wipe, no reload
+	$(UV) run pjq serve --host $(HOST) --port $(PORT)
 
 lint: ## Format and auto-fix backend and frontend (mutating)
 	$(UV) run ruff format .

@@ -10,7 +10,7 @@ from playground_jq import cli
 from playground_jq.cli import app
 from playground_jq.content import fill as fill_module
 from playground_jq.logging import configure_logging, get_logger
-from playground_jq.sources.base import SourceKind
+from playground_jq.sources.base import Fetched, SourceKind
 from playground_jq.sources.registry import RecordResult, Sources
 
 runner = CliRunner()
@@ -47,6 +47,26 @@ def test_sources_list_and_fetch() -> None:
     assert [record["id"] for record in listed] == ["static", "echo", "dhis2"]
     fetched = runner.invoke(app, ["sources", "fetch", "echo:status-418"])
     assert '"status": 418' in fetched.stdout
+
+
+@pytest.mark.parametrize("group", ["sources", "examples"])
+def test_ls_is_list(group: str) -> None:
+    listed = runner.invoke(app, [group, "list"])
+    aliased = runner.invoke(app, [group, "ls"])
+    assert aliased.exit_code == 0
+    assert aliased.stdout == listed.stdout
+
+
+def test_logs_never_reach_stdout(monkeypatch: pytest.MonkeyPatch) -> None:
+    async def chatty_read(self: Sources, ref: object, *, live: bool = False) -> Fetched:
+        get_logger("test").info("dhis2 connected")
+        text = '{"a": 1}\n'
+        return Fetched(source="dhis2", preset="system-info", text=text, format="json", snapshot=False, bytes=len(text))
+
+    monkeypatch.setattr(Sources, "read", chatty_read)
+    fetched = runner.invoke(app, ["sources", "fetch", "dhis2:system-info", "--live"])
+    assert fetched.stdout == '{"a": 1}\n'
+    assert "dhis2 connected" in fetched.stderr
 
 
 def test_sources_record(monkeypatch: pytest.MonkeyPatch) -> None:
