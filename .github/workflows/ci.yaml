@@ -4,9 +4,14 @@ on:
   push:
     branches: [main]
   pull_request:
+  # The full browser sweep: nightly, and by hand before a release (gh workflow run ci).
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
 
 concurrency:
-  group: ci-${{ github.ref }}
+  # A push must not cancel a nightly or hand-started full sweep.
+  group: ci-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
@@ -64,5 +69,9 @@ jobs:
       - name: Install Chromium
         run: cd frontend && bun install --frozen-lockfile && bunx playwright install --with-deps chromium
 
+      # Pushes and pull requests drive one item per example group, tutorial and guide chapter;
+      # the nightly and hand-started runs drive every item.
       - name: Browser tests
+        env:
+          E2E_SAMPLE: ${{ (github.event_name == 'push' || github.event_name == 'pull_request') && '1' || '' }}
         run: make e2e

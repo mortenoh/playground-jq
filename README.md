@@ -68,6 +68,10 @@ make live       # verify live-source examples against postman-echo and DHIS2
 
 For frontend work, run `cd frontend && bun run dev` beside `make dev`; vite proxies the API.
 
+`E2E_SAMPLE=1 make e2e` drives one item per example group, tutorial and guide chapter instead of all
+of them; CI does that on every push. The full sweep runs nightly, and by hand before a release
+(`gh workflow run ci`).
+
 The CLI (`uv run pjq --help`):
 
 ```shell

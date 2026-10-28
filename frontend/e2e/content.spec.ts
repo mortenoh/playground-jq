@@ -26,6 +26,7 @@ interface Item {
     options: Record<string, unknown>
     check: { expected: unknown[] | null; error: string | null; unordered: boolean }
     chapter: string | null
+    group: string
 }
 
 interface Shown {
@@ -42,8 +43,22 @@ const items = JSON.parse(
     }),
 ) as Item[]
 
+/** The first `size` items of every example group, tutorial and guide chapter. */
+function sample(all: Item[], size: number): Item[] {
+    const taken = new Map<string, number>()
+    return all.filter((item) => {
+        const key = `${item.kind}:${item.group}`
+        const count = taken.get(key) ?? 0
+        taken.set(key, count + 1)
+        return count < size
+    })
+}
+
+// E2E_ONLY narrows to ids with a prefix; E2E_SAMPLE (CI on every push) keeps a few per group.
 const only = process.env.E2E_ONLY
-const selected = only === undefined ? items : items.filter((item) => item.id.startsWith(only))
+const sampleSize = Number(process.env.E2E_SAMPLE || 0)
+const matching = only === undefined ? items : items.filter((item) => item.id.startsWith(only))
+const selected = sampleSize > 0 ? sample(matching, sampleSize) : matching
 
 function canonical(value: unknown): string {
     return JSON.stringify(value, (_key, held: unknown) =>
