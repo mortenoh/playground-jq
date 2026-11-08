@@ -14,6 +14,11 @@ concurrency:
   group: ci-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
+# packages: read lets bun install sokkel-ui from GitHub Packages with the job's token.
+permissions:
+  contents: read
+  packages: read
+
 jobs:
   check:
     name: check
@@ -38,6 +43,9 @@ jobs:
           jq --version
 
       - name: Install dependencies
+        env:
+          # sokkel-ui comes from GitHub Packages, which wants a token even for a read.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           uv sync --locked
           cd frontend && bun install --frozen-lockfile
@@ -67,6 +75,8 @@ jobs:
           test "$(jq --version)" = jq-1.8.2
 
       - name: Install Chromium
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: cd frontend && bun install --frozen-lockfile && bunx playwright install --with-deps chromium
 
       # Pushes and pull requests drive one item per example group, tutorial and guide chapter;

@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 
 import { chipStyle, levelHue, levelName, SOURCE_LABELS } from '@/lib/levels'
 import type { Level, SourceKind } from '@/lib/types'
-import { cn } from '@/lib/utils'
+import { cn } from '@winterop-com/sokkel-ui/lib/cn'
 
 export function Chip({
     hue,

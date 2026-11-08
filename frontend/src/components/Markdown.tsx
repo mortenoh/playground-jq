@@ -1,25 +1,20 @@
-import { marked } from 'marked'
-import { Fragment, useMemo, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-import { cn } from '@/lib/utils'
+import { Markdown as Rendered } from '@winterop-com/sokkel-ui/Markdown'
 
-marked.use({ gfm: true, breaks: false })
-
-/** Markdown to HTML. The content is the app's own (guide, tutorials, manual), not user input. */
-export function toHtml(markdown: string): string {
-    return marked.parse(markdown, { async: false })
-}
-
-/** A block of markdown. */
+/**
+ * The app's markdown (guide, tutorials, examples, the manual's builtin entries) through
+ * sokkel-ui's Markdown: GitHub-flavored, jq fences highlighted. Math is off, since jq's `$name`
+ * variables would otherwise read as LaTeX.
+ */
 export function Markdown({ text, className }: { text: string; className?: string }) {
-    const html = useMemo(() => toHtml(text), [text])
-    return <div className={cn('prose-jq', className)} dangerouslySetInnerHTML={{ __html: html }} />
+    return <Rendered content={text} math={false} className={className} />
 }
 
-/** The marker a chapter leaves where a snippet goes. */
-const MARKER = /<!-- snippet:([A-Za-z0-9_-]+) -->/
-
-/** Markdown with `<!-- snippet:ID -->` markers replaced by rendered components. */
+/**
+ * A guide chapter: markdown at a document's heading sizes, with every `<!-- snippet:ID -->`
+ * marker replaced by the component `render` draws for that ID.
+ */
 export function MarkdownWithSnippets({
     text,
     render,
@@ -29,16 +24,15 @@ export function MarkdownWithSnippets({
     render: (id: string) => ReactNode
     className?: string
 }) {
-    const parts = useMemo(() => text.split(MARKER), [text])
     return (
-        <div className={className}>
-            {parts.map((part, index) =>
-                index % 2 === 1 ? (
-                    <Fragment key={`s-${part}`}>{render(part)}</Fragment>
-                ) : (
-                    <Markdown key={`m-${String(index)}`} text={part} />
-                ),
-            )}
-        </div>
+        <Rendered
+            content={text}
+            math={false}
+            scale="document"
+            anchors
+            parts={render}
+            partMarker="snippet"
+            className={className}
+        />
     )
 }

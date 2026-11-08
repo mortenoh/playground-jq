@@ -41,9 +41,12 @@ drift but the shape must not.
 
 ## Frontend
 
-React 19, Vite, Tailwind v4 and shadcn (Base UI), following dirigent's frontend. Monaco is loaded
-lazily with a jq grammar, completion and hover from the builtin catalogue. The built bundle is
-copied into the Python package and served by the same FastAPI process.
+React 19, Vite and Tailwind v4 on [sokkel-ui](https://github.com/winterop-com/sokkel-ui): its
+tokens and themes, its primitives, and its frame (shell, rail, command palette, status line).
+The editor is sokkel-ui's CodeEditor (CodeMirror) with its jq language, loaded lazily, given
+completion and hover from the builtin catalogue and compile errors as ranged marks. Markdown,
+the resizable panes, ANSI output and the GeoJSON map (sokkel-ui-maps) are the library's too.
+The built bundle is copied into the Python package and served by the same FastAPI process.
 
 ## The static build
 

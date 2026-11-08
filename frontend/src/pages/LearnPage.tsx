@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 import { LevelChip } from '@/components/Chips'
 import { Loading, ProblemNote } from '@/components/PageState'
-import { Button } from '@/components/ui/button'
+import { Button } from '@winterop-com/sokkel-ui/primitives/button'
 import { useRead } from '@/hooks/use-read'
 import { useStore } from '@/hooks/use-store'
 import { listTutorials } from '@/lib/client'

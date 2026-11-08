@@ -1,4 +1,4 @@
-/** The builtin catalogue, read once and shared by the editor, the palette and the reference. */
+/** The builtin catalogue, read once and shared by the editor, the palette search and the reference. */
 
 import { listBuiltins } from '@/lib/client'
 import type { Builtin } from '@/lib/types'
@@ -11,9 +11,4 @@ export function builtins(): Promise<Builtin[]> {
         throw error
     })
     return pending
-}
-
-/** Names usable as completions: the identifier part of each builtin. */
-export function completionNames(catalogue: Builtin[]): string[] {
-    return [...new Set(catalogue.map((builtin) => builtin.name))].toSorted()
 }

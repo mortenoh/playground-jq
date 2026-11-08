@@ -2,8 +2,8 @@ import { Download, Radio, SlidersHorizontal } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import { NativeSelect } from '@/components/NativeSelect'
-import { Button } from '@/components/ui/button'
+import { NativeSelect } from '@winterop-com/sokkel-ui/primitives/native-select'
+import { Button } from '@winterop-com/sokkel-ui/primitives/button'
 import {
     Dialog,
     DialogContent,
@@ -11,10 +11,10 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Switch } from '@/components/ui/switch'
-import { Textarea } from '@/components/ui/textarea'
+} from '@winterop-com/sokkel-ui/primitives/dialog'
+import { Input } from '@winterop-com/sokkel-ui/primitives/input'
+import { Switch } from '@winterop-com/sokkel-ui/primitives/switch'
+import { Textarea } from '@winterop-com/sokkel-ui/primitives/textarea'
 import { ApiError } from '@/lib/api'
 import { fetchSource } from '@/lib/client'
 import type { InputOrigin } from '@/lib/playground'
@@ -89,6 +89,7 @@ function CustomRequest({
                     <div className="flex gap-2">
                         {isEcho && (
                             <NativeSelect
+                                size="sm"
                                 aria-label="Method"
                                 value={method}
                                 onChange={(event) => {
@@ -194,6 +195,7 @@ export function SourcePicker({
     return (
         <div className="flex flex-wrap items-center gap-2">
             <NativeSelect
+                size="sm"
                 aria-label="Input source"
                 value={chosen}
                 className="max-w-72 min-w-0 flex-1"

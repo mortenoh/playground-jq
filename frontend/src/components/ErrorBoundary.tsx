@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@winterop-com/sokkel-ui/primitives/button'
 
 /**
  * Catches a page that failed to render or load (a lazy chunk that could not be fetched, most

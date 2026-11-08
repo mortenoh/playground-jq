@@ -1,107 +1,67 @@
-import 'maplibre-gl/dist/maplibre-gl.css'
+import { useMemo, useState } from 'react'
 
-import * as maplibregl from 'maplibre-gl'
-import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
-import { useEffect, useRef } from 'react'
+import { GeoJsonLayer } from '@winterop-com/sokkel-ui-maps/GeoJsonLayer'
+import { MapPopup } from '@winterop-com/sokkel-ui-maps/MapPopup'
+import { MapView as Map } from '@winterop-com/sokkel-ui-maps/MapView'
+import type { Feature, FeatureCollection } from 'geojson'
 
-import { asFeatureCollection, boundsOf } from '@/lib/geo'
+import { asFeatureCollection } from '@/lib/geo'
 import type { JsonValue } from '@/lib/types'
 
 /**
- * A GeoJSON output on a map: polygons filled, lines drawn, points as circles, properties in a
- * popup on click. OpenStreetMap raster tiles; loaded lazily in its own chunk.
+ * A GeoJSON output on sokkel-ui-maps: polygons filled, lines drawn, points as circles, in the
+ * theme's colours over a basemap that follows the scheme, fitted to the data. Choosing a feature
+ * shows its properties. Loaded lazily in its own chunk.
  */
 
-// The worker is bundled by vite as its own entry; maplibre is told where it landed.
-maplibregl.setWorkerUrl(workerUrl)
+/** How many properties a popup lists before it stops. */
+const ROWS = 12
 
-const STYLE: maplibregl.StyleSpecification = {
-    version: 8,
-    sources: {
-        osm: {
-            type: 'raster',
-            tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-            tileSize: 256,
-            attribution: '&copy; OpenStreetMap contributors',
-            maxzoom: 19,
-        },
-    },
-    layers: [{ id: 'osm', type: 'raster', source: 'osm' }],
+/** The output as a collection whose every feature has an id, so any feature can be chosen. */
+function identified(value: JsonValue): FeatureCollection {
+    const collection = asFeatureCollection(value) as unknown as FeatureCollection
+    return {
+        ...collection,
+        features: collection.features.map((feature, index) =>
+            feature.id === undefined || feature.id === null
+                ? Object.assign({}, feature, { id: `f${String(index)}` })
+                : feature,
+        ),
+    }
 }
 
-const AMBER = '#c28a17'
-
-function escapeHtml(text: string): string {
-    return text.replace(/[&<>"']/g, (char) => `&#${String(char.charCodeAt(0))};`)
+function text(item: unknown): string {
+    return typeof item === 'string' ? item : JSON.stringify(item)
 }
 
 export default function MapView({ value }: { value: JsonValue }) {
-    const host = useRef<HTMLDivElement | null>(null)
+    const data = useMemo(() => identified(value), [value])
+    const [chosen, setChosen] = useState<Feature | null>(null)
 
-    useEffect(() => {
-        if (host.current === null) return
-        const map = new maplibregl.Map({ container: host.current, style: STYLE, center: [0, 0], zoom: 1 })
-        map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
-        map.on('load', () => {
-            map.addSource('output', { type: 'geojson', data: asFeatureCollection(value) as never })
-            map.addLayer({
-                id: 'fill',
-                type: 'fill',
-                source: 'output',
-                filter: ['==', ['geometry-type'], 'Polygon'],
-                paint: { 'fill-color': AMBER, 'fill-opacity': 0.25 },
-            })
-            map.addLayer({
-                id: 'line',
-                type: 'line',
-                source: 'output',
-                filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'LineString']]],
-                paint: { 'line-color': AMBER, 'line-width': 1.5 },
-            })
-            map.addLayer({
-                id: 'point',
-                type: 'circle',
-                source: 'output',
-                filter: ['==', ['geometry-type'], 'Point'],
-                paint: {
-                    'circle-color': AMBER,
-                    'circle-radius': 4,
-                    'circle-stroke-color': '#ffffff',
-                    'circle-stroke-width': 1,
-                },
-            })
-            for (const layer of ['fill', 'point', 'line']) {
-                map.on('click', layer, (event) => {
-                    const feature = event.features?.[0]
-                    if (feature === undefined) return
-                    const rows = Object.entries(feature.properties)
-                        .slice(0, 12)
-                        .map(
-                            ([key, item]) =>
-                                `<tr><th style="text-align:left;padding-right:8px">${escapeHtml(key)}</th><td>${escapeHtml(String(item))}</td></tr>`,
-                        )
-                        .join('')
-                    new maplibregl.Popup({ maxWidth: '320px' })
-                        .setLngLat(event.lngLat)
-                        .setHTML(
-                            `<table style="font:12px var(--font-mono);color:#222">${rows || '<tr><td>no properties</td></tr>'}</table>`,
-                        )
-                        .addTo(map)
-                })
-                map.on('mouseenter', layer, () => {
-                    map.getCanvas().style.cursor = 'pointer'
-                })
-                map.on('mouseleave', layer, () => {
-                    map.getCanvas().style.cursor = ''
-                })
-            }
-            const bounds = boundsOf(value)
-            if (bounds !== null) map.fitBounds(bounds, { padding: 30, maxZoom: 12, duration: 0 })
-        })
-        return () => {
-            map.remove()
-        }
-    }, [value])
-
-    return <div ref={host} className="h-full min-h-64 w-full" data-testid="map" />
+    return (
+        <div className="h-full min-h-64 w-full" data-testid="map">
+            <Map
+                label="The output on a map"
+                maxFitZoom={12}
+                onSelectedChange={(_id, feature) => {
+                    setChosen(feature)
+                }}
+                className="h-full"
+            >
+                <GeoJsonLayer id="output" data={data} color="var(--primary)" />
+                {chosen !== null && (
+                    <MapPopup
+                        feature={chosen}
+                        title={text(chosen.properties?.name ?? chosen.id ?? 'Feature')}
+                        rows={Object.entries(chosen.properties ?? {})
+                            .slice(0, ROWS)
+                            .map(([label, item]) => ({ label, value: text(item) }))}
+                        onClose={() => {
+                            setChosen(null)
+                        }}
+                    />
+                )}
+            </Map>
+        </div>
+    )
 }

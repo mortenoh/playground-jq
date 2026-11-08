@@ -1,7 +1,7 @@
 import { Play, Terminal } from 'lucide-react'
 import { useNavigate } from 'react-router'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@winterop-com/sokkel-ui/primitives/button'
 import { equivalentCommand } from '@/lib/local/command'
 import { printOutputs } from '@/lib/local/print'
 import { openSnippet } from '@/lib/open'

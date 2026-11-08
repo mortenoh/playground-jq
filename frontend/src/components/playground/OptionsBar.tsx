@@ -1,14 +1,14 @@
 import { Plus, X } from 'lucide-react'
 import { useState } from 'react'
 
-import { NativeSelect } from '@/components/NativeSelect'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { NativeSelect } from '@winterop-com/sokkel-ui/primitives/native-select'
+import { Button } from '@winterop-com/sokkel-ui/primitives/button'
+import { Input } from '@winterop-com/sokkel-ui/primitives/input'
+import { Textarea } from '@winterop-com/sokkel-ui/primitives/textarea'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@winterop-com/sokkel-ui/primitives/tooltip'
 import { STATIC } from '@/lib/runtime'
 import type { JsonValue, RunOptions } from '@/lib/types'
-import { cn } from '@/lib/utils'
+import { cn } from '@winterop-com/sokkel-ui/lib/cn'
 
 type Flag =
     | 'null_input'
@@ -186,6 +186,7 @@ export function OptionsBar({
             </label>
             {!STATIC && (
                 <NativeSelect
+                    size="sm"
                     aria-label="Engine"
                     value={options.engine}
                     onChange={(event) =>
@@ -258,6 +259,7 @@ export function OptionsBar({
                         return (
                             <div key={index} className="flex items-start gap-1 rounded-md border px-1 py-0.5">
                                 <NativeSelect
+                                    size="sm"
                                     aria-label="Variable kind"
                                     value={variable.kind}
                                     onChange={(event) => update({ kind: event.target.value as VariableKind })}
@@ -317,6 +319,7 @@ export function OptionsBar({
             {showPositional && (
                 <div className="flex w-full items-start gap-2 pt-1" aria-label="Positional arguments">
                     <NativeSelect
+                        size="sm"
                         aria-label="Positional kind"
                         value={options.positional_json ? 'jsonargs' : 'args'}
                         onChange={(event) =>

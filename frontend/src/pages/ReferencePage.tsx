@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router'
 
 import { Markdown } from '@/components/Markdown'
 import { Loading, ProblemNote } from '@/components/PageState'
-import { Input } from '@/components/ui/input'
+import { Input } from '@winterop-com/sokkel-ui/primitives/input'
 import { useRead } from '@/hooks/use-read'
 import { builtins } from '@/lib/builtins'
 import type { Builtin } from '@/lib/types'

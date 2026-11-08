@@ -20,7 +20,7 @@ Try it: https://mortenoh.github.io/playground-jq/ (runs entirely in your browser
 
 ## What is in it
 
-- **Playground**: a Monaco editor with jq syntax highlighting, builtin completion and hover
+- **Playground**: a code editor with jq syntax highlighting, builtin completion and hover
   docs, compile errors marked in place, plain-language hints for common errors, the jq
   command-line options (`-n -s -R -r -j -a -c -S -C -e --tab --indent --seq --stream
   --raw-output0 --arg --argjson --slurpfile --rawfile --args --jsonargs -L`), each verified
@@ -42,7 +42,8 @@ Try it: https://mortenoh.github.io/playground-jq/ (runs entirely in your browser
 The backend is FastAPI + pydantic. jq runs through the [jq.py](https://pypi.org/project/jq/)
 library in a separate process that is killed on timeout (jq holds the GIL and cannot be
 interrupted). Programs that need the jq command line (`input`, `inputs`, `debug`, `--stream`,
-...) run on the `jq` binary instead. The frontend is React + Vite + Tailwind (shadcn), served by
+...) run on the `jq` binary instead. The frontend is React + Vite + Tailwind on
+[sokkel-ui](https://github.com/winterop-com/sokkel-ui), served by
 the same process.
 
 The same frontend also builds as a static site (GitHub Pages): jq 1.8.2 runs in the browser as
@@ -53,6 +54,9 @@ work without a server. Only live DHIS2 and postman-echo requests need the backen
 ## Running it
 
 Requirements: [uv](https://docs.astral.sh/uv/), [bun](https://bun.sh/), and jq 1.8 on `PATH`.
+The UI is built on [sokkel-ui](https://github.com/winterop-com/sokkel-ui), installed from GitHub
+Packages with a token that can read packages:
+`export GITHUB_TOKEN=$(gh auth token)` before `make` (see `frontend/.npmrc`).
 DHIS2 access uses a dhis2w profile named `play43` (`~/.config/dhis2/profiles.toml`); without it,
 DHIS2 inputs come from the recorded snapshots.
 
@@ -88,4 +92,5 @@ See [docs/authoring.md](docs/authoring.md) for how content is written and verifi
 
 GNU Affero General Public License v3.0 ([LICENSE](LICENSE)). The builtin reference and the jq
 manual examples are derived from the jq manual (CC BY 3.0); see
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The UI components come from
+[sokkel-ui](https://github.com/winterop-com/sokkel-ui), which carries its own license.

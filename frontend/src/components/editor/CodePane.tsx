@@ -2,10 +2,10 @@ import { Suspense, lazy } from 'react'
 
 import type { CodeEditorProps } from '@/components/editor/CodeEditor'
 import { whenIdle } from '@/lib/idle'
-import { cn } from '@/lib/utils'
+import { cn } from '@winterop-com/sokkel-ui/lib/cn'
 
 /**
- * The one door to Monaco: a single dynamic import, so the editor and its workers are one chunk
+ * The one door to the editor: a single dynamic import, so CodeMirror and its languages are one chunk
  * fetched once. `warmEditor` fires the same import when the browser is idle. The fallback keeps
  * the editor's box so the layout does not jump when the chunk lands.
  */

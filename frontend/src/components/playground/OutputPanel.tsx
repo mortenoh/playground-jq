@@ -2,13 +2,13 @@ import { Check, Copy, Map as MapIcon, TriangleAlert } from 'lucide-react'
 import { Suspense, lazy, useState } from 'react'
 
 import { CodePane } from '@/components/editor/CodePane'
-import { AnsiText } from '@/components/playground/AnsiText'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { AnsiText } from '@winterop-com/sokkel-ui/AnsiText'
+import { Button } from '@winterop-com/sokkel-ui/primitives/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@winterop-com/sokkel-ui/primitives/tabs'
 import { hintFor } from '@/lib/hints'
 import { STATIC } from '@/lib/runtime'
 import type { RunResult } from '@/lib/types'
-import { cn } from '@/lib/utils'
+import { cn } from '@winterop-com/sokkel-ui/lib/cn'
 
 const MapView = lazy(() => import('@/components/playground/MapView'))
 
@@ -154,7 +154,9 @@ export function OutputPanel({
                 )}
                 <TabsContent value="output" className="min-h-0 flex-1">
                     {result !== null && result.text.includes('\u001b[') ? (
-                        <AnsiText text={result.text} />
+                        <div className="h-full overflow-auto p-3" data-testid="ansi-output">
+                            <AnsiText text={result.text} block />
+                        </div>
                     ) : (
                         <CodePane
                             value={result?.text ?? ''}

@@ -11,6 +11,8 @@ concurrency:
 
 permissions:
   contents: read
+  # bun install reads sokkel-ui from GitHub Packages with the job's token.
+  packages: read
   pages: write
   id-token: write
 
@@ -33,6 +35,8 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           uv sync --locked
           cd frontend && bun install --frozen-lockfile

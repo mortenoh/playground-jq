@@ -8,7 +8,7 @@ import { Loading, ProblemNote } from '@/components/PageState'
 import { SnippetCard } from '@/components/SnippetCard'
 import { useRead } from '@/hooks/use-read'
 import { getChapter, guideToc } from '@/lib/client'
-import { cn } from '@/lib/utils'
+import { cn } from '@winterop-com/sokkel-ui/lib/cn'
 
 export default function GuidePage() {
     const { slug } = useParams()

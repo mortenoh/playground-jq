@@ -6,16 +6,16 @@ import { CodePane } from '@/components/editor/CodePane'
 import { Markdown } from '@/components/Markdown'
 import { OptionsBar } from '@/components/playground/OptionsBar'
 import { OutputPanel } from '@/components/playground/OutputPanel'
-import { Split } from '@/components/Split'
 import { SourcePicker } from '@/components/playground/SourcePicker'
-import { Button } from '@/components/ui/button'
+import { Button } from '@winterop-com/sokkel-ui/primitives/button'
+import { SplitPane } from '@winterop-com/sokkel-ui/SplitPane'
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@winterop-com/sokkel-ui/primitives/dropdown-menu'
 import { useStore } from '@/hooks/use-store'
 import { ApiError } from '@/lib/api'
 import { listSources, resolveInput, runProgram } from '@/lib/client'
@@ -229,9 +229,12 @@ export default function PlaygroundPage() {
                 </div>
                 <OptionsBar options={state.options} onChange={(options) => update({ options })} />
             </div>
-            <Split
-                id="playground-io"
-                direction="horizontal"
+            <SplitPane
+                id="pjq.playground-io"
+                direction="across"
+                minShare={0.15}
+                maxShare={0.85}
+                narrow="stack"
                 className="flex-1"
                 first={
                     <section className="flex h-full min-h-0 flex-col" aria-label="Input">
@@ -281,10 +284,12 @@ export default function PlaygroundPage() {
                 second={
                     <div className="flex h-full min-h-0 flex-col">
                         <LessonCard state={state} />
-                        <Split
-                            id="playground-program"
-                            direction="vertical"
-                            initial={35}
+                        <SplitPane
+                            id="pjq.playground-program"
+                            direction="down"
+                            defaultShare={0.35}
+                            minShare={0.15}
+                            maxShare={0.85}
                             className="flex-1"
                             first={
                                 <section className="flex h-full min-h-0 flex-col" aria-label="Program">
@@ -305,7 +310,7 @@ export default function PlaygroundPage() {
                                             errors={result?.errors}
                                             onChange={(program) => update({ program })}
                                             onRun={runNow}
-                                            fontSize={14}
+                                            size="md"
                                         />
                                     </div>
                                 </section>

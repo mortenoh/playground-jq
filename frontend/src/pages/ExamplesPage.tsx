@@ -2,9 +2,9 @@ import { useCallback, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 
 import { LevelChip, SourceChip } from '@/components/Chips'
-import { NativeSelect } from '@/components/NativeSelect'
+import { NativeSelect } from '@winterop-com/sokkel-ui/primitives/native-select'
 import { Loading, ProblemNote } from '@/components/PageState'
-import { Input } from '@/components/ui/input'
+import { Input } from '@winterop-com/sokkel-ui/primitives/input'
 import { useRead } from '@/hooks/use-read'
 import { listExamples } from '@/lib/client'
 import type { ExampleGroup } from '@/lib/types'
@@ -76,6 +76,7 @@ export default function ExamplesPage() {
                         className="max-w-sm"
                     />
                     <NativeSelect
+                        size="sm"
                         aria-label="Track"
                         value={track}
                         onChange={(event) => setParam('track', event.target.value)}
@@ -87,6 +88,7 @@ export default function ExamplesPage() {
                         ))}
                     </NativeSelect>
                     <NativeSelect
+                        size="sm"
                         aria-label="Level"
                         value={level}
                         onChange={(event) => setParam('level', event.target.value)}
@@ -97,6 +99,7 @@ export default function ExamplesPage() {
                         <option value="301">jq 301</option>
                     </NativeSelect>
                     <NativeSelect
+                        size="sm"
                         aria-label="Source"
                         value={source}
                         onChange={(event) => setParam('source', event.target.value)}

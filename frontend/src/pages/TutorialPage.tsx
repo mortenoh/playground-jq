@@ -8,8 +8,8 @@ import { CodePane } from '@/components/editor/CodePane'
 import { Markdown } from '@/components/Markdown'
 import { Loading, ProblemNote } from '@/components/PageState'
 import { OutputPanel } from '@/components/playground/OutputPanel'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Button } from '@winterop-com/sokkel-ui/primitives/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@winterop-com/sokkel-ui/primitives/tabs'
 import { useRead } from '@/hooks/use-read'
 import { useStore } from '@/hooks/use-store'
 import { ApiError } from '@/lib/api'
@@ -17,7 +17,7 @@ import { checkStep, getTutorial, resolveInput, runProgram } from '@/lib/client'
 import { compareOutputs } from '@/lib/diff'
 import { markSolved, progress } from '@/lib/progress'
 import type { RunResult, StepCheckResult } from '@/lib/types'
-import { cn } from '@/lib/utils'
+import { cn } from '@winterop-com/sokkel-ui/lib/cn'
 
 /** Drafts per step, so moving between steps keeps what was typed. */
 const drafts = new Map<string, string>()
@@ -258,7 +258,7 @@ export default function TutorialPage() {
                             path="tutorial-program"
                             label="Your jq program"
                             errors={preview?.errors}
-                            fontSize={14}
+                            size="md"
                             onChange={(text) => {
                                 drafts.set(key, text)
                                 setProgram(text)

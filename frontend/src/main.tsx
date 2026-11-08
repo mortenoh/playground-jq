@@ -1,10 +1,9 @@
-import { ThemeProvider } from 'next-themes'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 
-import { Toaster } from '@/components/ui/sonner'
-import { TooltipProvider } from '@/components/ui/tooltip'
+import { Toaster } from '@winterop-com/sokkel-ui/primitives/sonner'
+import { TooltipProvider } from '@winterop-com/sokkel-ui/primitives/tooltip'
 
 import App from '@/App'
 import '@/index.css'
@@ -25,13 +24,11 @@ window.addEventListener('vite:preloadError', (event) => {
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <TooltipProvider delay={500}>
-                <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-                    <App />
-                </BrowserRouter>
-                <Toaster richColors />
-            </TooltipProvider>
-        </ThemeProvider>
+        <TooltipProvider delay={500}>
+            <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+                <App />
+            </BrowserRouter>
+            <Toaster richColors />
+        </TooltipProvider>
     </StrictMode>,
 )
